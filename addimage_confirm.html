@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>KASUMALGARH::Add Image</title>
+    <meta name="author" content="GS">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+
+
+    <link rel="stylesheet" href="./kcss/styles.css">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <link rel="stylesheet" href="./css/ie.css">
+    <![endif]--><link rel="stylesheet" href="./kcss/test.css">
+    
+<script src="./kjs/responsive-nav.js"></script>
+   <script src="./prefixfree.mini.js"></script>
+
+<link href='http://fonts.googleapis.com/css?family=Alegreya+SC:700,400italic' rel='stylesheet' type='text/css' />
+<!--
+.link5777
+{
+	color:#915D28;
+}
+
+--></style><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44124497-1', 'kasumalgarh.com');
+  ga('send', 'pageview');
+
+</script>
+
+<link href="style.css" rel="stylesheet" type="text/css">
+		<!-- calendar stuff -->
+		      <link rel="stylesheet" type="text/css" href="calendar/calendar-blue2.css" />
+		      <script type="text/javascript" src="calendar/calendar.js"></script>
+		      <script type="text/javascript" src="calendar/calendar-en.js"></script>
+		      <script type="text/javascript" src="calendar/calendar-setup.js"></script>
+		<!-- END calendar stuff -->
+
+	    <!-- expand/collapse function -->
+	    <SCRIPT type=text/javascript>
+		<!--
+		function collapseElem(obj)
+		{
+			var el = document.getElementById(obj);
+			el.style.display = 'none';
+		}
+
+
+		function expandElem(obj)
+		{
+			var el = document.getElementById(obj);
+			el.style.display = '';
+		}
+
+
+		//-->
+		</SCRIPT>
+		<!-- expand/collapse function -->
+
+
+		<!-- expand/collapse function -->
+		    <SCRIPT type=text/javascript>
+			<!--
+
+			// collapse all elements, except the first one
+			function collapseAll()
+			{
+				var numFormPages = 1;
+
+				for(i=2; i <= numFormPages; i++)
+				{
+					currPageId = ('mainForm_' + i);
+					collapseElem(currPageId);
+				}
+			}
+
+
+			//-->
+			</SCRIPT>
+		<!-- expand/collapse function -->
+
+
+		 <!-- validate -->
+		<SCRIPT type=text/javascript>
+		<!--
+			function validateField(fieldId, fieldBoxId, fieldType, required)
+			{
+				fieldBox = document.getElementById(fieldBoxId);
+				fieldObj = document.getElementById(fieldId);
+
+				if(fieldType == 'text'  ||  fieldType == 'textarea'  ||  fieldType == 'password'  ||  fieldType == 'file'  ||  fieldType == 'phone'  || fieldType == 'website')
+				{	
+					if(required == 1 && fieldObj.value == '')
+					{
+						fieldObj.setAttribute("class","mainFormError");
+						fieldObj.setAttribute("className","mainFormError");
+						fieldObj.focus();
+						return false;					
+					}
+
+				}
+
+
+				else if(fieldType == 'menu'  || fieldType == 'country'  || fieldType == 'state')
+				{	
+					if(required == 1 && fieldObj.selectedIndex == 0)
+					{				
+						fieldObj.setAttribute("class","mainFormError");
+						fieldObj.setAttribute("className","mainFormError");
+						fieldObj.focus();
+						return false;					
+					}
+
+				}
+
+
+				else if(fieldType == 'email')
+				{	
+					if((required == 1 && fieldObj.value=='')  ||  (fieldObj.value!=''  && !validate_email(fieldObj.value)))
+					{				
+						fieldObj.setAttribute("class","mainFormError");
+						fieldObj.setAttribute("className","mainFormError");
+						fieldObj.focus();
+						return false;					
+					}
+
+				}
+
+
+
+			}
+
+			function validate_email(emailStr)
+			{		
+				apos=emailStr.indexOf("@");
+				dotpos=emailStr.lastIndexOf(".");
+
+				if (apos<1||dotpos-apos<2) 
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			}
+
+
+			function validateDate(fieldId, fieldBoxId, fieldType, required,  minDateStr, maxDateStr)
+			{
+				retValue = true;
+
+				fieldBox = document.getElementById(fieldBoxId);
+				fieldObj = document.getElementById(fieldId);	
+				dateStr = fieldObj.value;
+
+
+				if(required == 0  && dateStr == '')
+				{
+					return true;
+				}
+
+
+				if(dateStr.charAt(2) != '/'  || dateStr.charAt(5) != '/' || dateStr.length != 10)
+				{
+					retValue = false;
+				}	
+
+				else	// format's okay; check max, min
+				{
+					currDays = parseInt(dateStr.substr(0,2),10) + parseInt(dateStr.substr(3,2),10)*30  + parseInt(dateStr.substr(6,4),10)*365;
+					//alert(currDays);
+
+					if(maxDateStr != '')
+					{
+						maxDays = parseInt(maxDateStr.substr(0,2),10) + parseInt(maxDateStr.substr(3,2),10)*30  + parseInt(maxDateStr.substr(6,4),10)*365;
+						//alert(maxDays);
+						if(currDays > maxDays)
+							retValue = false;
+					}
+
+					if(minDateStr != '')
+					{
+						minDays = parseInt(minDateStr.substr(0,2),10) + parseInt(minDateStr.substr(3,2),10)*30  + parseInt(minDateStr.substr(6,4),10)*365;
+						//alert(minDays);
+						if(currDays < minDays)
+							retValue = false;
+					}
+				}
+
+				if(retValue == false)
+				{
+					fieldObj.setAttribute("class","mainFormError");
+					fieldObj.setAttribute("className","mainFormError");
+					fieldObj.focus();
+					return false;
+				}
+			}
+		//-->
+		</SCRIPT>
+		<!-- end validate -->
+
+
+
+
+
+
+  </head>
+  <body>
+
+
+    <header>
+      <a href="./index.html" class="logo" data-scroll>
+<img src="./imgs/home.png" alt=""  style="WIDTH:20px;HEIGHT:20px;" align="center" border="0" >
+
+KASUMALGARH :: HOME</a>
+      <nav class="nav-collapse">
+        
+          
+
+          <li class="menu-item"><a href="./history_map.html" data-scroll>
+
+<img src="./imgs/history.png" alt=""  style="WIDTH:20px;HEIGHT:15px;" align="center" border="0" >
+
+History&Map</a></li>
+          <li class="menu-item"><a href="./k_vanshavali.html" data-scroll><img src="./imgs/vanshavali.png" alt=""  style="WIDTH:20px;HEIGHT:20px;" align="center" border="0" >
+
+Kasumalgarh-Vanshavali</a></li>
+          <li class="menu-item"><a href="./r_vanshavali.html" data-scroll><img src="./imgs/vanshavali.png" alt=""  style="WIDTH:20px;HEIGHT:20px;" align="center" border="0" >
+
+Rathore-Vanshavali</a></li>
+           <li class="menu-item"><a href="./photocatalogue.html" data-scroll><img src="./imgs/photo.png" alt=""  style="WIDTH:20px;HEIGHT:20px;" align="center" border="0" >
+
+Photo-Catalogue</a></li>
+<li class="menu-item"><a href="./contact_us.html" data-scroll><img src="./imgs/contact.png" alt=""  style="WIDTH:20px;HEIGHT:20px;" align="center" border="0" >
+
+Contact-us</a>
+</li>
+       
+      </nav>
+    </header>
+ 
+<center>
+ 
+<img src="./kimgs/dup.png" alt="divider"  style="WIDTH:300px;HEIGHT:auto;margin-top:58px;"></center>
+
+   
+<section class="box" style="margin-top:0px;">
+
+
+
+<center><img src="./kimgs/kasumalgarh_tital.png" alt="Header Logo"  style="WIDTH:AUTO;height:40px;" align="center" border="0"; margin-top:0px; ></center>
+
+
+
+
+
+<h6>
+-: Add Image To Photo_Catalogue :-
+</h6>
+
+
+
+	<body onLoad="collapseAll()">
+
+<center>
+
+
+	<div class="note" style="margin:10px":>
+
+
+
+
+		
+
+
+		Thank You For Your Feedback.<a href=./addimage.html><BR/><BR/>Click here to continue.</a> <BR/><BR/>
+
+</div>
+
+</center>
+
+
+
+
+
+
+
+
+
+
+</section>
+
+<center>
+
+<img src="./kimgs/ddown.png" alt="Header Logo"  style="WIDTH:300px;HEIGHT:;margin-bottom: 0cm;"></center>
+<center>
+<div class="footer"><div class="g1"><a href="https://www.kasumalgarh.com/" target="_blank">Home</a>
+|
+<a href="https://www.kasumalgarh.com/history_map.html" target="_blank">History & Map</a>
+|
+<a href="https://www.kasumalgarh.com/k_vanshavali.html" target="_blank">Kasumalgarh-Vanshavali</a>
+
+<br>
+<a href="https://www.kasumalgarh.com/r_vanshavali.html" target="_blank">Rathore-Vanshavali</a>
+|
+<a href="https://www.kasumalgarh.com/photocatalogue.html" target="_blank">Photo-Catalogue</a>
+|
+<a href="https://www.kasumalgarh.com/contact_us.html" target="_blank">Contact Us</a>
+
+
+<br>
+Thanks To Come Here.Feel Free To Contact Me For Any Advise.<br> Copyrights &copy 2013-2017&nbsp Yuvraj GajRaj Singh Rathore (Kasumalgarh)</div></div>
+
+<script src="./kjs/fastclick.js"></script>
+    <script src="./kjs/scroll.js"></script>
+    <script src="./kjs/fixed-responsive-nav.js"></script>
+
+<div class="back"><a href = "javascript:history.back()">BACK</a>
+
+</div>
+
+  </body>
+</html>
