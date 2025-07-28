@@ -140,10 +140,48 @@ $(document).ready(function() {
 });
 
  </script>
-</head>
+<style>
+#menu-icon {
+  position: fixed;
+  top: 10px;
+  right: 15px;
+  background-color: gold;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  z-index: 9999;
+  cursor: pointer;
+  box-shadow: 0 0 10px black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#menu-icon div {
+  width: 25px;
+  height: 3px;
+  background-color: black;
+  margin: 4px 0;
+  transition: 0.4s;
+}
+#menu {
+  display: none;
+  z-index: 9998;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+}
+</style></head>
 <body>
+<div id="menu-icon" onclick="toggleMenu()">
+<div></div>
+<div></div>
+<div></div>
+</div>
+
 <div style="clear:both"></div>
-<style>.menu {
+<style>
+.menu {
   background-color: #000000;
   color: gold;
   width: 250px;
@@ -153,25 +191,30 @@ $(document).ready(function() {
 }
 
 .menu-header-title h6 {
-  font-size: 18px;
+  font-size: 22px;
   color: gold;
-  margin-bottom: 10px;
-  border-bottom: 2px solid gold;
+  margin: 15px 0;
   padding-bottom: 5px;
+  border-bottom: 2px solid gold;
   text-align: center;
+  font-style: italic;
+  text-shadow: 1px 1px 2px black;
 }
 
 .menu-section {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .menu-section-title {
   font-size: 20px;
   color: gold;
   text-transform: uppercase;
-  padding: 8px 12px;
-  background-color: #1a0000;
-  border-radius: 8px;
+  padding: 10px 15px;
+  margin-top: 10px;
+  background: linear-gradient(to bottom, #3a1c00, #a17700);
+  border-radius: 12px;
+  box-shadow: 0 0 5px gold;
+  text-align: center;
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -183,10 +226,12 @@ $(document).ready(function() {
 
 .menu-section-list li a {
   color: white;
-  padding-left: 15px;
+  text-align: left;
+  padding: 6px 20px;
   display: block;
-  margin: 5px 0;
-  transition: 0.3s;
+  text-decoration: none;
+  font-weight: normal;
+  transition: all 0.3s;
 }
 
 .menu-section-list li a:hover {
@@ -199,9 +244,6 @@ $(document).ready(function() {
 <header class="menu-header">
 <span class="menu-header-title"><h6>MENU</h6></span>
 </header>
-
-
-
 <section class="menu-section">
 <a href="https://www.kasumalgarh.github.io/" target="_blank">
 <h3 class="menu-section-title">HOME</h3>
@@ -241,21 +283,21 @@ $(document).ready(function() {
 </div>
 <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 600px; height: 300px; overflow: hidden;">
 <div data-b="0" data-p="112.50" style="display: none;">
-<img data-u="image" src="./gsgenius/slider/KASUMALGARH.png">
+<img data-u="image" src="./gsgenius/slider/KASUMALGARH.png"/>
 <div data-t="7" data-u="caption" style="position: absolute; top: -80px; left: 5px; width: 350px; height: 30px; background-color: rgba(235,81,0,0.5); font-size: 20px; color: #ffffff; line-height: 30px; text-align: center;">कसुमलगढ़</div>
-</img></div>
+</div>
 <div data-b="0" data-p="112.50" style="display: none;">
-<img data-u="image" src="./gsgenius/slider/kasumbi_KASUMALGARH_KASUMBI_FORT__.gif">
+<img data-u="image" src="./gsgenius/slider/kasumbi_KASUMALGARH_KASUMBI_FORT__.gif"/>
 <div data-t="7" data-u="caption" style="position: absolute; top: -80px; left: 5px; width: 350px; height: 30px; background-color: rgba(235,81,0,0.5); font-size: 20px; color: #ffffff; line-height: 30px; text-align: center;">कसुमलगढ़</div>
-</img></div>
+</div>
 <div data-b="0" data-p="112.50" style="display: none;">
-<img data-u="image" src="./gsgenius/slider/Thakur Saheb Bhairu Singh Jodha.jpg">
+<img data-u="image" src="./gsgenius/slider/Thakur Saheb Bhairu Singh Jodha.jpg"/>
 <div data-t="7" data-u="caption" style="position: absolute; top: -80px; left: 5px; width: 350px; height: 30px; background-color: rgba(235,81,0,0.5); font-size: 20px; color: #ffffff; line-height: 30px; text-align: center;">श्रीमान ठाकुर भैरूसिहं जी <br/>युवराज गजराज सिंह</div>
-</img></div>
+</div>
 <div data-b="0" data-p="112.50" style="display: none;">
-<img data-u="image" src="./gsgenius/slider/View From Kasumalgarh00.jpg">
+<img data-u="image" src="./gsgenius/slider/View From Kasumalgarh00.jpg"/>
 <div data-t="7" data-u="caption" style="position: absolute; top: -80px; left: 5px; width: 350px; height: 30px; background-color: rgba(235,81,0,0.5); font-size: 20px; color: #ffffff; line-height: 30px; text-align: center;">कसुमलगढ़ से दृश्य</div>
-</img></div>
+</div>
 <div data-b="0" data-p="112.50" style="display: none;">
 <img data-u="image" src="./gsgenius/slider/gate2.jpg"/>
 <div data-t="7" data-u="caption" style="position: absolute; top: -80px; left: 5px; width: 350px; height: 30px; background-color: rgba(235,81,0,0.5); font-size: 20px; color: #ffffff; line-height: 30px; text-align: center;">डोड्या</div>
@@ -282,7 +324,6 @@ $(document).ready(function() {
 <span class="jssora02r" data-autocenter="2" data-u="arrowright" style="top:0px;right:8px;width:55px;height:55px;"></span>
 </div>
 <!-- #endregion Jssor Slider End -->
-
 <div style="clear:both"></div>
 <center>
 <div class="uniquebox" style="margin-top:1px;">
@@ -396,5 +437,14 @@ Yuvraj GajRaj Singh Rathore (Kasumalgarh)<br/>
   </script>
 <div class="back"><a href="javascript:history.back()">BACK</a>
 </div>
-</body>
+<script>
+function toggleMenu() {
+  const menu = document.getElementById('menu');
+  if (menu.style.display === "block") {
+    menu.style.display = "none";
+  } else {
+    menu.style.display = "block";
+  }
+}
+</script></body>
 </html>
