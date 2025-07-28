@@ -4,20 +4,37 @@
   <meta charset="UTF-8">
   <title>404 - Page Not Found | Kasumalgarh</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Animate.css and WOW.js -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+  <script>
+    new WOW().init();
+  </script>
+
   <style>
     body {
-      background: #f6f0e7;
-      color: #5a2d0c;
+      margin: 0;
+      padding: 0;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/4/4c/Kumbhalgarh_fort_2012.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fffaf0;
       font-family: 'Georgia', serif;
       text-align: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+      min-height: 100vh;
       padding: 60px 20px;
     }
 
     h1 {
       font-size: 100px;
       margin-bottom: 10px;
-      color: #8b0000;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      color: #ffe4c4;
+      text-shadow: 3px 3px 6px #000;
     }
 
     h2 {
@@ -25,9 +42,24 @@
       margin-bottom: 20px;
     }
 
-    p {
+    .typing {
       font-size: 18px;
-      margin-bottom: 30px;
+      margin: 20px auto 30px;
+      width: fit-content;
+      border-right: 2px solid #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 4s steps(40, end), blink 0.8s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      from, to { border-color: transparent }
+      50% { border-color: #fff; }
     }
 
     a {
@@ -47,18 +79,17 @@
     footer {
       margin-top: 60px;
       font-size: 14px;
-      color: #999;
+      color: #ccc;
     }
   </style>
 </head>
 <body>
-  <h1>404</h1>
-  <h2>पृष्ठ नहीं मिला | Page Not Found</h2>
-  <p>जिस पृष्ठ को आप खोज रहे हैं वह मौजूद नहीं है।</p>
-  <a href="index.html">🔙 Kasumalgarh होमपेज पर लौटें</a>
-
-  <footer>
-    ⚔️ Kasumalgarh Vanshavali © 2025
-  </footer>
+  <div class="overlay">
+    <h1 class="wow bounceIn">404</h1>
+    <h2 class="wow fadeInUp" data-wow-delay="0.5s">पृष्ठ नहीं मिला | Page Not Found</h2>
+    <div class="typing wow fadeInUp" data-wow-delay="1s">जिस पृष्ठ को आप खोज रहे हैं वह अस्तित्व में नहीं है।</div>
+    <a class="wow zoomIn" data-wow-delay="2s" href="index.html">🔙 Kasumalgarh होमपेज पर लौटें</a>
+    <footer class="wow fadeIn" data-wow-delay="2.5s">⚔️ YUVRAJ GAJRAJ SINGH © 2025</footer>
+  </div>
 </body>
 </html>
