@@ -1,143 +1,763 @@
+<?php include('khits.php'); ?>
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kasumalgarh Vanshavali Editor (Local Tool) - Updated</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9544480240826054" crossorigin="anonymous"></script>
+    <meta charset="utf-8">
+    <title>KASUMALGARH :: Vansh - All Features</title>
+    
+    <link rel="stylesheet" href="./kcss/styles.css">
+    <link rel="stylesheet" href="./kcss/test.css">
+    <link rel="stylesheet" href="./kcss/ktree.css" type="text/css" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script type="text/javascript" src="./gsgenius/ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
-        h2 { color: #2c0001; border-bottom: 2px solid #d4af37; padding-bottom: 5px; }
-        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        textarea { width: 100%; min-height: 200px; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; font-family: Consolas, monospace; }
-        input[type="text"] { width: 100%; padding: 10px; margin-bottom: 15px; box-sizing: border-box; border: 1px solid #ccc; }
-        button { background-color: #d4af37; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 10px; }
-        button:hover { background-color: #c49f27; }
-        .warning { color: red; font-weight: bold; margin-bottom: 15px; }
-        .section { margin-top: 30px; padding-top: 20px; border-top: 1px dashed #d4af37; }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <center><h2>👑 Kasumalgarh Vanshavali Code Editor (PC Tool) 👑</h2></center>
-    <p class="warning">
-        ⚠️ **ज़रूरी सूचना:** अब आपको **दादा का नाम** भरना ज़रूरी है ताकि टूल सही शाखा को पहचान सके। कोड को अपडेट करने के बाद उसे **खुद** GitHub पर कॉपी-पेस्ट करना होगा।
-    </p>
-
-    <h3>चरण 1: वंशावली का मौजूदा कोड पेस्ट करें (GitHub से कॉपी करें)</h3>
-    <textarea id="inputHtml" placeholder="यहाँ <ul id=&quot;KasumalgarhVanshavali&quot;> से लेकर </ul> तक का पूरा HTML कोड पेस्ट करें।"></textarea>
-
-    <div class="section">
-        <h3>चरण 2: नाम भरें (सटीक शाखा की पहचान के लिए)</h3>
-        
-        <label for="grandParentName">**दादा (Grandparent) का नाम:**</label>
-        <input type="text" id="grandParentName" placeholder="Th. Ridmal Singh (ज़रूरी)">
-
-        <label for="parentName">**पिता (Parent) का नाम:**</label>
-        <input type="text" id="parentName" placeholder="Th. Bhairu Singh (ज़रूरी)">
-
-        <hr> <label for="newName">**नया नाम (Child's Name):**</label>
-        <input type="text" id="newName" placeholder="Kr. Yuvraj Singh">
-
-        <label for="newNote">छोटा नोट (Optional) (उदाहरण: married at Sikar):</label>
-        <input type="text" id="newNote" placeholder="(Optional) - शादी का नोट, आदि">
-
-        <button onclick="addName()">➕ वंशावली में नाम जोड़ें</button>
-    </div>
-
-    <div class="section">
-        <h3>चरण 3: नया कोड कॉपी करें और GitHub पर अपडेट करें</h3>
-        <p>यह नीचे दिए गए बॉक्स में पूरा अपडेटेड कोड है। इसे कॉपी करें और GitHub पर `k_vanshavali.html` फाइल में पुराने कोड की जगह पेस्ट कर दें।</p>
-        <textarea id="outputHtml" readonly placeholder="अपडेटेड HTML कोड यहाँ दिखेगा"></textarea>
-    </div>
-</div>
-
-<script>
-function addName() {
-    const inputHtmlString = document.getElementById('inputHtml').value.trim();
-    const grandParentName = document.getElementById('grandParentName').value.trim();
-    const parentName = document.getElementById('parentName').value.trim();
-    const newName = document.getElementById('newName').value.trim();
-    const newNote = document.getElementById('newNote').value.trim();
-    const outputHtml = document.getElementById('outputHtml');
-
-    if (!inputHtmlString || !grandParentName || !parentName || !newName) {
-        alert("कृपया चरण 1 में कोड और चरण 2 में दादा, पिता व बच्चे का नाम भरें।");
-        return;
-    }
-
-    // 1. Setup the temporary container
-    const tempContainer = document.createElement('div');
-    tempContainer.innerHTML = inputHtmlString;
-    const vanshavaliList = tempContainer.querySelector('#KasumalgarhVanshavali');
-
-    if (!vanshavaliList) {
-        outputHtml.value = "त्रुटि: इनपुट कोड में #KasumalgarhVanshavali लिस्ट नहीं मिली। कृपया सही कोड पेस्ट करें।";
-        return;
-    }
-
-    // 2. Find the Parent (LI element) whose grandparent's text matches
-    let parentElement = null;
-
-    // Search all <a> elements (names) that match the parentName
-    vanshavaliList.querySelectorAll('a').forEach(a => {
-        if (a.textContent.includes(parentName)) {
-            let currentElement = a.closest('li');
-            
-            // Now, check if this parent's grandparent matches the grandParentName
-            // The grandparent should be the <li> element that contains the parent's entire branch (two levels up)
-            // We use .closest('ul') to go to the parent list, and then .closest('li') to find the grandfather's LI
-            
-            // Go up to the parent's list (UL)
-            const parentUl = currentElement.closest('ul');
-            if (parentUl) {
-                // The grandparent's LI element is the parent of the parent's UL
-                const grandParentElement = parentUl.closest('li');
-
-                if (grandParentElement) {
-                    const grandParentAnchor = grandParentElement.querySelector('a');
-                    if (grandParentAnchor && grandParentAnchor.textContent.includes(grandParentName)) {
-                        // Found the correct branch!
-                        parentElement = currentElement;
-                    }
-                }
-            }
+        /* 1. BODY और बैकग्राउंड टेक्सचर */
+        body {
+            background-color: #2c0001; /* गहरा शाही लाल/मरून */
+            /* टेक्सचर के लिए आप यहाँ अपनी इमेज लगा सकते हैं (Background Texture feature) */
+            /* background-image: url('images/parchment_texture.png'); */
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            color: #f4f4f4;
+            margin: 0;
+            padding: 20px 0;
         }
-    });
 
+        h2, h6 {
+            font-family: 'Cinzel', serif;
+            color: #d4af37; /* गोल्ड कलर */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        a { text-decoration: none; color: #d4af37; }
 
-    if (!parentElement) {
-        outputHtml.value = `त्रुटि: वंशावली में "${parentName}" नाम का कोई पिता "${grandParentName}" दादा की शाखा में नहीं मिला। नाम/स्पेलिंग चेक करें।`;
-        return;
-    }
+        /* नेविगेशन डिवाइडर */
+        .nav-separator { 
+            margin: 20px auto; 
+            padding: 10px; 
+            border-top: 2px solid #d4af37; 
+            border-bottom: 2px solid #d4af37; 
+            max-width: 900px;
+        }
+
+        /* 2. वंशावली स्ट्रक्चर (Vertical) */
+        .tree {
+            padding: 20px; 
+            overflow: hidden; 
+            text-align: left;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .tree ul {
+            list-style: none;
+            padding-left: 20px;
+            margin: 0;
+            border-left: 2px solid #a30000; /* वर्टिकल लाइन */
+        }
+
+        .tree li {
+            text-align: left;
+            padding: 5px 0;
+            margin: 5px 0;
+            position: relative;
+        }
+        
+        /* 3. शाही कार्ड और फोटो फ्रेम */
+        .tree li a {
+            border: 3px solid #d4af37; 
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #3e2723;
+            background: linear-gradient(to bottom, #fff8dc, #f0e68c); 
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 1.0em;
+            border-radius: 8px;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            max-width: 95%; 
+            white-space: normal;
+            cursor: pointer; /* क्लिकेबल दिखाने के लिए */
+        }
+        
+        /* 4. फोटो फ्रेम (Photo Frame feature) */
+        .tree li a img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%; /* गोल फ्रेम */
+            border: 2px solid #d4af37;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        /* 5. शाखा हाइलाइटिंग (Hover Highlighting feature) */
+        .tree li:hover > a {
+            background: #d4af37; /* नाम को गोल्ड हाइलाइट करें */
+            color: white;
+        }
+        /* बच्चों और नाती-पोतों के नाम को भी हाइलाइट करें */
+        .tree li:hover ul li a {
+            background: #e0d19a !important; 
+            border-color: #d4af37;
+        }
+
+        /* 6. Collapsible Indicators (खोलने/बंद करने का निशान) */
+        .parent > a::after {
+            content: " [+]";
+            font-weight: bold;
+            color: #d4af37;
+        }
+        .parent.active > a::after {
+            content: " [-]";
+        }
+
+        /* 7. सर्च बार स्टाइल */
+        #searchContainer {
+            margin: 20px auto;
+            max-width: 500px;
+            text-align: center;
+        }
+        #searchInput {
+            padding: 10px;
+            width: 70%;
+            border: 2px solid #d4af37;
+            background-color: #1a1a1a;
+            color: #fff;
+            font-size: 1em;
+            border-radius: 5px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // 1. Collapsible Branches Initialization
+            $('#KasumalgarhVanshavali li').each(function() {
+                // 'parent' क्लास सिर्फ उन <li> को दें जिनके पास बच्चे (<ul>) हैं
+                if ($(this).children('ul').length > 0) {
+                    $(this).addClass('parent');
+                    // शुरू में सभी बच्चों को छुपा दें
+                    $(this).children('ul').hide();
+                }
+            });
+
+            // 2. Click Handler (Collapsible Branches feature)
+            $('#KasumalgarhVanshavali li.parent > a').on('click', function(e) {
+                // फोटो/नोट लिंक पर क्लिक करने पर भी बंद/खोलना चाहते हैं, इसलिए stopPropagation को हटा दिया
+                $(this).parent().toggleClass('active');
+                $(this).parent().children('ul').slideToggle('fast');
+            });
+
+            // 3. Search Functionality (Search feature)
+            $('#searchInput').on('keyup', function() {
+                var searchText = $(this).val().toLowerCase();
+
+                // सभी को दिखाएँ
+                $('#KasumalgarhVanshavali li').show();
+
+                if (searchText.length > 0) {
+                    $('#KasumalgarhVanshavali li').each(function() {
+                        var li = $(this);
+                        var name = li.children('a').text().toLowerCase();
+
+                        if (name.indexOf(searchText) === -1) {
+                            // अगर नाम मैच नहीं होता, तो इसे छुपा दें
+                            li.hide();
+                        } else {
+                            // अगर नाम मैच होता है, तो इसके सभी माता-पिता को दिखाएं
+                            li.parents('li').show();
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+    <center>
+        <img src="./kimgs/kasumalgarh_tital.png" alt="Header Logo" style="WIDTH:AUTO;height:80px;margin-top:0px;" align="center" border="0">
+    </center>
+
+    <div class="nav-separator">
+        <h6 style="display:inline; margin:0 10px;"><a href="./index.html"><img src="./imgs/home.png" alt="" style="WIDTH:20px;HEIGHT:20px;vertical-align:middle;" border="0"> KASUMALGARH :: HOME</a></h6>
+        <h6 style="display:inline; margin:0 10px;"><a href="./k_vanshavali.html"><img src="./imgs/vanshavali.png" alt="" style="WIDTH:20px;HEIGHT:20px;vertical-align:middle;" border="0"> Kasumalgarh-Vanshavali</a></h6>
+        <h6 style="display:inline; margin:0 10px;"><a href="./r_vanshavali.html"><img src="./imgs/vanshavali.png" alt="" style="WIDTH:20px;HEIGHT:20px;vertical-align:middle;" border="0"> Rathore-Vanshavali</a></h6>
+        <h6 style="display:inline; margin:0 10px;"><a href="./contact_us.html"><img src="./imgs/contact.png" alt="" style="WIDTH:20px;HEIGHT:20px;vertical-align:middle;" border="0"> Contact-us</a></h6>
+    </div>
+
+    <div id="searchContainer">
+        <input type="text" id="searchInput" placeholder="वंशावली में नाम खोजें...">
+    </div>
+
+    <center>
+        <img src="./kimgs/dup.png" alt="divider" style="WIDTH:500px;HEIGHT:auto;margin-top:0px;">
+    </center>
+
+    <center>
+        <h2 style="margin-top:20px; font-size: 1.5em;">Family Tree Of Kasumalgarh</h2>
+        <p style="color:#d4af37; font-size: 0.9em;">(नाम पर क्लिक करें: शाखाएँ खोलने/बंद करने के लिए)</p>
+    </center>
     
-    // 3. Creates the New Child LI element
-    const newLi = document.createElement('li');
-    let anchorContent = `<a>${newName}`;
-    if (newNote) {
-        anchorContent += `<br><small>${newNote}</small>`;
-    }
-    anchorContent += `</a>`;
-    newLi.innerHTML = anchorContent;
-
-    // 4. Inserts the New Child
-    let parentUl = parentElement.querySelector('ul');
+    <div class="tree">
+        <ul id="KasumalgarhVanshavali">
+            <li>
+                <a><img src="path/to/narayan_singh_photo.jpg" alt="Narayan Singh Ji" /><strong>Raj Shree Thakur Saheb Narayan Singh</strong><br><small>(Founder Of Kasumbi Jakhlan)</small></a>
+                <ul>
+                    <li>
+                        <a><strong>Th. Akhe Singh</strong></a>
+                        <ul>
+                            <li>
+                                <a><strong>Th. Mangal Singh</strong></a>
+                                <ul>
+                                    <li>
+                                        <a><strong>Th. Bakhtawar Singh</strong></a>
+                                        <ul>
+                                            <li>
+                                                <a><strong>Th. Raghunath Singh</strong></a>
+                                                <ul>
+                                                    <li>
+                                                        <a><strong>Th. Roop Singh</strong></a>
+                                                        <ul>
+                                                            <li>
+                                                                <a><strong>Th. Ridmal Singh</strong></a>
+                                                                <ul>
+                                                                    <li>
+                                                                        <a><strong>Th. Bhairu Singh</strong><br><small>(married at Maheswas)</small></a>
+                                                                        <ul>
+                                                                            <li>
+                                                                                <a><strong>Th. Mahendra Singh</strong><br><small>(Present Tikai Thakur)<br>(married at Chaingarh)</small></a>
+                                                                                <ul>
+                                                                                    <li>
+                                                                                        <a>Yuvraj GajRaj Singh<br><small>(married at Lakher)</small></a>
+                                                                                        <ul>
+                                                                                            <li><a>Bhanwar Khushvendra Singh</a></li>
+                                                                                        </ul>
+                                                                                    </li>
+                                                                                    <li><a>Kr. Shivraj Singh</a></li>
+                                                                                    <li><a>Baisa Hrishiraj Rathore<br><small>(married at Sipur)</small></a></li>
+                                                                                </ul>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a><strong>Th. Partap Singh</strong><br><small>(married at Bana ka bas)</small></a>
+                                                                        <ul>
+                                                                            <li>
+                                                                                <a>Th. Rajendra Singh</a><br><small>(married at Bugala)</small></a>
+                                                                                <ul>
+                                                                                    <li>
+                                                                                        <a>Kr. Arun Singh<br><small>(married at chhila Kashmir)</small></a>
+                                                                                        <ul>
+                                                                                            <li><a>Bhanwar baisa Raghvi rathore</a></li>
+                                                                                        </ul>
+                                                                                    </li>
+                                                                                    <li><a>Baisa Rajlaxmi Rathore<br><small>(Badalwas)</small></a></li>
+                                                                                </ul>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a>Th. Ravindra Singh</a><br><small>(married at Shri kalyanpura)</small></a>
+                                                                                <ul>
+                                                                                    <li><a>Baisa Yogita Rathore</a></li>
+                                                                                    <li><a>Baisa Garima Rathore</a></li>
+                                                                                    <li><a>Kr. Yashvardhan Singh Rathore</a></li>
+                                                                                </ul>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a>Th. Gopinath Singh</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a>Th. Sonath Singh</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a>Th. Jawahar Singh</a>
+                                        <ul>
+                                            <li><a>Th. Sabal Singh</a></li>
+                                            <li><a>Th. Balnwant Singh</a></li>
+                                            <li><a>Th. Sawant Singh</a></li>
+                                            <li>
+                                                <a>Th. bhiv Singh</a>
+                                                <ul>
+                                                    <li>
+                                                        <a>Th. Lal Singh</a>
+                                                        <ul>
+                                                            <li>
+                                                                <a>Th. Richhpal Singh</a>
+                                                                <ul>
+                                                                    <li>
+                                                                        <a>Th. Bhawani Singh</a>
+                                                                        <ul>
+                                                                            <li>
+                                                                                <a>Kr. Devendra Singh</a>
+                                                                                <ul>
+                                                                                    <li><a>Bh. Daksh Rathore</a></li>
+                                                                                </ul>
+                                                                            </li>
+                                                                            <li><a>Kr. Ajeet Singh</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a>Th. Ratan Singh</a>
+                                                                        <ul>
+                                                                            <li><a>Kr. Vikram Singh</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a>Kr. Narpat Singh</a>
+                                                                        <ul>
+                                                                            <li><a>Th. Yogendra Singh</a></li>
+                                                                            <li><a>Th. Kuldeep Singh</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a>Th. Tej Singh</a>
+                                                                        <ul>
+                                                                            <li><a>Kr. Jaydeep Singh</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li>
+                                                                <a>Th. Bhagirath Singh</a>
+                                                                <ul>
+                                                                    <li><a>Kr. Rajendra Singh</a></li>
+                                                                    <li><a>Kr. Manohar Singh</a></li>
+                                                                    <li><a>Kr. Anand Singh</a></li>
+                                                                    <li><a>Kr. Gajendra Singh</a></li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a>Th. Keshar Singh</a>
+                                                        <ul>
+                                                            <li>
+                                                                <a>Th. Sopal Singh</a>
+                                                                <ul>
+                                                                    <li><a>Kr. Indra Singh</a></li>
+                                                                    <li><a>Kr. Narendra Singh</a></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><a>Th. Ugam Singh</a></li>
+                                                            <li>
+                                                                <a>Th. Baagh Singh</a>
+                                                                <ul>
+                                                                    <li><a>Kr. Laxman Singh</a></li>
+                                                                    <li><a>Kr. Narpat Singh</a></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><a>Th. Partap Singh</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a>Th. Bane Singh</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a>Th. Bhairu Singh</a>
+                                <ul>
+                                    <li><a>Th. Laxman Singh</a></li>
+                                    <li>
+                                        <a>Th. Bhopal Singh</a>
+                                        <ul>
+                                            <li>
+                                                <a>Th. Aman Singh</a>
+                                                <ul>
+                                                    <li>
+                                                        <a>Th. Hari Singh</a>
+                                                        <ul>
+                                                            <li><a>Th. Bhanwar Singh</a></li>
+                                                            <li><a>Th. Bhagirath Singh</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a>Th. Sujan Singh</a>
+                                                        <ul>
+                                                            <li>
+                                                                <a>Th. Nawal Singh</a>
+                                                                <ul>
+                                                                    <li><a>Th. Ranveer Singh</a></li>
+                                                                    <li>
+                                                                        <a>Th. Sumer Singh</a>
+                                                                        <ul>
+                                                                            <li>
+                                                                                <a>Kr. Sudhir Partap Singh</a>
+                                                                                <ul>
+                                                                                    <li><a>Bh. Anirudh Partap Singh</a></li>
+                                                                                </ul>
+                                                                            </li>
+                                                                            <li><a>Kr. Himmt Singh</a></li>
+                                                                            <li><a>Kr. Kishan Singh</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a>Th. Girdhari Singh</a>
+                                                                        <ul>
+                                                                            <li><a>Kr. Aaditya Singh</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a>Th. Khuman Singh</a></li>
+                                                    <li><a>Th. Banne Singh</a></li>
+                                                    <li><a>Th. Ugam Singh</a></li>
+                                                    <li><a>Th. Kan Singh</a></li>
+                                                    <li>
+                                                        <a>Th. Sawant Singh</a>
+                                                        <ul>
+                                                            <li>
+                                                                <a>Th. Mahaveer Singh</a>
+                                                                <ul>
+                                                                    <li><a>Th. Nitendra Singh</a></li>
+                                                                    <li><a>Th. Hem Singh</a></li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a>Th. Achal Singh</a>
+                                                        <ul>
+                                                            <li><a>Th. Ram Singh</a></li>
+                                                            <li><a>Th. Moti Singh</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li><a>Th. Balwant Singh</a></li>
+                                            <li><a>Th. Bakshiram Singh</a></li>
+                                            <li>
+                                                <a>Th. Chatar Singh</a>
+                                                <ul>
+                                                    <li>
+                                                        <a>Th. Ganesh Singh</a>
+                                                        <ul>
+                                                            <li>
+                                                                <a>Th. Bhanwar Singh</a>
+                                                                <ul>
+                                                                    <li>
+                                                                        <a>Kr. Gajendra Singh</a>
+                                                                        <ul>
+                                                                            <li><a>Bh. Tanmay Singh</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li>
+                                                                <a>Th. Mohan Singh</a>
+                                                                <ul>
+                                                                    <li>
+                                                                        <a>Kr. Bajrang Singh</a>
+                                                                        <ul>
+                                                                            <li><a>Bh. Rudrapartap Singh</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li>
+                                                                <a>Th. Dungar Singh</a>
+                                                                <ul>
+                                                                    <li><a>Kr. Ajeet Singh</a></li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a>Th. Tool Singh</a>
+                                                        <ul>
+                                                            <li>
+                                                                <a>Th. Rawant Singh</a>
+                                                                <ul>
+                                                                    <li>
+                                                                        <a>Th. Govind Singh</a>
+                                                                        <ul>
+                                                                            <li><a>Kr. Harshvardhan Singh</a></li>
+                                                                            <li><a>Kr. Yashvardhan Singh</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a>Th. Mahendra Singh</a>
+                                                                        <ul>
+                                                                            <li><a>Kr. SuryaVardhan Singh</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a>Th. Kishor Singh</a>
+                                                        <ul>
+                                                            <li>
+                                                                <a>Kr. Karan Singh</a>
+                                                                <ul>
+                                                                    <li><a>Bh. Jitendra Singh</a></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li>
+                                                                <a>Kr. Rajveer Singh</a>
+                                                                <ul>
+                                                                    <li><a>Bh. Aryan Rathore</a></li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a>Th. Ranjit Singh</a>
+                                <ul>
+                                    <li>
+                                        <a>Th. Bachan Singh</a>
+                                        <ul>
+                                            <li>
+                                                <a>Th. Ganga Singh</a>
+                                                <ul>
+                                                    <li><a>Th. Sardar Singh</a></li>
+                                                    <li><a>Th. Selab Singh</a></li>
+                                                    <li>
+                                                        <a>Th. Bhoor Singh</a>
+                                                        <ul>
+                                                            <li>
+                                                                <a>Th. Dhukal Singh</a>
+                                                                <ul>
+                                                                    <li><a>Th. Madan Singh</a></li>
+                                                                    <li><a>Th. Chhagan Singh</a></li>
+                                                                    <li>
+                                                                        <a>Th. Bhagirath Singh</a>
+                                                                        <ul>
+                                                                            <li>
+                                                                                <a>Th. Norang Singh</a>
+                                                                                <ul>
+                                                                                    <li><a>Kr. Govind Singh</a></li>
+                                                                                    <li><a>Kr. Manvendra Singh</a></li>
+                                                                                </ul>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li><a>Th. Laxman Singh</a></li>
+                                                                    <li><a>Th. Manohar Singh</a></li>
+                                                                    <li><a>Th. Bhanwar Singh</a></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><a>Th. Hukam Singh</a></li>
+                                                            <li><a>Th. Megh Singh</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a>Th. Ajeet Singh</a></li>
+                                                    <li><a>Th. Sarup Singh</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a>Th. Om Singh</a>
+                                        <ul>
+                                            <li><a>Th. Ganga Singh</a></li>
+                                            <li><a>Th. Dhan Singh</a></li>
+                                            <li>
+                                                <a>Th. Sujan Singh</a>
+                                                <ul>
+                                                    <li><a>Th. Rawat Singh</a></li>
+                                                    <li><a>Th. Dhir Singh</a></li>
+                                                    <li>
+                                                        <a>Th. Fool Singh</a>
+                                                        <ul>
+                                                            <li>
+                                                                <a>Kr. Raghuveer Singh</a>
+                                                                <ul>
+                                                                    <li><a>Kr. Mahipal Singh</a></li>
+                                                                    <li><a>Kr. Sarwan Singh</a></li>
+                                                                    <li><a>Kr. Hari Singh</a></li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a>Th. Sangram Singh</a></li>
+                    <li>
+                        <a>Th. Surat Singh</a>
+                        <ul>
+                            <li>
+                                <a>Th. Hanwant Singh</a>
+                                <ul>
+                                    <li>
+                                        <a>Th. Jagat Singh</a>
+                                        <ul>
+                                            <li>
+                                                <a>Th. Baldev Singh</a>
+                                                <ul>
+                                                    <li><a>Th. Sadul Singh</a></li>
+                                                    <li>
+                                                        <a>Th. Guman Singh</a>
+                                                        <ul>
+                                                            <li><a>Th. Mool Singh</a></li>
+                                                            <li><a>Th. Dool Singh</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a>Th. Devi Singh</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a>Th. Kushal Singh</a></li>
+                                            <li>
+                                                <a>Th. Gangabaks Singh</a>
+                                                <ul>
+                                                    <li>
+                                                        <a>Th. Daal Singh</a>
+                                                        <ul>
+                                                            <li>
+                                                                <a>Th. Fate Singh</a>
+                                                                <ul>
+                                                                    <li>
+                                                                        <a>Kr. Bhanwar Singh</a>
+                                                                        <ul>
+                                                                            <li><a>Bh. Yashpal Singh</a></li>
+                                                                            <li><a>Bh. Shakti Singh</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a>Kr. Mahendra Singh</a>
+                                                                        <ul>
+                                                                            <li><a>Bh. Vijaypal Singh</a></li>
+                                                                            <li><a>Bh. Ajaypal Singh</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a>Kr. Girwar Singh</a>
+                                                                        <ul>
+                                                                            <li><a>Bh. Narendra Singh</a></li>
+                                                                            <li><a>Bh. Gopal Singh</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a>Kr. Bhawani Singh</a>
+                                                                        <ul>
+                                                                            <li><a>Bh. Shivraj Singh</a></li>
+                                                                            <li><a>Bh. Jivraj Singh</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li>
+                                                                <a>Th. Nathu Singh</a>
+                                                                <ul>
+                                                                    <li><a>Kr. Bhagwan Singh</a></li>
+                                                                    <li><a>Kr. Bajrang Singh</a></li>
+                                                                    <li><a>Kr. Prithvi Singh</a></li>
+                                                                    <li><a>Kr. Vikram Singh</a></li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a>Th. Ganpat Singh</a></li>
+                                                    <li><a>Th. Sodan Singh</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a>Th. Hamir Singh</a>
+                                        <ul>
+                                            <li>
+                                                <a>Th. Pem Singh</a>
+                                                <ul>
+                                                    <li>
+                                                        <a>Th. Govind Singh</a>
+                                                        <ul>
+                                                            <li>
+                                                                <a>Th. Jagmal Singh</a>
+                                                                <ul>
+                                                                    <li><a>Th. Mangu Singh</a></li>
+                                                                    <li><a>Th. Partap Singh</a></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li>
+                                                                <a>Th. Sopal Singh</a>
+                                                                <ul>
+                                                                    <li><a>Kr. Raghuveer Singh</a></li>
+                                                                    <li><a>Kr. Bhagwan Singh</a></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li>
+                                                                <a>Th. Ugam Singh</a>
+                                                                <ul>
+                                                                    <li><a>Kr. Manmohan Singh</a></li>
+                                                                    <li><a>Kr. Man Singh</a></li>
+                                                                    <li><a>Kr. Kan Singh</a></li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a>Th. Jet Singh</a>
+                                                        <ul>
+                                                            <li><a>Th. Sawai Singh</a></li>
+                                                            <li><a>Th. Ranveer Singh</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a>Th. Metab Singh</a></li>
+                                    <li><a>Th. Shal Singh</a></li>
+                                    <li><a>Th. Onad Singh</a></li>
+                                </ul>
+                            </li>
+                            <li><a>Th. Bagh Singh</a></li>
+                        </ul>
+                    </li>
+                    <li><a>Th. Sardar Singh</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <center>
+        <img src="./kimgs/ddown.png" alt="divider" style="WIDTH:500px;HEIGHT:auto;margin-bottom: 0cm; margin-top: 30px;">
+    </center>
     
-    // If the parent doesn't have a UL (no existing children), create one
-    if (!parentUl) {
-        parentUl = document.createElement('ul');
-        parentElement.appendChild(parentUl);
-    }
-    
-    // Append the new LI to the parent's UL
-    parentUl.appendChild(newLi);
-
-    // 5. Extracts the updated HTML
-    outputHtml.value = vanshavaliList.outerHTML;
-
-    alert(`सफलता! नया नाम "${newName}" सही शाखा में जोड़ दिया गया है। चरण 3 से कोड कॉपी करें।`);
-}
-</script>
+    <center>
+        <div class="footer">
+            <div class="g1">
+                <a href="https://kasumalgarh.github.io/" target="_blank">Home</a> | 
+                <a href="https://kasumalgarh.github.io/k_vanshavali.html" target="_blank">Kasumalgarh-Vanshavali</a><br>
+                <a href="https://kasumalgarh.github.io/r_vanshavali.html" target="_blank">Rathore-Vanshavali</a> | 
+                <a href="https://kasumalgarh.github.io/contact_us.html" target="_blank">Contact Us</a>
+                <br><br>
+                Copyrights © 2013-2025 Yuvraj GajRaj Singh Rathore (Kasumalgarh)
+                <br>
+            </div>
+        </div>
+    </center>
 
 </body>
 </html>
