@@ -1,19 +1,13 @@
 
-
-<?php
-include('khits.php');
-?>
-<!DOCTYPE html>
-
-
-<head><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9544480240826054"
+	<html>
+	<head><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9544480240826054"
      crossorigin="anonymous"></script>
-
-
-<meta charset="utf-8">
-    <title>KASUMALGARH::Kasumalgarh_ Vanshavali</title>
-  
-    
+		<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>KASUMALGARH::Contact Us</title>
+    <meta name="author" content="GS">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
   
 
 
@@ -44,963 +38,258 @@ include('khits.php');
   ga('send', 'pageview');
 
 </script>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8"><link href="style.css" rel="stylesheet" type="text/css">
+		<!-- calendar stuff -->
+		      <link rel="stylesheet" type="text/css" href="calendar/calendar-blue2.css" />
+		      <script type="text/javascript" src="calendar/calendar.js"></script>
+		      <script type="text/javascript" src="calendar/calendar-en.js"></script>
+		      <script type="text/javascript" src="calendar/calendar-setup.js"></script>
+		<!-- END calendar stuff -->
+
+	    <!-- expand/collapse function -->
+	    <SCRIPT type=text/javascript>
+		<!--
+		function collapseElem(obj)
+		{
+			var el = document.getElementById(obj);
+			el.style.display = 'none';
+		}
+
+
+		function expandElem(obj)
+		{
+			var el = document.getElementById(obj);
+			el.style.display = '';
+		}
+
+
+		//-->
+		</SCRIPT>
+		<!-- expand/collapse function -->
+
+
+		<!-- expand/collapse function -->
+		    <SCRIPT type=text/javascript>
+			<!--
+
+			// collapse all elements, except the first one
+			function collapseAll()
+			{
+				var numFormPages = 1;
+
+				for(i=2; i <= numFormPages; i++)
+				{
+					currPageId = ('mainForm_' + i);
+					collapseElem(currPageId);
+				}
+			}
+
+
+			//-->
+			</SCRIPT>
+		<!-- expand/collapse function -->
+
+
+		 <!-- validate -->
+		<SCRIPT type=text/javascript>
+		<!--
+			function validateField(fieldId, fieldBoxId, fieldType, required)
+			{
+				fieldBox = document.getElementById(fieldBoxId);
+				fieldObj = document.getElementById(fieldId);
+
+				if(fieldType == 'text'  ||  fieldType == 'textarea'  ||  fieldType == 'password'  ||  fieldType == 'file'  ||  fieldType == 'phone'  || fieldType == 'website')
+				{	
+					if(required == 1 && fieldObj.value == '')
+					{
+						fieldObj.setAttribute("class","mainFormError");
+						fieldObj.setAttribute("className","mainFormError");
+						fieldObj.focus();
+						return false;					
+					}
+
+				}
+
+
+				else if(fieldType == 'menu'  || fieldType == 'country'  || fieldType == 'state')
+				{	
+					if(required == 1 && fieldObj.selectedIndex == 0)
+					{				
+						fieldObj.setAttribute("class","mainFormError");
+						fieldObj.setAttribute("className","mainFormError");
+						fieldObj.focus();
+						return false;					
+					}
+
+				}
+
+
+				else if(fieldType == 'email')
+				{	
+					if((required == 1 && fieldObj.value=='')  ||  (fieldObj.value!=''  && !validate_email(fieldObj.value)))
+					{				
+						fieldObj.setAttribute("class","mainFormError");
+						fieldObj.setAttribute("className","mainFormError");
+						fieldObj.focus();
+						return false;					
+					}
+
+				}
 
 
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=1694580604146120";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+			}
+
+			function validate_email(emailStr)
+			{		
+				apos=emailStr.indexOf("@");
+				dotpos=emailStr.lastIndexOf(".");
+
+				if (apos<1||dotpos-apos<2) 
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			}
+
+
+			function validateDate(fieldId, fieldBoxId, fieldType, required,  minDateStr, maxDateStr)
+			{
+				retValue = true;
+
+				fieldBox = document.getElementById(fieldBoxId);
+				fieldObj = document.getElementById(fieldId);	
+				dateStr = fieldObj.value;
+
+
+				if(required == 0  && dateStr == '')
+				{
+					return true;
+				}
+
+
+				if(dateStr.charAt(2) != '/'  || dateStr.charAt(5) != '/' || dateStr.length != 10)
+				{
+					retValue = false;
+				}	
+
+				else	// format's okay; check max, min
+				{
+					currDays = parseInt(dateStr.substr(0,2),10) + parseInt(dateStr.substr(3,2),10)*30  + parseInt(dateStr.substr(6,4),10)*365;
+					//alert(currDays);
+
+					if(maxDateStr != '')
+					{
+						maxDays = parseInt(maxDateStr.substr(0,2),10) + parseInt(maxDateStr.substr(3,2),10)*30  + parseInt(maxDateStr.substr(6,4),10)*365;
+						//alert(maxDays);
+						if(currDays > maxDays)
+							retValue = false;
+					}
+
+					if(minDateStr != '')
+					{
+						minDays = parseInt(minDateStr.substr(0,2),10) + parseInt(minDateStr.substr(3,2),10)*30  + parseInt(minDateStr.substr(6,4),10)*365;
+						//alert(minDays);
+						if(currDays < minDays)
+							retValue = false;
+					}
+				}
+
+				if(retValue == false)
+				{
+					fieldObj.setAttribute("class","mainFormError");
+					fieldObj.setAttribute("className","mainFormError");
+					fieldObj.focus();
+					return false;
+				}
+			}
+		//-->
+		</SCRIPT>
+		<!-- end validate -->
 
 
 
 
+	</head>
 
-
-  
-
-
-<link href="./kcss/ktree.css" rel="stylesheet" type="text/css" />
-
-<script type="text/javascript" src="./gsgenius/ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
-
-	
-	
-	<script type="text/javascript">
-
-		$( document ).ready( function( ) {
-				$( '#KasumalgarhVanshavali li' ).each( function() {
-						if( $( this ).children( 'ul' ).length > 0 ) {
-								$( this ).addClass( 'parent' );     
-						}
-				});
-				
-				$( '#KasumalgarhVanshavali li.parent > a' ).click( function( ) {
-						$( this ).parent().toggleClass( 'active' );
-						$( this ).parent().children( 'ul' ).slideToggle( 'fast' );
-				});
-				
-				$( '#all' ).click( function() {
-					
-					$( '#KasumalgarhVanshavali li' ).each( function() {
-						$( this ).toggleClass( 'active' );
-						$( this ).children( 'ul' ).slideToggle( 'fast' );
-					});
-				});
-				
-				$( '#KasumalgarhVanshavali li' ).each( function() {
-						$( this ).toggleClass( 'active' );
-						$( this ).children( 'ul' ).slideToggle( 'fast' );
-				});
-				
-		});
-        
-	</script>
-
-
-
-<style>body{background:#380000;}
-
-</style>
-						
-
-					
-
-      </head>
-     <body>
-
-
-<center><img src="./kimgs/kasumalgarh_tital.png" alt="Header Logo"  style="WIDTH:AUTO;height:80px;" align="center" border="0"; margin-top:0px; ></center>
-
-
-  
-<h6>
- <a href="./index.html">
+ <header>
+      <a href="./index.html" class="logo" data-scroll>
 <img src="./imgs/home.png" alt=""  style="WIDTH:20px;HEIGHT:20px;" align="center" border="0" >
 
-KASUMALGARH :: HOME</a>
-</h6>
-<h6>
-
-</h6>
-<h6>
-<a href="./k_vanshavali.html" ><img src="./imgs/vanshavali.png" alt=""  style="WIDTH:20px;HEIGHT:20px;" align="center" border="0" >
-
-Kasumalgarh-Vanshavali</a>
-</h6>
-<h6>
-<a href="./r_vanshavali.html" ><img src="./imgs/vanshavali.png" alt=""  style="WIDTH:20px;HEIGHT:20px;" align="center" border="0" >
-
-Rathore-Vanshavali</a>
-</h6>
-
-
-
-<h6>
-<a href="./contact_us.html" ><img src="./imgs/contact.png" alt=""  style="WIDTH:20px;HEIGHT:20px;" align="center" border="0" >
-
-Contact-us</a>
-</h6>
-  
-
+HOME</a>
+      
+    </header>
+ 
+<center><br><br><br>
  
 
+   
+<section class="box" style="margin-top:0px;">
 
- 
-<center>
- 
-<img src="./kimgs/dup.png" alt="divider"  style="WIDTH:500px;HEIGHT:auto;margin-top:0px;"></center>
 
- 
 
+<center><img src="./kimgs/kasumalgarh_tital.png" alt="Header Logo"  style="WIDTH:AUTO;height:40px;" align="center" border="0"; margin-top:0px; ></center>
 
 
 
 
- 
-
-  
-<!-- Start kasumalgarh_menu1BODY section -->		
- 
-<div id="kasumalgarh_menu">
-
-</div>
-
-<!-- End kasumalgarh_menu1BODY section -->
 
 
-  <center>
 
-<table border="0px" width="auto"  cellpadding="0" cellspacing="0" ><tr><td>
+
+<p>इस वेबसाइट पर अगर आप किसी सूचना में <br>परिवर्तन चाहतें है ! तो कृपया सम्पर्क करें !
+</p>
+<img src="./kimgs/dup.png" alt="divider"  style="WIDTH:300px;HEIGHT:auto;margin-top:58px;"></center>
+
+
+
+
+
+
+
+
+	<body onLoad="collapseAll()"><form action="https://formsubmit.co/kasumalgarh@gmail.com" method="POST"
+ style="max-width:600px; margin:auto; background:#000000cc; padding:20px; border-radius:15px; font-family:Georgia, serif; color:gold;">
+
+  <label>Your Full Name *</label><br>
+  <input type="text" name="name" required
+   style="width:100%; padding:10px; margin-bottom:15px; background:#111; color:white; border:2px solid maroon; border-radius:8px;"><br>
+
+  <label>Your Email *</label><br>
+  <input type="email" name="email" required
+   style="width:100%; padding:10px; margin-bottom:15px; background:#111; color:white; border:2px solid maroon; border-radius:8px;"><br>
+
+  <label>Your Message *</label><br>
+  <textarea name="message" rows="5" required
+   style="width:100%; padding:10px; margin-bottom:15px; background:#111; color:white; border:2px solid maroon; border-radius:8px;"></textarea><br>
+
+  <button type="submit"
+   style="background:green; color:white; font-weight:bold; padding:10px 20px; border:none; border-radius:8px;">
+    Submit
+  </button>
+</form>
+
 	
-      <center><h6 style="margin-top:10px;">Family Tree Of kasumalgarh</h6> </center>
-         
-	
-        <ul id="KasumalgarhVanshavali">
-
-<button id="all">CLICK</button>
-
-  <li><a><strong>Raj Shree Thakur Saheb Narayan Singh </strong>
-</a><br>(Founder Of Kasumbi Jakhlan)
 
 
-<ul>
-	 
-			<li><a><strong>Th. Akhe Singh</strong>
-</a>
-			 <ul>
-			   <li><a><strong>Th. Mangal Singh</strong>
-</a>
-				   <ul>
-					   <li><a><strong>Th. Bakhtawar Singh</strong>
-</a>
-						   <ul>
-							   <li><a><strong>Th. Raghunath Singh</strong>
-</a>
-								   <ul>
-									   <li><a><strong>Th. Roop Singh</strong>
-</a>
-										   <ul>
-											   <li><a><strong>Th. Ridmal Singh</strong>
-</a>
-												   <ul>
-													   <li><a><strong>Th. Bhairu Singh(married at Maheswas)</strong>
-</a>
-
-														   <ul>
-															   <li><a><strong>Th. Mahendra Singh (Present Tikai Thakur)</strong></a>
-<br>married at Chaingarh
-
-																   <ul>
-																	 <li><a>Yuvraj GajRaj Singh (married at Lakher)</a>
-																	 <ul><li><a>Bhanwar Khushvendra Singh</a></li></ul></li>
-																	 <li><a>Kr. Shivraj Singh</a></li>
-																	 <li><a>Baisa Hrishiraj Rathore (married at Sipur)</a>
-</li>
-																	 </ul>
-																 </li>
-															 </ul>
-														 </li>
-
-														 <li><a><strong>Th. Partap Singh</strong>
-</a>
-<br> (married at Bana ka bas)
 
 
-														   <ul>
-															   <li><a>Th. Rajendra Singh</a>
-<br> (married at Bugala)
 
-																   <ul>
-																	   <li><a>Kr. Arun Singh (married at chhila Kashmir)</a> <ul><li><a>Bhanwar baisa Raghvi  rathore</a></li></ul></li>
-</li>
-																		 <li><a>Baisa Rajlaxmi Rathore (Badalwas)</a>
-</li>
-																	 </ul>
-																 </li>
-																 <li><a>Th. Ravindra Singh</a>
- <br>(married at Shri kalyanpura)
 
-																   <ul>
-																	   <li><a>Baisa Yogita Rathore</a>
-</li>
-																		 <li><a>Baisa Garima Rathore</a>
-</li>
-																		 <li><a>Kr. Yashvardhan Singh Rathore</a>
-</li>
-																	 </ul>
-																 </li>
-															 </ul>
-														 </li>
-													 </ul>
-												 </li>
-											 </ul>
-										 </li>
-										 <li><a>Th. Gopinath Singh</a>
-</li>
-									 </ul>
-								 </li>
-								 <li><a>Th. Sonath Singh</a>
-</li>
-							 </ul>
-						 </li>
-						 <li><a>Th. Jawahar Singh
-</a>
-						   <ul>
-							   <li><a>Th. Sabal Singh</a>
-</li>
-								 <li><a>Th. Balnwant Singh</a>
-</li>
-								 <li><a>Th. Sawant Singh</a>
-</li>
-								 <li><a>Th. bhiv Singh
-</a>
-								   <ul>
-									   <li><a>Th. Lal Singh
-</a>
-										   <ul>
-											   <li><a>Th. Richhpal Singh
-</a>
-												   <ul>
 
-													   <li><a>Th. Bhawani Singh
-</a>
-														   <ul>
-															   <li><a>Kr. Devendra Singh</a>
-<ul><li>Bh. Daksh Rathore</ul></li>
-</li>
 
-															   <li><a>Kr. Ajeet Singh</a>
-</li>
-																 
-															 </ul>
-														 </li>
-														 <li><a>Th. Ratan Singh
-</a>
-														 <ul>
-															   <li><a>Kr. Vikram Singh</a>
-</li>
-															 </ul>
-														 </li>
-														 <li><a>Kr. Narpat Singh
-</a>
-														 <ul>
-															   <li><a>Th. Yogendra Singh</a>
-</li>
-															   <li><a>Th. Kuldeep Singh</a>
-</li>
-																 
-															 </ul>
-														 </li>
-														 <li><a>Th. Tej Singh
-</a>
-														   <ul>
-															   <li><a>Kr. Jaydeep Singh</a>
-</li>
-															 </ul>
-														 </li>
-														</ul>
-												 </li>											 
-										 			 <li><a>Th. Bhagirath Singh
-</a>
-													   <ul>
-														 <li><a>Kr. Rajendra Singh</a>
-<li>
-														 <li><a>Kr. Manohar Singh</a>
-<li>
-														 <li><a>Kr. Anand Singh</a>
-</li>
-														 <li><a>Kr. Gajendra Singh</a>
-</li>
-														</ul>
-													 </li>
-													 </li>
-                       </ul>
-										 </li>
-									   	 <li><a>Th. Keshar Singh
-</a>
-											   <ul>
-													 <li><a>Th. Sopal Singh
-</a>
-													      <ul>
-														   <li><a>Kr. Indra Singh</a>
-</li>
-															 <li><a>Kr. Narendra Singh</a>
-</li>
-														 </ul>
-													 </li>
-													 <li><a>Th. Ugam Singh</a>
-</li>
-													 <li><a>Th. Baagh Singh
-</a>
-													   <ul>
-														  <li><a>Kr. Laxman Singh</a>
-</li>
-															<li><a>Kr. Narpat Singh</a>
-</li>
-														 </ul>
-													 </li>
-													 <li><a>Th. Partap Singh</a>
-</li>
-												 </ul>
-											 </li>
-											 <li><a>Th. Bane Singh</a>
-</li>
-
-									 </ul>
-								 </li>
-							 </ul>
-						 </li>
-					 </ul>
-				 </li>
-			   <li><a>Th. Bhairu Singh
-</a>
-				   <ul>
-					   <li><a>Th. Laxman Singh</a>
-</li>
-						 <li><a>Th. Bhopal Singh
-</a>
-						   <ul>
-							   <li><a>Th. Aman Singh
-</a>
-								   <ul>
-									   <li><a>Th. Hari Singh
-</a>
-										   <ul>
-											   <li><a>Th. Bhanwar Singh</a>
-</li>
-												 <li><a>Th. Bhagirath Singh</a>
-</li>
-											 </ul>
-										 </li>
-										 <li><a>Th. Sujan Singh
-</a>
-										   <ul>
-											   <li><a>Th. Nawal Singh
-</a>
-												   <ul>
-													   <li><a>Th. Ranveer Singh</a>
-</li>
-														 <li><a>Th. Sumer Singh
-</a>
-														 <ul>
-														 <li><a>Kr. Sudhir Partap Singh
-</a>
-														 <ul>
-														 <li><a>Bh. Anirudh Partap Singh</a>
-</li>
-														 </ul>
-														 </li>
-														 <li><a>Kr. Himmt Singh</a>
-</li>
-														 <li><a>Kr. Kishan Singh</a>
-</li>
-														 </ul>
-														 </li>
-														 <li><a>Th. Girdhari Singh
-</a>
-														 <ul><li><a>Kr. Aaditya Singh</a>
-</li></ul>
-														 </li>
-													 </ul>
-												 </li>
-											 </ul>
-										 </li>
-										 <li><a>Th. Khuman Singh</a>
-</li>
-										 <li><a>Th. Banne Singh</a>
-</li>
-										 <li><a>Th. Ugam Singh</a>
-</li>
-										 <li><a>Th. Kan Singh</a>
-</li>
-										 <li><a>Th. Sawant Singh
-</a>
-										   <ul>
-											   <li><a>Th. Mahaveer Singh
-</a>
-												   <ul>
-													   <li><a>Th. Nitendra Singh</a>
-</li>
-														 <li><a>Th. Hem Singh</a>
-</li>
-													 </ul>
-												 </li>
-												 
-											 </ul>
-										 </li>
-										 <li><a>Th. Achal Singh
-</a>
-										   <ul>
-											   <li><a>Th. Ram Singh</a>
-</li>
-												 <li><a>Th. Moti Singh</a>
-</li>
-											 </ul>
-										 </li>
-									 </ul>
-								 </li>
-								 <li><a>Th. Balwant Singh</a>
-</li>
-								 <li><a>Th. Bakshiram Singh</a>
-</li>
-								 <li><a>Th. Chatar Singh
-</a>
-								   <ul>
-									   <li><a>Th. Ganesh Singh
-</a>
-										   <ul>
-											   <li><a>Th. Bhanwar Singh
-</a>
-												   <ul>
-													   <li><a>Kr. Gajendra Singh
-</a>
-														 <ul><li><a>Bh. Tanmay Singh</a>
-</li></ul>
-														 </li>
-													 </ul>
-												 </li>
-												 <li><a>Th. Mohan Singh
-</a>
-												 <ul>
-													   <li><a>Kr. Bajrang Singh
-</a>
-
-														   <ul>
-													   <li><a>Bh. Rudrapartap Singh</a>
-</li>
-													 </ul>
-														 </li>
-													 </ul>
-												 </li>
-												 <li><a>Th. Dungar Singh
-</a>
-												   <ul>
-													   <li><a>Kr. Ajeet Singh</a>
-</li>
-													 </ul>
-												 </li>
-											 </ul>
-										 </li>
-										 <li><a>Th. Tool Singh
-</a>
-										   <ul>
-												 <li><a>Th. Rawant Singh
-</a>
-												   <ul>
-												 <li><a>Th. Govind Singh
-</a>
-												   <ul>
-												 <li><a>Kr. Harshvardhan Singh</a>
-</li>
-												 <li><a>Kr. Yashvardhan Singh</a>
-</li>
-											 </ul>
-												 </li>
-												 <li><a>Th. Mahendra Singh
-</a>
-												 <ul><li><a>Kr. SuryaVardhan Singh</a>
-</li></ul>
-												 </li>
-											 </ul>
-												 </li>
-											 </ul>
-										 </li>
-										 <li><a>Th. Kishor Singh
-</a>
-										   <ul>
-										    <li><a>Kr. Karan Singh
-</a>
-												 <ul>
-												 <li><a>Bh. Jitendra Singh</a>
-</li>
-											 </ul>
-												</li>
-												<li><a>Kr. Rajveer Singh
-</a>
-												 <ul>
-												 <li><a>Bh. Aryan Rathore</a>
-</li>
-											 </ul>
-												</li>
-											 </ul>
-										 </li>
-									 </ul>
-								 </li>
-							 </ul>
-						 </li>
-					 </ul>
-				 </li>
-				 <li><a>Th. Ranjit Singh
-</a>
-				   <ul>
-						 <li><a>Th. Bachan Singh
-</a>
-						   <ul>
-						 <li><a>Th. Ganga Singh
-</a>
-						   <ul>
-						 <li><a>Th. Sardar Singh</a>
-</li>
-						 <li><a>Th. Selab Singh</a>
-</li>
-						 <li><a>Th. Bhoor Singh
-</a>
-						   <ul>
-							   <li><a>Th. Dhukal Singh
-
-</a>
-								   <ul>
-									   <li><a>Th. Madan Singh</a>
-</li>
-										 <li><a>Th. Chhagan Singh</a>
-</li>
-										 <li><a>Th. Bhagirath Singh
-</a>
-										   <ul>
-											   <li><a>Th. Norang Singh
-</a>
-												   <ul>
-													   <li><a>Kr. Govind Singh</a>
-</li>
-														 <li><a>Kr. Manvendra Singh</a>
-</li>
-													 </ul>
-												 </li>
-											 </ul>
-										 </li>
-										 <li><a>Th. Laxman Singh</a>
-</li>
-										 <li><a>Th. Manohar Singh</a>
-</li>
-										 <li><a>Th. Bhanwar Singh</a>
-</li>
-									 </ul>
-								 </li>
-								 <li><a>Th. Hukam Singh</a>
-</li>
-								 <li><a>Th. Megh Singh</a>
-</li>
-							 </ul>
-						 </li>
-						 <li><a>Th. Ajeet Singh</a>
-</li>
-						<li><a>Th. Sarup Singh</a>
-</li>
-					 </ul>
-						 </li>
-					 </ul>
-						 </li>
-						<li><a>Th. Om Singh
-</a>
-						 <ul>
-							  <li><a>Th. Ganga Singh</a>
-</li>
-								<li><a>Th. Dhan Singh</a>
-</li>
-								<li><a>Th. Sujan Singh
-</a>
-								 <ul>
-								   <li><a>Th. Rawat Singh</a>
-</li>
-									 <li><a>Th. Dhir Singh</a>
-</li>
-									 <li><a>Th. Fool Singh
-</a>
-									   <ul>
-										   <li><a>Kr. Raghuveer Singh
-</a>
-											   <ul>
-												   <li><a>Kr. Mahipal Singh</a>
-</li>
-													 <li><a>Kr. Sarwan Singh</a>
-</li>
-													  <li><a>Kr. Hari Singh</a>
-</li>
-												 </ul>
-											 </li>
-										 </ul>
-									 </li>
-								 </ul>
-								</li>
-						 </ul>
-						
-						</li>
-					 </ul>
-				 </li>
-			 </ul>
-			</li>
-			<li><a>Th. Sangram Singh</a>
-</li>
-			<li><a>Th. Surat Singh
-</a>
-			 <ul>
-			   <li><a>Th. Hanwant Singh
-</a>
-				   <ul>
-			       <li><a>Th. Jagat Singh
-</a>
-						   <ul>
-							   <li><a>Th. Baldev Singh
-</a>
-
-								   <ul>
-									   <li><a>Th. Sadul Singh</a>
-</li>
-										 <li><a>Th. Guman Singh
-</a>
-										   <ul>
-											   <li><a>Th. Mool Singh</a>
-</li>
-												 <li><a>Th. Dool Singh</a>
-</li>
-											 </ul>
-										 </li>
-										 <li><a>Th. Devi Singh</a>
-</li>
-									 </ul>
-								 </li>
-								 <li><a>Th. Kushal Singh</a>
-</li>
-								 <li><a>Th. Gangabaks Singh
-</a>
-								   <ul>
-									   <li><a>Th. Daal Singh
-</a>
-										   <ul>
-											   <li><a>Th. Fate Singh
-</a>
-												   <ul>
-													   <li><a>Kr. Bhanwar Singh
-</a>
-														   <ul>
-															   <li><a>Bh. Yashpal Singh</a>
-</li>
-																 <li><a>Bh. Shakti Singh</a>
-</li>
-															 </ul>
-														 </li>
-														 <li><a>Kr. Mahendra Singh</a>
-
-														   <ul>
-															   <li><a>Bh. Vijaypal Singh</a>
-</li>
-																 <li><a>Bh. Ajaypal Singh</a>
-</li>
-															 </ul>
-														 </li>
-														 <li><a>Kr. Girwar Singh
-</a>
-														   <ul>
-															   <li><a>Bh. Narendra Singh</a>
-</li>
-																 <li><a>Bh. Gopal Singh</a>
-</li>
-															 </ul>
-														 </li>
-														 <li><a>
-Kr. Bhawani Singh
-</a>
-														   <ul>
-															   <li><a>
-Bh. Shivraj Singh</a>
-</li>
-																 <li><a>
-Bh. Jivraj Singh</a>
-</li>
-															 </ul>
-														 </li>
-													 </ul>
-												 </li>
-												 <li><a>
-Th. Nathu Singh
-</a>
-												   <ul>
-															   <li><a>
-Kr. Bhagwan Singh</a>
-</li>
-																 <li><a>
-Kr. Bajrang Singh</a>
-</li>
-																 <li><a>
-Kr. Prithvi Singh</a>
-</li>
-																 <li><a>
-Kr. Vikram Singh</a>
-</li>
-															 </ul>
-												 </li>
-											 </ul>
-										 </li>
-										 <li><a>
-Th. Ganpat Singh</a>
-</li>
-										 <li><a>
-Th. Sodan Singh</a>
-</li>
-									 </ul>
-								 </li>
-							 </ul>
-						 </li>
-						 <li><a>
-Th. Hamir Singh
-</a>
-						   <ul>
-							  <li><a>
-Th. Pem Singh
-</a>
-								<ul>
-							  <li><a>
-Th. Govind Singh
-</a>
-								 <ul>
-										<li><a>
-Th. Jagmal Singh
-</a>
-										 <ul>
-										   <li><a>
-Th. Mangu Singh</a>
-</li>
-											 <li><a>
-Th. Partap Singh</a>
-</li>
-										 </ul>
-										</li>
-										<li><a>
-Th. Sopal Singh
-</a>
-										 <ul>
-										   <li><a>
-Kr. Raghuveer Singh</a>
-</li>
-											 <li><a>
-Kr. Bhagwan Singh</a>
-</li>
-										 </ul>
-										</li>
-										<li><a>
-Th. Ugam Singh
-</a>
-										 <ul>
-										   <li><a>
-Kr. Manmohan Singh</a>
-</li>
-											 <li><a>
-Kr. Man Singh</a>
-</li>
-											 <li><a>
-Kr. Kan Singh</a>
-</li>
-										 </ul>
-										</li>
-								 </ul>
-								</li>
-								<li><a>
-Th. Jet Singh
-</a>
-								<ul>
-								 <li><a>
-Th. Sawai Singh</a>
-</li>
-								 <li><a>
-Th. Ranveer Singh</a>
-</li>
-								</ul>
-								</li>
-							 
-							 </ul>
-
-								
-								</li>
-							 
-							 </ul>
-						 </li>
-						 <li><a>
-Th. Metab Singh</a>
-</li>
-						 <li><a>
-Th. Shal Singh</a>
-</li>
-				     <li><a>
-Th. Onad Singh</a>
-</li>
-			    </ul>
-				 
-				 </li>
-				 <li><a>
-Th. Bagh Singh</a>
-</li>
-			 </ul>
-			</li>	
-			<li><a>
-Th. Sardar Singh</a>
-</li>
-		 </ul>
- </li>
-		</ul>	
-			
-</td>
-
-</tr></table>
-     
-     </center>
-
-   <script type="text/javascript">
-var tooltip = null;
-var tooltipTimer = null;
-$(function(){
-	formatTree();
-	tooltip = $("#tree_tooltip");
-	$("#tree span.n").hover(
-		function(){
-			showToolTip($(this));
-		},
-		function(){
-			hideToolTip();
-		}
-	);
-	
-	
-	
-	//Add Facebook Link...
-	$('span.n[data-fbid]').each(function(index) {
-		var n = $(this);
-		var fbId = n.attr("data-fbid");
-		var fbLink = ' <a href="https://www.facebook.com/'+fbId+'" class="fb" target="_blank"><img src="images/fb12.gif" alt="Facebook" /></a>';
-		n.after(fbLink);
-	});
-});
-function showToolTip(elm){
-	if(tooltipTimer) {  
-		window.clearTimeout(tooltipTimer);  
-		tooltipTimer = null;  
-	}
-	var name = elm.html();
-	var n = elm.parent("li");
-	var parentName = n.parent("ul").parent("li").children("span.n").html();
-	var index = n?n.index()+1:0;
-	var parents = n.parents("li");
-	var level = parents?parents.length:0;
-	var siblings = n.siblings("li");
-	var siblingCount = siblings?siblings.length:0;
-	var childrens = n.children("ul").children("li");
-	var childCount = childrens.length;
-	var mat = elm.next("span.html").html();
-	var desc = n.children("span.d").html();
-	var offset = elm.offset();
-	var width = elm.width();
-	//Add Facebook image...
-	var fbId = elm.attr("data-fbid");
-	var fbImg = "";
-	if(fbId){
-		fbImg = '<img src="https://graph.facebook.com/'+fbId+'/picture?type=normal" class="fbImg" />';
-	}
-	var pos = "";
-	if(siblingCount>0){
-		if(siblingCount>1 && index == 1){
-			pos = "eldest";
-		} else if(siblingCount>1 && index == (siblingCount+1)){
-			pos = "youngest";
-		} else if(siblingCount == 1 && index == 1){
-			pos = "elder";
-		} else if(siblingCount == 1 && index == (siblingCount+1)){
-			pos = "younger";
-		} else {
-			pos = getNumberOrd(index);
-		}
-	} else { pos = "only"; }
-	var text = fbImg + "<b>" + name + "</b> is the " + pos + " son of <b>" + parentName + " Rathore</b>.";
-	if(siblingCount>0) {
-		text += "<br/>He has " + siblingCount + " more sibling" + (siblingCount>1?"s":"") + " and ";
-		text += "are " + getNumberOrd(level) + " generation progeny of Th. Nahar Singh Ji.";
-	} else {
-		text += "<br/>He is a " + getNumberOrd(level) + " generation progeny of Th. Nahar Singh Ji.";
-	}
-	if(childCount>0) text += "<br/>Number of Male issues: " + childCount;
-	if(desc){
-		text += "<hr/>" + desc;
-	}
-	if(!parentName) text = "Founder of Thikana Dhingsara & Bajekan.<br/>Number of Male issues: " + childCount;
-	if(text && text != ''){
-		tooltip.html(text);
-		tooltip.css({ top: offset.top, left: offset.left+width+10 }).fadeIn(800);
-	}
-}
-function hideToolTip(){
-	tooltip.html('').hide();
-}
-function scrollToName(name){
-	$('span.n').css({ 'background-color' : '' });
-	var link = $("a[name='"+name+"']");
-	var elm = link.siblings('span.n');
-	elm.css({ 'background-color' : 'yellow' });
-	elm.effect("pulsate", { times:5 }, 400);
-	$('html,body').animate({scrollTop: link.offset().top - 100},'slow', function() {
-		showToolTip(elm);
-		tooltipTimer = window.setTimeout("hideToolTip()", 5000);
-	});
-}
-function highlightName(name){
-	//$('span.n').css({ 'background-color' : '' });
-	var link = $("a[name='"+name+"']");
-	var elm = link.siblings('span.n');
-	elm.css({ 'background-color' : 'yellow' });
-}
-function unHighlightName(name){
-	var link = $("a[name='"+name+"']");
-	var elm = link.siblings('span.n');
-	elm.css({ 'background-color' : '' });
-}
-function getNumberOrd(i){
-	var n = i % 100;
-    var suffix = ['th', 'st', 'nd', 'rd', 'th'];
-    var ord = n < 21 ? (n < 4 ? suffix[n] : suffix[0]) : (n % 10 > 4 ? suffix[0] : suffix[n % 10]);
-    return i + "<sup>" + ord + "</sup>";
-}
-function formatTree(){
-	var branch = 'branch.png';
-	var bh = 5000;
-	var bw = 30;
-	//Change Background image for every last child
-	var level0 = $('#KasumalgarhVanshavali > li');
-	$('#KasumalgarhVanshavali li:last-child').css({ 'background': 'url(' + branch + ') 0px -' + (bh-bw) + 'px no-repeat' });
-	$('#KasumalgarhVanshavali > li').css({ 'background': 'none' });
-}
-
-</script>
+</section>
 
 <center>
 
-<img src="./kimgs/ddown.png" alt="divider"  style="WIDTH:500px;HEIGHT:;margin-bottom: 0cm;"></center>
+<img src="./kimgs/ddown.png" alt="Header Logo"  style="WIDTH:300px;HEIGHT:;margin-bottom: 0cm;"></center>
 <center>
 <div class="footer"><div class="g1"><a href="https://kasumalgarh.github.io/" target="_blank">Home</a>
 |
-<a href="https://kasumalgarh.github.io/k_vanshavali.html" target="_blank">Kasumalgarh-Vanshavali</a>
+<a href="https://https://kasumalgarh.github.io/k_vanshavali.html" target="_blank">Kasumalgarh-Vanshavali</a>
 
 <br>
 <a href="https://kasumalgarh.github.io/r_vanshavali.html" target="_blank">Rathore-Vanshavali</a>
@@ -1009,29 +298,12 @@ function formatTree(){
 
 
 <br>
+Thanks To Come Here.Feel Free To Contact Me For Any Advise.<br> Copyrights &copy 2013-2025&nbsp Yuvraj GajRaj Singh Rathore (Kasumalgarh)</div></div>
 
-Thanks To Come Here.Feel Free To Contact Me For Any Advise.<br> Copyrights &copy 2013-20125&nbsp Yuvraj GajRaj Singh Rathore (Kasumalgarh)
-
-
-
-<br>
-
-
-
-
-
-
-
-</div></div>
-
-<script src="./kjs/fastclick.js"></script>
-    <script src="./kjs/scroll.js"></script>
-    <script src="./kjs/fixed-responsive-nav.js"></script>
 
 <!-- Live Visitor Counter Widget -->
 <script data-cfasync="false" type="text/javascript" src="//whos.amung.us/pingjs/?k=kasumalgarh&t=Kasumalgarh Live"></script>
 <noscript><a href="https://whos.amung.us/stats/kasumalgarh" target="_blank">Visitors</a></noscript>
 
-</body>
-
-</html>
+	</body>
+	</html>
