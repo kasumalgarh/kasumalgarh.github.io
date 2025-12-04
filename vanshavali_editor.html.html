@@ -21,184 +21,255 @@
         }
         .main-wrapper { display: flex; max-width: 1400px; margin: 0 auto; gap: 20px; }
         .editor-panel { flex: 1; min-width: 600px; background-color: rgba(0, 0, 0, 0.7); padding: 30px; border-radius: 10px; border: 3px solid #d4af37; box-shadow: 0 0 15px #d4af37; }
-        .preview-panel { flex: 1; padding: 20px; background-color: #2c0001; border-radius: 10px; border: 3px solid #d4af37; overflow-y: scroll; max-height: 800px; } /* लाइव प्रीव्यू के लिए अलग स्टाइल */
+        .preview-panel { flex: 1; padding: 20px; background-color: #2c0001; border-radius: 10px; border: 3px solid #d4af37; overflow-y: scroll; max-height: 800px; } 
+
+        h2 { 
+            color: #d4af37; 
+            font-family: 'Cinzel', serif; 
+            border-bottom: 2px solid #d4af37; 
+            padding-bottom: 10px; 
+            margin-bottom: 20px; 
+            text-align: center; 
+        }
         
-        h2 { color: #d4af37; font-family: 'Cinzel', serif; border-bottom: 2px solid #d4af37; padding-bottom: 10px; margin-bottom: 20px; text-align: center; }
-        h3 { color: #f4f4f4; font-family: 'Cinzel', serif; font-size: 1.5em; text-align: left; }
-        input[type="text"], textarea { width: 100%; padding: 10px; margin-bottom: 15px; background-color: #1a1a1a; color: #d4af37; border: 2px solid red; border-radius: 5px; box-sizing: border-box; font-family: Consolas, monospace; }
-        textarea { min-height: 150px; }
-        label { display: block; text-align: left; margin-bottom: 5px; color: #f4f4f4; font-weight: bold; font-family: 'Playfair Display', serif; }
-        button { background-color: #008000; color: white; padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; font-size: 1.2em; font-weight: bold; transition: background-color 0.3s; margin-top: 15px; }
+        /* Fort Logo Styling */
+        .fort-heading img {
+            height: 40px; 
+            vertical-align: middle; 
+            margin-right: 10px;
+        }
+
+        h3 { color: #f4f4f4; font-family: 'Cinzel', serif; font-size: 1.5em; text-align: left; }        
+        input[type="text"], textarea { width: 100%; padding: 10px; margin-bottom: 15px; background-color: #1a1a1a; color: #d4af37; border: 2px solid red; border-radius: 5px; box-sizing: border-box; font-family: Consolas, monospace; }        
+        textarea { min-height: 150px; }        
+        label { display: block; text-align: left; margin-bottom: 5px; color: #f4f4f4; font-weight: bold; font-family: 'Playfair Display', serif; }        
         
-        .section { margin-top: 20px; padding-top: 10px; border-top: 1px dashed #d4af37; }
+        /* बटन स्टाइल */
+        button { 
+            background-color: #008000; 
+            color: white; 
+            padding: 12px 25px; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-size: 1.2em; 
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin-top: 15px; 
+            display: inline-block;
+        }
+        button:hover { background-color: #006400; }
+        .paste-button {
+            background-color: #5D4037; /* Royal Brown/Bronze */
+            margin-left: 10px;
+        }
+        .paste-button:hover {
+            background-color: #4E342E; 
+        }
+
+        .section { margin-top: 20px; padding-top: 10px; border-top: 1px dashed #d4af37; }        
         .warning { color: yellow; font-weight: bold; margin-bottom: 15px; }
 
-        /* ========================================= */
-        /* B. VILASHAVALI PREVIEW STYLING (Vertical Royal CSS Applied Here) */
-        /* ========================================= */
-        .preview-panel .tree { padding: 0; text-align: left; }
-        .preview-panel .tree ul { list-style: none; padding-left: 20px; margin: 0; border-left: 2px solid #a30000; }
-        .preview-panel .tree li { text-align: left; padding: 5px 0; margin: 5px 0; position: relative; }
-        .preview-panel .tree li a {
-            border: 3px solid #d4af37; padding: 5px 10px; text-decoration: none; color: #3e2723;
-            background: linear-gradient(to bottom, #fff8dc, #f0e68c); font-family: 'Cinzel', serif;
-            font-weight: 700; font-size: 0.9em; border-radius: 8px; display: inline-block;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.5); max-width: 95%; white-space: normal; cursor: default;
+        /* VILASHAVALI PREVIEW STYLING (Unchanged) */        
+        .preview-panel .tree { padding: 0; text-align: left; }        
+        .preview-panel .tree ul { list-style: none; padding-left: 20px; margin: 0; border-left: 2px solid #a30000; }        
+        .preview-panel .tree li { text-align: left; padding: 5px 0; margin: 5px 0; position: relative; }        
+        .preview-panel .tree li a {            
+            border: 3px solid #d4af37; padding: 5px 10px; text-decoration: none; color: #3e2723;            
+            background: linear-gradient(to bottom, #fff8dc, #f0e68c); font-family: 'Cinzel', serif;            
+            font-weight: 700; font-size: 0.9em; border-radius: 8px; display: inline-block;            
+            box-shadow: 0 5px 10px rgba(0,0,0,0.5); max-width: 95%; white-space: normal; cursor: default;        
+        }        
+        .preview-panel .tree li a:hover {             
+            background: #d4af37; color: #2c0001; border-color: #fff; transform: none; 
+        }        
+        .preview-panel .tree li a br + small, .preview-panel .tree li a small {            
+            display: block; margin-top: 3px; font-family: 'Playfair Display', serif; font-size: 0.7em; color: #5d4037; font-weight: normal;        
         }
-        .preview-panel .tree li a:hover {
-             background: #d4af37; color: #2c0001; border-color: #fff; transform: none; /* Preview me hover effect hataya */
+        
+        /* FOOTER STYLING */
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 2px solid #d4af37;
         }
-        .preview-panel .tree li a br + small, .preview-panel .tree li a small {
-            display: block; margin-top: 3px; font-family: 'Playfair Display', serif; font-size: 0.7em; color: #5d4037; font-weight: normal;
+        footer a {
+            color: #d4af37;
+            margin: 0 10px;
+            font-size: 1em;
+            text-decoration: none;
+        }
+        footer a:hover {
+            color: #fff;
         }
     </style>
 </head>
+
 <body>
-
-<div class="main-wrapper">
-    <div class="editor-panel">
-        <center><h2>👑 Vansh Editor (Live Preview) 👑</h2></center>
-
-        <h3>चरण 1: मौजूदा कोड पेस्ट करें</h3>
-        <textarea id="inputHtml" placeholder="यहाँ <ul id=&quot;KasumalgarhVanshavali&quot;> से लेकर </ul> तक का पूरा HTML कोड पेस्ट करें।"></textarea>
+<div class="main-wrapper">    
+    <div class="editor-panel">        
+        
+        <center>
+            <h2 class="fort-heading">
+                <img src="./output-onlinepngtools (2).png" alt="Fort Kasumbi Logo">
+                Vansh Editor (Live Preview) 
+            </h2>
+        </center>
+        
+        <h3>चरण 1: मौजूदा कोड पेस्ट करें</h3>        
+        <textarea id="inputHtml" placeholder="पहले वंशावली पेज पर 'कोड कॉपी करें' दबाएँ, फिर नीचे वाले बटन पर क्लिक करें।"></textarea>
+        
+        <button onclick="pasteFromClipboard()" class="paste-button">📋 क्लिपबोर्ड से कोड पेस्ट करें</button>
         <button onclick="loadPreview()">🔄 प्रीव्यू लोड करें</button>
-
-        <div class="section">
-            <h3>चरण 2: नाम भरें और जोड़ें</h3>
-            <label for="grandParentName">**दादा (Grandparent) का नाम:**</label>
+        
+        <div class="section">            
+            <h3>चरण 2: नाम भरें और जोड़ें</h3>            
+            <label for="grandParentName">**दादा (Grandparent) का नाम:**</label>            
             <input type="text" id="grandParentName" placeholder="उदाहरण: Th. Ridmal Singh (ज़रूरी)">
-
-            <label for="parentName">**पिता (Parent) का नाम:**</label>
+            
+            <label for="parentName">**पिता (Parent) का नाम:**</label>            
             <input type="text" id="parentName" placeholder="उदाहरण: Th. Bhairu Singh (ज़रूरी)">
-
+            
             <hr style="border-color: #d4af37;">
-
-            <label for="newName">**नया नाम (Child's Name):**</label>
+            
+            <label for="newName">**नया नाम (Child's Name):**</label>            
             <input type="text" id="newName" placeholder="उदाहरण: Kr. Yuvraj Singh">
-
-            <label for="newNote">छोटा नोट (Optional):</label>
+            
+            <label for="newNote">छोटा नोट (Optional):</label>            
             <input type="text" id="newNote" placeholder="(Optional) - शादी का नोट, आदि">
-
-            <button onclick="addName()">➕ वंशावली में नाम जोड़ें</button>
+            
+            <button onclick="addName()">➕ वंशावली में नाम जोड़ें</button>        
         </div>
-
-        <div class="section">
-            <h3>चरण 3: नया कोड कॉपी करें</h3>
-            <p>नीचे दिए गए बॉक्स से कोड कॉपी करें और GitHub पर अपडेट करें।</p>
-            <textarea id="outputHtml" readonly placeholder="अपडेटेड HTML कोड यहाँ दिखेगा"></textarea>
-        </div>
-    </div>
+        
+        <div class="section">            
+            <h3>चरण 3: नया कोड कॉपी करें</h3>            
+            <p>नीचे दिए गए बॉक्स से कोड कॉपी करें और GitHub पर अपडेट करें।</p>            
+            <textarea id="outputHtml" readonly placeholder="अपडेटेड HTML कोड यहाँ दिखेगा"></textarea>        
+        </div>    
+    </div>        
     
-    <div class="preview-panel">
-        <h2>लाइव प्रीव्यू</h2>
-        <div id="livePreview" class="tree">
-            <p style="color:red;">कोड पेस्ट करें और 'प्रीव्यू लोड करें' दबाएँ।</p>
-        </div>
+    <div class="preview-panel">        
+        <h2>लाइव प्रीव्यू</h2>        
+        <div id="livePreview" class="tree">            
+            <p style="color:yellow;">कोड पेस्ट करें और 'प्रीव्यू लोड करें' दबाएँ।</p>        
+        </div>    
     </div>
 </div>
 
+<footer>
+    <center>
+        <a href="https://kasumalgarh.github.io/index.html" target="_blank">🏠 होमपेज पर जाएँ</a> |
+        <a href="./admin_dashboard.html" target="_blank">📊 एडमिन डैशबोर्ड</a> |
+        <a href="https://github.com/kasumalgarh/kasumalgarh.github.io/edit/main/k_vanshavali.html" target="_blank">✍️ GitHub पर कोड बदलें</a>
+    </center>
+</footer>
 <script>
-function loadPreview() {
-    const inputHtmlString = document.getElementById('inputHtml').value.trim();
-    const livePreviewDiv = document.getElementById('livePreview');
-    
-    if (!inputHtmlString) {
-        livePreviewDiv.innerHTML = '<p style="color:red;">पहले चरण 1 में कोड पेस्ट करें।</p>';
-        return;
-    }
-    
-    // Safety check: ensure the string contains the main list ID
-    if (inputHtmlString.includes('id="KasumalgarhVanshavali"')) {
-        livePreviewDiv.innerHTML = `<div id="previewWrapper">${inputHtmlString}</div>`;
-    } else {
-         livePreviewDiv.innerHTML = `<p style="color:red;">कोड सही फॉर्मेट में नहीं है। कृपया ul id="KasumalgarhVanshavali" वाला हिस्सा ही कॉपी करें।</p>`;
+// --- PASTE FUNCTION ---
+async function pasteFromClipboard() {
+    try {
+        const text = await navigator.clipboard.readText();
+        if (text && text.includes('KasumalgarhVanshavali')) {
+            document.getElementById('inputHtml').value = text;
+            loadPreview();
+            alert("✅ कोड क्लिपबोर्ड से सफलतापूर्वक पेस्ट हो गया है! अब आप नाम जोड़ सकते हैं।");
+        } else {
+            alert("❌ क्लिपबोर्ड में वंशावली का कोड नहीं मिला। कृपया पहले वंशावली पेज पर जाकर 'कॉपी करें' बटन दबाएँ।");
+        }
+    } catch (err) {
+        console.error('Failed to read clipboard contents: ', err);
+        alert("❌ क्लिपबोर्ड एक्सेस करने की अनुमति नहीं मिली। कृपया मैन्युअल रूप से पेस्ट करें।");
     }
 }
 
-function addName() {
-    const inputHtmlString = document.getElementById('inputHtml').value.trim();
-    const grandParentName = document.getElementById('grandParentName').value.trim();
-    const parentName = document.getElementById('parentName').value.trim();
-    const newName = document.getElementById('newName').value.trim();
-    const newNote = document.getElementById('newNote').value.trim();
+// --- LOAD PREVIEW FUNCTION (Unchanged) ---
+function loadPreview() {    
+    const inputHtmlString = document.getElementById('inputHtml').value.trim();    
+    const livePreviewDiv = document.getElementById('livePreview');        
+    if (!inputHtmlString) {        
+        livePreviewDiv.innerHTML = '<p style="color:red;">पहले चरण 1 में कोड पेस्ट करें।</p>';        
+        return;    
+    }        
+    if (inputHtmlString.includes('id="KasumalgarhVanshavali"')) {        
+        livePreviewDiv.innerHTML = `<div id="previewWrapper" class="tree">${inputHtmlString}</div>`;    
+    } else {         
+        livePreviewDiv.innerHTML = `<p style="color:red;">कोड सही फॉर्मेट में नहीं है। कृपया ul id="KasumalgarhVanshavali" वाला हिस्सा ही कॉपी करें।</p>`;    
+    }
+}
+
+// --- ADD NAME FUNCTION (Unchanged) ---
+function addName() {    
+    const inputHtmlString = document.getElementById('inputHtml').value.trim();    
+    const grandParentName = document.getElementById('grandParentName').value.trim();    
+    const parentName = document.getElementById('parentName').value.trim();    
+    const newName = document.getElementById('newName').value.trim();    
+    const newNote = document.getElementById('newNote').value.trim();    
     const outputHtml = document.getElementById('outputHtml');
 
-    if (!inputHtmlString || !grandParentName || !parentName || !newName) {
-        alert("कृपया सभी आवश्यक फ़ील्ड भरें।");
-        return;
+    if (!inputHtmlString || !grandParentName || !parentName || !newName) {        
+        alert("कृपया सभी आवश्यक फ़ील्ड भरें।");        
+        return;    
     }
 
-    // 1. Setup the temporary container for manipulation
-    const tempContainer = document.createElement('div');
-    tempContainer.innerHTML = inputHtmlString;
+    const tempContainer = document.createElement('div');    
+    tempContainer.innerHTML = inputHtmlString;    
     const vanshavaliList = tempContainer.querySelector('#KasumalgarhVanshavali');
 
-    if (!vanshavaliList) {
-        outputHtml.value = "त्रुटि: इनपुट कोड में #KasumalgarhVanshavali लिस्ट नहीं मिली।";
-        return;
+    if (!vanshavaliList) {        
+        outputHtml.value = "त्रुटि: इनपुट कोड में #KasumalgarhVanshavali लिस्ट नहीं मिली।";        
+        return;    
     }
 
-    // 2. Find the Parent (LI element) using Grandparent context
     let parentElement = null;
 
-    vanshavaliList.querySelectorAll('a').forEach(a => {
-        if (a.textContent.includes(parentName)) {
-            let currentElement = a.closest('li');
-            const parentUl = currentElement.closest('ul');
-            
-            if (parentUl) {
+    vanshavaliList.querySelectorAll('a').forEach(a => {        
+        if (a.textContent.includes(parentName)) {            
+            let currentElement = a.closest('li');            
+            const parentUl = currentElement.closest('ul');                        
+            if (parentUl) {                
                 const grandParentElement = parentUl.closest('li');
 
-                if (grandParentElement) {
-                    const grandParentAnchor = grandParentElement.querySelector('a');
-                    if (grandParentAnchor && grandParentAnchor.textContent.includes(grandParentName)) {
-                        parentElement = currentElement; // Found the correct unique branch!
-                    }
-                }
-            }
-        }
+                if (grandParentElement) {                    
+                    const grandParentAnchor = grandParentElement.querySelector('a');                    
+                    if (grandParentAnchor && grandParentAnchor.textContent.includes(grandParentName)) {                        
+                        parentElement = currentElement;
+                    }                
+                }            
+            }        
+        }    
     });
 
-    if (!parentElement) {
-        outputHtml.value = `त्रुटि: वंशावली में "${parentName}" नाम का कोई पिता "${grandParentName}" दादा की शाखा में नहीं मिला।`;
-        alert(`त्रुटि: वंशावली में "${parentName}" नाम का कोई पिता "${grandParentName}" दादा की शाखा में नहीं मिला।`);
-        return;
-    }
-    
-    // 3. Creates the New Child LI element
-    const newLi = document.createElement('li');
-    let anchorContent = `<a><strong>${newName}</strong>`;
-    if (newNote) {
-        anchorContent += `<br><small>${newNote}</small>`;
-    }
-    anchorContent += `</a>`;
+    if (!parentElement) {        
+        outputHtml.value = `त्रुटि: वंशावली में "${parentName}" नाम का कोई पिता "${grandParentName}" दादा की शाखा में नहीं मिला।`;        
+        alert(`त्रुटि: वंशावली में "${parentName}" नाम का कोई पिता "${grandParentName}" दादा की शाखा में नहीं मिला।`);        
+        return;    
+    }        
+    const newLi = document.createElement('li');    
+    let anchorContent = `<a><strong>${newName}</strong>`;    
+    if (newNote) {        
+        anchorContent += `<br><small>${newNote}</small>`;    
+    }    
+    anchorContent += `</a>`;    
     newLi.innerHTML = anchorContent;
 
-    // 4. Inserts the New Child
-    let parentUl = parentElement.querySelector('ul');
-    if (!parentUl) {
-        parentUl = document.createElement('ul');
-        parentElement.appendChild(parentUl);
-    }
+    let parentUl = parentElement.querySelector('ul');    
+    if (!parentUl) {        
+        parentUl = document.createElement('ul');        
+        parentElement.appendChild(parentUl);    
+    }    
     parentUl.appendChild(newLi);
 
-    // 5. Extracts the updated HTML
-    const updatedHtmlString = vanshavaliList.outerHTML;
-    outputHtml.value = updatedHtmlString;
+    const updatedHtmlString = vanshavaliList.outerHTML;    
+    outputHtml.value = updatedHtmlString;        
     
-    // 6. Refresh Preview and Input (to allow adding another child under the new parent)
-    document.getElementById('livePreview').innerHTML = `<div id="previewWrapper" class="tree">${updatedHtmlString}</div>`;
-    document.getElementById('inputHtml').value = updatedHtmlString; // Update the input field for next edit
-    
+    document.getElementById('livePreview').innerHTML = `<div id="previewWrapper" class="tree">${updatedHtmlString}</div>`;    
+    document.getElementById('inputHtml').value = updatedHtmlString;     
     alert(`सफलता! नया नाम "${newName}" सही शाखा में जोड़ दिया गया है और प्रीव्यू अपडेट हो गया है।`);
 }
 
-function initialLoad() {
-    // Allows loading the content from the input box into the preview area
+function initialLoad() {    
     document.getElementById('livePreview').innerHTML = '<p style="color:yellow;">टूल का उपयोग करने के लिए तैयार।</p>';
 }
 window.onload = initialLoad;
 </script>
-
 </body>
 </html>
