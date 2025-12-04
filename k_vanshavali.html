@@ -104,6 +104,32 @@ include('khits.php');
 
 
 <style>body{background:#380000;}
+	/* Footer Copy Button Styling */
+#copyButtonFooter {
+    background-color: #3e2723; /* Royal Brown/Dark Maroon */
+    color: white; 
+    padding: 10px 15px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-weight: bold;
+    font-size: 1em;
+    float: right; /* बटन को दाहिनी ओर फ्लोट करें */
+    margin-top: 10px; 
+    text-decoration: none;
+    display: inline-block;
+}
+
+#copyButtonFooter:hover {
+    background-color: #5d4037;
+}
+
+/* Clearfix for the footer to contain the floated button */
+.footer .g1::after {
+    content: "";
+    display: table;
+    clear: both;
+}
 
 </style>
 						
@@ -990,7 +1016,20 @@ function formatTree(){
 	$('#KasumalgarhVanshavali li:last-child').css({ 'background': 'url(' + branch + ') 0px -' + (bh-bw) + 'px no-repeat' });
 	$('#KasumalgarhVanshavali > li').css({ 'background': 'none' });
 }
-
+// यह फंक्शन वंशावली का कोड सीधे क्लिपबोर्ड पर कॉपी करता है
+function copyVanshavali() {
+    // 1. वंशावली लिस्ट का HTML कंटेंट प्राप्त करें
+    const vanshavaliCode = document.getElementById('KasumalgarhVanshavali').outerHTML;
+    
+    // 2. नए Clipboard API का उपयोग करके कोड कॉपी करें
+    navigator.clipboard.writeText(vanshavaliCode).then(() => {
+        alert("✅ वंशावली का कोड सफलतापूर्वक कॉपी हो गया है! अब आप इसे एडिटर टूल में पेस्ट कर सकते हैं।");
+    }).catch(err => {
+        // Fallback for older browsers
+        console.error('Copy failed:', err);
+        alert("❌ कॉपी नहीं हो पाया। कृपया कोड मैन्युअल रूप से चुनें और कॉपी करें।");
+    });
+}
 </script>
 
 <center>
@@ -1015,7 +1054,7 @@ Thanks To Come Here.Feel Free To Contact Me For Any Advise.<br> Copyrights &copy
 
 <br>
 
-
+<a href="#" onclick="copyVanshavali(); return false;" id="copyButtonFooter">📄 वंशावली कोड कॉपी करें (एडिटर के लिए)</a>
 
 
 
