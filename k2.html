@@ -4,7 +4,7 @@
 <head>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9544480240826054" crossorigin="anonymous"></script>
     <meta charset="utf-8">
-    <title>KASUMALGARH :: Royal Family Tree</title>
+    <title>KASUMALGARH :: Royal Family Tree (Vertical)</title>
     
     <link rel="stylesheet" href="./kcss/styles.css">
     <link rel="stylesheet" href="./kcss/test.css">
@@ -25,11 +25,16 @@
                     $(this).addClass('parent');
                 }
             });
-            // पुरानी स्लाइड टॉगल स्क्रिप्ट को निष्क्रिय रखा गया है ताकि चार्ट पूरा खुला दिखे।
+            // पुरानी स्लाइड टॉगल स्क्रिप्ट को वापस चालू किया जा सकता है अगर आप लिस्ट को बंद/खोलना चाहते हैं।
+            $('#KasumalgarhVanshavali li.parent > a').click(function() {
+                 $(this).parent().toggleClass('active');
+                 $(this).parent().children('ul').slideToggle('fast');
+             });
+             // ... बाकी पुरानी स्क्रिप्ट के फंक्शन्स ...
         });
     </script>
 
-<style>
+    <style>
         /* 1. पूरी बॉडी को शाही लुक दें */
         body {
             background-color: #2c0001; /* गहरा शाही लाल/मरून */
@@ -49,74 +54,52 @@
         
         a { text-decoration: none; color: #d4af37; }
 
-        /* 2. ट्री का बाहरी ढांचा (Container) और स्क्रॉल फिक्स */
+        /* 2. ट्री का बाहरी ढांचा (Container) */
         .tree {
-            display: flex;
-            justify-content: center;
-            padding: 50px 20px;
-            overflow-x: auto; /* हॉरिजॉन्टल स्क्रॉल फिक्स */
+            /* वर्टिकल लिस्ट के लिए कोई हॉरिजॉन्टल या फ्लेक्स रूल नहीं */
+            padding: 20px; 
+            overflow: hidden; 
+            text-align: left; /* ट्री को बाईं ओर शुरू करें */
+            max-width: 900px;
+            margin: 0 auto; /* बीच में सेट करने के लिए */
         }
-
-        /* 3. लिस्ट को हटाकर क्षैतिज (Horizontal) ट्री बनाना */
+        
+        /* 3. लिस्ट स्ट्रक्चर को रीसेट करें (Vertical) */
         .tree ul {
-            padding-top: 20px; 
-            position: relative;
-            transition: all 0.5s;
-            display: flex;
-            justify-content: center;
+            list-style: none; /* डिफॉल्ट बुलेट हटा दें */
+            padding-left: 20px; /* इंडेंटेशन (अंदर की ओर धकेलने) के लिए */
+            margin: 0;
         }
 
         .tree li {
-            float: left; text-align: center;
-            list-style-type: none;
+            text-align: left; /* कार्ड्स को बाईं ओर संरेखित करें */
+            padding: 5px 0;
+            margin: 5px 0;
             position: relative;
-            padding: 20px 5px 0 5px;
-            transition: all 0.5s;
         }
-
-        /* 4. पीढ़ियों को जोड़ने वाली सुनहरी लाइनें (Golden Connectors) */
-        .tree li::before, .tree li::after {
-            content: '';
-            position: absolute; top: 0; right: 50%;
-            border-top: 2px solid #d4af37; /* गोल्ड कलर */
-            width: 50%; height: 20px;
-        }
-        .tree li::after {
-            right: auto; left: 50%;
-            border-left: 2px solid #d4af37;
-        }
-
-        /* सफाई और कॉर्नर */
-        .tree li:only-child::after, .tree li:only-child::before { display: none; }
-        .tree li:only-child { padding-top: 0; }
-        .tree li:first-child::before, .tree li:last-child::after { border: 0 none; }
-        .tree li:last-child::before{ border-right: 2px solid #d4af37; border-radius: 0 5px 0 0; }
-        .tree li:first-child::after{ border-radius: 5px 0 0 0; }
-        .tree ul ul::before{
-            content: '';
-            position: absolute; top: 0; left: 50%;
-            border-left: 2px solid #d4af37;
-            width: 0; height: 20px;
-        }
-
+        
+        /* 4. गोल्डन वर्टिकल लाइन्स (ऑप्शनल: पुरानी लाइन्स की तरह) */
+        .tree ul { border-left: 2px solid #a30000; /* थोड़ा गहरा लाल रंग */ }
+        .tree ul ul { border-left: 2px solid #5d0000; } /* और गहरा */
+        
         /* 5. नाम वाले बॉक्स (Royal Cards) का डिज़ाइन */
         .tree li a {
             border: 3px solid #d4af37; /* मोटा गोल्ड बॉर्डर */
-            padding: 15px 10px; /* पैडिंग कम की गई */
+            padding: 10px 15px;
             text-decoration: none;
             color: #3e2723;
-            background: linear-gradient(to bottom, #fff8dc, #f0e68c, #d4af37); 
+            /* शाही गोल्ड ग्रेडिएंट बैकग्राउंड */
+            background: linear-gradient(to bottom, #fff8dc, #f0e68c); 
             font-family: 'Cinzel', serif;
             font-weight: 700;
-            font-size: 1.0em; /* फॉन्ट साइज थोड़ा छोटा */
+            font-size: 1.0em;
             border-radius: 8px;
             display: inline-block;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5), inset 0 0 10px rgba(255,255,255,0.5);
-            min-width: 100px; /* न्यूनतम चौड़ाई कम की गई */
-            max-width: 150px; /* अधिकतम चौड़ाई सेट की गई */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            max-width: 95%; 
+            white-space: normal; /* टेक्स्ट को कार्ड के अंदर रैप होने दें */
             transition: all 0.3s ease-in-out;
-            position: relative;
-            white-space: normal; /* <--- यह है वह Fix: टेक्स्ट को अंदर ही रैप कर देगा! */
+            cursor: pointer;
         }
         
         /* कार्ड के अंदर छोटे टेक्स्ट (जैसे 'Founder of...') के लिए */
@@ -127,25 +110,20 @@
             font-size: 0.8em;
             color: #5d4037;
             font-weight: normal;
-            white-space: normal;
         }
 
         /* माउस ले जाने पर (Hover Effect) */
         .tree li a:hover {
-            background: linear-gradient(to bottom, #d4af37, #f0e68c);
+            background: #d4af37; /* पूरा गोल्ड हो जाए */
             color: #2c0001;
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.8), inset 0 0 15px rgba(255,255,255,0.7);
             border-color: #fff;
-            z-index: 10;
         }
-
+        
         /* फुटर और हेडर को थोड़ा एडजस्ट करें */
         .footer { color: #f4e4bc; margin-top: 30px; }
         .footer a { color: #d4af37; }
         
         /* हेडर लोगो और नेविगेशन */
-        .nav-links h6 { display: inline-block; margin: 0 10px; }
         .nav-separator { margin: 20px 0; padding: 10px; border-top: 2px solid #d4af37; border-bottom: 2px solid #d4af37; }
     </style>
 </head>
@@ -736,8 +714,7 @@
     <script src="./kjs/fastclick.js"></script>
     <script src="./kjs/scroll.js"></script>
     <script src="./kjs/fixed-responsive-nav.js"></script>
-    <script data-cfasync="false" type="text/javascript" src="//whos.amung.us/pingjs/?k=kasumalgarh&t=Kasumalgarh Live"></script>
-    <noscript><a href="https://whos.amung.us/stats/kasumalgarh" target="_blank">Visitors</a></noscript>
+    <script data-cfasync="false" type="text/javascript" src="//whos.amungus.com/pingjs/?k=kasumalgarh&t=Kasumalgarh Live"></script>
+    <noscript><a href="https://whos.amungus.com/stats/kasumalgarh" target="_blank">Visitors</a></noscript>
 </body>
 </html>
-
