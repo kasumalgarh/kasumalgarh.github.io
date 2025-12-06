@@ -72,7 +72,10 @@ include('khits.php');
 #dynamic-name-list a { /* Updated ID */
     color: #E6B300; /* Golden/Bronze link color */
     text-decoration: none;
-    display: block;
+    /* NEW: Use Flexbox to align name and icons */
+    display: flex; 
+    justify-content: space-between; /* Puts name left, icons right */
+    align-items: center;
     padding: 2px 5px;
     font-size: 0.9em;
     border-radius: 3px;
@@ -98,6 +101,33 @@ include('khits.php');
     color: #380000 !important; 
     padding: 3px !important;
     border-radius: 5px;
+}
+
+/* NEW: Social Icons Styling in Index */
+.social-icon {
+    display: inline-block;
+    width: 16px; 
+    height: 16px;
+    margin-left: 5px;
+    vertical-align: middle; 
+    background-size: cover;
+    opacity: 0.7; 
+    transition: opacity 0.3s;
+    flex-shrink: 0; /* Ensures icons don't shrink */
+}
+
+.social-icon:hover {
+    opacity: 1.0;
+}
+
+/* Icons are loaded from your kimgs folder */
+/* Ensure you have these image files in your kimgs folder */
+.fb-icon {
+    background-image: url('./kimgs/fb_icon.png'); 
+}
+
+.insta-icon {
+    background-image: url('./kimgs/insta_icon.png');
 }
 
 /* Hide sidebar on very small screens if necessary */
@@ -169,17 +199,24 @@ include('khits.php');
 				// NEW: Attach scrollToName function to dynamically created index links
 				// We use event delegation on the static parent '#dynamic-name-list'
 				$('#dynamic-name-list').on('click', 'a', function(e) {
+					// Check if the click target is a social icon 
+					if ($(e.target).hasClass('social-icon')) {
+						return; // If it's an icon, let the link follow its href (open in new tab)
+					}
+
+					// If the click target is the name itself, prevent default (don't navigate) and scroll
 					e.preventDefault();
 					var targetId = $(this).attr('href').substring(1);
-					scrollToName(targetId, this);
+					// Pass the <li> element to scrollToName for highlighting
+					scrollToName(targetId, $(this).closest('li').find('a')); 
 				});
 
 		});
         
-// ***** NEW FUNCTION: Automatically generates the Index and counts the names *****
+// ***** UPDATED FUNCTION: Automatically generates the Index, counts names, and adds social icons *****
 function generateIndex() {
     var $vanshavali = $('#KasumalgarhVanshavali');
-    var $indexList = $('#dynamic-name-list'); // HTML में ID अपडेट की गयी है
+    var $indexList = $('#dynamic-name-list'); 
     var totalNames = 0;
     
     $indexList.empty(); // इंडेक्स को पहले खाली करें
@@ -188,15 +225,28 @@ function generateIndex() {
     $vanshavali.find('a[id]').each(function() {
         var $nameAnchor = $(this);
         var id = $nameAnchor.attr('id');
+        var fbId = $nameAnchor.attr('data-fbid');     // Get Facebook ID
+        var instaId = $nameAnchor.attr('data-instaid'); // Get Instagram ID
         
-        // नाम के text को लें (strong टैग्स के साथ भी काम करेगा)
-        var nameText = $nameAnchor.html().trim(); 
+        // नाम के text को लें और strong टैग्स को हटा दें
+        var nameText = $nameAnchor.html().trim().replace(/<\/?strong>/g, '');
         
-        // strong टैग्स को हटा दें ताकि इंडेक्स में सिर्फ नाम दिखे
-        var cleanedText = nameText.replace(/<\/?strong>/g, '');
+        // Social Media Icons/Links बनाएं
+        var socialIcons = '<div class="social-icons-container">'; // Container to group icons
         
-        // एक नया <li> तत्व बनाएं
-        var listItem = '<li><a href="#' + id + '">' + cleanedText + '</a></li>';
+        if (fbId) {
+            // Facebook Link
+            socialIcons += '<a href="https://www.facebook.com/' + fbId + '" target="_blank" class="social-icon fb-icon" title="Facebook"></a>';
+        }
+        if (instaId) {
+            // Instagram Link
+            var cleanInstaId = instaId.startsWith('@') ? instaId.substring(1) : instaId;
+            socialIcons += '<a href="https://www.instagram.com/' + cleanInstaId + '" target="_blank" class="social-icon insta-icon" title="Instagram"></a>';
+        }
+        socialIcons += '</div>';
+
+        // नाम और आइकॉन के लिए अलग-अलग div बनाएं ताकि उन्हें justify-content: space-between से मैनेज किया जा सके
+        var listItem = '<li><a href="#' + id + '">' + nameText + socialIcons + '</a></li>';
         
         // इंडेक्स लिस्ट में जोड़ें
         $indexList.append(listItem);
@@ -316,7 +366,7 @@ Contact-us</a>
 
 <button id="all">CLICK</button>
 
-	 <li><a id="thakur_narayan_singh"><strong>Raj Shree Thakur Saheb Narayan Singh </strong>
+	 <li><a id="thakur_narayan_singh" data-fbid="gajraj.rathore.5891" data-instaid="yuvraj.gajraj.singh"><strong>Raj Shree Thakur Saheb Narayan Singh </strong>
 </a><br>(Founder Of Kasumbi Jakhlan)
 
 
@@ -538,10 +588,8 @@ Contact-us</a>
 													   <li><a id="th_ranveer_singh">Th. Ranveer Singh</a>
 </li>
 														 <li><a id="th_sumer_singh">Th. Sumer Singh
-</a>
 														 <ul>
 														 <li><a id="kr_sudhir_partap_singh">Kr. Sudhir Partap Singh
-</a>
 														 <ul>
 														 <li><a id="bh_anirudh_partap_singh">Bh. Anirudh Partap Singh</a>
 </li>
@@ -554,7 +602,6 @@ Contact-us</a>
 														 </ul>
 														 </li>
 														 <li><a id="th_girdhari_singh">Th. Girdhari Singh
-</a>
 														 <ul><li><a id="kr_aaditya_singh">Kr. Aaditya Singh</a>
 </li></ul>
 														 </li>
@@ -610,42 +657,32 @@ Contact-us</a>
 </a>
 												   <ul>
 													   <li><a id="kr_gajendra_singh_2">Kr. Gajendra Singh
-</a>
 														 <ul><li><a id="bh_tanmay_singh">Bh. Tanmay Singh</a>
 </li></ul>
 														 </li>
 													 </ul>
 												 </li>
 												 <li><a id="th_mohan_singh">Th. Mohan Singh
-</a>
 												 <ul>
 													   <li><a id="kr_bajrang_singh">Kr. Bajrang Singh
-</a>
-
 														   <ul>
 													   <li><a id="bh_rudrapartap_singh">Bh. Rudrapartap Singh</a>
-</li>
 													 </ul>
 														 </li>
 													 </ul>
 												 </li>
 												 <li><a id="th_dungar_singh">Th. Dungar Singh
-</a>
 												   <ul>
 													   <li><a id="kr_ajeet_singh_2">Kr. Ajeet Singh</a>
-</li>
 													 </ul>
 												 </li>
 											 </ul>
 										 </li>
 										 <li><a id="th_tool_singh">Th. Tool Singh
-</a>
 										   <ul>
 												 <li><a id="th_rawant_singh">Th. Rawant Singh
-</a>
 												   <ul>
 												 <li><a id="th_govind_singh">Th. Govind Singh
-</a>
 												   <ul>
 												 <li><a id="kr_harshvardhan_singh">Kr. Harshvardhan Singh</a>
 </li>
@@ -654,7 +691,6 @@ Contact-us</a>
 											 </ul>
 												 </li>
 												 <li><a id="th_mahendra_singh_2">Th. Mahendra Singh
-</a>
 												 <ul><li><a id="kr_suryavardhan_singh">Kr. SuryaVardhan Singh</a>
 </li></ul>
 												 </li>
@@ -663,20 +699,16 @@ Contact-us</a>
 											 </ul>
 										 </li>
 										 <li><a id="th_kishor_singh">Th. Kishor Singh
-</a>
 										   <ul>
 										    <li><a id="kr_karan_singh">Kr. Karan Singh
-</a>
 												 <ul>
 												 <li><a id="bh_jitendra_singh">Bh. Jitendra Singh</a>
 </li>
 											 </ul>
 												</li>
 												<li><a id="kr_rajveer_singh">Kr. Rajveer Singh
-</a>
 												 <ul>
 												 <li><a id="bh_aryan_rathore">Bh. Aryan Rathore</a>
-</li>
 											 </ul>
 												</li>
 											 </ul>
@@ -691,36 +723,29 @@ Contact-us</a>
 </a>
 				   <ul>
 						 <li><a id="th_bachan_singh">Th. Bachan Singh
-</a>
 						   <ul>
 						 <li><a id="th_ganga_singh">Th. Ganga Singh
-</a>
 						   <ul>
 						 <li><a id="th_sardar_singh_2">Th. Sardar Singh</a>
 </li>
 						 <li><a id="th_selab_singh">Th. Selab Singh</a>
 </li>
 						 <li><a id="th_bhoor_singh">Th. Bhoor Singh
-</a>
 						   <ul>
 							   <li><a id="th_dhukal_singh">Th. Dhukal Singh
 
-</a>
 								   <ul>
 									   <li><a id="th_madan_singh">Th. Madan Singh</a>
 </li>
 										 <li><a id="th_chhagan_singh">Th. Chhagan Singh</a>
 </li>
 										 <li><a id="th_bhagirath_singh_3">Th. Bhagirath Singh
-</a>
 										   <ul>
 											   <li><a id="th_norang_singh">Th. Norang Singh
-</a>
 												   <ul>
 													   <li><a id="kr_govind_singh">Kr. Govind Singh</a>
 </li>
 														 <li><a id="kr_manvendra_singh">Kr. Manvendra Singh</a>
-</li>
 													 </ul>
 												 </li>
 											 </ul>
@@ -730,13 +755,11 @@ Contact-us</a>
 										 <li><a id="th_manohar_singh_2">Th. Manohar Singh</a>
 </li>
 										 <li><a id="th_bhanwar_singh_3">Th. Bhanwar Singh</a>
-</li>
 									 </ul>
 								 </li>
 								 <li><a id="th_hukam_singh">Th. Hukam Singh</a>
 </li>
 								 <li><a id="th_megh_singh">Th. Megh Singh</a>
-</li>
 							 </ul>
 						 </li>
 						 <li><a id="th_ajeet_singh_3">Th. Ajeet Singh</a>
@@ -748,33 +771,26 @@ Contact-us</a>
 					 </ul>
 						 </li>
 						<li><a id="th_om_singh">Th. Om Singh
-</a>
 						 <ul>
 							  <li><a id="th_ganga_singh_2">Th. Ganga Singh</a>
 </li>
 								<li><a id="th_dhan_singh">Th. Dhan Singh</a>
 </li>
 								<li><a id="th_sujan_singh_2">Th. Sujan Singh
-</a>
 								 <ul>
 								   <li><a id="th_rawat_singh">Th. Rawat Singh</a>
 </li>
 									 <li><a id="th_dhir_singh">Th. Dhir Singh</a>
 </li>
 									 <li><a id="th_fool_singh">Th. Fool Singh
-</a>
 									   <ul>
 										   <li><a id="kr_raghuveer_singh">Kr. Raghuveer Singh
-</a>
 											   <ul>
 												   <li><a id="kr_mahipal_singh">Kr. Mahipal Singh</a>
 </li>
 													 <li><a id="kr_sarwan_singh">Kr. Sarwan Singh</a>
-</li>
 													  <li><a id="kr_hari_singh">Kr. Hari Singh</a>
-</li>
-												 </ul>
-											 </li>
+											 </ul>
 										 </ul>
 									 </li>
 								 </ul>
@@ -789,51 +805,38 @@ Contact-us</a>
 			<li><a id="th_sangram_singh">Th. Sangram Singh</a>
 </li>
 			<li><a id="th_surat_singh">Th. Surat Singh
-</a>
 			 <ul>
 			    <li><a id="th_hanwant_singh">Th. Hanwant Singh
-</a>
 				   <ul>
 			              <li><a id="th_jagat_singh">Th. Jagat Singh
-</a>
 						   <ul>
 							      <li><a id="th_baldev_singh">Th. Baldev Singh
-</a>
-
 								   <ul>
 									   <li><a id="th_sadul_singh">Th. Sadul Singh</a>
 </li>
 										 <li><a id="th_guman_singh">Th. Guman Singh
-</a>
 										   <ul>
 											   <li><a id="th_mool_singh">Th. Mool Singh</a>
 </li>
 												 <li><a id="th_dool_singh">Th. Dool Singh</a>
-</li>
 											 </ul>
 										 </li>
 										 <li><a id="th_devi_singh">Th. Devi Singh</a>
-</li>
 									 </ul>
 								 </li>
 								 <li><a id="th_kushal_singh">Th. Kushal Singh</a>
 </li>
 								 <li><a id="th_gangabaks_singh">Th. Gangabaks Singh
-</a>
 								   <ul>
 									   <li><a id="th_daal_singh">Th. Daal Singh
-</a>
 										   <ul>
 											   <li><a id="th_fate_singh">Th. Fate Singh
-</a>
 												   <ul>
 													   <li><a id="kr_bhanwar_singh_4">Kr. Bhanwar Singh
-</a>
 														   <ul>
 															   <li><a id="bh_yashpal_singh">Bh. Yashpal Singh</a>
 </li>
 																 <li><a id="bh_shakti_singh">Bh. Shakti Singh</a>
-</li>
 															 </ul>
 														 </li>
 														 <li><a id="kr_mahendra_singh_4">Kr. Mahendra Singh</a>
@@ -842,35 +845,29 @@ Contact-us</a>
 															   <li><a id="bh_vijaypal_singh">Bh. Vijaypal Singh</a>
 </li>
 																 <li><a id="bh_ajaypal_singh">Bh. Ajaypal Singh</a>
-</li>
 															 </ul>
 														 </li>
 														 <li><a id="kr_girwar_singh">Kr. Girwar Singh
-</a>
 														   <ul>
 															   <li><a id="bh_narendra_singh">Bh. Narendra Singh</a>
 </li>
 																 <li><a id="bh_gopal_singh">Bh. Gopal Singh</a>
-</li>
 															 </ul>
 														 </li>
 														 <li><a id="kr_bhawani_singh_4">
 Kr. Bhawani Singh
-</a>
 														   <ul>
 															   <li><a id="bh_shivraj_singh">
 Bh. Shivraj Singh</a>
 </li>
 																 <li><a id="bh_jivraj_singh">
 Bh. Jivraj Singh</a>
-</li>
 															 </ul>
 														 </li>
 													 </ul>
 												 </li>
 												 <li><a id="th_nathu_singh">
 Th. Nathu Singh
-</a>
 												   <ul>
 															   <li><a id="kr_bhagwan_singh_2">
 Kr. Bhagwan Singh</a>
@@ -883,7 +880,6 @@ Kr. Prithvi Singh</a>
 </li>
 																 <li><a id="kr_vikram_singh_2">
 Kr. Vikram Singh</a>
-</li>
 															 </ul>
 												 </li>
 											 </ul>
@@ -900,43 +896,35 @@ Th. Sodan Singh</a>
 						 </li>
 						 <li><a id="th_hamir_singh">
 Th. Hamir Singh
-</a>
 						   <ul>
 							  <li><a id="th_pem_singh">
 Th. Pem Singh
-</a>
 								<ul>
 							  <li><a id="th_govind_singh_2">
 Th. Govind Singh
-</a>
 								 <ul>
 										<li><a id="th_jagmal_singh">
 Th. Jagmal Singh
-</a>
 										 <ul>
 										   <li><a id="th_mangu_singh">
 Th. Mangu Singh</a>
 </li>
 											 <li><a id="th_partap_singh_4">
 Th. Partap Singh</a>
-</li>
-										 </ul>
+											 </ul>
 										</li>
 										<li><a id="th_sopal_singh_2">
 Th. Sopal Singh
-</a>
 										 <ul>
 										   <li><a id="kr_raghuveer_singh_2">
 Kr. Raghuveer Singh</a>
 </li>
 											 <li><a id="kr_bhagwan_singh_3">
 Kr. Bhagwan Singh</a>
-</li>
-										 </ul>
+											 </ul>
 										</li>
 										<li><a id="th_ugam_singh_3">
 Th. Ugam Singh
-</a>
 										 <ul>
 										   <li><a id="kr_manmohan_singh">
 Kr. Manmohan Singh</a>
@@ -946,21 +934,18 @@ Kr. Man Singh</a>
 </li>
 											 <li><a id="kr_kan_singh">
 Kr. Kan Singh</a>
-</li>
-										 </ul>
+											 </ul>
 										</li>
 								 </ul>
 								</li>
 								<li><a id="th_jet_singh">
 Th. Jet Singh
-</a>
 								<ul>
 								 <li><a id="th_sawai_singh">
 Th. Sawai Singh</a>
 </li>
 								 <li><a id="th_ranveer_singh_2">
 Th. Ranveer Singh</a>
-</li>
 								</ul>
 								</li>
 							 
@@ -1025,6 +1010,9 @@ $(function(){
 		var fbLink = ' <a href="https://www.facebook.com/'+fbId+'" class="fb" target="_blank"><img src="images/fb12.gif" alt="Facebook" /></a>';
 		n.after(fbLink);
 	});
+	
+	// This older Facebook linking logic is now handled by generateIndex() for the index, 
+    // but remains here for potential tooltips or other uses outside the index.
 });
 function showToolTip(elm){
 	if(tooltipTimer) {  
@@ -1173,7 +1161,7 @@ function copyVanshavali() {
 
 <br>
 
-Thanks To Come Here.Feel Free To Contact Me For Any Advise.<br> Copyrights &copy 2013-20125&nbsp Yuvraj GajRaj Singh Rathore (Kasumalgarh)
+Thanks To Come Here.Feel Free To Contact Me For Any Advise.<br> Copyrights &copy 2013-2025&nbsp Yuvraj GajRaj Singh Rathore (Kasumalgarh)
 
 
 
