@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>KASUMALGARH :: Clean Test Page for Experiments</title>
+    <title>KASUMALGARH :: Clean Test Page for Experiments (New Style)</title>
 
     <link rel="stylesheet" href="./kcss/styles.css">
     <link rel="stylesheet" href="./kcss/test.css">
@@ -12,86 +12,110 @@
 
     <style>
         /* General Body and Footer Styles */
-        body { background: #380000; }
+        body { 
+            background-color: #F8F4E3; /* Light Cream/Old Paper Color */
+            margin: 0; /* Remove default body margin */
+        }
         .footer .g1::after { content: ""; display: table; clear: both; }
 
-        /* Main Navigation Bar Styling */
-        #main-navbar {
-            background-color: #220000; /* Dark Maroon/Black */
-            overflow: hidden;
-            text-align: center; /* Center the links */
-            margin-top: 10px;
-            padding: 10px 0;
-            border-top: 1px solid #915D28;
-            border-bottom: 2px solid #915D28;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
-        }
-        .nav-item {
-            display: inline-block;
-            color: #ffd700; /* Gold text */
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-            font-size: 1.1em;
-            font-weight: bold;
-            margin: 0 5px;
-            transition: background-color 0.3s, color 0.3s;
-            border-radius: 5px;
-        }
-        .nav-item:hover {
-            background-color: #550000; /* Lighter Maroon on hover */
-            color: white; /* White text on hover */
-        }
-        
         /* Footer Copy Button Styling */
         #copyButtonFooter {
-            background-color: #3e2723;
+            background-color: #5D4037; 
             color: white;
-            padding: 10px 15px;
+            padding: 8px 12px;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 1em;
+            font-size: 0.9em;
             float: right;
             margin-top: 10px;
-            text-decoration: none;
-            display: inline-block;
         }
         #copyButtonFooter:hover {
-            background-color: #5d4037;
+            background-color: #795548;
         }
 
         /* --- New Body Section Style for Experiments --- */
         #main-content-body {
             min-height: 500px; /* To ensure the footer stays low */
-            color: white;
-            padding: 30px;
+            color: #333333; /* Dark text on light background */
+            padding: 40px 15%; 
+            text-align: left;
+            font-family: serif; 
+            line-height: 1.6;
+        }
+
+        /* ***** 👑 NEW: ROYAL NAVIGATION BAR STYLING 👑 ***** */
+        #main-navbar {
+            background-color: #915D28; /* Golden Brown Base */
+            /* अगर आपके पास कोई पैटर्न इमेज है, तो इसे इस्तेमाल करें: background-image: url('textures/royal_pattern.png'); */
+            overflow: hidden;
             text-align: center;
-            font-size: 1.5em;
+            margin-top: 10px;
+            padding: 5px 0;
+            border-top: 3px solid #FFD700; /* Bright Gold Border */
+            border-bottom: 3px solid #795548; /* Darker Brown Border */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* 3D Shadow */
+        }
+
+        .nav-item {
+            display: inline-block;
+            color: #FFF; /* White/Light text */
+            text-align: center;
+            padding: 10px 18px; 
+            text-decoration: none;
+            font-size: 1.05em;
+            font-weight: 700; 
+            margin: 0 2px;
+            
+            /* 3D Button Style */
+            background-color: #B8860B; /* Darker Gold for Button Base */
+            border: 1px solid #FFD700; /* Gold Border */
+            border-radius: 5px;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+            
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        .nav-item:hover {
+            background-color: #DAA520; /* Lighter Gold on hover */
+            color: #333; /* Dark text on hover */
+            transform: translateY(-1px); /* Slight lift effect */
+            box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-item:active {
+            transform: translateY(1px); /* Push down effect on click */
         }
     </style>
     </head>
 <body>
 
-<center><img src="./kimgs/kasumalgarh_tital.png" alt="Header Logo" style="WIDTH:AUTO;height:80px;" align="center" border="0"; margin-top:0px; ></center>
+<center>
+    <img src="./kimgs/kasumalgarh_tital.png" alt="Header Logo" style="WIDTH:AUTO;height:80px;" align="center" border="0"; margin-top:0px; >
+</center>
 
 <div id="main-navbar">
-    <a href="./index.html" class="nav-item">🏠 HOME</a>
-    <a href="./k_vanshavali.html" class="nav-item">📜 Kasumalgarh-Vanshavali</a>
-    <a href="./r_vanshavali.html" class="nav-item">🛡️ Rathore-Vanshavali</a>
-    <a href="./history_gallery.html" class="nav-item">🖼️ History & Gallery</a>
-    <a href="./contact_us.html" class="nav-item">📞 Contact-us</a>
+    <a href="./index.html" class="nav-item">🏠 Home</a>
+    <a href="./history.html" class="nav-item">📜 History</a>
+    <a href="./family_tree.html" class="nav-item">🌳 Family Tree</a>
+    <a href="./achievements.html" class="nav-item">🏆 Achievements</a>
+    <a href="./location_map.html" class="nav-item">📍 Location & Map</a>
+    <a href="./about.html" class="nav-item">ℹ️ About</a>
+    <a href="./contact_us.html" class="nav-item">📞 Contact Us</a>
 </div>
 
-<center><img src="./kimgs/dup.png" alt="divider" style="WIDTH:500px;HEIGHT:auto;margin-top:0px;"></center>
+<center>
+    <img src="./kimgs/dup.png" alt="divider" style="WIDTH:500px;HEIGHT:auto;margin-top:0px;">
+</center>
 
 <div id="main-content-body">
-    <h2>✨ यह आपकी खाली बॉडी है! ✨</h2>
-    <p>आप यहाँ कोई भी नया HTML/CSS/JS कोड डालकर प्रयोग कर सकते हैं।</p>
-    <p>जैसे: फोटो गैलरी, परिचय पाठ (Intro text), या कोई नया सर्च फ़ीचर।</p>
+    <h2>✨ आपका नया टेस्ट पेज तैयार है! ✨</h2>
+    <p>इस सेक्शन (`#main-content-body`) में कंटेंट जोड़कर प्रयोग करना शुरू करें। यह अब एक साफ़ कैनवस है जिसमें **शाही स्टाइल** और **नया मेनू** है।</p>
 </div>
-<center><img src="./kimgs/ddown.png" alt="divider" style="WIDTH:500px;HEIGHT:;margin-bottom: 0cm;"></center>
+<center>
+    <img src="./kimgs/ddown.png" alt="divider" style="WIDTH:500px;HEIGHT:;margin-bottom: 0cm;">
+</center>
 
 <center>
 <div class="footer">
@@ -106,14 +130,13 @@
 <script type="text/javascript">
     // DOM Ready function for jQuery
     $( document ).ready( function( ) {
-        // यहाँ आप अपना नया JavaScript कोड जोड़ सकते हैं।
+        // आप यहाँ कोई भी नया JavaScript कोड जोड़ सकते हैं।
     });
     
-    // ***** FUNCTION: Copies Vanshavali Code (For Admin) *****
+    // ***** FUNCTION: Copies Vanshavali Code (Placeholder) *****
     function copyVanshavali() {
-        // चूंकि वंशावली हटा दी गई है, यह फ़ंक्शन अब केवल बॉडी का कोड कॉपी कर सकता है या केवल अलर्ट दे सकता है।
-        // हम फ़िलहाल एक साधारण अलर्ट रख रहे हैं।
-        alert("✅ इस पेज पर अब वंशावली नहीं है। आप मैन्युअल रूप से कोड कॉपी कर सकते हैं!");
+        // चूंकि वंशावली हटा दी गई है, यह केवल एक सरल सूचना है।
+        alert("✅ कोड कॉपी करने का फ़ंक्शन काम कर रहा है।");
     }
 </script>
 
