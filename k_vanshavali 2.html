@@ -27,7 +27,7 @@ include('khits.php');
 #name-index-sidebar {
     position: fixed; /* Screen par fix rakhega */
     top: 100px; /* Header ke neeche space */
-    right: 20px; /* Right side se doori (Left se Right kar diya hai taaki main content na dhake) */
+    right: 50px; /* Right side se doori badhai gayi */
     width: 200px; /* Sidebar ki चौड़ाई (width) */
     max-height: 80vh; /* Viewport height ka 80% */
     overflow-y: auto; /* Agar list lambi ho toh scroll aa jae */
@@ -64,14 +64,31 @@ include('khits.php');
     color: #E6B300; /* Golden/Bronze link color */
     text-decoration: none;
     display: block;
-    padding: 2px 0;
+    padding: 2px 5px;
     font-size: 0.9em;
+    border-radius: 3px;
+    transition: background-color 0.3s;
 }
 
 #name-index-sidebar a:hover {
     color: white;
-    text-decoration: underline;
-    background-color: #380000;
+    text-decoration: none;
+    background-color: #550000;
+}
+
+/* NEW: Highlight Class for active name in Index */
+#name-index-sidebar a.active-highlight {
+    background-color: yellow; /* Yellow background */
+    color: #380000 !important; /* Dark text for contrast */
+    font-weight: bold;
+}
+
+/* NEW: Highlight Class for active name in Vanshavali */
+.vanshavali-highlight {
+    background-color: yellow !important; 
+    color: #380000 !important; 
+    padding: 3px !important;
+    border-radius: 5px;
 }
 
 /* Hide sidebar on very small screens if necessary */
@@ -145,6 +162,12 @@ include('khits.php');
 						$( this ).children( 'ul' ).slideToggle( 'fast' );
 				});
 				
+				// NEW: Attach scrollToName function to all index links
+				$('#name-index-sidebar a').on('click', function(e) {
+					e.preventDefault();
+					var targetId = $(this).attr('href').substring(1);
+					scrollToName(targetId, this);
+				});
 		});
         
 	</script>
@@ -254,10 +277,190 @@ Contact-us</a>
         <li><a href="#th_mahendra_singh">ठाकुर महेंद्र सिंह</a></li>
         <li><a href="#yuvraj_gajraj_singh">युवराज गजराज सिंह</a></li>
         <li><a href="#bhanwar_khushvendra">भंवर खुशवेंद्र सिंह</a></li>
+        <li><a href="#kr_shivraj_singh">कुंवर शिवराज सिंह</a></li>
+        <li><a href="#baisa_hrishiraj">बाईसा हृषिरराज राठौर</a></li>
         <li><a href="#th_partap_singh">ठाकुर प्रताप सिंह</a></li>
         <li><a href="#th_rajendra_singh">ठाकुर राजेंद्र सिंह</a></li>
         <li><a href="#kr_arun_singh">कुंवर अरुण सिंह</a></li>
-        </ul>
+        <li><a href="#bh_baisa_raghvi">भंवर बाईसा राघवी</a></li>
+        <li><a href="#baisa_rajlaxmi">बाईसा राजलक्ष्मी राठौर</a></li>
+        <li><a href="#th_ravindra_singh">ठाकुर रविंद्र सिंह</a></li>
+        <li><a href="#baisa_yogita">बाईसा योगिता राठौर</a></li>
+        <li><a href="#baisa_garima">बाईसा गरिमा राठौर</a></li>
+        <li><a href="#kr_yashvardhan">कुंवर यशवर्धन सिंह</a></li>
+        <li><a href="#th_gopinath_singh">ठाकुर गोपीनाथ सिंह</a></li>
+        <li><a href="#th_sonath_singh">ठाकुर सोनाथ सिंह</a></li>
+        <li><a href="#th_jawahar_singh">ठाकुर जवाहर सिंह</a></li>
+        <li><a href="#th_sabal_singh">ठाकुर सबल सिंह</a></li>
+        <li><a href="#th_balwant_singh">ठाकुर बलवंत सिंह</a></li>
+        <li><a href="#th_sawant_singh">ठाकुर सावंत सिंह</a></li>
+        <li><a href="#th_bhiv_singh">ठाकुर भीव सिंह</a></li>
+        <li><a href="#th_lal_singh">ठाकुर लाल सिंह</a></li>
+        <li><a href="#th_richhpal_singh">ठाकुर रिचपाल सिंह</a></li>
+        <li><a href="#th_bhawani_singh">ठाकुर भवानी सिंह</a></li>
+        <li><a href="#kr_devendra_singh">कुंवर देवेंद्र सिंह</a></li>
+        <li><a href="#bh_daksh_rathore">भंवर दक्ष राठौर</a></li>
+        <li><a href="#kr_ajeet_singh">कुंवर अजीत सिंह</a></li>
+        <li><a href="#th_ratan_singh">ठाकुर रतन सिंह</a></li>
+        <li><a href="#kr_vikram_singh">कुंवर विक्रम सिंह</a></li>
+        <li><a href="#kr_narpat_singh">कुंवर नरपत सिंह</a></li>
+        <li><a href="#th_yogendra_singh">ठाकुर योगेंद्र सिंह</a></li>
+        <li><a href="#th_kuldeep_singh">ठाकुर कुलदीप सिंह</a></li>
+        <li><a href="#th_tej_singh">ठाकुर तेज सिंह</a></li>
+        <li><a href="#kr_jaydeep_singh">कुंवर जयदीप सिंह</a></li>
+        <li><a href="#th_bhagirath_singh">ठाकुर भागीरथ सिंह (1)</a></li>
+        <li><a href="#kr_rajendra_singh">कुंवर राजेंद्र सिंह</a></li>
+        <li><a href="#kr_manohar_singh">कुंवर मनोहर सिंह</a></li>
+        <li><a href="#kr_anand_singh">कुंवर आनंद सिंह</a></li>
+        <li><a href="#kr_gajendra_singh_1">कुंवर गजेंद्र सिंह (1)</a></li>
+        <li><a href="#th_keshar_singh">ठाकुर केशर सिंह</a></li>
+        <li><a href="#th_sopal_singh">ठाकुर सोपल सिंह (1)</a></li>
+        <li><a href="#kr_indra_singh">कुंवर इंद्र सिंह</a></li>
+        <li><a href="#kr_narendra_singh">कुंवर नरेंद्र सिंह</a></li>
+        <li><a href="#th_ugam_singh">ठाकुर उगम सिंह (1)</a></li>
+        <li><a href="#th_baagh_singh">ठाकुर बाघ सिंह (1)</a></li>
+        <li><a href="#kr_laxman_singh">कुंवर लक्ष्मण सिंह</a></li>
+        <li><a href="#kr_narpat_singh_1">कुंवर नरपत सिंह (1)</a></li>
+        <li><a href="#th_partap_singh_1">ठाकुर प्रताप सिंह (1)</a></li>
+        <li><a href="#th_bane_singh">ठाकुर बने सिंह</a></li>
+        <li><a href="#th_bhairu_singh_2">ठाकुर भैरू सिंह (2)</a></li>
+        <li><a href="#th_laxman_singh">ठाकुर लक्ष्मण सिंह (1)</a></li>
+        <li><a href="#th_bhopal_singh">ठाकुर भोपाल सिंह</a></li>
+        <li><a href="#th_aman_singh">ठाकुर अमन सिंह</a></li>
+        <li><a href="#th_hari_singh">ठाकुर हरि सिंह</a></li>
+        <li><a href="#th_bhanwar_singh">ठाकुर भंवर सिंह (1)</a></li>
+        <li><a href="#th_bhagirath_singh_2">ठाकुर भागीरथ सिंह (2)</a></li>
+        <li><a href="#th_sujan_singh">ठाकुर सुजान सिंह (1)</a></li>
+        <li><a href="#th_nawal_singh">ठाकुर नवल सिंह</a></li>
+        <li><a href="#th_ranveer_singh">ठाकुर रणवीर सिंह (1)</a></li>
+        <li><a href="#th_sumer_singh">ठाकुर सुमेर सिंह</a></li>
+        <li><a href="#kr_sudhir_partap_singh">कुंवर सुधीर प्रताप सिंह</a></li>
+        <li><a href="#bh_anirudh_partap_singh">भंवर अनिरुद्ध प्रताप सिंह</a></li>
+        <li><a href="#kr_himmt_singh">कुंवर हिम्मत सिंह</a></li>
+        <li><a href="#kr_kishan_singh">कुंवर किशन सिंह</a></li>
+        <li><a href="#th_girdhari_singh">ठाकुर गिरधारी सिंह</a></li>
+        <li><a href="#kr_aaditya_singh">कुंवर आदित्य सिंह</a></li>
+        <li><a href="#th_khuman_singh">ठाकुर खुमान सिंह</a></li>
+        <li><a href="#th_banne_singh">ठाकुर बन्ने सिंह</a></li>
+        <li><a href="#th_ugam_singh_2">ठाकुर उगम सिंह (2)</a></li>
+        <li><a href="#th_kan_singh">ठाकुर कान सिंह</a></li>
+        <li><a href="#th_sawant_singh_2">ठाकुर सावंत सिंह (2)</a></li>
+        <li><a href="#th_mahaveer_singh">ठाकुर महावीर सिंह</a></li>
+        <li><a href="#th_nitendra_singh">ठाकुर नितेंद्र सिंह</a></li>
+        <li><a href="#th_hem_singh">ठाकुर हेम सिंह</a></li>
+        <li><a href="#th_achal_singh">ठाकुर अचल सिंह</a></li>
+        <li><a href="#th_ram_singh">ठाकुर राम सिंह</a></li>
+        <li><a href="#th_moti_singh">ठाकुर मोती सिंह</a></li>
+        <li><a href="#th_balwant_singh_2">ठाकुर बलवंत सिंह (2)</a></li>
+        <li><a href="#th_bakshiram_singh">ठाकुर बक्शीराम सिंह</a></li>
+        <li><a href="#th_chatar_singh">ठाकुर चतर सिंह</a></li>
+        <li><a href="#th_ganesh_singh">ठाकुर गणेश सिंह</a></li>
+        <li><a href="#th_bhanwar_singh_2">ठाकुर भंवर सिंह (2)</a></li>
+        <li><a href="#kr_gajendra_singh_2">कुंवर गजेंद्र सिंह (2)</a></li>
+        <li><a href="#bh_tanmay_singh">भंवर तन्मय सिंह</a></li>
+        <li><a href="#th_mohan_singh">ठाकुर मोहन सिंह</a></li>
+        <li><a href="#kr_bajrang_singh">कुंवर बजरंग सिंह (1)</a></li>
+        <li><a href="#bh_rudrapartap_singh">भंवर रुद्रप्रताप सिंह</a></li>
+        <li><a href="#th_dungar_singh">ठाकुर डूंगर सिंह</a></li>
+        <li><a href="#kr_ajeet_singh_2">कुंवर अजीत सिंह (2)</a></li>
+        <li><a href="#th_tool_singh">ठाकुर टूल सिंह</a></li>
+        <li><a href="#th_rawant_singh">ठाकुर रावंत सिंह</a></li>
+        <li><a href="#th_govind_singh">ठाकुर गोविंद सिंह (1)</a></li>
+        <li><a href="#kr_harshvardhan_singh">कुंवर हर्षवर्धन सिंह</a></li>
+        <li><a href="#kr_yashvardhan_singh_2">कुंवर यशवर्धन सिंह (2)</a></li>
+        <li><a href="#th_mahendra_singh_2">ठाकुर महेंद्र सिंह (2)</a></li>
+        <li><a href="#kr_suryavardhan_singh">कुंवर सूर्यवर्धन सिंह</a></li>
+        <li><a href="#th_kishor_singh">ठाकुर किशोर सिंह</a></li>
+        <li><a href="#kr_karan_singh">कुंवर करण सिंह</a></li>
+        <li><a href="#bh_jitendra_singh">भंवर जितेंद्र सिंह</a></li>
+        <li><a href="#kr_rajveer_singh">कुंवर राजवीर सिंह</a></li>
+        <li><a href="#bh_aryan_rathore">भंवर आर्यन राठौर</a></li>
+        <li><a href="#th_ranjit_singh">ठाकुर रंजीत सिंह</a></li>
+        <li><a href="#th_bachan_singh">ठाकुर बचन सिंह</a></li>
+        <li><a href="#th_ganga_singh">ठाकुर गंगा सिंह (1)</a></li>
+        <li><a href="#th_sardar_singh_2">ठाकुर सरदार सिंह (2)</a></li>
+        <li><a href="#th_selab_singh">ठाकुर सेलभ सिंह</a></li>
+        <li><a href="#th_bhoor_singh">ठाकुर भूर सिंह</a></li>
+        <li><a href="#th_dhukal_singh">ठाकुर धुकल सिंह</a></li>
+        <li><a href="#th_madan_singh">ठाकुर मदन सिंह</a></li>
+        <li><a href="#th_chhagan_singh">ठाकुर छगन सिंह</a></li>
+        <li><a href="#th_bhagirath_singh_3">ठाकुर भागीरथ सिंह (3)</a></li>
+        <li><a href="#th_norang_singh">ठाकुर नौरंग सिंह</a></li>
+        <li><a href="#kr_govind_singh">कुंवर गोविंद सिंह</a></li>
+        <li><a href="#kr_manvendra_singh">कुंवर मानवेंद्र सिंह</a></li>
+        <li><a href="#th_laxman_singh_2">ठाकुर लक्ष्मण सिंह (2)</a></li>
+        <li><a href="#th_manohar_singh_2">ठाकुर मनोहर सिंह (2)</a></li>
+        <li><a href="#th_bhanwar_singh_3">ठाकुर भंवर सिंह (3)</a></li>
+        <li><a href="#th_hukam_singh">ठाकुर हुकम सिंह</a></li>
+        <li><a href="#th_megh_singh">ठाकुर मेघ सिंह</a></li>
+        <li><a href="#th_ajeet_singh_3">ठाकुर अजीत सिंह (3)</a></li>
+        <li><a href="#th_sarup_singh">ठाकुर सरूप सिंह</a></li>
+        <li><a href="#th_om_singh">ठाकुर ओम सिंह</a></li>
+        <li><a href="#th_ganga_singh_2">ठाकुर गंगा सिंह (2)</a></li>
+        <li><a href="#th_dhan_singh">ठाकुर धन सिंह</a></li>
+        <li><a href="#th_sujan_singh_2">ठाकुर सुजान सिंह (2)</a></li>
+        <li><a href="#th_rawat_singh">ठाकुर रावत सिंह</a></li>
+        <li><a href="#th_dhir_singh">ठाकुर धीर सिंह</a></li>
+        <li><a href="#th_fool_singh">ठाकुर फूल सिंह</a></li>
+        <li><a href="#kr_raghuveer_singh">कुंवर रघुवीर सिंह (1)</a></li>
+        <li><a href="#kr_mahipal_singh">कुंवर महिपाल सिंह</a></li>
+        <li><a href="#kr_sarwan_singh">कुंवर सरवन सिंह</a></li>
+        <li><a href="#kr_hari_singh">कुंवर हरि सिंह</a></li>
+        <li><a href="#th_sangram_singh">ठाकुर संग्राम सिंह</a></li>
+        <li><a href="#th_surat_singh">ठाकुर सूरत सिंह</a></li>
+        <li><a href="#th_hanwant_singh">ठाकुर हनुमंत सिंह</a></li>
+        <li><a href="#th_jagat_singh">ठाकुर जगत सिंह</a></li>
+        <li><a href="#th_baldev_singh">ठाकुर बलदेव सिंह</a></li>
+        <li><a href="#th_sadul_singh">ठाकुर सादुल सिंह</a></li>
+        <li><a href="#th_guman_singh">ठाकुर गुमान सिंह</a></li>
+        <li><a href="#th_mool_singh">ठाकुर मूल सिंह</a></li>
+        <li><a href="#th_dool_singh">ठाकुर डूल सिंह</a></li>
+        <li><a href="#th_devi_singh">ठाकुर देवी सिंह</a></li>
+        <li><a href="#th_kushal_singh">ठाकुर कुशल सिंह</a></li>
+        <li><a href="#th_gangabaks_singh">ठाकुर गंगाबक्स सिंह</a></li>
+        <li><a href="#th_daal_singh">ठाकुर दाल सिंह</a></li>
+        <li><a href="#th_fate_singh">ठाकुर फतेह सिंह</a></li>
+        <li><a href="#kr_bhanwar_singh_4">कुंवर भंवर सिंह (4)</a></li>
+        <li><a href="#bh_yashpal_singh">भंवर यशपाल सिंह</a></li>
+        <li><a href="#bh_shakti_singh">भंवर शक्ति सिंह</a></li>
+        <li><a href="#kr_mahendra_singh_4">कुंवर महेंद्र सिंह (4)</a></li>
+        <li><a href="#bh_vijaypal_singh">भंवर विजयपाल सिंह</a></li>
+        <li><a href="#bh_ajaypal_singh">भंवर अजयपाल सिंह</a></li>
+        <li><a href="#kr_girwar_singh">कुंवर गिरवर सिंह</a></li>
+        <li><a href="#bh_narendra_singh">भंवर नरेंद्र सिंह</a></li>
+        <li><a href="#bh_gopal_singh">भंवर गोपाल सिंह</a></li>
+        <li><a href="#kr_bhawani_singh_4">कुंवर भवानी सिंह (4)</a></li>
+        <li><a href="#bh_shivraj_singh">भंवर शिवराज सिंह</a></li>
+        <li><a href="#bh_jivraj_singh">भंवर जीवराज सिंह</a></li>
+        <li><a href="#th_nathu_singh">ठाकुर नाथू सिंह</a></li>
+        <li><a href="#kr_bhagwan_singh_2">कुंवर भगवान सिंह (2)</a></li>
+        <li><a href="#kr_bajrang_singh_2">कुंवर बजरंग सिंह (2)</a></li>
+        <li><a href="#kr_prithvi_singh">कुंवर पृथ्वी सिंह</a></li>
+        <li><a href="#kr_vikram_singh_2">कुंवर विक्रम सिंह (2)</a></li>
+        <li><a href="#th_ganpat_singh">ठाकुर गणपत सिंह</a></li>
+        <li><a href="#th_sodan_singh">ठाकुर सोदन सिंह</a></li>
+        <li><a href="#th_hamir_singh">ठाकुर हमीर सिंह</a></li>
+        <li><a href="#th_pem_singh">ठाकुर पेम सिंह</a></li>
+        <li><a href="#th_govind_singh_2">ठाकुर गोविंद सिंह (2)</a></li>
+        <li><a href="#th_jagmal_singh">ठाकुर जगमल सिंह</a></li>
+        <li><a href="#th_mangu_singh">ठाकुर मंगु सिंह</a></li>
+        <li><a href="#th_partap_singh_4">ठाकुर प्रताप सिंह (4)</a></li>
+        <li><a href="#th_sopal_singh_2">ठाकुर सोपल सिंह (2)</a></li>
+        <li><a href="#kr_raghuveer_singh_2">कुंवर रघुवीर सिंह (2)</a></li>
+        <li><a href="#kr_bhagwan_singh_3">कुंवर भगवान सिंह (3)</a></li>
+        <li><a href="#th_ugam_singh_3">ठाकुर उगम सिंह (3)</a></li>
+        <li><a href="#kr_manmohan_singh">कुंवर मनमोहन सिंह</a></li>
+        <li><a href="#kr_man_singh">कुंवर मान सिंह</a></li>
+        <li><a href="#kr_kan_singh">कुंवर कान सिंह (2)</a></li>
+        <li><a href="#th_jet_singh">ठाकुर जेट सिंह</a></li>
+        <li><a href="#th_sawai_singh">ठाकुर सवाई सिंह</a></li>
+        <li><a href="#th_ranveer_singh_2">ठाकुर रणवीर सिंह (2)</a></li>
+        <li><a href="#th_metab_singh">ठाकुर मेटाब सिंह</a></li>
+        <li><a href="#th_shal_singh">ठाकुर शाल सिंह</a></li>
+        <li><a href="#th_onad_singh">ठाकुर ओनाद सिंह</a></li>
+        <li><a href="#th_bagh_singh">ठाकुर बाघ सिंह (2)</a></li>
+        <li><a href="#th_sardar_singh_3">ठाकुर सरदार सिंह (3)</a></li>
+    </ul>
 </div>
 <table border="0px" width="auto"  cellpadding="0" cellspacing="0" ><tr><td>
 	
@@ -1037,22 +1240,33 @@ function showToolTip(elm){
 function hideToolTip(){
 	tooltip.html('').hide();
 }
-// 💡 IMPORTANT: ScrollToName function needs adjustment if you change the tree structure, but it looks like the anchor links will now work directly on the <a> tag.
 
-function scrollToName(name){
-	// The new structure uses <a id="name">...</a> directly.
-	var targetAnchor = document.getElementById(name);
+// ***** NEW & UPDATED SCROLL TO NAME FUNCTION *****
+function scrollToName(nameId, indexLinkElement){
+	// 1. Remove highlight from all previous elements
+	$('.active-highlight').removeClass('active-highlight');
+	$('.vanshavali-highlight').removeClass('vanshavali-highlight');
+
+	// 2. Highlight the clicked index link
+	$(indexLinkElement).addClass('active-highlight');
+	
+	// 3. Find the target name in the family tree
+	var targetAnchor = document.getElementById(nameId);
+
 	if (targetAnchor) {
-		// Use native element scrolling method
+		// 4. Highlight the name in the family tree
+		$(targetAnchor).addClass('vanshavali-highlight');
+
+		// 5. Scroll to the target
 		$('html,body').animate({
 			scrollTop: $(targetAnchor).offset().top - 100 // Scroll 100px above the target
 		}, 'slow');
 		
-		// Optional: Highlight the name by temporarily changing its color
-		$(targetAnchor).css({ 'background-color' : 'rgba(255, 255, 0, 0.4)' }); // Yellow highlight
+		// 6. Remove highlight after a few seconds for visual effect
 		setTimeout(function() {
-			$(targetAnchor).css({ 'background-color' : '' }); // Remove highlight after 2 seconds
-		}, 2000);
+			$(targetAnchor).removeClass('vanshavali-highlight');
+			$(indexLinkElement).removeClass('active-highlight');
+		}, 3000); // Highlight will stay for 3 seconds
 	}
 }
 
