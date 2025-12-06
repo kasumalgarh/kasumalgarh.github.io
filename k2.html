@@ -8,12 +8,12 @@
     <link href='http://fonts.googleapis.com/css?family=Alegreya+SC:700,400italic' rel='stylesheet' type='text/css' />
 
     <style>
-        /* 1. Body and Background (FIXED: Strict Width & Overflow) */
+        /* 1. Body and Background (Strict Width & Overflow to prevent bleed) */
         html, body {
             width: 100%;
             margin: 0;
             padding: 0;
-            overflow-x: hidden; /* हॉरिजॉन्टल स्क्रॉलिंग रोकें */
+            overflow-x: hidden; 
         }
         body { 
             background-color: #380000;
@@ -29,7 +29,7 @@
             min-height: 100vh;
         }
         
-        /* 3. Header Logo Styling */
+        /* 3. Header Logo Styling (FIXED) */
         .header-logo {
             text-align: center;
             padding-top: 20px;
@@ -38,7 +38,9 @@
             background-color: #F8F4E3;
         }
         .header-logo img {
-            width: auto;
+            /* ***** FIX: New width rules for responsiveness ***** */
+            max-width: 90%; 
+            height: auto; /* Height auto maintains aspect ratio */
             max-height: 80px;
             border: 0;
         }
@@ -53,8 +55,6 @@
             border-bottom: 2px solid #5D4037;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             position: relative;
-            
-            /* Max Width set for DESKTOP Alignment */
             max-width: 1000px; 
             margin: 0 auto; 
         }
@@ -74,7 +74,6 @@
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
             transition: background-color 0.3s, transform 0.1s;
         }
-
         .nav-item:hover {
             background-color: #DAA520; 
             color: #333333; 
@@ -105,43 +104,15 @@
             color: #FFFFFF;
             text-decoration: none;
         }
-        #mobile-links a:hover {
-            background-color: #550000;
-            color: #FFD700;
-        }
 
-        /* 5. Main Content Area */
-        #main-content-body {
-            padding: 40px 10%; 
-            color: #333333;
-            line-height: 1.6;
-        }
-
-        /* 6. Footer Styling */
-        .footer {
-            text-align: center;
-            padding: 20px 0;
-            background-color: #380000;
-            color: #FFD700;
-            font-size: 0.9em;
-            margin-top: 20px;
-        }
-        
         /* 7. Responsive Breakpoint */
         @media screen and (max-width: 768px) {
             
-            /* FIX 4: Mobile Navbar Must be 100% Wide */
             #main-navbar {
                 max-width: 100%; 
                 border-radius: 0;
-                padding: 0; /* FIX: Remove padding to fit content */
+                padding: 0; 
             }
-
-            /* FIX 5: Adjust padding for icon */
-            #main-navbar .icon {
-                 padding: 10px;
-            }
-            
             .nav-item {
                 display: none !important; 
             }
@@ -194,7 +165,7 @@
 
     <div id="main-content-body">
         <h1>फाइनल रेस्पॉन्सिव लेआउट</h1>
-        <p>इस वर्जन में HTML/Body पर कठोर नियम (`overflow-x: hidden`) लागू किए गए हैं ताकि मोबाइल पर हॉरिजॉन्टल स्क्रॉलिंग की समस्या हल हो जाए।</p>
+        <p>यह वर्जन लोगो के ओवरसाइज़ होने की समस्या को ठीक करता है। अब लोगो मोबाइल पर रैपर के अंदर फिट होना चाहिए।</p>
     </div>
     <div style="text-align:center; padding: 10px 0;">
         <img src="./kimgs/ddown.png" alt="divider" style="WIDTH:500px;HEIGHT:auto;">
