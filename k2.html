@@ -22,7 +22,7 @@
 
         /* 2. Page Wrapper (Main Content Area) */
         #page-wrapper {
-            /* FIX: Background color changed to Muted Yellow/Beige for Old Paper Look */
+            /* Background color: Old Paper Look */
             background-color: #EDE8D4; 
             
             max-width: 1000px; 
@@ -37,7 +37,6 @@
             padding-top: 20px;
             max-width: 1000px; 
             margin: 0 auto; 
-            /* Header Logo background color must match the wrapper */
             background-color: #EDE8D4; 
         }
         .header-logo img {
@@ -113,7 +112,6 @@
 
         /* 5. Main Content Area */
         #main-content-body {
-            /* Text color remains dark for readability on light background */
             padding: 40px 10%; 
             color: #333333;
             line-height: 1.6;
@@ -132,10 +130,15 @@
         /* 7. Responsive Breakpoint */
         @media screen and (max-width: 600px) {
             #icon-menu-grid {
-                grid-template-columns: repeat(4, 1fr); 
-                padding: 8px 5px;
-                gap: 4px;
+                /* FIX: 3 कॉलम लेआउट (3+3+1) */
+                grid-template-columns: repeat(3, 1fr); 
+                padding: 6px 4px; /* पैडिंग और गैप कम */
+                gap: 3px;
             }
+            .grid-item {
+                padding: 6px 0;
+            }
+
             #page-wrapper {
                 box-shadow: none; 
             }
@@ -144,10 +147,6 @@
             }
             .divider-image-container img {
                 max-width: 95%; 
-            }
-            /* Header logo background color must match the wrapper */
-            .header-logo {
-                background-color: #EDE8D4; 
             }
         }
     </style>
@@ -176,8 +175,8 @@
     </div>
 
     <div id="main-content-body">
-        <h1>पुराना कागज़ लुक</h1>
-        <p>पृष्ठभूमि का रंग अब पुराने कागज़ जैसा दिखना चाहिए।</p>
+        <h1>मोबाइल 3-कॉलम फिक्स</h1>
+        <p>अब मेनू मोबाइल पर 3 कॉलम में व्यवस्थित होना चाहिए (3 आइटम, फिर 3 आइटम, फिर 1 आइटम)।</p>
     </div>
     <div class="divider-image-container">
         <img src="./kimgs/ddown.png" alt="divider">
