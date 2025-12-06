@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>KASUMALGARH :: Responsive Test Page</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <link rel="stylesheet" href="./kcss/styles.css">
     <link rel="stylesheet" href="./kcss/test.css">
     <link href='http://fonts.googleapis.com/css?family=Alegreya+SC:700,400italic' rel='stylesheet' type='text/css' />
@@ -13,7 +14,7 @@
     <style>
         /* General Body and Footer Styles */
         body { 
-            background-color: #F8F4E3; /* Light Cream Fallback */
+            background-color: #F8F4E3;
             background-image: url('./kimgs/patina.png'); 
             background-repeat: repeat;
             color: #333333; 
@@ -42,7 +43,7 @@
         #main-content-body {
             min-height: 500px;
             color: #333333;
-            padding: 40px 10%; /* Reduced padding for mobile room */
+            padding: 40px 10%;
             text-align: left;
             font-family: serif; 
             line-height: 1.6;
@@ -50,7 +51,7 @@
 
         /* ***** 👑 DESKTOP & SHARED NAVIGATION STYLING 👑 ***** */
         #main-navbar {
-            background-color: #795548; /* Lighter Brown */
+            background-color: #795548;
             overflow: hidden;
             text-align: center;
             margin-top: 10px;
@@ -58,7 +59,7 @@
             border-top: 2px solid #FFD700;
             border-bottom: 2px solid #5D4037;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            position: relative; /* Used for mobile icon positioning */
+            position: relative;
         }
         
         .nav-item {
@@ -70,10 +71,10 @@
             font-weight: 700; 
             margin: 0 5px;
             
-            /* 3D Button Style (Improved Option 3) */
+            /* 3D Button Style */
             background-color: #B8860B; 
             border: 1px solid #FFD700; 
-            border-radius: 8px; /* Slightly rounder */
+            border-radius: 8px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
             transition: background-color 0.3s, transform 0.1s;
         }
@@ -91,18 +92,18 @@
             display: none; /* Hide the vertical list on desktop */
             width: 100%;
             text-align: left;
-            background-color: #3e2723; /* Dark background for mobile dropdown */
+            background-color: #3e2723;
         }
         
-        /* 2. Hamburger Icon */
+        /* 2. Hamburger Icon: Hide icon on desktop */
         .icon {
-            display: none; /* Hide icon on desktop */
+            display: none; 
             position: absolute;
             right: 0;
             top: 0;
             padding: 15px;
             font-size: 20px;
-            color: #FFD700; /* Gold icon */
+            color: #FFD700;
             cursor: pointer;
         }
 
@@ -111,7 +112,7 @@
             
             /* Hide the desktop horizontal links */
             .nav-item {
-                display: none; 
+                display: none !important; /* !important ensures priority */
             }
             
             /* Show the Hamburger icon */
@@ -119,17 +120,12 @@
                 display: block; 
             }
             
-            /* Center the main navbar text for mobile */
-            #main-navbar {
-                text-align: left; 
-            }
-
             /* Style mobile links when visible (vertical list) */
             #mobile-links a {
-                display: block; /* Make links full width */
+                display: block; 
                 background-color: transparent; 
                 border: none;
-                border-bottom: 1px solid #55352c; /* Separator line */
+                border-bottom: 1px solid #55352c;
                 border-radius: 0;
                 box-shadow: none;
                 padding: 15px 20px;
@@ -187,8 +183,8 @@
 </center>
 
 <div id="main-content-body">
-    <h2>✨ यह पेज अब पूरी तरह Responsive है! ✨</h2>
-    <p>अपने ब्राउज़र को छोटा करके देखें कि मेनू 3-लाइन वाले Hamburger Menu में बदल जाता है।</p>
+    <h2>✨ अब यह Responsive होना चाहिए! ✨</h2>
+    <p>अपने मोबाइल डिवाइस या ब्राउज़र के Developer Tools (F12) का उपयोग करके स्क्रीन की चौड़ाई 768px से कम करें। आपको Hamburger Icon दिखना चाहिए।</p>
 </div>
 <center>
     <img src="./kimgs/ddown.png" alt="divider" style="WIDTH:500px;HEIGHT:;margin-bottom: 0cm;">
