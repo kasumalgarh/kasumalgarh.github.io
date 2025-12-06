@@ -29,7 +29,7 @@
             min-height: 100vh;
         }
         
-        /* 3. Header Logo Styling (FIXED) */
+        /* 3. Header Logo Styling */
         .header-logo {
             text-align: center;
             padding-top: 20px;
@@ -38,9 +38,8 @@
             background-color: #F8F4E3;
         }
         .header-logo img {
-            /* ***** FIX: New width rules for responsiveness ***** */
             max-width: 90%; 
-            height: auto; /* Height auto maintains aspect ratio */
+            height: auto; 
             max-height: 80px;
             border: 0;
         }
@@ -50,7 +49,7 @@
             background-color: #795548; 
             overflow: hidden;
             text-align: center;
-            padding: 5px 0;
+            padding: 5px 0; 
             border-top: 2px solid #FFD700;
             border-bottom: 2px solid #5D4037;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
@@ -59,7 +58,6 @@
             margin: 0 auto; 
         }
         
-        /* Desktop Menu Item Styling (3D Buttons) */
         .nav-item {
             display: inline-block; 
             color: #FFFFFF;
@@ -104,6 +102,13 @@
             color: #FFFFFF;
             text-decoration: none;
         }
+        
+        /* 8. Divider Image Styling (NEW FIX) */
+        .divider-img {
+            max-width: 100%; 
+            height: auto;    
+            display: block; 
+        }
 
         /* 7. Responsive Breakpoint */
         @media screen and (max-width: 768px) {
@@ -111,8 +116,14 @@
             #main-navbar {
                 max-width: 100%; 
                 border-radius: 0;
-                padding: 0; 
+                padding: 8px 0; 
             }
+            
+            #main-navbar .icon {
+                 padding: 5px 15px;
+                 line-height: 2em;
+            }
+
             .nav-item {
                 display: none !important; 
             }
@@ -160,15 +171,15 @@
 <div id="page-wrapper">
 
     <div style="text-align:center; padding: 10px 0;">
-        <img src="./kimgs/dup.png" alt="divider" style="WIDTH:500px;HEIGHT:auto;">
+        <img src="./kimgs/dup.png" alt="divider" class="divider-img">
     </div>
 
     <div id="main-content-body">
-        <h1>फाइनल रेस्पॉन्सिव लेआउट</h1>
-        <p>यह वर्जन लोगो के ओवरसाइज़ होने की समस्या को ठीक करता है। अब लोगो मोबाइल पर रैपर के अंदर फिट होना चाहिए।</p>
+        <h1>डिवाइडर इमेज अब फिट होंगी!</h1>
+        <p>यह वर्जन डिवाइडर इमेज के ओवरसाइज़ होने की समस्या को ठीक करता है। अब वे रैपर के अंदर पूरी तरह फिट होने चाहिए।</p>
     </div>
     <div style="text-align:center; padding: 10px 0;">
-        <img src="./kimgs/ddown.png" alt="divider" style="WIDTH:500px;HEIGHT:auto;">
+        <img src="./kimgs/ddown.png" alt="divider" class="divider-img">
     </div>
     
 </div>
