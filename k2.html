@@ -2,16 +2,14 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>KASUMALGARH :: Clean Slate Test Page</title>
 
     <link href='http://fonts.googleapis.com/css?family=Alegreya+SC:700,400italic' rel='stylesheet' type='text/css' />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
     <style>
         /* 1. Body and Background */
         body { 
-            background-color: #380000; /* Dark Maroon Body Background */
+            background-color: #380000;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -19,7 +17,7 @@
 
         /* 2. Page Wrapper (Main Content Area) */
         #page-wrapper {
-            background-color: #F8F4E3; /* Cream/White background for readability */
+            background-color: #F8F4E3;
             max-width: 1000px; 
             margin: 0 auto; 
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
@@ -30,10 +28,9 @@
         .header-logo {
             text-align: center;
             padding-top: 20px;
-            /* FIX: Ensure header logo is inside wrapper for alignment */
             max-width: 1000px; 
             margin: 0 auto; 
-            background-color: #F8F4E3; /* Match wrapper background */
+            background-color: #F8F4E3;
         }
         .header-logo img {
             width: auto;
@@ -52,10 +49,9 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             position: relative;
             
-            /* FIX 1: Max Width Set to Match Wrapper and Centered */
+            /* FIX 2: Max Width set for DESKTOP Alignment */
             max-width: 1000px; 
             margin: 0 auto; 
-            /* FIX 2: Remove margin-top if placed after logo */
         }
         
         /* Desktop Menu Item Styling (3D Buttons) */
@@ -87,15 +83,16 @@
             text-align: left;
             background-color: #3e2723;
         }
+        /* FIX 3: ICON STYLING */
         .icon {
             display: none; 
-            position: absolute;
-            right: 0;
-            top: 0;
+            /* Relative position inside centered div */
+            float: right; 
             padding: 15px;
             font-size: 20px;
             color: #FFD700;
             cursor: pointer;
+            line-height: 1.05em; /* Center icon vertically */
         }
         #mobile-links a {
             display: block; 
@@ -129,16 +126,18 @@
         
         /* 7. Responsive Breakpoint */
         @media screen and (max-width: 768px) {
+            
+            /* FIX 4: Mobile Navbar Must be 100% Wide */
+            #main-navbar {
+                max-width: 100%; 
+                border-radius: 0;
+            }
+            
             .nav-item {
                 display: none !important; 
             }
             .icon {
                 display: block; 
-            }
-            /* FIX 3: Ensure nav is full width on mobile */
-            #main-navbar {
-                max-width: 100%;
-                border-radius: 0;
             }
             #page-wrapper {
                 box-shadow: none; 
@@ -185,8 +184,8 @@
     </div>
 
     <div id="main-content-body">
-        <h1>नया पेज कंटेंट यहाँ जोड़ें</h1>
-        <p>यह कोड अब सभी Responsive समस्याओं को ठीक कर चुका होना चाहिए। मेनू अब रैपर के जितना ही चौड़ा होगा, और मोबाइल पर Hamburger Menu भी ठीक से काम करेगा।</p>
+        <h1>फाइनल रेस्पॉन्सिव लेआउट</h1>
+        <p>इस वर्जन में मेनू अलाइनमेंट और मोबाइल Hamburger Icon प्लेसमेंट दोनों को ठीक किया गया है।</p>
     </div>
     <div style="text-align:center; padding: 10px 0;">
         <img src="./kimgs/ddown.png" alt="divider" style="WIDTH:500px;HEIGHT:auto;">
