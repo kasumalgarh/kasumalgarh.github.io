@@ -2,12 +2,11 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>KASUMALGARH :: Test Page for Experiments</title>
+    <title>KASUMALGARH :: Clean Test Page for Experiments</title>
 
     <link rel="stylesheet" href="./kcss/styles.css">
     <link rel="stylesheet" href="./kcss/test.css">
     <link href='http://fonts.googleapis.com/css?family=Alegreya+SC:700,400italic' rel='stylesheet' type='text/css' />
-    <link href="./kcss/ktree.css" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript" src="./gsgenius/ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
@@ -16,7 +15,7 @@
         body { background: #380000; }
         .footer .g1::after { content: ""; display: table; clear: both; }
 
-        /* NEW: Main Navigation Bar Styling */
+        /* Main Navigation Bar Styling */
         #main-navbar {
             background-color: #220000; /* Dark Maroon/Black */
             overflow: hidden;
@@ -44,38 +43,33 @@
             color: white; /* White text on hover */
         }
         
-        /* Sidebar Index CSS (Copied from Vanshavali) */
-        #name-index-sidebar {
-            position: fixed; top: 100px; right: 50px; width: 200px;
-            max-height: 80vh; overflow-y: auto; background-color: #220000;
-            color: gold; padding: 15px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            z-index: 1000; border: 1px solid #915D28;
+        /* Footer Copy Button Styling */
+        #copyButtonFooter {
+            background-color: #3e2723;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1em;
+            float: right;
+            margin-top: 10px;
+            text-decoration: none;
+            display: inline-block;
         }
-        #name-index-sidebar h2 {
-            margin-top: 0; font-size: 1.1em; color: #ffd700; border-bottom: 2px solid #915D28;
-            padding-bottom: 5px; margin-bottom: 10px; text-align: center;
+        #copyButtonFooter:hover {
+            background-color: #5d4037;
         }
-        #total-names-count { font-size: 0.8em; font-weight: normal; color: #e6b300; }
-        #dynamic-name-list { list-style: none; padding: 0; margin: 0; }
-        #dynamic-name-list a {
-            color: #E6B300; text-decoration: none; display: flex; 
-            justify-content: space-between; align-items: center;
-            padding: 2px 5px; font-size: 0.9em; border-radius: 3px; transition: background-color 0.3s;
-        }
-        #dynamic-name-list a:hover { color: white; background-color: #550000; }
-        .active-highlight { background-color: yellow; color: #380000 !important; font-weight: bold; }
-        .vanshavali-highlight { background-color: yellow !important; color: #380000 !important; padding: 3px !important; border-radius: 5px; }
 
-        /* Social Icons Styling */
-        .social-icon {
-            display: inline-block; width: 16px; height: 16px; margin-left: 5px; vertical-align: middle;
-            background-size: cover; opacity: 0.7; transition: opacity 0.3s; flex-shrink: 0;
+        /* --- New Body Section Style for Experiments --- */
+        #main-content-body {
+            min-height: 500px; /* To ensure the footer stays low */
+            color: white;
+            padding: 30px;
+            text-align: center;
+            font-size: 1.5em;
         }
-        .social-icon:hover { opacity: 1.0; }
-        .fb-icon { background-image: url('./kimgs/fb_icon.png'); }
-        .insta-icon { background-image: url('./kimgs/insta_icon.png'); }
-
-        @media (max-width: 1000px) { #name-index-sidebar { display: none; } }
     </style>
     </head>
 <body>
@@ -89,38 +83,14 @@
     <a href="./history_gallery.html" class="nav-item">🖼️ History & Gallery</a>
     <a href="./contact_us.html" class="nav-item">📞 Contact-us</a>
 </div>
+
 <center><img src="./kimgs/dup.png" alt="divider" style="WIDTH:500px;HEIGHT:auto;margin-top:0px;"></center>
 
-<center>
-<div id="name-index-sidebar">
-    <h2>नाम सूची (Index) <span id="total-names-count"></span></h2> 
-    <ul id="dynamic-name-list"> 
-        </ul>
+<div id="main-content-body">
+    <h2>✨ यह आपकी खाली बॉडी है! ✨</h2>
+    <p>आप यहाँ कोई भी नया HTML/CSS/JS कोड डालकर प्रयोग कर सकते हैं।</p>
+    <p>जैसे: फोटो गैलरी, परिचय पाठ (Intro text), या कोई नया सर्च फ़ीचर।</p>
 </div>
-<table border="0px" width="auto" cellpadding="0" cellspacing="0" ><tr><td>
-    <center><h6 style="margin-top:10px;">Family Tree Test Structure</h6></center>
-    
-    <ul id="KasumalgarhVanshavali">
-        <button id="all">Collapse/Expand All</button>
-
-        <li><a id="test_founder" data-fbid="test.founder.fb" data-instaid="test_founder_insta"><strong>Test Founder Name</strong></a>
-            <ul>
-                <li><a id="test_son_one">Test Son One</a>
-                    <ul>
-                        <li><a id="test_grandson_one">Kr. Grandson One</a></li>
-                    </ul>
-                </li>
-                <li><a id="test_son_two" data-fbid="test.son.two.fb">Test Son Two</a>
-                    <ul>
-                        <li><a id="test_grandson_two">Kr. Grandson Two</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-    </ul>	
-    </td></tr></table>
-</center>
-
 <center><img src="./kimgs/ddown.png" alt="divider" style="WIDTH:500px;HEIGHT:;margin-bottom: 0cm;"></center>
 
 <center>
@@ -134,123 +104,16 @@
 </center>
 
 <script type="text/javascript">
+    // DOM Ready function for jQuery
     $( document ).ready( function( ) {
-        
-        // Initial Tree Collapse Logic
-        $( '#KasumalgarhVanshavali li' ).each( function() {
-            if( $( this ).children( 'ul' ).length > 0 ) {
-                $( this ).addClass( 'parent' );     
-            }
-        });
-        $( '#KasumalgarhVanshavali li.parent > a' ).click( function( ) {
-            $( this ).parent().toggleClass( 'active' );
-            $( this ).parent().children( 'ul' ).slideToggle( 'fast' );
-        });
-        $( '#all' ).click( function() {
-            $( '#KasumalgarhVanshavali li' ).each( function() {
-                $( this ).toggleClass( 'active' );
-                $( this ).children( 'ul' ).slideToggle( 'fast' );
-            });
-        });
-        $( '#KasumalgarhVanshavali li' ).each( function() {
-            $( this ).toggleClass( 'active' );
-            $( this ).children( 'ul' ).slideToggle( 'fast' );
-        });
-        
-        // --- Index Generation and Click Handling ---
-        
-        generateIndex();
-
-        $('#dynamic-name-list').on('click', 'a', function(e) {
-            // Social icon पर क्लिक होने पर स्क्रॉल न करें
-            if ($(e.target).hasClass('social-icon')) {
-                return; 
-            }
-            
-            e.preventDefault();
-            var targetId = $(this).attr('href').substring(1);
-            // Pass the anchor element for highlighting
-            scrollToName(targetId, this); 
-        });
-
+        // यहाँ आप अपना नया JavaScript कोड जोड़ सकते हैं।
     });
     
-    // ***** FUNCTION: Automatically generates the Index, counts names, and adds social icons *****
-    function generateIndex() {
-        var $vanshavali = $('#KasumalgarhVanshavali');
-        var $indexList = $('#dynamic-name-list'); 
-        var totalNames = 0;
-        
-        $indexList.empty(); 
-        
-        $vanshavali.find('a[id]').each(function() {
-            var $nameAnchor = $(this);
-            var id = $nameAnchor.attr('id');
-            var fbId = $nameAnchor.attr('data-fbid');     
-            var instaId = $nameAnchor.attr('data-instaid'); 
-            
-            var nameText = $nameAnchor.html().trim().replace(/<\/?strong>/g, '');
-            
-            var socialIcons = '<div class="social-icons-container">'; 
-            
-            if (fbId) {
-                socialIcons += '<a href="https://www.facebook.com/' + fbId + '" target="_blank" class="social-icon fb-icon" title="Facebook"></a>';
-            }
-            if (instaId) {
-                var cleanInstaId = instaId.startsWith('@') ? instaId.substring(1) : instaId;
-                socialIcons += '<a href="https://www.instagram.com/' + cleanInstaId + '" target="_blank" class="social-icon insta-icon" title="Instagram"></a>';
-            }
-            socialIcons += '</div>';
-
-            var listItem = '<li><a href="#' + id + '">' + nameText + socialIcons + '</a></li>';
-            
-            $indexList.append(listItem);
-            totalNames++;
-        });
-        
-        $('#total-names-count').text('(' + totalNames + ' नाम)');
-    }
-    // ********************************************************************************
-
-    // ***** FUNCTION: Scrolls to the selected name and highlights it *****
-    function scrollToName(nameId, indexLinkElement){
-        // 1. Remove highlight from all previous elements
-        $('.active-highlight').removeClass('active-highlight');
-        $('.vanshavali-highlight').removeClass('vanshavali-highlight');
-
-        // 2. Highlight the clicked index link
-        $(indexLinkElement).addClass('active-highlight');
-        
-        // 3. Find the target name in the family tree
-        var targetAnchor = document.getElementById(nameId);
-
-        if (targetAnchor) {
-            // 4. Highlight the name in the family tree
-            $(targetAnchor).addClass('vanshavali-highlight');
-
-            // 5. Scroll to the target
-            $('html,body').animate({
-                scrollTop: $(targetAnchor).offset().top - 100 
-            }, 'slow');
-            
-            // 6. Remove highlight after a few seconds
-            setTimeout(function() {
-                $(targetAnchor).removeClass('vanshavali-highlight');
-                $(indexLinkElement).removeClass('active-highlight');
-            }, 3000); 
-        }
-    }
-
     // ***** FUNCTION: Copies Vanshavali Code (For Admin) *****
     function copyVanshavali() {
-        const vanshavaliCode = document.getElementById('KasumalgarhVanshavali').outerHTML;
-        
-        navigator.clipboard.writeText(vanshavaliCode).then(() => {
-            alert("✅ वंशावली का कोड सफलतापूर्वक कॉपी हो गया है!");
-        }).catch(err => {
-            console.error('Copy failed:', err);
-            alert("❌ कॉपी नहीं हो पाया।");
-        });
+        // चूंकि वंशावली हटा दी गई है, यह फ़ंक्शन अब केवल बॉडी का कोड कॉपी कर सकता है या केवल अलर्ट दे सकता है।
+        // हम फ़िलहाल एक साधारण अलर्ट रख रहे हैं।
+        alert("✅ इस पेज पर अब वंशावली नहीं है। आप मैन्युअल रूप से कोड कॉपी कर सकते हैं!");
     }
 </script>
 
