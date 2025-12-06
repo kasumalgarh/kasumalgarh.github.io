@@ -6,13 +6,18 @@
     <title>KASUMALGARH :: Clean Slate Test Page</title>
 
     <link href='http://fonts.googleapis.com/css?family=Alegreya+SC:700,400italic' rel='stylesheet' type='text/css' />
+
     <style>
-        /* 1. Body and Background */
+        /* 1. Body and Background (FIXED: Strict Width & Overflow) */
+        html, body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* हॉरिजॉन्टल स्क्रॉलिंग रोकें */
+        }
         body { 
             background-color: #380000;
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
         }
 
         /* 2. Page Wrapper (Main Content Area) */
@@ -38,7 +43,7 @@
             border: 0;
         }
 
-        /* ***** 👑 NAVIGATION BAR STYLING (FIXED ALIGNMENT) 👑 ***** */
+        /* ***** 👑 NAVIGATION BAR STYLING 👑 ***** */
         #main-navbar {
             background-color: #795548; 
             overflow: hidden;
@@ -49,7 +54,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             position: relative;
             
-            /* FIX 2: Max Width set for DESKTOP Alignment */
+            /* Max Width set for DESKTOP Alignment */
             max-width: 1000px; 
             margin: 0 auto; 
         }
@@ -83,16 +88,14 @@
             text-align: left;
             background-color: #3e2723;
         }
-        /* FIX 3: ICON STYLING */
         .icon {
             display: none; 
-            /* Relative position inside centered div */
             float: right; 
             padding: 15px;
             font-size: 20px;
             color: #FFD700;
             cursor: pointer;
-            line-height: 1.05em; /* Center icon vertically */
+            line-height: 1.05em; 
         }
         #mobile-links a {
             display: block; 
@@ -131,6 +134,12 @@
             #main-navbar {
                 max-width: 100%; 
                 border-radius: 0;
+                padding: 0; /* FIX: Remove padding to fit content */
+            }
+
+            /* FIX 5: Adjust padding for icon */
+            #main-navbar .icon {
+                 padding: 10px;
             }
             
             .nav-item {
@@ -185,7 +194,7 @@
 
     <div id="main-content-body">
         <h1>फाइनल रेस्पॉन्सिव लेआउट</h1>
-        <p>इस वर्जन में मेनू अलाइनमेंट और मोबाइल Hamburger Icon प्लेसमेंट दोनों को ठीक किया गया है।</p>
+        <p>इस वर्जन में HTML/Body पर कठोर नियम (`overflow-x: hidden`) लागू किए गए हैं ताकि मोबाइल पर हॉरिजॉन्टल स्क्रॉलिंग की समस्या हल हो जाए।</p>
     </div>
     <div style="text-align:center; padding: 10px 0;">
         <img src="./kimgs/ddown.png" alt="divider" style="WIDTH:500px;HEIGHT:auto;">
