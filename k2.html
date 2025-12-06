@@ -6,7 +6,6 @@
     <title>KASUMALGARH :: Clean Slate Test Page</title>
 
     <link href='http://fonts.googleapis.com/css?family=Alegreya+SC:700,400italic' rel='stylesheet' type='text/css' />
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <style>
@@ -21,16 +20,20 @@
         /* 2. Page Wrapper (Main Content Area) */
         #page-wrapper {
             background-color: #F8F4E3; /* Cream/White background for readability */
-            max-width: 1000px;
-            margin: 0 auto; /* Center the wrapper */
+            max-width: 1000px; 
+            margin: 0 auto; 
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-            min-height: 100vh; /* Ensure full screen height */
+            min-height: 100vh;
         }
         
         /* 3. Header Logo Styling */
         .header-logo {
             text-align: center;
             padding-top: 20px;
+            /* FIX: Ensure header logo is inside wrapper for alignment */
+            max-width: 1000px; 
+            margin: 0 auto; 
+            background-color: #F8F4E3; /* Match wrapper background */
         }
         .header-logo img {
             width: auto;
@@ -38,9 +41,9 @@
             border: 0;
         }
 
-        /* ***** 👑 NAVIGATION BAR STYLING 👑 ***** */
+        /* ***** 👑 NAVIGATION BAR STYLING (FIXED ALIGNMENT) 👑 ***** */
         #main-navbar {
-            background-color: #795548; /* Lighter Brown */
+            background-color: #795548; 
             overflow: hidden;
             text-align: center;
             padding: 5px 0;
@@ -48,6 +51,11 @@
             border-bottom: 2px solid #5D4037;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             position: relative;
+            
+            /* FIX 1: Max Width Set to Match Wrapper and Centered */
+            max-width: 1000px; 
+            margin: 0 auto; 
+            /* FIX 2: Remove margin-top if placed after logo */
         }
         
         /* Desktop Menu Item Styling (3D Buttons) */
@@ -113,7 +121,7 @@
         .footer {
             text-align: center;
             padding: 20px 0;
-            background-color: #380000; /* Footer should match body background for consistency */
+            background-color: #380000;
             color: #FFD700;
             font-size: 0.9em;
             margin-top: 20px;
@@ -127,8 +135,13 @@
             .icon {
                 display: block; 
             }
+            /* FIX 3: Ensure nav is full width on mobile */
+            #main-navbar {
+                max-width: 100%;
+                border-radius: 0;
+            }
             #page-wrapper {
-                box-shadow: none; /* Mobile पर shadow हटा दें */
+                box-shadow: none; 
             }
             #main-content-body {
                 padding: 20px 5%;
@@ -138,34 +151,34 @@
     </head>
 <body>
 
+<div class="header-logo">
+    <img src="./kimgs/kasumalgarh_tital.png" alt="Header Logo">
+</div>
+
+<div id="main-navbar">
+    
+    <a href="./index.html" class="nav-item">🏠 Home</a>
+    <a href="./history.html" class="nav-item">📜 History</a>
+    <a href="./family_tree.html" class="nav-item">🌳 Family Tree</a>
+    <a href="./achievements.html" class="nav-item">🏆 Achievements</a>
+    <a href="./location_map.html" class="nav-item">📍 Location & Map</a>
+    <a href="./about.html" class="nav-item">ℹ️ About</a>
+    <a href="./contact_us.html" class="nav-item">📞 Contact Us</a>
+    
+    <a href="javascript:void(0);" class="icon" onclick="toggleMobileMenu()">☰</a>
+    
+    <div id="mobile-links">
+        <a href="./index.html">🏠 Home</a>
+        <a href="./history.html">📜 History</a>
+        <a href="./family_tree.html">🌳 Family Tree</a>
+        <a href="./achievements.html">🏆 Achievements</a>
+        <a href="./location_map.html">📍 Location & Map</a>
+        <a href="./about.html">ℹ️ About</a>
+        <a href="./contact_us.html">📞 Contact Us</a>
+    </div>
+</div>
+
 <div id="page-wrapper">
-
-    <div class="header-logo">
-        <img src="./kimgs/kasumalgarh_tital.png" alt="Header Logo">
-    </div>
-
-    <div id="main-navbar">
-        
-        <a href="./index.html" class="nav-item">🏠 Home</a>
-        <a href="./history.html" class="nav-item">📜 History</a>
-        <a href="./family_tree.html" class="nav-item">🌳 Family Tree</a>
-        <a href="./achievements.html" class="nav-item">🏆 Achievements</a>
-        <a href="./location_map.html" class="nav-item">📍 Location & Map</a>
-        <a href="./about.html" class="nav-item">ℹ️ About</a>
-        <a href="./contact_us.html" class="nav-item">📞 Contact Us</a>
-        
-        <a href="javascript:void(0);" class="icon" onclick="toggleMobileMenu()">☰</a>
-        
-        <div id="mobile-links">
-            <a href="./index.html">🏠 Home</a>
-            <a href="./history.html">📜 History</a>
-            <a href="./family_tree.html">🌳 Family Tree</a>
-            <a href="./achievements.html">🏆 Achievements</a>
-            <a href="./location_map.html">📍 Location & Map</a>
-            <a href="./about.html">ℹ️ About</a>
-            <a href="./contact_us.html">📞 Contact Us</a>
-        </div>
-    </div>
 
     <div style="text-align:center; padding: 10px 0;">
         <img src="./kimgs/dup.png" alt="divider" style="WIDTH:500px;HEIGHT:auto;">
@@ -173,7 +186,7 @@
 
     <div id="main-content-body">
         <h1>नया पेज कंटेंट यहाँ जोड़ें</h1>
-        <p>यह पेज पूरी तरह से साफ़ HTML और CSS के साथ बनाया गया है। अब आप यहाँ बिना किसी पुरानी उलझन के अपना कंटेंट जोड़ना शुरू कर सकते हैं।</p>
+        <p>यह कोड अब सभी Responsive समस्याओं को ठीक कर चुका होना चाहिए। मेनू अब रैपर के जितना ही चौड़ा होगा, और मोबाइल पर Hamburger Menu भी ठीक से काम करेगा।</p>
     </div>
     <div style="text-align:center; padding: 10px 0;">
         <img src="./kimgs/ddown.png" alt="divider" style="WIDTH:500px;HEIGHT:auto;">
@@ -185,7 +198,6 @@
 </div>
 
 <script type="text/javascript">
-    // Hamburger Menu Toggling Function
     function toggleMobileMenu() {
         var x = document.getElementById("mobile-links");
         if (x.style.display === "block") {
