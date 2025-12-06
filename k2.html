@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>KASUMALGARH :: Clean Test Page for Experiments (New Style)</title>
+    <title>KASUMALGARH :: Responsive Test Page</title>
 
     <link rel="stylesheet" href="./kcss/styles.css">
     <link rel="stylesheet" href="./kcss/test.css">
@@ -13,8 +13,11 @@
     <style>
         /* General Body and Footer Styles */
         body { 
-            background-color: #F8F4E3; /* Light Cream/Old Paper Color */
-            margin: 0; /* Remove default body margin */
+            background-color: #F8F4E3; /* Light Cream Fallback */
+            background-image: url('./kimgs/patina.png'); 
+            background-repeat: repeat;
+            color: #333333; 
+            margin: 0;
         }
         .footer .g1::after { content: ""; display: table; clear: both; }
 
@@ -35,57 +38,118 @@
             background-color: #795548;
         }
 
-        /* --- New Body Section Style for Experiments --- */
+        /* --- Main Content Body Style --- */
         #main-content-body {
-            min-height: 500px; /* To ensure the footer stays low */
-            color: #333333; /* Dark text on light background */
-            padding: 40px 15%; 
+            min-height: 500px;
+            color: #333333;
+            padding: 40px 10%; /* Reduced padding for mobile room */
             text-align: left;
             font-family: serif; 
             line-height: 1.6;
         }
 
-        /* ***** 👑 NEW: ROYAL NAVIGATION BAR STYLING 👑 ***** */
+        /* ***** 👑 DESKTOP & SHARED NAVIGATION STYLING 👑 ***** */
         #main-navbar {
-            background-color: #915D28; /* Golden Brown Base */
-            /* अगर आपके पास कोई पैटर्न इमेज है, तो इसे इस्तेमाल करें: background-image: url('textures/royal_pattern.png'); */
+            background-color: #795548; /* Lighter Brown */
             overflow: hidden;
             text-align: center;
             margin-top: 10px;
             padding: 5px 0;
-            border-top: 3px solid #FFD700; /* Bright Gold Border */
-            border-bottom: 3px solid #795548; /* Darker Brown Border */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* 3D Shadow */
+            border-top: 2px solid #FFD700;
+            border-bottom: 2px solid #5D4037;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            position: relative; /* Used for mobile icon positioning */
         }
-
+        
         .nav-item {
-            display: inline-block;
-            color: #FFF; /* White/Light text */
-            text-align: center;
-            padding: 10px 18px; 
+            display: inline-block; /* Desktop: Horizontal Links */
+            color: #FFFFFF;
+            padding: 8px 16px;
             text-decoration: none;
             font-size: 1.05em;
             font-weight: 700; 
-            margin: 0 2px;
+            margin: 0 5px;
             
-            /* 3D Button Style */
-            background-color: #B8860B; /* Darker Gold for Button Base */
-            border: 1px solid #FFD700; /* Gold Border */
-            border-radius: 5px;
-            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
-            
+            /* 3D Button Style (Improved Option 3) */
+            background-color: #B8860B; 
+            border: 1px solid #FFD700; 
+            border-radius: 8px; /* Slightly rounder */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
             transition: background-color 0.3s, transform 0.1s;
         }
 
         .nav-item:hover {
-            background-color: #DAA520; /* Lighter Gold on hover */
-            color: #333; /* Dark text on hover */
-            transform: translateY(-1px); /* Slight lift effect */
-            box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.5);
+            background-color: #DAA520; 
+            color: #333333; 
+            transform: translateY(-2px);
         }
 
-        .nav-item:active {
-            transform: translateY(1px); /* Push down effect on click */
+        /* ***** MOBILE MENU STYLING ***** */
+        
+        /* 1. Hide mobile links and show icon by default on desktop */
+        #mobile-links {
+            display: none; /* Hide the vertical list on desktop */
+            width: 100%;
+            text-align: left;
+            background-color: #3e2723; /* Dark background for mobile dropdown */
+        }
+        
+        /* 2. Hamburger Icon */
+        .icon {
+            display: none; /* Hide icon on desktop */
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 15px;
+            font-size: 20px;
+            color: #FFD700; /* Gold icon */
+            cursor: pointer;
+        }
+
+        /* 3. Media Query: When screen width is 768px or less (Mobile/Tablet) */
+        @media screen and (max-width: 768px) {
+            
+            /* Hide the desktop horizontal links */
+            .nav-item {
+                display: none; 
+            }
+            
+            /* Show the Hamburger icon */
+            .icon {
+                display: block; 
+            }
+            
+            /* Center the main navbar text for mobile */
+            #main-navbar {
+                text-align: left; 
+            }
+
+            /* Style mobile links when visible (vertical list) */
+            #mobile-links a {
+                display: block; /* Make links full width */
+                background-color: transparent; 
+                border: none;
+                border-bottom: 1px solid #55352c; /* Separator line */
+                border-radius: 0;
+                box-shadow: none;
+                padding: 15px 20px;
+                text-align: left;
+                color: #FFFFFF;
+                font-weight: 400;
+                margin: 0;
+            }
+            
+            /* Mobile hover style */
+            #mobile-links a:hover {
+                background-color: #550000;
+                color: #FFD700;
+                transform: none;
+            }
+
+            /* Adjust content padding for smaller screens */
+            #main-content-body {
+                padding: 20px 5%;
+            }
         }
     </style>
     </head>
@@ -96,6 +160,7 @@
 </center>
 
 <div id="main-navbar">
+    
     <a href="./index.html" class="nav-item">🏠 Home</a>
     <a href="./history.html" class="nav-item">📜 History</a>
     <a href="./family_tree.html" class="nav-item">🌳 Family Tree</a>
@@ -103,6 +168,18 @@
     <a href="./location_map.html" class="nav-item">📍 Location & Map</a>
     <a href="./about.html" class="nav-item">ℹ️ About</a>
     <a href="./contact_us.html" class="nav-item">📞 Contact Us</a>
+    
+    <a href="javascript:void(0);" class="icon" onclick="toggleMobileMenu()">☰</a>
+    
+    <div id="mobile-links">
+        <a href="./index.html">🏠 Home</a>
+        <a href="./history.html">📜 History</a>
+        <a href="./family_tree.html">🌳 Family Tree</a>
+        <a href="./achievements.html">🏆 Achievements</a>
+        <a href="./location_map.html">📍 Location & Map</a>
+        <a href="./about.html">ℹ️ About</a>
+        <a href="./contact_us.html">📞 Contact Us</a>
+    </div>
 </div>
 
 <center>
@@ -110,8 +187,8 @@
 </center>
 
 <div id="main-content-body">
-    <h2>✨ आपका नया टेस्ट पेज तैयार है! ✨</h2>
-    <p>इस सेक्शन (`#main-content-body`) में कंटेंट जोड़कर प्रयोग करना शुरू करें। यह अब एक साफ़ कैनवस है जिसमें **शाही स्टाइल** और **नया मेनू** है।</p>
+    <h2>✨ यह पेज अब पूरी तरह Responsive है! ✨</h2>
+    <p>अपने ब्राउज़र को छोटा करके देखें कि मेनू 3-लाइन वाले Hamburger Menu में बदल जाता है।</p>
 </div>
 <center>
     <img src="./kimgs/ddown.png" alt="divider" style="WIDTH:500px;HEIGHT:;margin-bottom: 0cm;">
@@ -128,14 +205,18 @@
 </center>
 
 <script type="text/javascript">
-    // DOM Ready function for jQuery
-    $( document ).ready( function( ) {
-        // आप यहाँ कोई भी नया JavaScript कोड जोड़ सकते हैं।
-    });
+    // Hamburger Menu Toggling Function
+    function toggleMobileMenu() {
+        var x = document.getElementById("mobile-links");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+    }
     
-    // ***** FUNCTION: Copies Vanshavali Code (Placeholder) *****
+    // Placeholder Function
     function copyVanshavali() {
-        // चूंकि वंशावली हटा दी गई है, यह केवल एक सरल सूचना है।
         alert("✅ कोड कॉपी करने का फ़ंक्शन काम कर रहा है।");
     }
 </script>
