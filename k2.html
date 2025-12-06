@@ -1,60 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="hi">
 <head>
-    <meta charset="utf-8">
-    <title>KASUMALGARH :: Responsive Test Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KASUMALGARH :: Clean Slate Test Page</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <link rel="stylesheet" href="./kcss/styles.css">
-    <link rel="stylesheet" href="./kcss/test.css">
     <link href='http://fonts.googleapis.com/css?family=Alegreya+SC:700,400italic' rel='stylesheet' type='text/css' />
 
-    <script type="text/javascript" src="./gsgenius/ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <style>
-        /* General Body and Footer Styles */
+        /* 1. Body and Background */
         body { 
-            background-color: #F8F4E3;
-            background-image: url('./kimgs/patina.png'); 
-            background-repeat: repeat;
-            color: #333333; 
+            background-color: #380000; /* Dark Maroon Body Background */
+            font-family: Arial, sans-serif;
             margin: 0;
-        }
-        .footer .g1::after { content: ""; display: table; clear: both; }
-
-        /* Footer Copy Button Styling */
-        #copyButtonFooter {
-            background-color: #5D4037; 
-            color: white;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.9em;
-            float: right;
-            margin-top: 10px;
-        }
-        #copyButtonFooter:hover {
-            background-color: #795548;
+            padding: 0;
         }
 
-        /* --- Main Content Body Style --- */
-        #main-content-body {
-            min-height: 500px;
-            color: #333333;
-            padding: 40px 10%;
-            text-align: left;
-            font-family: serif; 
-            line-height: 1.6;
+        /* 2. Page Wrapper (Main Content Area) */
+        #page-wrapper {
+            background-color: #F8F4E3; /* Cream/White background for readability */
+            max-width: 1000px;
+            margin: 0 auto; /* Center the wrapper */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            min-height: 100vh; /* Ensure full screen height */
+        }
+        
+        /* 3. Header Logo Styling */
+        .header-logo {
+            text-align: center;
+            padding-top: 20px;
+        }
+        .header-logo img {
+            width: auto;
+            max-height: 80px;
+            border: 0;
         }
 
-        /* ***** 👑 DESKTOP & SHARED NAVIGATION STYLING 👑 ***** */
+        /* ***** 👑 NAVIGATION BAR STYLING 👑 ***** */
         #main-navbar {
-            background-color: #795548;
+            background-color: #795548; /* Lighter Brown */
             overflow: hidden;
             text-align: center;
-            margin-top: 10px;
             padding: 5px 0;
             border-top: 2px solid #FFD700;
             border-bottom: 2px solid #5D4037;
@@ -62,16 +50,15 @@
             position: relative;
         }
         
+        /* Desktop Menu Item Styling (3D Buttons) */
         .nav-item {
-            display: inline-block; /* Desktop: Horizontal Links */
+            display: inline-block; 
             color: #FFFFFF;
             padding: 8px 16px;
             text-decoration: none;
             font-size: 1.05em;
             font-weight: 700; 
             margin: 0 5px;
-            
-            /* 3D Button Style */
             background-color: #B8860B; 
             border: 1px solid #FFD700; 
             border-radius: 8px;
@@ -85,17 +72,13 @@
             transform: translateY(-2px);
         }
 
-        /* ***** MOBILE MENU STYLING ***** */
-        
-        /* 1. Hide mobile links and show icon by default on desktop */
+        /* 4. Mobile Menu & Hamburger Icon */
         #mobile-links {
-            display: none; /* Hide the vertical list on desktop */
+            display: none; 
             width: 100%;
             text-align: left;
             background-color: #3e2723;
         }
-        
-        /* 2. Hamburger Icon: Hide icon on desktop */
         .icon {
             display: none; 
             position: absolute;
@@ -106,43 +89,47 @@
             color: #FFD700;
             cursor: pointer;
         }
+        #mobile-links a {
+            display: block; 
+            border-bottom: 1px solid #55352c;
+            padding: 15px 20px;
+            text-align: left;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+        #mobile-links a:hover {
+            background-color: #550000;
+            color: #FFD700;
+        }
 
-        /* 3. Media Query: When screen width is 768px or less (Mobile/Tablet) */
+        /* 5. Main Content Area */
+        #main-content-body {
+            padding: 40px 10%; 
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        /* 6. Footer Styling */
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #380000; /* Footer should match body background for consistency */
+            color: #FFD700;
+            font-size: 0.9em;
+            margin-top: 20px;
+        }
+        
+        /* 7. Responsive Breakpoint */
         @media screen and (max-width: 768px) {
-            
-            /* Hide the desktop horizontal links */
             .nav-item {
-                display: none !important; /* !important ensures priority */
+                display: none !important; 
             }
-            
-            /* Show the Hamburger icon */
             .icon {
                 display: block; 
             }
-            
-            /* Style mobile links when visible (vertical list) */
-            #mobile-links a {
-                display: block; 
-                background-color: transparent; 
-                border: none;
-                border-bottom: 1px solid #55352c;
-                border-radius: 0;
-                box-shadow: none;
-                padding: 15px 20px;
-                text-align: left;
-                color: #FFFFFF;
-                font-weight: 400;
-                margin: 0;
+            #page-wrapper {
+                box-shadow: none; /* Mobile पर shadow हटा दें */
             }
-            
-            /* Mobile hover style */
-            #mobile-links a:hover {
-                background-color: #550000;
-                color: #FFD700;
-                transform: none;
-            }
-
-            /* Adjust content padding for smaller screens */
             #main-content-body {
                 padding: 20px 5%;
             }
@@ -151,54 +138,51 @@
     </head>
 <body>
 
-<center>
-    <img src="./kimgs/kasumalgarh_tital.png" alt="Header Logo" style="WIDTH:AUTO;height:80px;" align="center" border="0"; margin-top:0px; >
-</center>
+<div id="page-wrapper">
 
-<div id="main-navbar">
-    
-    <a href="./index.html" class="nav-item">🏠 Home</a>
-    <a href="./history.html" class="nav-item">📜 History</a>
-    <a href="./family_tree.html" class="nav-item">🌳 Family Tree</a>
-    <a href="./achievements.html" class="nav-item">🏆 Achievements</a>
-    <a href="./location_map.html" class="nav-item">📍 Location & Map</a>
-    <a href="./about.html" class="nav-item">ℹ️ About</a>
-    <a href="./contact_us.html" class="nav-item">📞 Contact Us</a>
-    
-    <a href="javascript:void(0);" class="icon" onclick="toggleMobileMenu()">☰</a>
-    
-    <div id="mobile-links">
-        <a href="./index.html">🏠 Home</a>
-        <a href="./history.html">📜 History</a>
-        <a href="./family_tree.html">🌳 Family Tree</a>
-        <a href="./achievements.html">🏆 Achievements</a>
-        <a href="./location_map.html">📍 Location & Map</a>
-        <a href="./about.html">ℹ️ About</a>
-        <a href="./contact_us.html">📞 Contact Us</a>
+    <div class="header-logo">
+        <img src="./kimgs/kasumalgarh_tital.png" alt="Header Logo">
     </div>
+
+    <div id="main-navbar">
+        
+        <a href="./index.html" class="nav-item">🏠 Home</a>
+        <a href="./history.html" class="nav-item">📜 History</a>
+        <a href="./family_tree.html" class="nav-item">🌳 Family Tree</a>
+        <a href="./achievements.html" class="nav-item">🏆 Achievements</a>
+        <a href="./location_map.html" class="nav-item">📍 Location & Map</a>
+        <a href="./about.html" class="nav-item">ℹ️ About</a>
+        <a href="./contact_us.html" class="nav-item">📞 Contact Us</a>
+        
+        <a href="javascript:void(0);" class="icon" onclick="toggleMobileMenu()">☰</a>
+        
+        <div id="mobile-links">
+            <a href="./index.html">🏠 Home</a>
+            <a href="./history.html">📜 History</a>
+            <a href="./family_tree.html">🌳 Family Tree</a>
+            <a href="./achievements.html">🏆 Achievements</a>
+            <a href="./location_map.html">📍 Location & Map</a>
+            <a href="./about.html">ℹ️ About</a>
+            <a href="./contact_us.html">📞 Contact Us</a>
+        </div>
+    </div>
+
+    <div style="text-align:center; padding: 10px 0;">
+        <img src="./kimgs/dup.png" alt="divider" style="WIDTH:500px;HEIGHT:auto;">
+    </div>
+
+    <div id="main-content-body">
+        <h1>नया पेज कंटेंट यहाँ जोड़ें</h1>
+        <p>यह पेज पूरी तरह से साफ़ HTML और CSS के साथ बनाया गया है। अब आप यहाँ बिना किसी पुरानी उलझन के अपना कंटेंट जोड़ना शुरू कर सकते हैं।</p>
+    </div>
+    <div style="text-align:center; padding: 10px 0;">
+        <img src="./kimgs/ddown.png" alt="divider" style="WIDTH:500px;HEIGHT:auto;">
+    </div>
+    
 </div>
-
-<center>
-    <img src="./kimgs/dup.png" alt="divider" style="WIDTH:500px;HEIGHT:auto;margin-top:0px;">
-</center>
-
-<div id="main-content-body">
-    <h2>✨ अब यह Responsive होना चाहिए! ✨</h2>
-    <p>अपने मोबाइल डिवाइस या ब्राउज़र के Developer Tools (F12) का उपयोग करके स्क्रीन की चौड़ाई 768px से कम करें। आपको Hamburger Icon दिखना चाहिए।</p>
-</div>
-<center>
-    <img src="./kimgs/ddown.png" alt="divider" style="WIDTH:500px;HEIGHT:;margin-bottom: 0cm;">
-</center>
-
-<center>
 <div class="footer">
-    <div class="g1">
-        <br> Copyrights &copy 2013-2025&nbsp Test User (Kasumalgarh)
-        <br>
-        <a href="#" onclick="copyVanshavali(); return false;" id="copyButtonFooter">📄 For Admin Only (Copy Code)</a>
-    </div>
+    Copyrights &copy 2013-2025&nbsp Test User (Kasumalgarh)
 </div>
-</center>
 
 <script type="text/javascript">
     // Hamburger Menu Toggling Function
@@ -209,11 +193,6 @@
         } else {
             x.style.display = "block";
         }
-    }
-    
-    // Placeholder Function
-    function copyVanshavali() {
-        alert("✅ कोड कॉपी करने का फ़ंक्शन काम कर रहा है।");
     }
 </script>
 
