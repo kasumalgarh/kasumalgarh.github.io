@@ -3,135 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>KASUMALGARH :: Clean Slate Test Page</title>
+    <title>KASUMALGARH :: Slide-Out Menu Page</title>
 
     <link href='http://fonts.googleapis.com/css?family=Alegreya+SC:700,400italic' rel='stylesheet' type='text/css' />
 
     <style>
-        /* 1. Body and Background (Strict Width & Overflow to prevent bleed) */
+        /* 1. Body and Background (Strict Width & Overflow) */
         html, body {
             width: 100%;
             margin: 0;
             padding: 0;
-            overflow-x: hidden; 
+            overflow-x: hidden; /* हॉरिजॉन्टल स्क्रॉलिंग रोकें */
         }
         body { 
-            background-color: #380000;
+            background-color: #380000; /* Dark Maroon Body Background */
             font-family: Arial, sans-serif;
         }
 
         /* 2. Page Wrapper (Main Content Area) */
         #page-wrapper {
-            background-color: #F8F4E3;
+            background-color: #F8F4E3; /* Cream/White background */
             max-width: 1000px; 
             margin: 0 auto; 
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
             min-height: 100vh;
         }
         
-        /* 3. Header Logo Styling */
-        .header-logo {
-            text-align: center;
-            padding-top: 20px;
-            max-width: 1000px; 
-            margin: 0 auto; 
-            background-color: #F8F4E3;
-        }
-        .header-logo img {
-            max-width: 90%; 
-            height: auto; 
-            max-height: 80px;
-            border: 0;
+        /* ---------------------------------------------------- */
+        /* ***** 3. HEADER & HAMBURGER CSS ***** */
+        /* ---------------------------------------------------- */
+        #main-header {
+            background-color: #795548; /* Lighter Brown Bar (as per your images) */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            position: sticky; 
+            top: 0;
+            z-index: 1000;
         }
 
-        /* ***** 👑 NAVIGATION BAR STYLING 👑 ***** */
-        #main-navbar {
-            background-color: #795548; 
-            overflow: hidden;
-            text-align: center;
-            padding: 5px 0; 
-            border-top: 2px solid #FFD700;
-            border-bottom: 2px solid #5D4037;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            position: relative;
-            max-width: 1000px; 
-            margin: 0 auto; 
+        .header-content {
+            display: flex;
+            justify-content: space-between; /* Logo left, Hamburger right */
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
         }
-        
-        .nav-item {
-            display: inline-block; 
-            color: #FFFFFF;
-            padding: 8px 16px;
+
+        .main-logo {
+            max-height: 40px; 
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* Hamburger Icon Button */
+        #menu-toggle {
+            font-size: 30px;
+            color: #FFD700; /* Gold Icon */
             text-decoration: none;
-            font-size: 1.05em;
-            font-weight: 700; 
-            margin: 0 5px;
-            background-color: #B8860B; 
-            border: 1px solid #FFD700; 
-            border-radius: 8px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
-            transition: background-color 0.3s, transform 0.1s;
-        }
-        .nav-item:hover {
-            background-color: #DAA520; 
-            color: #333333; 
-            transform: translateY(-2px);
-        }
-
-        /* 4. Mobile Menu & Hamburger Icon */
-        #mobile-links {
-            display: none; 
-            width: 100%;
-            text-align: left;
-            background-color: #3e2723;
-        }
-        .icon {
-            display: none; 
-            float: right; 
-            padding: 15px;
-            font-size: 20px;
-            color: #FFD700;
             cursor: pointer;
-            line-height: 1.05em; 
+            line-height: 1;
         }
-        #mobile-links a {
-            display: block; 
-            border-bottom: 1px solid #55352c;
-            padding: 15px 20px;
-            text-align: left;
-            color: #FFFFFF;
+        
+        /* ---------------------------------------------------- */
+        /* ***** 4. SLIDING MENU CONTAINER CSS ***** */
+        /* ---------------------------------------------------- */
+        #slide-menu {
+            height: 100%;
+            width: 0; /* Default: Hidden */
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            background-color: rgba(56, 0, 0, 0.98); /* Dark Maroon, nearly opaque */
+            overflow-x: hidden;
+            transition: 0.5s; /* SLIDE ANIMATION */
+            padding-top: 60px;
+        }
+
+        /* Menu Links inside the slide-menu */
+        .slide-item {
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 1.5em;
+            color: #FFD700;
+            display: block;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        .slide-item:hover {
+            background-color: #915D28; /* Golden Brown hover */
+            color: white;
+        }
+
+        /* Close button (X) */
+        .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+            color: white;
             text-decoration: none;
         }
         
-        /* 8. Divider Image Styling (NEW FIX) */
-        .divider-img {
-            max-width: 100%; 
-            height: auto;    
-            display: block; 
+        /* 5. Main Content Area */
+        #main-content-body {
+            padding: 40px 10%; 
+            color: #333333;
+            line-height: 1.6;
         }
 
+        /* 6. Footer Styling */
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #380000;
+            color: #FFD700;
+            font-size: 0.9em;
+            margin-top: 20px;
+        }
+        
         /* 7. Responsive Breakpoint */
         @media screen and (max-width: 768px) {
-            
-            #main-navbar {
-                max-width: 100%; 
-                border-radius: 0;
-                padding: 8px 0; 
-            }
-            
-            #main-navbar .icon {
-                 padding: 5px 15px;
-                 line-height: 2em;
-            }
-
-            .nav-item {
-                display: none !important; 
-            }
-            .icon {
-                display: block; 
-            }
-            #page-wrapper {
-                box-shadow: none; 
+            /* Full width slide-menu on mobile (Adjusted for better screen fit) */
+            .slide-menu.open {
+                width: 80%; /* Takes 80% of screen width */
             }
             #main-content-body {
                 padding: 20px 5%;
@@ -141,45 +138,40 @@
     </head>
 <body>
 
-<div class="header-logo">
-    <img src="./kimgs/kasumalgarh_tital.png" alt="Header Logo">
-</div>
-
-<div id="main-navbar">
-    
-    <a href="./index.html" class="nav-item">🏠 Home</a>
-    <a href="./history.html" class="nav-item">📜 History</a>
-    <a href="./family_tree.html" class="nav-item">🌳 Family Tree</a>
-    <a href="./achievements.html" class="nav-item">🏆 Achievements</a>
-    <a href="./location_map.html" class="nav-item">📍 Location & Map</a>
-    <a href="./about.html" class="nav-item">ℹ️ About</a>
-    <a href="./contact_us.html" class="nav-item">📞 Contact Us</a>
-    
-    <a href="javascript:void(0);" class="icon" onclick="toggleMobileMenu()">☰</a>
-    
-    <div id="mobile-links">
-        <a href="./index.html">🏠 Home</a>
-        <a href="./history.html">📜 History</a>
-        <a href="./family_tree.html">🌳 Family Tree</a>
-        <a href="./achievements.html">🏆 Achievements</a>
-        <a href="./location_map.html">📍 Location & Map</a>
-        <a href="./about.html">ℹ️ About</a>
-        <a href="./contact_us.html">📞 Contact Us</a>
+<header id="main-header">
+    <div class="header-content">
+        <img src="./kimgs/kasumalgarh_tital.png" alt="Kasumalgarh Royal Logo" class="main-logo">
+        
+        <a href="javascript:void(0)" id="menu-toggle" onclick="toggleSlideMenu()">
+            ☰
+        </a>
     </div>
-</div>
+</header>
+
+<nav id="slide-menu">
+    <a href="javascript:void(0)" class="closebtn" onclick="toggleSlideMenu()">&times;</a> 
+    
+    <a href="./index.html" class="slide-item">👑 Home</a>
+    <a href="./history.html" class="slide-item">📜 History</a>
+    <a href="./family_tree.html" class="slide-item">🌳 Family Tree</a>
+    <a href="./achievements.html" class="slide-item">🏆 Achievements</a>
+    <a href="./location_map.html" class="slide-item">📍 Location & Map</a>
+    <a href="./about.html" class="slide-item">ℹ️ About</a>
+    <a href="./contact_us.html" class="slide-item">📞 Contact Us</a>
+</nav>
 
 <div id="page-wrapper">
 
     <div style="text-align:center; padding: 10px 0;">
-        <img src="./kimgs/dup.png" alt="divider" class="divider-img">
+        <img src="./kimgs/dup.png" alt="divider" style="WIDTH:500px;HEIGHT:auto;">
     </div>
 
     <div id="main-content-body">
-        <h1>डिवाइडर इमेज अब फिट होंगी!</h1>
-        <p>यह वर्जन डिवाइडर इमेज के ओवरसाइज़ होने की समस्या को ठीक करता है। अब वे रैपर के अंदर पूरी तरह फिट होने चाहिए।</p>
+        <h1>स्लाइड-आउट मेनू पेज</h1>
+        <p>अब आपका मेनू बाईं ओर से स्लाइड होकर आएगा। पेज कंटेंट इसी रैपर के अंदर है।</p>
     </div>
     <div style="text-align:center; padding: 10px 0;">
-        <img src="./kimgs/ddown.png" alt="divider" class="divider-img">
+        <img src="./kimgs/ddown.png" alt="divider" style="WIDTH:500px;HEIGHT:auto;">
     </div>
     
 </div>
@@ -188,12 +180,26 @@
 </div>
 
 <script type="text/javascript">
-    function toggleMobileMenu() {
-        var x = document.getElementById("mobile-links");
-        if (x.style.display === "block") {
-            x.style.display = "none";
+    // Sliding Menu Toggling Function
+    function toggleSlideMenu() {
+        var menu = document.getElementById("slide-menu");
+        var header = document.getElementById("main-header");
+        
+        // Check current state
+        if (menu.style.width === "100%" || menu.style.width === "80%" || menu.style.width === "300px") {
+            // Close the menu
+            menu.style.width = "0";
+            document.body.style.overflow = "auto"; // Enable scrolling back
+            header.style.position = "sticky"; // Restore header stickiness
         } else {
-            x.style.display = "block";
+            // Open the menu
+            if (window.innerWidth <= 768) {
+                menu.style.width = "80%"; // Mobile width
+            } else {
+                menu.style.width = "300px"; // Desktop/Tablet fixed width
+            }
+            document.body.style.overflow = "hidden"; // Disable body scrolling when menu is open
+            header.style.position = "static"; // Prevent header from sticking over menu
         }
     }
 </script>
