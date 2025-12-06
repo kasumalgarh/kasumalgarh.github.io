@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>KASUMALGARH :: Final Responsive Menu Page</title>
+    <title>KASUMALGARH :: Final Icon Grid Menu Page</title>
 
     <link href='http://fonts.googleapis.com/css?family=Alegreya+SC:700,400italic' rel='stylesheet' type='text/css' />
 
     <style>
-        /* 1. Body and Background (Strict Width & Overflow) */
+        /* 1. Body and Background (Strict Width & Overflow to prevent bleed) */
         html, body {
             width: 100%;
             margin: 0;
@@ -43,92 +43,100 @@
             max-height: 80px;
             border: 0;
         }
-
-        /* ***** 👑 NAVIGATION BAR STYLING (The Fixed Menu) 👑 ***** */
-        #main-navbar {
-            background-color: #795548; 
-            overflow: hidden;
+        
+        /* 👑 ICON GRID NAVIGATION STYLING (Same as before) 👑 */
+        #icon-menu-wrapper {
+            background-color: #380000; 
+        }
+        #icon-menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
+            gap: 10px;
+            padding: 15px;
             text-align: center;
-            padding: 5px 0; /* Desktop Padding */
-            border-top: 2px solid #FFD700;
-            border-bottom: 2px solid #5D4037;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            position: relative;
             max-width: 1000px; 
             margin: 0 auto; 
+            background-color: #5D4037; 
+            border-bottom: 3px solid #FFD700;
+        }
+        .grid-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: #FFD700; 
+            padding: 10px 0;
+            background-color: #795548; 
+            border-radius: 8px;
+            border: 1px solid #B8860B;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+            transition: background-color 0.3s;
+        }
+        .grid-item:hover {
+            background-color: #DAA520; 
+            color: #333333;
+            box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.6);
+        }
+        .icon-emoji {
+            font-size: 28px; 
+            margin-bottom: 5px;
+            line-height: 1;
+        }
+        .icon-text {
+            font-size: 0.85em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        /* ---------------------------------------------------- */
+        
+        /* ***** 4. DIVIDER IMAGE STYLING (FIXED) ***** */
+        .divider-image-container {
+            text-align: center; 
+            padding: 10px 0;
         }
         
-        /* Desktop Menu Item Styling (3D Buttons) */
-        .nav-item {
-            display: inline-block; 
-            color: #FFFFFF;
-            padding: 8px 16px;
-            text-decoration: none;
-            font-size: 1.05em;
-            font-weight: 700; 
-            margin: 0 5px;
-            background-color: #B8860B; 
-            border: 1px solid #FFD700; 
-            border-radius: 8px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
-            transition: background-color 0.3s, transform 0.1s;
+        .divider-image-container img {
+            /* FIX: सुनिश्चित करें कि इमेज 90% चौड़ाई से बड़ी न हो */
+            max-width: 90%; 
+            height: auto;
         }
-        .nav-item:hover {
-            background-color: #DAA520; 
-            color: #333333; 
-            transform: translateY(-2px);
+        /* ****************************************** */
+
+
+        /* 5. Main Content Area */
+        #main-content-body {
+            padding: 40px 10%; 
+            color: #333333;
+            line-height: 1.6;
         }
 
-        /* 4. Mobile Menu & Hamburger Icon */
-        #mobile-links {
-            display: none; /* Default: Hidden on Desktop */
-            width: 100%;
-            text-align: left;
-            background-color: #3e2723;
-        }
-        .icon {
-            display: none; /* Default: Hidden on Desktop */
-            float: right; 
-            padding: 10px 15px;
-            font-size: 25px;
+        /* 6. Footer Styling */
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #380000;
             color: #FFD700;
-            cursor: pointer;
-            line-height: 1.0; 
+            font-size: 0.9em;
+            margin-top: 20px;
         }
-        #mobile-links a {
-            display: block; 
-            border-bottom: 1px solid #55352c;
-            padding: 15px 20px;
-            text-align: left;
-            color: #FFFFFF;
-            text-decoration: none;
-        }
-
+        
         /* 7. Responsive Breakpoint */
-        @media screen and (max-width: 768px) {
-            
-            #main-navbar {
-                max-width: 100%; 
-                border-radius: 0;
-                padding: 0; /* Mobile Menu: Only need padding inside the icon link */
-                text-align: right; /* Center icon to the right */
+        @media screen and (max-width: 600px) {
+            #icon-menu-grid {
+                grid-template-columns: repeat(3, 1fr); 
+                padding: 10px 5px;
+                gap: 5px;
             }
-            
-            /* Hamburger Icon Styling */
-            .icon {
-                display: inline-block; /* Show the icon */
-                padding: 12px 15px; /* Adjust padding to center the icon vertically */
-            }
-
-            .nav-item {
-                display: none !important; /* Hide desktop links */
-            }
-            
             #page-wrapper {
                 box-shadow: none; 
             }
             #main-content-body {
                 padding: 20px 5%;
+            }
+            /* मोबाइल पर डिवाइडर को थोड़ा छोटा करें */
+             .divider-image-container img {
+                max-width: 95%; 
             }
         }
     </style>
@@ -139,59 +147,35 @@
     <img src="./kimgs/kasumalgarh_tital.png" alt="Header Logo">
 </div>
 
-<div id="main-navbar">
-    
-    <a href="./index.html" class="nav-item">🏠 Home</a>
-    <a href="./history.html" class="nav-item">📜 History</a>
-    <a href="./family_tree.html" class="nav-item">🌳 Family Tree</a>
-    <a href="./achievements.html" class="nav-item">🏆 Achievements</a>
-    <a href="./location_map.html" class="nav-item">📍 Location & Map</a>
-    <a href="./about.html" class="nav-item">ℹ️ About</a>
-    <a href="./contact_us.html" class="nav-item">📞 Contact Us</a>
-    
-    <a href="javascript:void(0);" class="icon" onclick="toggleMobileMenu()">☰</a>
-    
-    <div id="mobile-links">
-        <a href="./index.html">🏠 Home</a>
-        <a href="./history.html">📜 History</a>
-        <a href="./family_tree.html">🌳 Family Tree</a>
-        <a href="./achievements.html">🏆 Achievements</a>
-        <a href="./location_map.html">📍 Location & Map</a>
-        <a href="./about.html">ℹ️ About</a>
-        <a href="./contact_us.html">📞 Contact Us</a>
+<div id="icon-menu-wrapper">
+    <div id="icon-menu-grid">
+        <a href="./index.html" class="grid-item"><span class="icon-emoji">👑</span><span class="icon-text">Home</span></a>
+        <a href="./history.html" class="grid-item"><span class="icon-emoji">📜</span><span class="icon-text">History</span></a>
+        <a href="./family_tree.html" class="grid-item"><span class="icon-emoji">🌳</span><span class="icon-text">Family Tree</span></a>
+        <a href="./achievements.html" class="grid-item"><span class="icon-emoji">🏆</span><span class="icon-text">Achievements</span></a>
+        <a href="./location_map.html" class="grid-item"><span class="icon-emoji">📍</span><span class="icon-text">Location & Map</span></a>
+        <a href="./about.html" class="grid-item"><span class="icon-emoji">ℹ️</span><span class="icon-text">About</span></a>
+        <a href="./contact_us.html" class="grid-item"><span class="icon-emoji">📞</span><span class="icon-text">Contact Us</span></a>
     </div>
 </div>
-
 <div id="page-wrapper">
 
-    <div style="text-align:center; padding: 10px 0;">
-        <img src="./kimgs/dup.png" alt="divider" style="WIDTH:500px;HEIGHT:auto;">
+    <div class="divider-image-container">
+        <img src="./kimgs/dup.png" alt="divider">
     </div>
 
     <div id="main-content-body">
-        <h1>अंतिम Responsive Layout</h1>
-        <p>यह कोड स्लाइडिंग मेनू को हटाकर, आपके पारंपरिक Hamburger Menu को पूरी तरह से responsive बनाता है। अब यह मोबाइल पर ठीक से दिखना चाहिए।</p>
+        <h1>डिवाइडर फिक्स</h1>
+        <p>डिवाइडर इमेज अब 90% से अधिक चौड़ी नहीं होनी चाहिए और आपके पेज के कंटेंट के साथ फिट होनी चाहिए।</p>
     </div>
-    <div style="text-align:center; padding: 10px 0;">
-        <img src="./kimgs/ddown.png" alt="divider" style="WIDTH:500px;HEIGHT:auto;">
+    <div class="divider-image-container">
+        <img src="./kimgs/ddown.png" alt="divider">
     </div>
     
 </div>
 <div class="footer">
     Copyrights &copy 2013-2025&nbsp Test User (Kasumalgarh)
 </div>
-
-<script type="text/javascript">
-    // Menu Toggling Function (Same as before)
-    function toggleMobileMenu() {
-        var x = document.getElementById("mobile-links");
-        if (x.style.display === "block") {
-            x.style.display = "none";
-        } else {
-            x.style.display = "block";
-        }
-    }
-</script>
 
 </body>
 </html>
