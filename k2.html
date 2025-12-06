@@ -22,7 +22,9 @@
 
         /* 2. Page Wrapper (Main Content Area) */
         #page-wrapper {
-            background-color: #F8F4E3;
+            /* FIX: Background color changed to Muted Yellow/Beige for Old Paper Look */
+            background-color: #EDE8D4; 
+            
             max-width: 1000px; 
             margin: 0 auto; 
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
@@ -35,7 +37,8 @@
             padding-top: 20px;
             max-width: 1000px; 
             margin: 0 auto; 
-            background-color: #F8F4E3;
+            /* Header Logo background color must match the wrapper */
+            background-color: #EDE8D4; 
         }
         .header-logo img {
             max-width: 90%; 
@@ -43,22 +46,25 @@
             max-height: 80px;
             border: 0;
         }
-        
-        /* 👑 ICON GRID NAVIGATION STYLING (Same as before) 👑 */
+
+        /* ***** 👑 ICON GRID NAVIGATION STYLING 👑 ***** */
         #icon-menu-wrapper {
             background-color: #380000; 
         }
+        
         #icon-menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
-            gap: 10px;
-            padding: 15px;
+            box-sizing: border-box; 
+            grid-template-columns: repeat(7, 1fr); /* Desktop: 7 columns */
+            gap: 5px; 
+            padding: 10px;
             text-align: center;
             max-width: 1000px; 
             margin: 0 auto; 
             background-color: #5D4037; 
             border-bottom: 3px solid #FFD700;
         }
+
         .grid-item {
             display: flex;
             flex-direction: column;
@@ -66,23 +72,26 @@
             align-items: center;
             text-decoration: none;
             color: #FFD700; 
-            padding: 10px 0;
+            padding: 8px 0; 
             background-color: #795548; 
             border-radius: 8px;
             border: 1px solid #B8860B;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
             transition: background-color 0.3s;
         }
+        
         .grid-item:hover {
             background-color: #DAA520; 
             color: #333333;
             box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.6);
         }
+
         .icon-emoji {
             font-size: 28px; 
             margin-bottom: 5px;
             line-height: 1;
         }
+
         .icon-text {
             font-size: 0.85em;
             font-weight: 600;
@@ -90,22 +99,21 @@
         }
         /* ---------------------------------------------------- */
         
-        /* ***** 4. DIVIDER IMAGE STYLING (FIXED) ***** */
+        /* 4. DIVIDER IMAGE STYLING */
         .divider-image-container {
             text-align: center; 
             padding: 10px 0;
         }
         
         .divider-image-container img {
-            /* FIX: सुनिश्चित करें कि इमेज 90% चौड़ाई से बड़ी न हो */
             max-width: 90%; 
             height: auto;
         }
-        /* ****************************************** */
 
 
         /* 5. Main Content Area */
         #main-content-body {
+            /* Text color remains dark for readability on light background */
             padding: 40px 10%; 
             color: #333333;
             line-height: 1.6;
@@ -124,9 +132,9 @@
         /* 7. Responsive Breakpoint */
         @media screen and (max-width: 600px) {
             #icon-menu-grid {
-                grid-template-columns: repeat(3, 1fr); 
-                padding: 10px 5px;
-                gap: 5px;
+                grid-template-columns: repeat(4, 1fr); 
+                padding: 8px 5px;
+                gap: 4px;
             }
             #page-wrapper {
                 box-shadow: none; 
@@ -134,9 +142,12 @@
             #main-content-body {
                 padding: 20px 5%;
             }
-            /* मोबाइल पर डिवाइडर को थोड़ा छोटा करें */
-             .divider-image-container img {
+            .divider-image-container img {
                 max-width: 95%; 
+            }
+            /* Header logo background color must match the wrapper */
+            .header-logo {
+                background-color: #EDE8D4; 
             }
         }
     </style>
@@ -165,8 +176,8 @@
     </div>
 
     <div id="main-content-body">
-        <h1>डिवाइडर फिक्स</h1>
-        <p>डिवाइडर इमेज अब 90% से अधिक चौड़ी नहीं होनी चाहिए और आपके पेज के कंटेंट के साथ फिट होनी चाहिए।</p>
+        <h1>पुराना कागज़ लुक</h1>
+        <p>पृष्ठभूमि का रंग अब पुराने कागज़ जैसा दिखना चाहिए।</p>
     </div>
     <div class="divider-image-container">
         <img src="./kimgs/ddown.png" alt="divider">
