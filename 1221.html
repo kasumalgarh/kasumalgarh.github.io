@@ -23,11 +23,11 @@
             padding: 10px 20px;
             position: relative; 
             overflow: hidden; /* Animation ke liye zaroori */
-            min-height: 40px; /* Thoda height maintain kiya */
+            min-height: 40px; 
         }
 
         .navbar-brand-container {
-            display: flex; /* Logo aur Kasumalgarh ko ek line mein */
+            display: flex; 
             align-items: center;
         }
 
@@ -39,7 +39,7 @@
             text-transform: uppercase;
             margin-left: 10px;
             
-            /* KASUMALGARH Animation (Shuru mein upar chupa hua) */
+            /* KASUMALGARH Animation */
             transform: translateY(-50px);
             animation: slideDown 1s ease-out forwards, 
                        textGlow 2s infinite alternate 1s;
@@ -50,9 +50,9 @@
             width: 30px; 
             height: 30px;
             border-radius: 50%;
-            background-color: white; /* Temporary color agar image load na ho */
+            background-color: white; /* Image load na hone par */
             
-            /* Logo Animation (Shuru mein daayein taraf chupa hua) */
+            /* Logo Animation */
             transform: translateX(100vw);
             animation: slideLeft 1s ease-out forwards,
                        logoGlow 2s infinite alternate 0.5s;
@@ -88,8 +88,8 @@
             color: white;
             font-size: 24px;
             cursor: pointer;
-            display: none; /* PC par hide rakha gaya hai */
-            z-index: 101; /* Menu ke upar rahe */
+            display: none; /* PC par hide */
+            z-index: 101; 
         }
 
         /* ------------------------------------- */
@@ -117,12 +117,13 @@
         /* --- Mobile Responsiveness (600px se kam par) --- */
         @media (max-width: 600px) {
             
-            /* PC links ko Mobile par hide karein */
+            /* Mobile par links ko hide karein aur positioning set karein */
             .navbar-links {
                 display: none; 
                 position: absolute; 
                 top: 50px; 
                 right: 0;
+                left: 0; /* <--- FIX: Is line se menu puri width leta hai */
                 width: 100%;
                 background-color: #444; 
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
@@ -188,7 +189,7 @@
         <p>यह वह जगह है जहाँ आपके पेज की मुख्य सामग्री (content) जाएगी। यह नेविगेशन बार PC पर पूरी तरह से दिखता है, जबकि 600px से कम चौड़ाई वाले मोबाइल डिवाइस पर यह हैमबर्गर मेनू में बदल जाता है।</p>
         
         <section>
-            <h2>उप-अनुभाग शीर्षक (Sub-Section Heading)</h2>
+            <h2>उप-अनुभाग  (Sub-Section Heading)</h2>
             <ul>
                 <li>आइटम 1 (मोबाइल पर मेनू आइकॉन पर क्लिक करें)</li>
                 <li>आइटम 2 (या बाहर कहीं भी क्लिक करें ताकि मेनू बंद हो जाए)</li>
