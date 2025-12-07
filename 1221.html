@@ -3,182 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KASUMALGARH :: HOME</title>
-
-    <link href='http://fonts.googleapis.com/css?family=Alegreya+SC:700,400italic' rel='stylesheet' type='text/css' />
-    <link rel="stylesheet" href="./kcss/styles.css">
-    <link rel="stylesheet" href="./animatee.css">
-
-    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-    <script src="./kjs/responsive-nav.js"></script>
-    <script src="./prefixfree.mini.js"></script>
-    <script src="./wow.js"></script> 
-
+    <title>KASUMALGARH - आपका पेज शीर्षक</title>
+    
     <style>
-        html, body {
-            width: 100%;
+        /* General Body Styling */
+        body {
             margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            background-color: #380000;
             font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
         }
 
-        #page-wrapper {
-            background-color: #EDE8D4;
-            max-width: 1000px;
-            margin: 0 auto;
-            box-shadow: 0 0 20px rgba(0,0,0,0.8);
-            min-height: 100vh;
+        /* --- Navbar Styling --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px 20px;
+            position: relative; 
+            overflow: hidden; /* Animation ke liye zaroori */
+            min-height: 40px; /* Thoda height maintain kiya */
         }
 
-        /* HEADER + NEW MENU */
-        header {
-            background: #001C40;
-            padding: 10px;
-            text-align: center;
+        .navbar-brand-container {
+            display: flex; /* Logo aur Kasumalgarh ko ek line mein */
+            align-items: center;
         }
 
-        header a.logo img {
-            width: 40px;
-        }
-        header text {
+        .navbar-brand {
             color: white;
-            font-size: 24px;
+            text-decoration: none;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-transform: uppercase;
             margin-left: 10px;
-            font-family: 'Alegreya SC', serif;
+            
+            /* KASUMALGARH Animation (Shuru mein upar chupa hua) */
+            transform: translateY(-50px);
+            animation: slideDown 1s ease-out forwards, 
+                       textGlow 2s infinite alternate 1s;
         }
 
-        /* responsive-nav menu */
-        nav.nav-collapse ul {
+        /* --- Logo Styling and Animation --- */
+        #menu-logo {
+            width: 30px; 
+            height: 30px;
+            border-radius: 50%;
+            background-color: white; /* Temporary color agar image load na ho */
+            
+            /* Logo Animation (Shuru mein daayein taraf chupa hua) */
+            transform: translateX(100vw);
+            animation: slideLeft 1s ease-out forwards,
+                       logoGlow 2s infinite alternate 0.5s;
+        }
+
+        /* --- Navigation Links Styling (PC/Default) --- */
+        .navbar-links {
             list-style: none;
             margin: 0;
             padding: 0;
-        }
-        nav.nav-collapse ul li {
-            border-bottom: 1px solid #022c66;
-        }
-        nav.nav-collapse ul li a {
-            display: block;
-            padding: 10px;
-            color: white;
-            background: #003366;
-            text-decoration: none;
-        }
-        nav.nav-collapse ul li a:hover {
-            background: #004c99;
+            display: flex; /* PC par links ek line mein */
         }
 
-        @media screen and (max-width: 600px) {
-            .nav-collapse {
-                position: absolute;
+        .navbar-links li {
+            margin-left: 20px;
+        }
+
+        .navbar-links a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .navbar-links a:hover {
+            background-color: #575757;
+            border-radius: 4px;
+        }
+
+        /* --- Hamburger Icon Styling (Hidden on PC) --- */
+        .menu-toggle {
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            display: none; /* PC par hide rakha gaya hai */
+            z-index: 101; /* Menu ke upar rahe */
+        }
+
+        /* ------------------------------------- */
+        /* --- KEYFRAMES (CSS Animations) --- */
+        /* ------------------------------------- */
+
+        @keyframes slideLeft {
+            to { transform: translateX(0); }
+        }
+
+        @keyframes slideDown {
+            to { transform: translateY(0); }
+        }
+        
+        @keyframes textGlow {
+            from { text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+            to { text-shadow: 0 0 10px #00aaff, 0 0 20px #00aaff; }
+        }
+
+        @keyframes logoGlow {
+            from { box-shadow: 0 0 0 rgba(255, 255, 255, 0); }
+            to { box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 12px rgba(255, 255, 255, 0.5); }
+        }
+        
+        /* --- Mobile Responsiveness (600px se kam par) --- */
+        @media (max-width: 600px) {
+            
+            /* PC links ko Mobile par hide karein */
+            .navbar-links {
+                display: none; 
+                position: absolute; 
+                top: 50px; 
+                right: 0;
                 width: 100%;
+                background-color: #444; 
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+                z-index: 100;
+            }
+
+            /* Jab menu 'active' ho, tab use dikhayein */
+            .navbar-links.active {
+                display: flex;
+                flex-direction: column; 
+            }
+
+            .navbar-links li {
+                margin: 0; 
+                border-top: 1px solid #555; 
+            }
+
+            .navbar-links a {
+                padding: 15px 20px;
+                text-align: center;
+            }
+
+            /* Hamburger icon ko Mobile par dikhayein */
+            .menu-toggle {
+                display: block;
             }
         }
-
-        .divider-image-container {
-            text-align: center;
-            padding: 10px 0;
-        }
-        .divider-image-container img {
-            max-width: 90%;
-        }
-
-        #main-content-body {
-            padding: 10px 10%;
-            color: #333;
-            text-align: center;
-        }
-
-        .floting-box {
-            display: inline-block;
-            width: 90%;
-            max-width: 300px;
-            background: #F8F4E3;
-            border: 1px solid #996600;
-            margin: 10px 5px;
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 20px 0;
-            background-color: #001C40;
-            color: #FFFFFF;
-            margin-top: 20px;
+        
+        /* Main content ke liye basic style */
+        main {
+            padding: 20px;
         }
     </style>
+    
 </head>
-
 <body>
 
-<!-- 🔹 NEW MENU INSERTED HERE -->
-<header>
-    <a href="http://kasumalgarh.github.io" class="logo" data-scroll alert="HOME">
-        <img src="./kimgs/menulogo2.png" class="wow slideInRight" data-wow-duration="4s">
-        <text class="wow fadeInDown" data-wow-duration="4s">Kasumalgarh</text>
-    </a>
+    <header>
+        <nav class="navbar">
+            
+            <div class="navbar-brand-container">
+                <img id="menu-logo" src="menulogo.png" alt="Menu Logo">
+                
+                <a href="#" class="navbar-brand">KASUMALGARH</a>
+            </div>
+            
+            <div class="menu-toggle" id="menu-icon">
+                &#9776; </div>
 
-    <nav class="nav-collapse" id="nav">
-        <ul>
-            <li><a href="./history_map.html"><img src="./imgs/history.png" width="20"> History & Map</a></li>
-            <li><a href="./k_vanshavali.html"><img src="./imgs/vanshavali.png" width="20"> Kasumalgarh-Vanshavali</a></li>
-            <li><a href="./r_vanshavali.html"><img src="./imgs/vanshavali.png" width="20"> Rathore-Vanshavali</a></li>
-            <li><a href="./photocatalogue.html"><img src="./imgs/photo.png" width="20"> Photo Catalogue</a></li>
-            <li><a href="./contact_us.html"><img src="./imgs/contact1.png" width="20"> Contact Us</a></li>
-        </ul>
-    </nav>
-</header>
+            <ul class="navbar-links" id="nav-menu">
+                <li><a href="#">होम (Home)</a></li>
+                <li><a href="#">सेवाएं (Services)</a></li>
+                <li><a href="#">गैलरी (Gallery)</a></li>
+                <li><a href="#">हमारे बारे में (About Us)</a></li>
+                <li><a href="#">संपर्क करें (Contact)</a></li>
+            </ul>
+        </nav>
+        
+        <h1>यह मुख्य शीर्षक है (Main Heading)</h1>
+    </header>
 
-<script>var nav = responsiveNav("#nav");</script>
+    <main>
+        <p>यह वह जगह है जहाँ आपके पेज की मुख्य सामग्री (content) जाएगी। यह नेविगेशन बार PC पर पूरी तरह से दिखता है, जबकि 600px से कम चौड़ाई वाले मोबाइल डिवाइस पर यह हैमबर्गर मेनू में बदल जाता है।</p>
+        
+        <section>
+            <h2>उप-अनुभाग शीर्षक (Sub-Section Heading)</h2>
+            <ul>
+                <li>आइटम 1 (मोबाइल पर मेनू आइकॉन पर क्लिक करें)</li>
+                <li>आइटम 2 (या बाहर कहीं भी क्लिक करें ताकि मेनू बंद हो जाए)</li>
+                <li>आइटम 3</li>
+            </ul>
+        </section>
+    </main>
 
-<!-- 🔻 OLD HOMEPAGE CONTENT BELOW -->
-<div id="page-wrapper">
+    <footer>
+        <p style="text-align: center; padding: 10px; background-color: #222; color: #fff;">&copy; 2025 कॉपीराइट। सभी अधिकार सुरक्षित।</p>
+    </footer>
 
-    <div class="divider-image-container">
-        <img src="./kimgs/dup.png">
-    </div>
+    <script>
+        const menuIcon = document.getElementById('menu-icon');
+        const navMenu = document.getElementById('nav-menu');
 
-    <div id="main-content-body">
+        // 1. Hamburger Icon Click Handler
+        menuIcon.addEventListener('click', function() {
+            // 'active' class जोड़कर या हटाकर मेनू को खोलता/बंद करता है
+            navMenu.classList.toggle('active');
+        });
 
-        <div class="floting-box"><img src="./kimgs/kasumalgarh_logo.png" style="height:200px;"> </div>
-<br>
-        <div class="floting-box">
-            <p>Dynasty :- Rathore</p>
-            <p>State :- Jodhpur</p>
-            <p>Clan :- Jodha</p>
-            <p>Subclan :- Kesarisinghot</p>
-            <p>Villages :- 1</p>
-            <p>Accession :- 1827</p>
-            <p>Hindi Name :- कसुम्बी</p>
-            <p>Area :- 18000 Bigha</p>
-        </div><br>
-
-        <div class="floting-box">
-            <h3>Khammaghani</h3>
-        </div>
-
-    </div>
-
-    <div class="divider-image-container">
-        <img src="./kimgs/ddown.png">
-    </div>
-
-</div>
-
-<script src="./wow.js"></script>
-<script>
-    wow = new WOW({
-        animateClass: 'animated',
-        offset: 100
-    });
-    wow.init();
-</script>
+        // 2. Click Anywhere on Page to Close Menu
+        document.addEventListener('click', function(event) {
+            const isClickInsideMenu = navMenu.contains(event.target);
+            const isClickOnIcon = menuIcon.contains(event.target);
+            
+            // अगर मेनू खुला है और क्लिक मेनू या आइकॉन के बाहर हुआ है
+            if (navMenu.classList.contains('active') && !isClickInsideMenu && !isClickOnIcon) {
+                navMenu.classList.remove('active'); // मेनू बंद कर दें
+            }
+        });
+    </script>
 
 </body>
 </html>
-
-
-
-
