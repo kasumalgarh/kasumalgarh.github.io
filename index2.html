@@ -6,12 +6,16 @@
     <meta name="author" content="GS Rathore">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     
-    <link rel="stylesheet" href="./kcss/styles.css">
-    <link rel="stylesheet" href="./animate.css"> <script src="./kjs/responsive-nav.js"></script> 
+    <link rel="stylesheet" href="./kcss/styles.css"> 
+    <link rel="stylesheet" href="./animate.css">
+    <script src="./kjs/responsive-nav.js"></script> 
     <script src="./prefixfree.mini.js"></script>
     
     <style>      
+        /* WOW.js से जुड़ी स्टाइलिंग */
         .wow:first-child { visibility: hidden; }            
+        
+        /* responsive-nav.js के लिए मीडिया क्वेरी */
         @media screen and (max-width: 600px) {          
             .nav-collapse {              
                 position: absolute; 
@@ -21,30 +25,46 @@
     </style>
     <link href='http://fonts.googleapis.com/css?family=Alegreya+SC:700,400italic' rel='stylesheet' type='text/css' />
     
+    <script>      
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','../www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-44124497-1', 'kasumalgarh.github.io');
+      ga('send', 'pageview');    
+    </script>    
+    
     </head>  
   <body>
     <header>       
         <a href="http://kasumalgarh.github.io" class="logo" data-scroll alert="HOME">            
-            <img src="./kimgs/rajaputana.png" alt=""  style="WIDTH:40px;HEIGHT:;" align="center" border="0" class="wow slideInRight" data-wow-duration="4s">            
+            <img src="./kimgs/rajaputana.png" alt="Rajputana Logo" style="WIDTH:40px;HEIGHT:;" align="center" border="0" class="wow slideInRight" data-wow-duration="4s">            
             <text class="wow fadeInDown" data-wow-duration="4s">Kasumal-Garh</text>       
         </a>
         <nav class="nav-collapse" id="nav">          
-            </nav>    
+            <ul> 
+                <li class="menu-item"><a href="./history_map.html" data-scroll>
+                    <img src="./imgs/history.png" alt=""  style="WIDTH:20px;HEIGHT:15px;" align="center" border="0" >History&Map
+                </a></li>            
+                <li class="menu-item"><a href="./k_vanshavali.html" data-scroll><img src="./imgs/vanshavali.png" alt=""  style="WIDTH:20px;HEIGHT:20px;" align="center" border="0" >Kasumalgarh-Vanshavali</a></li>            
+                <li class="menu-item"><a href="./r_vanshavali.html" data-scroll><img src="./imgs/vanshavali.png" alt=""  style="WIDTH:20px;HEIGHT:20px;" align="center" border="0" >Rathore-Vanshavali</a></li>            
+                <li class="menu-item"><a href="./photocatalogue.html" data-scroll><img src="./imgs/photo.png" alt=""  style="WIDTH:20px;HEIGHT:20px;" align="center" border="0" >Photo-Catalogue</a></li>            
+                <li class="menu-item"><a href="./contact_us.html" data-scroll><img src="./imgs/contact1.png" alt=""  style="WIDTH:20px;HEIGHT:20px;" align="center" border="0" >Contact-us</a>
+                </li>          
+            </ul>        
+        </nav>    
     </header>
     
     <script src="./wow.js"></script>    
     <script>      
-        // WOW.js initialization 
         wow = new WOW({ animateClass: 'animated', offset: 100, callback: function(box) { console.log("WOW: animating <" + box.tagName.toLowerCase() + ">") } });      
         wow.init();    
     </script>
     
     <script>        
-        var nav = responsiveNav("#nav"); // This targets the 'nav' element by ID    
+        var nav = responsiveNav("#nav"); // यह मेनू को काम करने के लिए ज़रूरी है
     </script>
     
     <div class="back wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms">        
         <a href = "javascript:history.back()">BACK</a>    
     </div>
-  </body>
+    </body>
 </html>
