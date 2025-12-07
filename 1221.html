@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="hi">
 <head>
@@ -5,17 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KASUMALGARH :: HOME</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Alegreya+SC:700,400italic" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Alegreya+SC:700,400italic' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="./kcss/styles.css">
     <link rel="stylesheet" href="./animate.css">
 
-    <script src="js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
     <script src="./kjs/responsive-nav.js"></script>
     <script src="./prefixfree.mini.js"></script>
-    <script src="./wow.js"></script>
+    <script src="./wow.js"></script> 
 
     <style>
         html, body {
+            width: 100%;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
@@ -31,56 +33,47 @@
             min-height: 100vh;
         }
 
-        /* HEADER */
+        /* HEADER + NEW MENU */
         header {
             background: #001C40;
-            padding: 12px;
+            padding: 10px;
             text-align: center;
         }
 
         header a.logo img {
             width: 40px;
-            vertical-align: middle;
         }
-
-        header span {
+        header text {
             color: white;
-            font-size: 26px;
+            font-size: 24px;
+            margin-left: 10px;
             font-family: 'Alegreya SC', serif;
-            margin-left: 8px;
-            vertical-align: middle;
         }
 
-        /* menu */
+        /* responsive-nav menu */
         nav.nav-collapse ul {
             list-style: none;
             margin: 0;
             padding: 0;
         }
-
         nav.nav-collapse ul li {
             border-bottom: 1px solid #022c66;
         }
-
         nav.nav-collapse ul li a {
             display: block;
             padding: 10px;
             color: white;
             background: #003366;
             text-decoration: none;
-            font-size: 15px;
         }
-
         nav.nav-collapse ul li a:hover {
             background: #004c99;
         }
 
-        @media (max-width: 600px) {
+        @media screen and (max-width: 600px) {
             .nav-collapse {
-                width: 100%;
                 position: absolute;
-                left: 0;
-                z-index: 50;
+                width: 100%;
             }
         }
 
@@ -88,13 +81,13 @@
             text-align: center;
             padding: 10px 0;
         }
-
         .divider-image-container img {
             max-width: 90%;
         }
 
         #main-content-body {
             padding: 10px 10%;
+            color: #333;
             text-align: center;
         }
 
@@ -107,7 +100,6 @@
             margin: 10px 5px;
             padding: 15px;
             border-radius: 8px;
-            text-align: left;
         }
 
         .footer {
@@ -122,11 +114,11 @@
 
 <body>
 
-<!-- HEADER + MENU (unchanged) -->
+<!-- 🔹 NEW MENU INSERTED HERE -->
 <header>
     <a href="http://kasumalgarh.github.io" class="logo" data-scroll alert="HOME">
-        <img src="./kimgs/menulogo2.png" class="wow slideInRight" data-wow-duration="2s" alt="logo">
-        <span class="wow fadeInDown" data-wow-duration="2s">Kasumalgarh</span>
+        <img src="./kimgs/menulogo2.png" class="wow slideInRight" data-wow-duration="4s">
+        <text class="wow fadeInDown" data-wow-duration="4s">Kasumalgarh</text>
     </a>
 
     <nav class="nav-collapse" id="nav">
@@ -140,21 +132,19 @@
     </nav>
 </header>
 
-<script>
-    var nav = responsiveNav("#nav");
-</script>
+<script>var nav = responsiveNav("#nav");</script>
 
-<!-- PAGE CONTENT -->
+<!-- 🔻 OLD HOMEPAGE CONTENT BELOW -->
 <div id="page-wrapper">
 
     <div class="divider-image-container">
-        <img src="./kimgs/dup.png" alt="divider">
+        <img src="./kimgs/dup.png">
     </div>
 
     <div id="main-content-body">
 
-        <img src="./kimgs/kasumalgarh_logo.png" style="height:200px;" alt="logo">
-
+        <div class="floting-box"><img src="./kimgs/kasumalgarh_logo.png" style="height:200px;"> </div>
+<br>
         <div class="floting-box">
             <p>Dynasty :- Rathore</p>
             <p>State :- Jodhpur</p>
@@ -164,23 +154,31 @@
             <p>Accession :- 1827</p>
             <p>Hindi Name :- कसुम्बी</p>
             <p>Area :- 18000 Bigha</p>
-        </div>
+        </div><br>
 
         <div class="floting-box">
-            <h3>Khammaghani Hukam</h3>
+            <h3>Khammaghani</h3>
         </div>
 
     </div>
 
     <div class="divider-image-container">
-        <img src="./kimgs/ddown.png" alt="divider">
+        <img src="./kimgs/ddown.png">
     </div>
 
 </div>
 
+<script src="./wow.js"></script>
 <script>
-    new WOW().init();
+    wow = new WOW({
+        animateClass: 'animated',
+        offset: 100
+    });
+    wow.init();
 </script>
 
 </body>
 </html>
+
+
+
