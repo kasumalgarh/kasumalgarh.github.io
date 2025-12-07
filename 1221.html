@@ -3,18 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KASUMALGARH - आपका पेज शीर्षक</title>
-    
-    <style>
-        /* General Body Styling */
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-        }
+    <title>KASUMALGARH</title>
 
-        /* --- Navbar Styling --- */
+    <style>
+        body { margin: 0; font-family: Arial, sans-serif; background: #f4f4f4; }
+
+        /* ----------------------------- */
+        /* NAVBAR / HEADER STYLES */
+        /* ----------------------------- */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -22,206 +18,204 @@
             background-color: #333;
             padding: 10px 20px;
             position: relative; 
-            overflow: hidden; /* Animation ke liye zaroori */
-            min-height: 40px; 
+            min-height: 40px;
+            z-index: 2000;
         }
 
-        .navbar-brand-container {
-            display: flex; 
-            align-items: center;
+        .navbar-brand-container { display: flex; align-items: center; }
+        
+        #menu-logo {
+            width: 60px; height: 45px; border-radius: 50%; background: white;
+            animation: slideLeft 1s forwards, logoGlow 2s infinite alternate 0.5s;
         }
 
         .navbar-brand {
-            color: white;
-            text-decoration: none;
-            font-size: 1.5em;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-left: 10px;
-            
-            /* KASUMALGARH Animation */
-            transform: translateY(-50px);
-            animation: slideDown 1s ease-out forwards, 
-                       textGlow 2s infinite alternate 1s;
+            color: white; text-decoration: none; font-size: 1.4em; margin-left: 10px; font-weight: bold;
+            animation: slideDown 1s forwards, textGlow 2s infinite alternate 1s;
         }
 
-        /* --- Logo Styling and Animation --- */
-        #menu-logo {
-            width: 30px; 
-            height: 30px;
-            border-radius: 50%;
-            background-color: white; /* Image load na hone par */
-            
-            /* Logo Animation */
-            transform: translateX(100vw);
-            animation: slideLeft 1s ease-out forwards,
-                       logoGlow 2s infinite alternate 0.5s;
-        }
-
-        /* --- Navigation Links Styling (PC/Default) --- */
-        .navbar-links {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex; /* PC par links ek line mein */
-        }
-
-        .navbar-links li {
-            margin-left: 20px;
-        }
+        /* ----------------------------- */
+        /* 👑 DESKTOP MENU (3D BUTTONS) 👑 */
+        /* ----------------------------- */
+        .navbar-links { list-style: none; margin: 0; padding: 0; display: flex; }
+        .navbar-links li { margin-left: 15px; } /* मार्जिन एडजस्ट किया */
 
         .navbar-links a {
             color: white;
             text-decoration: none;
-            padding: 5px 10px;
+            padding: 8px 12px; /* padding बढ़ाया */
             display: block;
-            transition: background-color 0.3s;
+            border-radius: 6px; /* किनारे गोल किए */
+            font-weight: bold;
+            transition: all 0.2s ease;
+            background-color: #555;
+            
+            /* 👑 3D RAISED LOOK (BOX-SHADOW) 👑 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4),
+                        0 1px 1px rgba(255, 255, 255, 0.1) inset; 
         }
 
         .navbar-links a:hover {
-            background-color: #575757;
-            border-radius: 4px;
+            background: #575757;
+            /* 🛡️ PRESSED LOOK ON HOVER 🛡️ */
+            transform: translateY(1px); /* हल्का सा नीचे दबेगा */
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4); 
         }
-
-        /* --- Hamburger Icon Styling (Hidden on PC) --- */
+        
+        /* HAMBURGER ICON */
         .menu-toggle {
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            display: none; /* PC par hide */
-            z-index: 101; 
+            color: white; font-size: 30px; cursor: pointer; display: none;
+            user-select: none;
         }
 
-        /* ------------------------------------- */
-        /* --- KEYFRAMES (CSS Animations) --- */
-        /* ------------------------------------- */
-
-        @keyframes slideLeft {
-            to { transform: translateX(0); }
-        }
-
-        @keyframes slideDown {
-            to { transform: translateY(0); }
-        }
-        
-        @keyframes textGlow {
-            from { text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
-            to { text-shadow: 0 0 10px #00aaff, 0 0 20px #00aaff; }
-        }
-
-        @keyframes logoGlow {
-            from { box-shadow: 0 0 0 rgba(255, 255, 255, 0); }
-            to { box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 12px rgba(255, 255, 255, 0.5); }
-        }
-        
-        /* --- Mobile Responsiveness (600px se kam par) --- */
+        /* ----------------------------- */
+        /* MOBILE MENU STYLES */
+        /* ----------------------------- */
         @media (max-width: 600px) {
-            
-            /* Mobile par links ko hide karein aur positioning set karein */
             .navbar-links {
-                display: none; 
-                position: absolute; 
-                top: 50px; 
-                right: 0;
-                left: 0; /* <--- FIX: Is line se menu puri width leta hai */
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
                 width: 100%;
-                background-color: #444; 
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-                z-index: 100;
+                background: #444;
+                z-index: 1000;
+                box-shadow: 0 8px 16px rgba(0,0,0,0.5);
             }
 
-            /* Jab menu 'active' ho, tab use dikhayein */
             .navbar-links.active {
-                display: flex;
-                flex-direction: column; 
+                display: flex !important;
             }
 
-            .navbar-links li {
-                margin: 0; 
-                border-top: 1px solid #555; 
-            }
-
-            .navbar-links a {
-                padding: 15px 20px;
+            .navbar-links li { border-top: 1px solid #555; margin: 0; }
+            /* Mobile menu links ko 3D look hataakar simple rakha */
+            .navbar-links a { 
+                padding: 15px; 
                 text-align: center;
+                box-shadow: none; 
+                background: none;
+                transform: none;
+                border-radius: 0;
             }
+            .menu-toggle { display: block; }
+        }
 
-            /* Hamburger icon ko Mobile par dikhayein */
-            .menu-toggle {
-                display: block;
-            }
+        /* ----------------------------- */
+        /* FOOTER STYLES */
+        /* ----------------------------- */
+        footer { 
+            text-align: center; 
+            background: #222; 
+            color: #fff;
+            padding: 15px 10px;
         }
         
-        /* Main content ke liye basic style */
-        main {
-            padding: 20px;
+        .footer-menu {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin: 0 auto 10px auto;
+            flex-wrap: wrap;
+            max-width: 900px;
         }
+
+        .footer-menu li {
+            font-size: 0.9em;
+            border-right: 2px solid #A98F39; 
+            padding: 0 10px;
+        }
+
+        .footer-menu li:last-child {
+            border-right: none;
+        }
+        
+        .footer-menu a {
+            color: #ccc;
+            text-decoration: none;
+            padding: 5px 0;
+            display: block;
+        }
+
+        .footer-menu a:hover {
+            color: #A98F39; 
+        }
+
+        .copyright-text {
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        /* ----------------------------- */
+        /* ANIMATIONS */
+        /* ----------------------------- */
+        @keyframes slideLeft { from {transform: translateX(100vw);} to {transform: translateX(0);} }
+        @keyframes slideDown { from {transform: translateY(-50px);} to {transform: translateY(0);} }
+        @keyframes textGlow { from {text-shadow: 0 0 5px rgba(255,255,255,0.4);} to {text-shadow: 0 0 12px #00aaff;} }
+        @keyframes logoGlow { from {box-shadow: 0 0 0 rgba(255,255,255,0);} to {box-shadow: 0 0 10px white;} }
+
+        main { padding: 20px; }
     </style>
-    
 </head>
 <body>
 
-    <header>
-        <nav class="navbar">
-            
-            <div class="navbar-brand-container">
-                <img id="menu-logo" src="menulogo.png" alt="Menu Logo">
-                
-                <a href="#" class="navbar-brand">KASUMALGARH</a>
-            </div>
-            
-            <div class="menu-toggle" id="menu-icon">
-                &#9776; </div>
+    <nav class="navbar">
+        <div class="navbar-brand-container">
+            <img id="menu-logo" src="menulogo.png" alt="Logo">
+            <a class="navbar-brand" href="#">KASUMALGARH</a>
+        </div>
 
-            <ul class="navbar-links" id="nav-menu">
-                <li><a href="#">होम (Home)</a></li>
-                <li><a href="#">सेवाएं (Services)</a></li>
-                <li><a href="#">गैलरी (Gallery)</a></li>
-                <li><a href="#">हमारे बारे में (About Us)</a></li>
-                <li><a href="#">संपर्क करें (Contact)</a></li>
-            </ul>
-        </nav>
-        
-        <h1>यह मुख्य शीर्षक है (Main Heading)</h1>
-    </header>
+        <div class="menu-toggle" onclick="toggleMenu(event)">&#9776;</div>
+
+        <ul class="navbar-links" id="nav-menu">
+            <li><a href="#">Vanshawali</a></li>
+            <li><a href="#">History & Map</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Photos & Video</a></li>
+            <li><a href="#">Admin</a></li>
+        </ul>
+    </nav>
 
     <main>
-        <p>यह वह जगह है जहाँ आपके पेज की मुख्य सामग्री (content) जाएगी। यह नेविगेशन बार PC पर पूरी तरह से दिखता है, जबकि 600px से कम चौड़ाई वाले मोबाइल डिवाइस पर यह हैमबर्गर मेनू में बदल जाता है।</p>
-        
-        <section>
-            <h2>उप-अनुभाग  (Sub-Section Heading)</h2>
-            <ul>
-                <li>आइटम 1 (मोबाइल पर मेनू आइकॉन पर क्लिक करें)</li>
-                <li>आइटम 2 (या बाहर कहीं भी क्लिक करें ताकि मेनू बंद हो जाए)</li>
-                <li>आइटम 3</li>
-            </ul>
-        </section>
+        <h2>स्वागत है हुकम</h2>
+        <p>यह पेज अब 'Vanshawali', 'History & Map' आदि जैसे नए मेनू आइटम्स का उपयोग कर रहा है। मेनू आइटम अब 3D बटन की तरह दिखेंगे।</p>
     </main>
 
     <footer>
-        <p style="text-align: center; padding: 10px; background-color: #222; color: #fff;">&copy; 2025 कॉपीराइट। सभी अधिकार सुरक्षित।</p>
+        <ul class="footer-menu">
+            <li><a href="#">Vanshawali</a></li>
+            <li><a href="#">History & Map</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Photos & Video</a></li>
+            <li><a href="#">Admin</a></li>
+        </ul>
+        
+        <div class="copyright-text">
+            &copy; 2025 | All Rights Reserved by **Yuvraj Gajraj Singh**
+        </div>
     </footer>
 
     <script>
-        const menuIcon = document.getElementById('menu-icon');
-        const navMenu = document.getElementById('nav-menu');
-
-        // 1. Hamburger Icon Click Handler
-        menuIcon.addEventListener('click', function() {
-            // 'active' class जोड़कर या हटाकर मेनू को खोलता/बंद करता है
-            navMenu.classList.toggle('active');
-        });
-
-        // 2. Click Anywhere on Page to Close Menu
-        document.addEventListener('click', function(event) {
-            const isClickInsideMenu = navMenu.contains(event.target);
-            const isClickOnIcon = menuIcon.contains(event.target);
-            
-            // अगर मेनू खुला है और क्लिक मेनू या आइकॉन के बाहर हुआ है
-            if (navMenu.classList.contains('active') && !isClickInsideMenu && !isClickOnIcon) {
-                navMenu.classList.remove('active'); // मेनू बंद कर दें
+        function toggleMenu(event) {
+            event.stopPropagation();
+            var menu = document.getElementById("nav-menu");
+            if (menu.classList.contains("active")) {
+                menu.classList.remove("active");
+            } else {
+                menu.classList.add("active");
             }
-        });
+        }
+
+        window.onclick = function(event) {
+            var menu = document.getElementById("nav-menu");
+            if (menu.classList.contains("active")) {
+                menu.classList.remove("active");
+            }
+        }
     </script>
 
 </body>
