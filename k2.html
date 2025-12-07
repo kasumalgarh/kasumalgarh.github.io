@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>KASUMALGARH :: Final Icon Grid Menu Page - Royal Blue + Gold</title>
+    <title>KASUMALGARH :: HOME</title>
 
     <link href='http://fonts.googleapis.com/css?family=Alegreya+SC:700,400italic' rel='stylesheet' type='text/css' />
-
+    
+    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/jssor.slider.mini.js"></script>
+    
     <style>
         /* 1. Body and Background */
         html, body {
@@ -60,8 +63,7 @@
             margin: 0 auto; 
             
             background-color: #003366; /* Royal Blue */
-            /* FIX: गहरा सोना बॉर्डर */
-            border-bottom: 3px solid #cc8800; 
+            border-bottom: 3px solid #996600; /* Gold Border */
         }
 
         .grid-item {
@@ -71,15 +73,13 @@
             align-items: center;
             text-decoration: none;
             
-            /* FIX: गोल्ड टेक्स्ट कलर */
-            color: #cc8800; 
+            color: #996600; /* Gold Text */
             
             padding: 8px 0; 
             background-color: #004C99; /* Slightly brighter blue button */
             border-radius: 8px;
             
-            /* FIX: गोल्ड बॉर्डर कलर */
-            border: 1px solid #cc8800;
+            border: 1px solid #996600; /* Gold Border */
             
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
             transition: background-color 0.3s;
@@ -87,8 +87,7 @@
         
         .grid-item:hover {
             background-color: #4A90E2; /* Bright Blue on Hover */
-            /* होवर पर सफ़ेद टेक्स्ट (कंट्रास्ट के लिए) */
-            color: #FFFFFF; 
+            color: #FFFFFF; /* White Text on Hover */
             box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.6);
         }
 
@@ -119,9 +118,36 @@
 
         /* 5. Main Content Area */
         #main-content-body {
-            padding: 40px 10%; 
+            /* PADDING REDUCED TO MAKE ROOM FOR SLIDER AND FLOATING BOXES */
+            padding: 10px 10%; 
             color: #333333;
             line-height: 1.6;
+            text-align: center; /* Center content like your original design */
+        }
+        
+        /* 8. FLOATING BOX STYLING (Adapted from your old code) */
+        .floting-box {
+            /* Removed float property to ensure responsive stacking */
+            display: inline-block;
+            vertical-align: top;
+            width: 90%; /* Default for mobile/narrow screens */
+            max-width: 300px; /* Limit box width on desktop */
+            margin: 10px 5px;
+            padding: 15px;
+            background-color: #F8F4E3;
+            border: 1px solid #996600;
+            border-radius: 8px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            font-size: 0.9em;
+        }
+        
+        .floting-box h7 {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #003366; /* Royal Blue Heading */
+            display: block;
+            margin-bottom: 5px;
         }
 
         /* 6. Footer Styling */
@@ -156,7 +182,64 @@
             }
         }
     </style>
-    </head>
+    <script>
+        jQuery(document).ready(function ($) {
+            var jssor_1_SlideoTransitions = [
+                [{b:0,d:600,y:-290,e:{y:27}}],
+                [{b:0,d:1000,y:185},{b:1000,d:500,o:-1},{b:1500,d:500,o:1},{b:2000,d:1500,r:360},{b:3500,d:1000,rX:30},{b:4500,d:500,rX:-30},{b:5000,d:1000,rY:30},{b:6000,d:500,rY:-30},{b:6500,d:500,sX:1},{b:7000,d:500,sX:-1},{b:7500,d:500,sY:1},{b:8000,d:500,sY:-1},{b:8500,d:500,kX:30},{b:9000,d:500,kX:-30},{b:9500,d:500,kY:30},{b:10000,d:500,kY:-30},{b:10500,d:500,c:{x:87.50,t:-87.50}},{b:11000,d:500,c:{x:-87.50,t:87.50}}],
+                [{b:0,d:600,x:410,e:{x:27}}],
+                [{b:-1,d:1,o:-1},{b:0,d:600,o:1,e:{o:5}}],
+                [{b:-1,d:1,c:{x:175.0,t:-175.0}},{b:0,d:800,c:{x:-175.0,t:175.0},e:{c:{x:7,t:7}}}],
+                [{b:-1,d:1,o:-1},{b:0,d:600,x:-570,o:1,e:{x:6}}],
+                [{b:-1,d:1,o:-1,r:-180},{b:0,d:800,o:1,r:180,e:{r:7}}],
+                [{b:0,d:1000,y:80,e:{y:24}},{b:1000,d:1100,x:570,y:170,o:-1,r:30,sX:9,sY:9,e:{x:2,y:6,r:1,sX:5,sY:5}}],
+                [{b:2000,d:600,rY:30}],
+                [{b:0,d:500,x:-105},{b:500,d:500,x:230},{b:1000,d:500,y:-120},{b:1500,d:500,x:-70,y:120},{b:2600,d:500,y:-80},{b:3100,d:900,y:160,e:{y:24}}],
+                [{b:0,d:1000,o:-0.4,rX:2,rY:1},{b:1000,d:1000,rY:1},{b:2000,d:1000,rX:-1},{b:3000,d:1000,rY:-1},{b:4000,d:1000,o:0.4,rX:-1,rY:-1}]
+            ];
+            
+            var jssor_1_options = {
+                $AutoPlay: true,
+                $Idle: 2000,
+                $CaptionSliderOptions: {
+                    $Class: $JssorCaptionSlideo$,
+                    $Transitions: jssor_1_SlideoTransitions,
+                    $Breaks: [
+                        [{d:2000,b:1000}]
+                    ]
+                },
+                $ArrowNavigatorOptions: {
+                    $Class: $JssorArrowNavigator$
+                },
+                $BulletNavigatorOptions: {
+                    $Class: $JssorBulletNavigator$
+                }
+            };
+            
+            var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+            
+            //responsive code begin
+            function ScaleSlider() {
+                var refSize = jssor_1_slider.$Elmt.parentNode.clientWidth;
+                if (refSize) {
+                    // We target the page wrapper's max width (1000px), but limit slider size for good viewing
+                    refSize = Math.min(refSize, 600); 
+                    jssor_1_slider.$ScaleWidth(refSize);
+                }
+                else {
+                    window.setTimeout(ScaleSlider, 30);
+                }
+            }
+            ScaleSlider();
+            $(window).bind("load", ScaleSlider);
+            $(window).bind("resize", ScaleSlider);
+            $(window).bind("orientationchange", ScaleSlider);
+            //responsive code end
+        });
+    </script>
+
+
+</head>
 <body>
 
 <div class="header-logo">
@@ -181,8 +264,72 @@
     </div>
 
     <div id="main-content-body">
-        <h1>गोल्ड फोंट और बॉर्डर</h1>
-        <p>मेनू आइटम का टेक्स्ट और बॉर्डर अब #cc8800 गोल्ड रंग में है।</p>
+        
+        <img src="./kimgs/kasumalgarh_logo.png" alt="Header Logo" style="WIDTH:AUTO;height:200px; margin-top:0px;" >
+        <br>
+        
+        <div id="jssor_1" style="position: relative; border:3px solid #003366; margin: 0 auto; top: 0px; left: 0px; width: 600px; height: 300px; overflow: hidden; visibility: hidden;">
+            <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
+                <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
+                <div style="position:absolute;display:block;background:url('img/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
+            </div>
+
+            <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 600px; height: 300px; overflow: hidden;">
+                <div data-b="0" data-p="112.50" style="display: none;"><img data-u="image" src="./gsgenius/slider/KASUMALGARH.png" /></div>
+                <div data-b="0" data-p="112.50" style="display: none;"><img data-u="image" src="./gsgenius/slider/kasumbi_KASUMALGARH_KASUMBI_FORT__.gif" /></div>
+                <div data-b="0" data-p="112.50" style="display: none;"><img data-u="image" src="./gsgenius/slider/Thakur Saheb Bhairu Singh Jodha.jpg" /></div>
+                <div data-b="0" data-p="112.50" style="display: none;"><img data-u="image" src="./gsgenius/slider/View From Kasumalgarh00.jpg" /></div>
+                <div data-b="0" data-p="112.50" style="display: none;"><img data-u="image" src="./gsgenius/slider/gate2.jpg" /></div>
+                <div data-b="0" data-p="112.50" style="display: none;"><img data-u="image" src="./gsgenius/slider/Gangor1.jpg" /></div>
+                <div data-b="0" data-p="112.50" style="display: none;"><img data-u="image" src="./gsgenius/slider/Thakur_Saheb_Shriman_Ridmal_Singh_Jodha.jpg" /></div>
+                <div data-b="0" data-p="112.50" style="display: none;"><img data-u="image" src="./gsgenius/slider/gangorg.png" /></div>
+            </div>
+            
+            <span data-u="arrowleft" class="jssora02l" style="top:0px;left:8px;width:55px;height:55px;" data-autocenter="2"></span>
+            <span data-u="arrowright" class="jssora02r" style="top:0px;right:8px;width:55px;height:55px;" data-autocenter="2"></span>
+        </div>
+        <br>
+
+        <div class="floting-box" style="font-family: Arial, sans-serif;">
+            <p>Dynasty :- Rathore</p>
+            <p>State :- Jodhpur</p>
+            <p>Clan :- Jodha</p>
+            <p>Subclan :- Kesarisinghot</p>
+            <p>Villages :- 1</p>
+            <p>Accession :- 1827</p>
+            <p>Hindi Name :- कसुम्बी</p>
+            <p>Area :- 18000 Bigha</p>
+        </div>
+
+        <div class="floting-box">
+            <h7 class="">Khammaghani Hukam</h7> <br> 
+            Welcome to our Rathore family website of Kasumbi in Rajasthan state of India. <br>
+            We belong to the royal Rajput clan of western India, the Rathore's. <br>
+            Rathore dynasty ruled a number of kingdoms and princely states in Rajasthan and <br>
+            neighboring states of western India before India's independence in 1947. <br>
+            The largest and oldest among these was Jodhpur, in Marwar and Bikaner. <br>
+            Rathore dynasty is divided into 40 plus branches and we are the decendents of Rao. <br>
+            we are also known by the name of great Rao Jodha. <br>
+            <div class="box-content" style="background-color:white;margin-top:5px;">
+                <div class="fb-like" data-href="http://kasumalgarh.github.io" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+            </div>
+        </div>
+
+        <div class="floting-box">
+            <iframe src="http://www.appsgeyser.com/social_widget/social_widget.php?width=150&amp;height=80&amp;apkName=kasumalgarh&amp;simpleVersion=no" width="300" height="175" vspace="0" hspace="0" frameborder="no" scrolling="no" seamless="" allowtransparency="true" align="center"></iframe>
+        </div>
+
+        <div class="floting-box">
+            <img src="./kimgs/Yuvraj%20GajRaj%20Singh%20Rathore%20(Kasumalgarh).png" style="WIDTH:100px;HEIGHT:120px; border-radius:20px;opacity:0.8;" >
+            &nbsp;-:Greatfully yours:-&nbsp;<br>Yuvraj GajRaj Singh Rathore&nbsp;<br>Thikana:- Kasumbi<br>(Admin Of Website)
+        </div>
+        
+        <div class="floting-box"><img src="./kimgs/reputation.png" alt="Website Reputation" style="WIDTH:200px;HEIGHT:100;margin-bottom: 0px;"></div>
+        <div class="floting-box"><img src="./kimgs/avg.png" alt="Avg Threat Labs" style="WIDTH:180px;HEIGHT:175px;margin-bottom: 0px;"></div>
+        <div class="floting-box"><center><img src="./kimgs/qrcode.png" alt="QR Code" style="WIDTH:150px;HEIGHT:155px;margin-bottom: 0px;"></center>Scan QR Code</div>
+
+        <div style="clear:both"></div> 
+
     </div>
     <div class="divider-image-container">
         <img src="./kimgs/ddown.png" alt="divider">
@@ -190,9 +337,18 @@
     
 </div>
 <div class="footer">
-    Copyrights &copy 2013-2025&nbsp Test User (Kasumalgarh)
+    <a href="./index.html" target="_blank">Home</a> |
+    <a href="./history.html" target="_blank">History & Map</a> |
+    <a href="./family_tree.html" target="_blank">Kasumalgarh-Vanshavali</a> <br>
+    <a href="./r_vanshavali.html" target="_blank">Rathore-Vanshavali</a> |
+    <a href="./photocatalogue.html" target="_blank">Photo-Catalogue</a> |
+    <a href="./contact_us.html" target="_blank">Contact Us</a>
+    <br>
+    Thanks To Come Here.Feel Free To Contact Me For Any Advise.<br>
+    Copyrights &copy 2013-2025&nbsp <br>
+    <a href="http://www.facebook.com/Gajsa.kasumbi" target="_blank">Yuvraj GajRaj Singh Rathore (Kasumalgarh)</a>
 </div>
+
 
 </body>
 </html>
-
