@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="hi">
 <head>
@@ -13,7 +12,7 @@
     <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
     <script src="./kjs/responsive-nav.js"></script>
     <script src="./prefixfree.mini.js"></script>
-    <script src="./wow.js"></script> 
+    <script src="./wow.js"></script>	
 
     <style>
         html, body {
@@ -33,11 +32,19 @@
             min-height: 100vh;
         }
 
-        /* HEADER + NEW MENU */
+        /* HEADER + NEW MENU (BACKGROUND IMAGE ADDED) */
         header {
-            background: #001C40;
+            /* 🎯 पृष्ठभूमि इमेज जोड़ी गई */
+            background: url('./imgs/bg.png'); 
+            background-size: cover; 
+            background-position: center;
+            
             padding: 10px;
             text-align: center;
+            /* Flexbox: लोगो और नेविगेशन को एक लाइन में रखने के लिए */
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; /* लंबवत केंद्र में रखें */
         }
 
         header a.logo img {
@@ -55,25 +62,43 @@
             list-style: none;
             margin: 0;
             padding: 0;
+            /* Desktop: Horizontal */
+            display: flex;
         }
         nav.nav-collapse ul li {
             border-bottom: 1px solid #022c66;
+            /* Desktop पर border-bottom हटाएँ */
+            border-bottom: none; 
         }
         nav.nav-collapse ul li a {
-            display: block;
+            display: flex;
+            align-items: center;
             padding: 10px;
             color: white;
-            background: #003366;
+            /* मेनू आइटम का बैकग्राउंड TRANSPARENT करें ताकि HEADER की इमेज दिखे */
+            background: transparent; 
             text-decoration: none;
         }
         nav.nav-collapse ul li a:hover {
-            background: #004c99;
+            background: rgba(255, 255, 255, 0.1); /* हल्का ओवरले इफेक्ट */
         }
 
         @media screen and (max-width: 600px) {
             .nav-collapse {
                 position: absolute;
                 width: 100%;
+                top: 60px; /* Header की ऊंचाई के नीचे मेनू दिखाता है */
+                /* मोबाइल में नेविगेशन के लिए ठोस बैकग्राउंड, ताकि टेक्स्ट साफ दिखे */
+                background: #001C40; 
+            }
+            nav.nav-collapse ul {
+                flex-direction: column; /* Mobile: Vertical */
+            }
+            nav.nav-collapse ul li {
+                border-bottom: 1px solid #022c66;
+            }
+            nav.nav-collapse ul li a {
+                 background: #003366; /* मोबाइल मेनू आइटम के लिए ठोस रंग */
             }
         }
 
@@ -93,6 +118,7 @@
 
         .floting-box {
             display: inline-block;
+            vertical-align: top;
             width: 90%;
             max-width: 300px;
             background: #F8F4E3;
@@ -100,6 +126,13 @@
             margin: 10px 5px;
             padding: 15px;
             border-radius: 8px;
+        }
+        
+        /* h3 styling for the floating box greeting */
+        .floting-box h3 {
+            font-size: 1.5em;
+            color: #003366;
+            margin-top: 0;
         }
 
         .footer {
@@ -114,7 +147,6 @@
 
 <body>
 
-<!-- 🔹 NEW MENU INSERTED HERE -->
 <header>
     <a href="http://kasumalgarh.github.io" class="logo" data-scroll alert="HOME">
         <img src="./kimgs/menulogo2.png" class="wow slideInRight" data-wow-duration="4s">
@@ -134,7 +166,6 @@
 
 <script>var nav = responsiveNav("#nav");</script>
 
-<!-- 🔻 OLD HOMEPAGE CONTENT BELOW -->
 <div id="page-wrapper">
 
     <div class="divider-image-container">
@@ -144,7 +175,7 @@
     <div id="main-content-body">
 
         <div class="floting-box"><img src="./kimgs/kasumalgarh_logo.png" style="height:200px;"> </div>
-<br>
+        
         <div class="floting-box">
             <p>Dynasty :- Rathore</p>
             <p>State :- Jodhpur</p>
@@ -154,11 +185,13 @@
             <p>Accession :- 1827</p>
             <p>Hindi Name :- कसुम्बी</p>
             <p>Area :- 18000 Bigha</p>
-        </div><br>
-
+        </div>
+        
         <div class="floting-box">
             <h3>Khammaghani</h3>
         </div>
+
+        <div style="clear:both;"></div>
 
     </div>
 
@@ -179,6 +212,3 @@
 
 </body>
 </html>
-
-
-
