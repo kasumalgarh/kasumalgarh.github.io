@@ -10,6 +10,16 @@
     <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="js/jssor.slider.mini.js"></script>
     
+    <script>
+        // Your Google Analytics code
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','../www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-44124497-1', 'kasumalgarh.github.io');  
+        ga('send', 'pageview');
+    </script>
+    
     <style>
         /* 1. Body and Background */
         html, body {
@@ -118,20 +128,18 @@
 
         /* 5. Main Content Area */
         #main-content-body {
-            /* PADDING REDUCED TO MAKE ROOM FOR SLIDER AND FLOATING BOXES */
             padding: 10px 10%; 
             color: #333333;
             line-height: 1.6;
-            text-align: center; /* Center content like your original design */
+            text-align: center; 
         }
         
         /* 8. FLOATING BOX STYLING (Adapted from your old code) */
         .floting-box {
-            /* Removed float property to ensure responsive stacking */
             display: inline-block;
             vertical-align: top;
-            width: 90%; /* Default for mobile/narrow screens */
-            max-width: 300px; /* Limit box width on desktop */
+            width: 90%; 
+            max-width: 300px; 
             margin: 10px 5px;
             padding: 15px;
             background-color: #F8F4E3;
@@ -145,7 +153,7 @@
         .floting-box h7 {
             font-size: 1.2em;
             font-weight: bold;
-            color: #003366; /* Royal Blue Heading */
+            color: #003366; 
             display: block;
             margin-bottom: 5px;
         }
@@ -218,11 +226,9 @@
             
             var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
             
-            //responsive code begin
             function ScaleSlider() {
                 var refSize = jssor_1_slider.$Elmt.parentNode.clientWidth;
                 if (refSize) {
-                    // We target the page wrapper's max width (1000px), but limit slider size for good viewing
                     refSize = Math.min(refSize, 600); 
                     jssor_1_slider.$ScaleWidth(refSize);
                 }
@@ -234,14 +240,12 @@
             $(window).bind("load", ScaleSlider);
             $(window).bind("resize", ScaleSlider);
             $(window).bind("orientationchange", ScaleSlider);
-            //responsive code end
         });
     </script>
 
 
 </head>
 <body>
-
 <div class="header-logo">
     <img src="./kimgs/kasumalgarh_tital.png" alt="Header Logo">
 </div>
@@ -291,20 +295,16 @@
         <br>
 
         <div class="floting-box" style="font-family: Arial, sans-serif;">
-            <p>Dynasty :- Rathore</p>
-            <p>State :- Jodhpur</p>
-            <p>Clan :- Jodha</p>
-            <p>Subclan :- Kesarisinghot</p>
-            <p>Villages :- 1</p>
-            <p>Accession :- 1827</p>
-            <p>Hindi Name :- कसुम्बी</p>
-            <p>Area :- 18000 Bigha</p>
+            <p>Dynasty :- Rathore</p><p>State :- Jodhpur</p>
+            <p>Clan :- Jodha</p><p>Subclan :- Kesarisinghot</p>
+            <p>Villages :- 1</p><p> Accession :- 1827</p>
+            <p>Hindi Name :- कसुम्बी</p><p>Area :- 18000 Bigha</p>
         </div>
 
         <div class="floting-box">
             <h7 class="">Khammaghani Hukam</h7> <br> 
-            Welcome to our Rathore family website of Kasumbi in Rajasthan state of India. <br>
-            We belong to the royal Rajput clan of western India, the Rathore's. <br>
+            Welcome to our Rathore family website of Kasumbi in Rajasthan state of India. <br> 
+            We belong to the royal Rajput clan of western India, the Rathore's. <br> 
             Rathore dynasty ruled a number of kingdoms and princely states in Rajasthan and <br>
             neighboring states of western India before India's independence in 1947. <br>
             The largest and oldest among these was Jodhpur, in Marwar and Bikaner. <br>
@@ -316,18 +316,25 @@
         </div>
 
         <div class="floting-box">
-            <iframe src="http://www.appsgeyser.com/social_widget/social_widget.php?width=150&amp;height=80&amp;apkName=kasumalgarh&amp;simpleVersion=no" width="300" height="175" vspace="0" hspace="0" frameborder="no" scrolling="no" seamless="" allowtransparency="true" align="center"></iframe>
+            <iframe src="http://www.appsgeyser.com/social_widget/social_widget.php?width=150&amp;height=80&amp;apkName=kasumalgarh&amp;simpleVersion=no" width="300" height="175" vspace="0" hspace="0" frameborder="no" scrolling="no" seamless="" allowtransparency="true" align="center"></iframe> 
         </div>
 
+        <div class="floting-box"><a href="http://www.webstatsdomain.org/domains/kasumalgarh.github.io/" title="kasumalgarh.github.io website reputation" alt="kasumalgarh.github.io website reputation" target="_blank"><img src="./kimgs/reputation.png" alt="Website Reputation" style="WIDTH:200px;HEIGHT:100;margin-bottom: 0px;"></a></div>
+        <div class="floting-box">
+            <a href="http://www.avgthreatlabs.com/sitereports/domain/kasumalgarh.github.io/" title="Avg Threat Labs" alt="Avg Threat Labs" target="_blank">
+            <img src="./kimgs/avg.png" alt="Avg Threat Labs" style="WIDTH:180px;HEIGHT:175px;margin-bottom: 0px;"></a>
+        </div>
+        <div class="floting-box">
+            <center><img src="./kimgs/qrcode.png" alt="QR Code" style="WIDTH:150px;HEIGHT:155px;margin-bottom: 0px;"></center>Scan QR Code
+        </div>
+        <div class="floting-box">
+            <div class="fb-comments" style="width:px;background-color:white;"></div>
+        </div>
+        
         <div class="floting-box">
             <img src="./kimgs/Yuvraj%20GajRaj%20Singh%20Rathore%20(Kasumalgarh).png" style="WIDTH:100px;HEIGHT:120px; border-radius:20px;opacity:0.8;" >
             &nbsp;-:Greatfully yours:-&nbsp;<br>Yuvraj GajRaj Singh Rathore&nbsp;<br>Thikana:- Kasumbi<br>(Admin Of Website)
         </div>
-        
-        <div class="floting-box"><img src="./kimgs/reputation.png" alt="Website Reputation" style="WIDTH:200px;HEIGHT:100;margin-bottom: 0px;"></div>
-        <div class="floting-box"><img src="./kimgs/avg.png" alt="Avg Threat Labs" style="WIDTH:180px;HEIGHT:175px;margin-bottom: 0px;"></div>
-        <div class="floting-box"><center><img src="./kimgs/qrcode.png" alt="QR Code" style="WIDTH:150px;HEIGHT:155px;margin-bottom: 0px;"></center>Scan QR Code</div>
-
         <div style="clear:both"></div> 
 
     </div>
@@ -348,7 +355,6 @@
     Copyrights &copy 2013-2025&nbsp <br>
     <a href="http://www.facebook.com/Gajsa.kasumbi" target="_blank">Yuvraj GajRaj Singh Rathore (Kasumalgarh)</a>
 </div>
-
 
 </body>
 </html>
