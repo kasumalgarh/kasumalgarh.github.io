@@ -1,135 +1,134 @@
-
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KASUMALGARH :: HOME</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KASUMALGARH :: HOME</title>
 
-    <link href='http://fonts.googleapis.com/css?family=Alegreya+SC:700,400italic' rel='stylesheet' type='text/css' />
-    <link rel="stylesheet" href="./kcss/styles.css">
-    <link rel="stylesheet" href="./animate.css">
+    <link href='http://fonts.googleapis.com/css?family=Alegreya+SC:700,400italic' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="./kcss/styles.css">
+    <link rel="stylesheet" href="./animate.css">
 
-    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-    <script src="./kjs/responsive-nav.js"></script>
-    <script src="./prefixfree.mini.js"></script>
-    <script src="./wow.js"></script> 
+    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <script src="./kjs/responsive-nav.js"></script>
+    <script src="./prefixfree.mini.js"></script>
+    <script src="./wow.js"></script> 
 
-    <style>
-        html, body {
-            width: 100%;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            background-color: #380000;
-            font-family: Arial, sans-serif;
-        }
+    <style>
+        html, body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: #380000;
+            font-family: Arial, sans-serif;
+        }
 
-        #page-wrapper {
-            background-color: #EDE8D4;
-            max-width: 1000px;
-            margin: 0 auto;
-            box-shadow: 0 0 20px rgba(0,0,0,0.8);
-            min-height: 100vh;
-        }
+        #page-wrapper {
+            background-color: #EDE8D4;
+            max-width: 1000px;
+            margin: 0 auto;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+            min-height: 100vh;
+        }
 
-        /* HEADER + NEW MENU */
-        header {
-            background: #001C40;
-            padding: 10px;
-            text-align: center;
-        }
+        /* HEADER + NEW MENU */
+        header {
+            background: #001C40;
+            padding: 10px;
+            text-align: center;
+        }
 
-        header a.logo img {
-            width: 40px;
-        }
-        header text {
-            color: white;
-            font-size: 24px;
-            margin-left: 10px;
-            font-family: 'Alegreya SC', serif;
-        }
+        header a.logo img {
+            width: 40px;
+        }
+        header text {
+            color: white;
+            font-size: 24px;
+            margin-left: 10px;
+            font-family: 'Alegreya SC', serif;
+        }
 
-        /* responsive-nav menu */
-        nav.nav-collapse ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        nav.nav-collapse ul li {
-            border-bottom: 1px solid #022c66;
-        }
-        nav.nav-collapse ul li a {
-            display: block;
-            padding: 10px;
-            color: white;
-            background: #003366;
-            text-decoration: none;
-        }
-        nav.nav-collapse ul li a:hover {
-            background: #004c99;
-        }
+        /* responsive-nav menu */
+        nav.nav-collapse ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        nav.nav-collapse ul li {
+            border-bottom: 1px solid #022c66;
+        }
+        nav.nav-collapse ul li a {
+            display: block;
+            padding: 10px;
+            color: white;
+            background: #003366;
+            text-decoration: none;
+        }
+        nav.nav-collapse ul li a:hover {
+            background: #004c99;
+        }
 
-        @media screen and (max-width: 600px) {
-            .nav-collapse {
-                position: absolute;
-                width: 100%;
-            }
-        }
+        @media screen and (max-width: 600px) {
+            .nav-collapse {
+                position: absolute;
+                width: 100%;
+            }
+        }
 
-        .divider-image-container {
-            text-align: center;
-            padding: 10px 0;
-        }
-        .divider-image-container img {
-            max-width: 90%;
-        }
+        .divider-image-container {
+            text-align: center;
+            padding: 10px 0;
+        }
+        .divider-image-container img {
+            max-width: 90%;
+        }
 
-        #main-content-body {
-            padding: 10px 10%;
-            color: #333;
-            text-align: center;
-        }
+        #main-content-body {
+            padding: 10px 10%;
+            color: #333;
+            text-align: center;
+        }
 
-        .floting-box {
-            display: inline-block;
-            width: 90%;
-            max-width: 300px;
-            background: #F8F4E3;
-            border: 1px solid #996600;
-            margin: 10px 5px;
-            padding: 15px;
-            border-radius: 8px;
-        }
+        .floting-box {
+            display: inline-block;
+            width: 90%;
+            max-width: 300px;
+            background: #F8F4E3;
+            border: 1px solid #996600;
+            margin: 10px 5px;
+            padding: 15px;
+            border-radius: 8px;
+        }
 
-        .footer {
-            text-align: center;
-            padding: 20px 0;
-            background-color: #001C40;
-            color: #FFFFFF;
-            margin-top: 20px;
-        }
-    </style>
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #001C40;
+            color: #FFFFFF;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
 
 <!-- 🔹 NEW MENU INSERTED HERE -->
 <header>
-    <a href="http://kasumalgarh.github.io" class="logo" data-scroll alert="HOME">
-        <img src="./kimgs/menulogo2.png" class="wow slideInRight" data-wow-duration="4s">
-        <text class="wow fadeInDown" data-wow-duration="4s">Kasumalgarh</text>
-    </a>
+    <a href="http://kasumalgarh.github.io" class="logo" data-scroll alert="HOME">
+        <img src="./kimgs/menulogo2.png" class="wow slideInRight" data-wow-duration="4s">
+        <text class="wow fadeInDown" data-wow-duration="4s">Kasumalgarh</text>
+    </a>
 
-    <nav class="nav-collapse" id="nav">
-        <ul>
-            <li><a href="./history_map.html"><img src="./imgs/history.png" width="20"> History & Map</a></li>
-            <li><a href="./k_vanshavali.html"><img src="./imgs/vanshavali.png" width="20"> Kasumalgarh-Vanshavali</a></li>
-            <li><a href="./r_vanshavali.html"><img src="./imgs/vanshavali.png" width="20"> Rathore-Vanshavali</a></li>
-            <li><a href="./photocatalogue.html"><img src="./imgs/photo.png" width="20"> Photo Catalogue</a></li>
-            <li><a href="./contact_us.html"><img src="./imgs/contact1.png" width="20"> Contact Us</a></li>
-        </ul>
-    </nav>
+    <nav class="nav-collapse" id="nav">
+        <ul>
+            <li><a href="./history_map.html"><img src="./imgs/history.png" width="20"> History & Map</a></li>
+            <li><a href="./k_vanshavali.html"><img src="./imgs/vanshavali.png" width="20"> Kasumalgarh-Vanshavali</a></li>
+            <li><a href="./r_vanshavali.html"><img src="./imgs/vanshavali.png" width="20"> Rathore-Vanshavali</a></li>
+            <li><a href="./photocatalogue.html"><img src="./imgs/photo.png" width="20"> Photo Catalogue</a></li>
+            <li><a href="./contact_us.html"><img src="./imgs/contact1.png" width="20"> Contact Us</a></li>
+        </ul>
+    </nav>
 </header>
 
 <script>var nav = responsiveNav("#nav");</script>
@@ -137,45 +136,48 @@
 <!-- 🔻 OLD HOMEPAGE CONTENT BELOW -->
 <div id="page-wrapper">
 
-    <div class="divider-image-container">
-        <img src="./kimgs/dup.png">
-    </div>
+    <div class="divider-image-container">
+        <img src="./kimgs/dup.png">
+    </div>
 
-    <div id="main-content-body">
+    <div id="main-content-body">
 
-        <div class="floting-box"><img src="./kimgs/kasumalgarh_logo.png" style="height:200px;"> </div>
+        <div class="floting-box"><img src="./kimgs/kasumalgarh_logo.png" style="height:200px;"> </div>
 <br>
-        <div class="floting-box">
-            <p>Dynasty :- Rathore</p>
-            <p>State :- Jodhpur</p>
-            <p>Clan :- Jodha</p>
-            <p>Subclan :- Kesarisinghot</p>
-            <p>Villages :- 1</p>
-            <p>Accession :- 1827</p>
-            <p>Hindi Name :- कसुम्बी</p>
-            <p>Area :- 18000 Bigha</p>
-        </div><br>
+        <div class="floting-box">
+            <p>Dynasty :- Rathore</p>
+            <p>State :- Jodhpur</p>
+            <p>Clan :- Jodha</p>
+            <p>Subclan :- Kesarisinghot</p>
+            <p>Villages :- 1</p>
+            <p>Accession :- 1827</p>
+            <p>Hindi Name :- कसुम्बी</p>
+            <p>Area :- 18000 Bigha</p>
+        </div><br>
 
-        <div class="floting-box">
-            <h3>Khammaghani</h3>
-        </div>
+        <div class="floting-box">
+            <h3>Khammaghani</h3>
+        </div>
 
-    </div>
+    </div>
 
-    <div class="divider-image-container">
-        <img src="./kimgs/ddown.png">
-    </div>
+    <div class="divider-image-container">
+        <img src="./kimgs/ddown.png">
+    </div>
 
 </div>
 
 <script src="./wow.js"></script>
 <script>
-    wow = new WOW({
-        animateClass: 'animated',
-        offset: 100
-    });
-    wow.init();
+    wow = new WOW({
+        animateClass: 'animated',
+        offset: 100
+    });
+    wow.init();
 </script>
 
 </body>
 </html>
+
+
+
