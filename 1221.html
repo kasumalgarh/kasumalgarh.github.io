@@ -46,10 +46,9 @@
         header {
             background: #001C40;
             padding: 10px 20px;
-            /* Flexbox: Logo और Nav को एक लाइन में लाता है */
             display: flex; 
             justify-content: space-between; 
-            align-items: center;
+            align-items: center; /* लोगो और टेक्स्ट को लंबवत केंद्र में लाता है */
         }
 
         header a.logo {
@@ -94,17 +93,21 @@
             .nav-collapse {
                 position: absolute;
                 width: 100%;
-                top: 60px; /* Header की ऊंचाई के नीचे मेनू दिखाता है */
+                top: 60px; 
                 left: 0;
                 background: #001C40;
                 z-index: 1000;
             }
             nav.nav-collapse ul {
                 flex-direction: column; /* Mobile: Vertical */
+                width: 100%; 
             }
             nav.nav-collapse ul li {
-                width: 100%;
+                width: 100%; 
                 border-bottom: 1px solid #022c66;
+            }
+            nav.nav-collapse ul li a {
+                justify-content: center; /* मोबाइल में टेक्स्ट को केंद्र में लाता है */
             }
         }
         
@@ -133,7 +136,7 @@
             margin: 10px 5px;
             padding: 15px;
             border-radius: 8px;
-            text-align: left; /* Content alignment */
+            text-align: left; 
         }
         .floting-box h3 {
             font-size: 1.5em;
@@ -149,7 +152,7 @@
             margin-top: 20px;
         }
         .footer a {
-            color: #FFC300; /* Gold links in footer */
+            color: #FFC300; 
             text-decoration: none;
         }
         .wow:first-child { visibility: hidden; }
@@ -180,7 +183,7 @@
     <script>var nav = responsiveNav("#nav");</script>
 
     <div class="divider-image-container">
-        <img src="./kimgs/dup.png" alt="Divider">
+        <img src="./kimgs/dup.png" alt="Top Divider">
     </div>
 
     <div id="main-content-body">
@@ -196,6 +199,7 @@
             <p>Subclan :- Kesarisinghot</p>
             <p>Villages :- 1</p>
             <p>Accession :- 1827</p>
+            <p>Hindi Name :- कसुम्बी</p>
             <p>Area :- 18000 Bigha</p>
         </div>
 
@@ -208,7 +212,7 @@
     </div>
 
     <div class="divider-image-container">
-        <img src="./kimgs/ddown.png" alt="Divider">
+        <img src="./kimgs/ddown.png" alt="Bottom Divider">
     </div>
 
 </div> <div class="footer">
