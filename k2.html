@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>KASUMALGARH :: Final Icon Grid Menu Page</title>
+    <title>KASUMALGARH :: Final Icon Grid Menu Page - Royal Blue</title>
 
     <link href='http://fonts.googleapis.com/css?family=Alegreya+SC:700,400italic' rel='stylesheet' type='text/css' />
 
     <style>
-        /* 1. Body and Background (Strict Width & Overflow to prevent bleed) */
+        /* 1. Body and Background */
         html, body {
             width: 100%;
             margin: 0;
@@ -16,15 +16,13 @@
             overflow-x: hidden; 
         }
         body { 
-            background-color: #380000;
+            background-color: #380000; /* Dark Maroon */
             font-family: Arial, sans-serif;
         }
 
-        /* 2. Page Wrapper (Main Content Area) */
+        /* 2. Page Wrapper (Old Paper Look) */
         #page-wrapper {
-            /* Background color: Old Paper Look */
-            background-color: #EDE8D4; 
-            
+            background-color: #EDE8D4; /* Old Paper Look */
             max-width: 1000px; 
             margin: 0 auto; 
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
@@ -46,9 +44,9 @@
             border: 0;
         }
 
-        /* ***** 👑 ICON GRID NAVIGATION STYLING 👑 ***** */
+        /* ***** 👑 ROYAL BLUE ICON GRID NAVIGATION STYLING 👑 ***** */
         #icon-menu-wrapper {
-            background-color: #380000; 
+            background-color: #001C40; /* Very Dark Blue/Navy */
         }
         
         #icon-menu-grid {
@@ -60,8 +58,9 @@
             text-align: center;
             max-width: 1000px; 
             margin: 0 auto; 
-            background-color: #5D4037; 
-            border-bottom: 3px solid #FFD700;
+            
+            background-color: #003366; /* Royal Blue */
+            border-bottom: 3px solid #FFFFFF; /* Bright Border */
         }
 
         .grid-item {
@@ -70,18 +69,20 @@
             justify-content: center;
             align-items: center;
             text-decoration: none;
-            color: #FFD700; 
+            
+            color: #FFFFFF; /* White Text */
+            
             padding: 8px 0; 
-            background-color: #795548; 
+            background-color: #004C99; /* Slightly brighter blue button */
             border-radius: 8px;
-            border: 1px solid #B8860B;
+            border: 1px solid #FFFFFF;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
             transition: background-color 0.3s;
         }
         
         .grid-item:hover {
-            background-color: #DAA520; 
-            color: #333333;
+            background-color: #4A90E2; /* Bright Blue on Hover */
+            color: #FFFFFF;
             box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.6);
         }
 
@@ -121,8 +122,9 @@
         .footer {
             text-align: center;
             padding: 20px 0;
-            background-color: #380000;
-            color: #FFD700;
+            /* Footer background color changed to match the main dark color */
+            background-color: #001C40; 
+            color: #FFFFFF; /* White text for contrast */
             font-size: 0.9em;
             margin-top: 20px;
         }
@@ -130,9 +132,8 @@
         /* 7. Responsive Breakpoint */
         @media screen and (max-width: 600px) {
             #icon-menu-grid {
-                /* FIX: 3 कॉलम लेआउट (3+3+1) */
                 grid-template-columns: repeat(3, 1fr); 
-                padding: 6px 4px; /* पैडिंग और गैप कम */
+                padding: 6px 4px; 
                 gap: 3px;
             }
             .grid-item {
@@ -147,6 +148,9 @@
             }
             .divider-image-container img {
                 max-width: 95%; 
+            }
+            .footer {
+                background-color: #001C40; 
             }
         }
     </style>
@@ -175,8 +179,8 @@
     </div>
 
     <div id="main-content-body">
-        <h1>मोबाइल 3-कॉलम फिक्स</h1>
-        <p>अब मेनू मोबाइल पर 3 कॉलम में व्यवस्थित होना चाहिए (3 आइटम, फिर 3 आइटम, फिर 1 आइटम)।</p>
+        <h1>रॉयल ब्लू मेनू</h1>
+        <p>अब आपका मेनू गहरे नीले और सफेद/चमकीले नीले रंग के शाही कॉम्बिनेशन में होना चाहिए।</p>
     </div>
     <div class="divider-image-container">
         <img src="./kimgs/ddown.png" alt="divider">
