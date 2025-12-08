@@ -284,7 +284,7 @@
         }
 
         /* ----------------------------- */
-        /* ✨ फ़ुटर (BACKGROUND IMAGE REPEATING) */
+        /* ✨ फ़ुटर */
         /* ----------------------------- */
         footer { 
             text-align: center; color: #b38728; 
@@ -321,31 +321,35 @@
             display: block;
         }
 
-        /* 👇 MOBILE RESPONSIVE UPDATES (FIXED FOOTER SIZE) */
+        /* 👇 MOBILE RESPONSIVE UPDATES (SUPER COMPACT 30% SMALLER) */
         @media (max-width: 600px) {
             .hero-title { font-size: 2.2em; }
             .hero-welcome { font-size: 1.8em; }
             .jharokha-card { width: 100%; max-width: 300px; }
 
-            /* Footer छोटा करने का कोड */
+            /* Footer को 30% और छोटा किया */
             footer { 
-                padding: 10px 10px; 
+                padding: 5px 5px !important; 
             }
             .footer-heading-moved { 
-                font-size: 1.3em; 
-                margin-bottom: 5px; 
+                font-size: 0.9em !important; 
+                margin-bottom: 2px; 
             }
             .developer-info { 
-                margin-top: 5px; 
+                margin-top: 2px; 
                 padding-top: 0;
             }
+            /* छोटे टेक्स्ट (Developed By) के लिए */
+            .developer-info div {
+                font-size: 0.7em !important;
+            }
             .royal-name { 
-                font-size: 1.2em; 
-                margin-bottom: 5px; 
+                font-size: 0.85em !important; 
+                margin-bottom: 2px; 
             }
             .fb-link { 
-                font-size: 0.9em; 
-                padding: 4px 12px; 
+                font-size: 0.75em !important; 
+                padding: 3px 10px; 
                 margin-top: 5px;
             }
         }
