@@ -284,17 +284,14 @@
         }
 
         /* ----------------------------- */
-        /* ✨ फ़ुटर (BACKGROUND IMAGE ADDED) */
-        /* ----------------------------- */footer { 
-            text-align: center; 
-            color: #b38728; 
+        /* ✨ फ़ुटर (BACKGROUND IMAGE REPEATING) */
+        /* ----------------------------- */
+        footer { 
+            text-align: center; color: #b38728; 
             padding: 20px 20px;
             background-color: #000022; 
-            
-            /* 👇 यहाँ बदलाव किया है */
-            background-image: url('footerbg.png');
-            background-repeat: repeat; /* ✅ अब यह पैटर्न की तरह रिपीट होगी */
-            
+            background-image: url('img/footerbg.png');
+            background-repeat: repeat; 
             border-top: 4px solid #d4af37;
         }
         
@@ -324,10 +321,33 @@
             display: block;
         }
 
+        /* 👇 MOBILE RESPONSIVE UPDATES (FIXED FOOTER SIZE) */
         @media (max-width: 600px) {
             .hero-title { font-size: 2.2em; }
             .hero-welcome { font-size: 1.8em; }
             .jharokha-card { width: 100%; max-width: 300px; }
+
+            /* Footer छोटा करने का कोड */
+            footer { 
+                padding: 10px 10px; 
+            }
+            .footer-heading-moved { 
+                font-size: 1.3em; 
+                margin-bottom: 5px; 
+            }
+            .developer-info { 
+                margin-top: 5px; 
+                padding-top: 0;
+            }
+            .royal-name { 
+                font-size: 1.2em; 
+                margin-bottom: 5px; 
+            }
+            .fb-link { 
+                font-size: 0.9em; 
+                padding: 4px 12px; 
+                margin-top: 5px;
+            }
         }
     </style>
 </head>
