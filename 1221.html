@@ -51,6 +51,43 @@
         }
 
         /* ----------------------------- */
+        /* ⏳ ROYAL LOADER (नया जोड़ा गया है) */
+        /* ----------------------------- */
+        #preloader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000033;
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader-spinner {
+            width: 60px; height: 60px;
+            border: 5px solid rgba(252, 246, 186, 0.3);
+            border-top: 5px solid #b38728;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px #bf953f;
+        }
+
+        .loader-text {
+            font-family: 'Cinzel', serif;
+            color: #fcf6ba;
+            font-size: 1.2em;
+            letter-spacing: 3px;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+
+        /* ----------------------------- */
         /* 🖼️ एनिमेटेड लाइन */
         /* ----------------------------- */
         .royal-frame {
@@ -373,6 +410,11 @@
 </head>
 <body>
 
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">LOADING...</div>
+    </div>
+
     <div class="royal-frame">
         <span></span> <span></span> <span></span> <span></span>
     </div>
@@ -531,6 +573,16 @@
     </footer>
 
     <script>
+        // ✨ PAGE LOADER LOGIC
+        window.addEventListener("load", function() {
+            const loader = document.getElementById("preloader");
+            loader.style.opacity = "0";
+            setTimeout(() => {
+                loader.style.display = "none";
+            }, 500);
+        });
+
+        // MENU LOGIC
         function toggleMenu() {
             const menu = document.getElementById("nav-menu");
             const btn = document.getElementById("mobile-menu-btn");
@@ -557,12 +609,19 @@
             }
         });
 
+        // ✨ SLIDER LOGIC WITH PRELOADING
         const images = [
             '1.png',
             '2.jpg','4.jpg', 
             '3.jpg'
         ];
         
+        // 🚀 PRELOAD IMAGES to prevent flickering
+        images.forEach((img) => {
+            const i = new Image();
+            i.src = img;
+        });
+
         let currentIndex = 0;
         const heroSection = document.getElementById('hero-slider');
 
