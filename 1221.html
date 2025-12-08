@@ -20,13 +20,35 @@
             --dark-gold-line: #aa8c2c; 
         }
 
+        /* 🟢 CHANGE 1: बैकग्राउंड कलर html पर शिफ्ट किया ताकि टेक्सचर ऊपर दिखे */
+        html {
+            background-color: var(--royal-bg);
+            min-height: 100%;
+        }
+
         body { 
             margin: 0; 
-            background-color: var(--royal-bg);
-            background-image: url('https://www.transparenttextures.com/patterns/black-scales.png');
+            background-color: transparent; /* बॉडी पारदर्शी ताकि html का नीला रंग दिखे */
             color: #333;
             font-family: 'Playfair Display', serif;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 🟢 CHANGE 2: टेक्सचर को सिल्वर/सफेद बनाने का कोड */
+        body::before {
+            content: "";
+            position: fixed; /* पेज स्क्रॉल होने पर भी टेक्सचर वहीं रहेगा */
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/black-scales.png');
+            /* 👇 यह जादुई लाइन है: इन्वर्ट से काला रंग -> सफेद हो जाएगा */
+            filter: invert(1); 
+            opacity: 0.4; /* बहुत हल्का और शाही दिखेगा */
+            pointer-events: none;
+            z-index: -1; /* कंटेंट के पीछे रहेगा */
         }
 
         /* ----------------------------- */
@@ -188,7 +210,7 @@
         .intro-image-container {
             flex: 0 0 200px; /* फोटो की चौड़ाई फिक्स */
             position: relative;
-            text-align: center; /* CAPTON CENTER करने के लिए जोड़ा */
+            text-align: center; 
         }
 
         .thakur-img {
@@ -276,7 +298,6 @@
             color: #fcf6ba; margin-bottom: 20px; font-size: 2em; letter-spacing: 2px;
             text-transform: uppercase; text-shadow: 0 0 10px #bf953f;
         }
-        /* Footer Menu Removed */
         
         .developer-info { margin-top: 30px; padding-top: 20px; border-top: 1px solid #333; }
         .royal-name {
