@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KASUMALGARH</title>
+    <title>KASUMALGARH - Royal Heritage</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -30,73 +30,46 @@
         }
 
         /* ----------------------------- */
-        /* 🖼️ सिर्फ एनिमेटेड लाइन (बॉर्डर हटाया गया) */
+        /* 🖼️ एनिमेटेड लाइन (बिना बॉर्डर) */
         /* ----------------------------- */
         .royal-frame {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            border: none; /* मैरून बॉर्डर हटा दिया */
+            border: none; 
             box-sizing: border-box; 
             z-index: 9999;
             pointer-events: none;
             overflow: hidden; 
         }
 
-        /* एनिमेटेड लाइन की कॉमन सेटिंग */
-        .royal-frame span {
-            position: absolute;
-            display: block;
-        }
+        .royal-frame span { position: absolute; display: block; }
 
-        /* 1. ऊपर वाली लाइन (Top) */
         .royal-frame span:nth-child(1) {
-            top: 0; left: -100%;
-            width: 100%; height: 4px;
+            top: 0; left: -100%; width: 100%; height: 4px;
             background: linear-gradient(90deg, transparent, var(--dark-gold-line));
             animation: btn-anim1 4s linear infinite;
         }
-        @keyframes btn-anim1 {
-            0% { left: -100%; }
-            50%,100% { left: 100%; }
-        }
+        @keyframes btn-anim1 { 0% { left: -100%; } 50%,100% { left: 100%; } }
 
-        /* 2. दाईं वाली लाइन (Right) */
         .royal-frame span:nth-child(2) {
-            top: -100%; right: 0;
-            width: 4px; height: 100%;
+            top: -100%; right: 0; width: 4px; height: 100%;
             background: linear-gradient(180deg, transparent, var(--dark-gold-line));
-            animation: btn-anim2 4s linear infinite;
-            animation-delay: 1s;
+            animation: btn-anim2 4s linear infinite; animation-delay: 1s;
         }
-        @keyframes btn-anim2 {
-            0% { top: -100%; }
-            50%,100% { top: 100%; }
-        }
+        @keyframes btn-anim2 { 0% { top: -100%; } 50%,100% { top: 100%; } }
 
-        /* 3. नीचे वाली लाइन (Bottom) */
         .royal-frame span:nth-child(3) {
-            bottom: 0; right: -100%;
-            width: 100%; height: 4px;
+            bottom: 0; right: -100%; width: 100%; height: 4px;
             background: linear-gradient(270deg, transparent, var(--dark-gold-line));
-            animation: btn-anim3 4s linear infinite;
-            animation-delay: 2s;
+            animation: btn-anim3 4s linear infinite; animation-delay: 2s;
         }
-        @keyframes btn-anim3 {
-            0% { right: -100%; }
-            50%,100% { right: 100%; }
-        }
+        @keyframes btn-anim3 { 0% { right: -100%; } 50%,100% { right: 100%; } }
 
-        /* 4. बाईं वाली लाइन (Left) */
         .royal-frame span:nth-child(4) {
-            bottom: -100%; left: 0;
-            width: 4px; height: 100%;
+            bottom: -100%; left: 0; width: 4px; height: 100%;
             background: linear-gradient(360deg, transparent, var(--dark-gold-line));
-            animation: btn-anim4 4s linear infinite;
-            animation-delay: 3s;
+            animation: btn-anim4 4s linear infinite; animation-delay: 3s;
         }
-        @keyframes btn-anim4 {
-            0% { bottom: -100%; }
-            50%,100% { bottom: 100%; }
-        }
+        @keyframes btn-anim4 { 0% { bottom: -100%; } 50%,100% { bottom: 100%; } }
 
         /* ----------------------------- */
         /* 🏰 नेविगेशन बार */
@@ -110,10 +83,6 @@
             position: sticky; top: 0; z-index: 2000;
         }
 
-        /* एनिमेशन */
-        @keyframes slideDown { from { transform: translateY(-100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        @keyframes slideRightToLeft { from { transform: translateX(100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-
         .navbar-brand-container { display: flex; align-items: center; }
 
         #menu-logo {
@@ -121,18 +90,14 @@
             border: 2px solid #fcf6ba;
             box-shadow: 0 0 15px #bf953f;
             background: white;
-            animation: slideRightToLeft 1.5s ease-out; /* दायें से बाएं */
+            animation: slideRightToLeft 1.5s ease-out;
         }
 
         .navbar-brand {
-            font-family: 'Cinzel', serif; 
-            font-size: 1.5em; font-weight: 900; 
-            margin-left: 15px; text-decoration: none;
-            color: #fcf6ba; 
-            text-shadow: 0 0 2px #bf953f, 0 0 10px #000; 
-            letter-spacing: 1px;
-            display: inline-block;
-            animation: slideDown 1.5s ease-out; /* ऊपर से नीचे */
+            font-family: 'Cinzel', serif; font-size: 1.5em; font-weight: 900; 
+            margin-left: 15px; text-decoration: none; color: #fcf6ba; 
+            text-shadow: 0 0 2px #bf953f, 0 0 10px #000; letter-spacing: 1px;
+            display: inline-block; animation: slideDown 1.5s ease-out;
         }
 
         .navbar-links { list-style: none; margin: 0; padding: 0; display: flex; }
@@ -149,7 +114,6 @@
             color: #d4af37; font-size: 35px; cursor: pointer; display: none; 
             user-select: none; transition: transform 0.3s ease;
         }
-        .menu-toggle.rotate { transform: rotate(90deg); }
 
         @media (max-width: 768px) {
             .navbar-brand { font-size: 1.2em; }
@@ -166,6 +130,9 @@
             .navbar-links li { margin: 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
             .navbar-links a { padding: 15px; font-size: 1.1em; }
         }
+
+        @keyframes slideDown { from { transform: translateY(-100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes slideRightToLeft { from { transform: translateX(100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
         /* ----------------------------- */
         /* 👑 HERO & SLIDER */
@@ -190,19 +157,55 @@
             font-size: 3.5em; margin: 0; line-height: 1.2; font-weight: 900; 
             background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.8)); letter-spacing: 2px;
-            animation: slideDown 2s ease-out; /* ऊपर से नीचे */
+            animation: slideDown 2s ease-out;
         }
         .divider-ornament { font-size: 30px; color: #bf953f; margin: 10px 0; }
 
         /* ----------------------------- */
-        /* 📜 CONTENT, PROFILE & CARDS */
+        /* 📜 CONTENT: INTRO BOX WITH SIDE IMAGE */
         /* ----------------------------- */
         .main-content { padding: 50px 20px; text-align: center; }
 
         .intro-box {
-            max-width: 850px; margin: 0 auto 40px auto; padding: 30px 20px;
+            max-width: 900px; margin: 0 auto 40px auto; padding: 30px;
             background: var(--paper-bg); border: 4px double var(--maroon-text); border-radius: 20px;
             box-shadow: 0 0 30px rgba(191, 149, 63, 0.2);
+        }
+
+        /* 👇 फ्लेक्सबॉक्स सेटिंग (टेक्स्ट बाएं, फोटो दाएं) */
+        .intro-layout {
+            display: flex;
+            align-items: center; /* वर्टिकली सेंटर */
+            justify-content: space-between;
+            gap: 30px;
+            text-align: left; /* टेक्स्ट बाईं तरफ */
+        }
+
+        .intro-text {
+            flex: 1; /* बची हुई जगह टेक्स्ट लेगा */
+        }
+        
+        .intro-image-container {
+            flex: 0 0 200px; /* फोटो की चौड़ाई फिक्स */
+            position: relative;
+        }
+
+        .thakur-img {
+            width: 100%;
+            border-radius: 10px;
+            border: 3px solid #d4af37; /* गोल्ड फ्रेम */
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
+        }
+        .thakur-img:hover { transform: scale(1.05); }
+
+        /* मोबाइल पर फोटो नीचे आ जाएगी */
+        @media (max-width: 768px) {
+            .intro-layout {
+                flex-direction: column; /* ऊपर-नीचे */
+                text-align: center; /* टेक्स्ट सेंटर */
+            }
+            .intro-image-container { margin-top: 20px; }
         }
         
         .section-heading {
@@ -210,13 +213,13 @@
             font-size: 2em; margin-bottom: 20px; border-bottom: 2px solid #d4af37; display: inline-block;
         }
 
-        /* NEW PROFILE GRID STYLES */
+        /* PROFILE GRID */
         .profile-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
             max-width: 900px;
-            margin: 0 auto 50px auto; /* Cards के ऊपर स्पेस */
+            margin: 0 auto 50px auto;
             padding: 20px;
             border: 2px solid #d4af37;
             background: rgba(0, 0, 0, 0.4);
@@ -333,13 +336,24 @@
     </header>
 
     <main class="main-content">
+        
         <section class="intro-box">
-            <h2 class="section-heading">Legacy & Honor</h2>
-            <p style="font-size: 1.1em; line-height: 1.6; color: #4a3b2a; font-family: 'Playfair Display', serif;">
-                जय माता दी। यह <strong>कसूमलगढ़ (Fort Kasumbi)</strong> का डिजिटल प्रांगण है। 
-                यहाँ राठौड़ वंश की शौर्य गाथाएं और इतिहास संरक्षित है।
-            </p>
-            <div style="font-size: 2em; margin-top: 10px; color: #800000;">❖</div>
+            <div class="intro-layout">
+                
+                <div class="intro-text">
+                    <h2 class="section-heading">Legacy & Honor</h2>
+                    <p style="font-size: 1.1em; line-height: 1.6; color: #4a3b2a; font-family: 'Playfair Display', serif; margin: 0;">
+                        जय माता दी। यह <strong>कसूमलगढ़ (Fort Kasumbi)</strong> का डिजिटल प्रांगण है। 
+                        यहाँ राठौड़ वंश की शौर्य गाथाएं और इतिहास संरक्षित है। हम अपने पूर्वजों के बलिदान और उनकी आन-बान-शान को नमन करते हैं।
+                    </p>
+                </div>
+
+                <div class="intro-image-container">
+                    <img src="YGSR.png" alt="Yuvraj Gajraj Singh" class="thakur-img">
+                </div>
+            </div>
+            
+            <div style="font-size: 2em; margin-top: 15px; color: #800000; text-align: center;">❖</div>
         </section>
 
         <div class="profile-grid">
@@ -353,32 +367,26 @@
                 <span class="profile-label">Dynasty (वंश)</span>
                 <span class="profile-value">Rathore ⚔️</span>
             </div>
-            
             <div class="profile-item">
                 <span class="profile-label">State (रियासत)</span>
                 <span class="profile-value">Jodhpur 🚩</span>
             </div>
-
             <div class="profile-item">
                 <span class="profile-label">Clan (खांप)</span>
                 <span class="profile-value">Jodha 🦁</span>
             </div>
-
             <div class="profile-item">
                 <span class="profile-label">Subclan (नख)</span>
                 <span class="profile-value">Kesarisinghot</span>
             </div>
-
             <div class="profile-item">
                 <span class="profile-label">Accession (पाटोत्सव)</span>
                 <span class="profile-value">1827 AD</span>
             </div>
-
             <div class="profile-item">
                 <span class="profile-label">Area (क्षेत्रफल)</span>
                 <span class="profile-value">18,500 Bigha</span>
             </div>
-            
              <div class="profile-item">
                 <span class="profile-label">Villages (गाँव)</span>
                 <span class="profile-value">1</span>
