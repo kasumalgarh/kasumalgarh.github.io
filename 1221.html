@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KASUMALGARH</title>
+    <title>KASUMALGARH - Home</title>
 
     <style>
         /* ----------------------------- */
@@ -11,7 +11,7 @@
         /* ----------------------------- */
         body { 
             margin: 0; 
-            font-family: Arial, sans-serif; 
+            font-family: 'Georgia', serif; /* फोंट को थोड़ा और रॉयल बनाया है */
             background: #ffffcc; 
         }
 
@@ -19,16 +19,9 @@
         /* NAVBAR / HEADER स्टाइल्स */
         /* ----------------------------- */
         .navbar {
-            display: flex;
-            justify-content: space-between; 
-            align-items: center;
-            padding: 10px 20px;
-            position: relative; 
-            min-height: 40px;
-            z-index: 2000;
-            
-            /* मेनू बैकग्राउंड कलर (गहरा शाही नीला) */
-            background: #000033; 
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 20px; position: relative; min-height: 40px; z-index: 2000;
+            background: #000033; border-bottom: 3px solid #A98F39;
         }
 
         .navbar-brand-container { display: flex; align-items: center; }
@@ -36,170 +29,180 @@
         #menu-logo {
             width: 60px; height: 45px; border-radius: 50%; background: white;
             animation: slideLeft 1s forwards, logoGlow 2s infinite alternate 0.5s;
+            border: 2px solid #A98F39;
         }
 
-        /* 👇👇 यहाँ रंग बदला गया है (MAROON) 👇👇 */
+        /* ✨ मरून रंग (Maroon) ✨ */
         .navbar-brand {
-            color: #800000; /* मरून (Maroon) रंग */
-            text-decoration: none; font-size: 1.4em; margin-left: 10px; font-weight: bold;
+            color: #800000; 
+            text-decoration: none; font-size: 1.5em; margin-left: 10px; font-weight: bold;
+            text-transform: uppercase; letter-spacing: 1px;
             animation: slideDown 1s forwards, textGlow 2s infinite alternate 1s;
-            text-shadow: 0 0 5px #FFD700; /* गोल्ड शैडो ताकि मरून रंग पर चमके */
+            text-shadow: 0 0 5px #FFD700; 
         }
 
-        /* ----------------------------- */
-        /* 👑 डेस्कटॉप मेनू और 3D बटन स्टाइल्स */
-        /* ----------------------------- */
+        /* डेस्कटॉप मेनू */
         .navbar-links { list-style: none; margin: 0; padding: 0; display: flex; }
         .navbar-links li { margin-left: 15px; } 
 
         .navbar-links a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 12px;
-            display: block;
-            
-            /* 🟡 गोल्ड बॉर्डर */
-            border: 2px solid #A98F39; 
-            border-radius: 6px; 
-            
-            font-weight: bold;
-            transition: all 0.2s ease;
-            background-color: #6B5B3E; 
-            
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4),
-                        0 1px 1px rgba(255, 255, 255, 0.1) inset; 
+            color: white; text-decoration: none; padding: 8px 12px; display: block;
+            border: 2px solid #A98F39; border-radius: 4px; 
+            font-weight: bold; transition: all 0.3s ease;
+            background: linear-gradient(to bottom, #6B5B3E, #4a3b2a);
         }
 
         .navbar-links a:hover {
-            background: #8D7756; 
-            transform: translateY(1px); 
-            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4); 
+            background: #8D7756; transform: translateY(-2px); 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5); border-color: #FFD700;
         }
         
-        /* हैमबर्गर आइकॉन (मोबाइल के लिए) */
+        /* मोबाइल मेनू टॉगल */
         .menu-toggle {
-            color: white; 
-            font-size: 30px; 
-            cursor: pointer; 
-            display: none;
-            user-select: none;
+            color: white; font-size: 30px; cursor: pointer; display: none; user-select: none;
         }
 
         /* ----------------------------- */
-        /* मोबाइल मेनू स्टाइल्स */
+        /* 🏰 HERO SECTION (बैनर) 🏰 */
         /* ----------------------------- */
-        @media (max-width: 600px) {
-            .navbar-links {
-                display: none; 
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: #000033; 
-                z-index: 1000;
-                box-shadow: 0 8px 16px rgba(0,0,0,0.5);
-            }
+        .hero-section {
+            /* यहाँ आप अपनी फोटो का लिंक डाल सकते हैं */
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mehrangarh_Fort_Jodhpur.jpg/1200px-Mehrangarh_Fort_Jodhpur.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            border-bottom: 5px solid #800000;
+        }
 
-            .navbar-links.active {
-                display: flex !important;
-            }
+        .hero-title {
+            font-size: 3em; margin: 0; text-shadow: 2px 2px 4px #000;
+            color: #FFD700; letter-spacing: 2px;
+        }
 
-            .navbar-links li { border-top: 1px solid #555; margin: 0; }
-            .navbar-links a { 
-                padding: 15px; 
-                text-align: center;
-                box-shadow: none; 
-                background: none;
-                transform: none;
-                border-radius: 0;
-                border: none;
-            }
-            .menu-toggle { display: block; } 
+        .hero-subtitle {
+            font-size: 1.2em; margin-top: 10px; color: #f0f0f0;
         }
 
         /* ----------------------------- */
-        /* ✨👑 फ़ुटर (FOOTER) ROYAL DESIGN 👑✨ */
+        /* 📜 परिचय और कार्ड सेक्शन 📜 */
+        /* ----------------------------- */
+        .main-content { padding: 40px 20px; text-align: center; }
+
+        .intro-box {
+            max-width: 800px; margin: 0 auto 40px auto;
+            padding: 20px;
+            background-color: #fff8e1; /* हल्का क्रीम */
+            border: 2px solid #A98F39;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(169, 143, 57, 0.2);
+            position: relative;
+        }
+        
+        /* कोनों पर शाही डिजाइन (Pseudo-elements) */
+        .intro-box::before, .intro-box::after {
+            content: "⚜️"; font-size: 20px; position: absolute; color: #800000;
+        }
+        .intro-box::before { top: 10px; left: 10px; }
+        .intro-box::after { bottom: 10px; right: 10px; }
+
+        .section-heading {
+            color: #800000; font-size: 2em; margin-bottom: 10px;
+            border-bottom: 3px double #A98F39; display: inline-block; padding-bottom: 5px;
+        }
+
+        /* कार्ड कंटेनर (Cards Container) */
+        .card-container {
+            display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;
+        }
+
+        .royal-card {
+            background: white; width: 280px; padding: 20px;
+            border: 1px solid #A98F39; border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative; overflow: hidden;
+        }
+
+        .royal-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(128, 0, 0, 0.2);
+            border-color: #800000;
+        }
+
+        /* कार्ड के ऊपर की रंगीन पट्टी */
+        .card-top-bar {
+            height: 5px; background: #800000; position: absolute; top: 0; left: 0; width: 100%;
+        }
+
+        .card-icon { font-size: 40px; margin-bottom: 10px; display: block; }
+        .card-title { color: #000033; font-size: 1.4em; margin: 10px 0; font-weight: bold; }
+        .card-desc { font-size: 0.9em; color: #555; margin-bottom: 20px; }
+
+        .card-btn {
+            display: inline-block; padding: 10px 20px;
+            background-color: #800000; color: white;
+            text-decoration: none; border-radius: 5px; font-weight: bold;
+            border: 1px solid #A98F39;
+        }
+        .card-btn:hover { background-color: #A98F39; color: #000033; }
+
+        /* ----------------------------- */
+        /* ✨ फ़ुटर (FOOTER) ✨ */
         /* ----------------------------- */
         footer { 
-            text-align: center; 
-            color: #fff;
-            padding: 30px 20px; 
-            position: relative;
-            border-radius: 10px 10px 0 0; 
-            background-color: #000033; 
-            
-            /* राजस्थानी पैटर्न बैकग्राउंड */
-            background-image: url('http://googleusercontent.com/image_collection/image_retrieval/11993649056714680459');
-            background-repeat: repeat;
-            background-size: 100px; 
-            background-attachment: scroll; 
-            
-            border: 3px solid #4d3300; 
-            box-shadow: none; 
+            text-align: center; color: #fff; padding: 30px 20px; position: relative;
+            border-radius: 10px 10px 0 0; background-color: #000033; 
+            border-top: 4px solid #A98F39;
+            background-image: url('https://www.transparenttextures.com/patterns/black-scales.png'); /* पैटर्न */
         }
         
-        /* फ़ुटर मेनू की स्टाइलिंग */
         .footer-menu {
-            display: flex;
-            justify-content: center;
-            list-style: none;
-            padding: 0;
-            margin: 0 auto 10px auto;
-            flex-wrap: wrap;
-            max-width: 900px;
-            padding-bottom: 10px;
+            display: flex; justify-content: center; list-style: none; padding: 0;
+            margin: 0 auto 10px auto; flex-wrap: wrap; max-width: 900px;
         }
 
-        .footer-menu li {
-            font-size: 0.9em;
-            border-right: 2px solid #A98F39; 
-            padding: 0 10px;
-        }
-
-        .footer-menu li:last-child {
-            border-right: none;
-        }
+        .footer-menu li { font-size: 0.9em; border-right: 2px solid #A98F39; padding: 0 10px; }
+        .footer-menu li:last-child { border-right: none; }
         
         .footer-menu a {
-            color: #4d3300; 
-            text-decoration: none;
-            padding: 5px 0;
-            display: block;
-            text-shadow: none; 
-            font-weight: bold;
+            color: #FFD700; /* फ़ुटर लिंक्स को गोल्ड किया ताकि अंधेरे में दिखे */
+            text-decoration: none; font-weight: bold; display: block; padding: 5px 0;
         }
         
-        .footer-menu a::before {
-            content: '⚜️ '; 
-            color: #4d3300; 
-            font-size: 0.8em;
-            display: inline-block;
-            margin-right: 5px;
-        }
-
-        .footer-menu a:hover {
-            color: #fff; 
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
+        .footer-menu a::before { content: '⚜️ '; color: #A98F39; font-size: 0.8em; margin-right: 5px; }
+        .footer-menu a:hover { color: #fff; text-shadow: 0 0 10px #FFD700; }
 
         .copyright-text {
-            font-size: 0.8em;
-            color: #4d3300;
-            margin-top: 15px;
-            text-shadow: 0 0 3px #000;
-            font-weight: bold;
+            font-size: 0.8em; color: #A98F39; margin-top: 15px; font-weight: bold; letter-spacing: 1px;
         }
 
-        /* ----------------------------- */
-        /* CSS एनिमेशन */
-        /* ----------------------------- */
+        /* एनिमेशन */
         @keyframes slideLeft { from {transform: translateX(100vw);} to {transform: translateX(0);} } 
         @keyframes slideDown { from {transform: translateY(-50px);} to {transform: translateY(0);} } 
         @keyframes textGlow { from {text-shadow: 0 0 5px rgba(255,215,0,0.4);} to {text-shadow: 0 0 12px #FFD700;} } 
         @keyframes logoGlow { from {box-shadow: 0 0 0 rgba(255,255,255,0);} to {box-shadow: 0 0 10px white;} } 
 
-        main { padding: 20px; } 
+        /* मोबाइल रिस्पॉन्सिव */
+        @media (max-width: 600px) {
+            .navbar-links {
+                display: none; flex-direction: column; position: absolute;
+                top: 100%; left: 0; width: 100%; background: #000033; 
+                z-index: 1000; box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+            }
+            .navbar-links.active { display: flex !important; }
+            .navbar-links li { border-top: 1px solid #555; margin: 0; }
+            .navbar-links a { 
+                padding: 15px; text-align: center; border: none; background: none; 
+            }
+            .menu-toggle { display: block; } 
+            .hero-title { font-size: 2em; }
+        }
     </style>
 </head>
 <body>
@@ -207,39 +210,78 @@
     <nav class="navbar">
         <div class="navbar-brand-container">
             <img id="menu-logo" src="menulogo.png" alt="Logo"> 
-            <a class="navbar-brand" href="#">KASUMALGARH</a>
+            <a class="navbar-brand" href="index.html">KASUMALGARH</a>
         </div>
 
         <div class="menu-toggle" onclick="toggleMenu(event)">&#9776;</div>
 
         <ul class="navbar-links" id="nav-menu">
-            <li><a href="#">Vanshawali</a></li>
-            <li><a href="#">History & Map</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">Photos & Video</a></li>
-            <li><a href="#">Admin</a></li>
+            <li><a href="vanshawali.html">Vanshawali</a></li>
+            <li><a href="history.html">History & Map</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="admin_login.html">Admin</a></li>
         </ul>
     </nav>
 
-    <main>
-        <h2>स्वागत है हुकम</h2>
-        <p>यह आपकी मुख्य सामग्री (Main Content) होगी।</p>
+    <header class="hero-section">
+        <h1 class="hero-title">स्वागत है हुकम</h1>
+        <p class="hero-subtitle">कसूमलगढ़ ठिकाने की आधिकारिक वेबसाइट</p>
+    </header>
+
+    <main class="main-content">
+        
+        <section class="intro-box">
+            <h2 class="section-heading">परिचय</h2>
+            <p>
+                जय माता दी। यह वेबसाइट कसूमलगढ़ (Kasumalgarh) के गौरवशाली इतिहास और वंशावली को संरक्षित करने का एक प्रयास है। 
+                यहाँ आप हमारे पूर्वजों, परंपराओं और ठिकाने के इतिहास के बारे में जानकारी प्राप्त कर सकते हैं।
+            </p>
+        </section>
+
+        <div class="card-container">
+            
+            <div class="royal-card">
+                <div class="card-top-bar"></div>
+                <span class="card-icon">📜</span>
+                <h3 class="card-title">Vanshawali</h3>
+                <p class="card-desc">हमारे पूर्वजों की विस्तृत वंशावली और पीढ़ियों की जानकारी देखें।</p>
+                <a href="vanshawali.html" class="card-btn">Open Chart</a>
+            </div>
+
+            <div class="royal-card">
+                <div class="card-top-bar"></div>
+                <span class="card-icon">🏰</span>
+                <h3 class="card-title">History & Map</h3>
+                <p class="card-desc">कसूमलगढ़ का इतिहास, नक्शा और भौगोलिक जानकारी।</p>
+                <a href="history.html" class="card-btn">Read History</a>
+            </div>
+
+            <div class="royal-card">
+                <div class="card-top-bar"></div>
+                <span class="card-icon">📸</span>
+                <h3 class="card-title">Photo Gallery</h3>
+                <p class="card-desc">ठिकाने के पुराने और नए फोटो, वीडियो और उत्सवों की झलकियां।</p>
+                <a href="gallery.html" class="card-btn">View Photos</a>
+            </div>
+
+        </div>
+
     </main>
 
     <footer>
         <ul class="footer-menu">
-            <li><a href="#">Home</a></li> 
-            <li><a href="#">Vanshawali</a></li>
-            <li><a href="#">History & Map</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">Photos & Video</a></li>
-            <li><a href="#">Admin</a></li>
+            <li><a href="index.html">Home</a></li> 
+            <li><a href="vanshawali.html">Vanshawali</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
         </ul>
         
         <div class="copyright-text">
-            &copy; 2025 | All Rights Reserved by **Yuvraj Gajraj Singh**
+            &copy; 2025 | Developed by **Yuvraj Gajraj Singh**
         </div>
     </footer>
 
@@ -247,11 +289,7 @@
         function toggleMenu(event) {
             event.stopPropagation(); 
             var menu = document.getElementById("nav-menu");
-            if (menu.classList.contains("active")) {
-                menu.classList.remove("active");
-            } else {
-                menu.classList.add("active");
-            }
+            menu.classList.toggle("active");
         }
 
         window.onclick = function(event) {
