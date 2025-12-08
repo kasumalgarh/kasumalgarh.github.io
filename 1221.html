@@ -135,9 +135,16 @@
             user-select: none; transition: transform 0.3s ease;
         }
 
+        /* 👇 MOBILE MENU UPDATES (SMALLER) 👇 */
         @media (max-width: 768px) {
-            .navbar-brand { font-size: 1.2em; }
-            .menu-toggle { display: block; }
+            
+            /* Logo & Brand Smaller */
+            .navbar-brand { font-size: 1.0em; margin-left: 10px; }
+            #menu-logo { width: 35px; height: 35px; }
+            
+            /* Menu Icon Smaller */
+            .menu-toggle { display: block; font-size: 25px; } 
+
             .navbar-links {
                 display: none; flex-direction: column; position: absolute;
                 top: 100%; left: 0; width: 100%;
@@ -148,7 +155,12 @@
             }
             .navbar-links.active { display: flex; animation: slideDown 0.5s ease; }
             .navbar-links li { margin: 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
-            .navbar-links a { padding: 15px; font-size: 1.1em; }
+            
+            /* Menu Links Smaller */
+            .navbar-links a { 
+                padding: 10px; /* Reduced padding */
+                font-size: 0.85em; /* Reduced Font Size */
+            }
         }
 
         @keyframes slideDown { from { transform: translateY(-100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
@@ -321,13 +333,13 @@
             display: block;
         }
 
-        /* 👇 MOBILE RESPONSIVE UPDATES (SUPER COMPACT 30% SMALLER) */
+        /* 👇 MOBILE RESPONSIVE UPDATES (SUPER COMPACT FOOTER) */
         @media (max-width: 600px) {
             .hero-title { font-size: 2.2em; }
             .hero-welcome { font-size: 1.8em; }
             .jharokha-card { width: 100%; max-width: 300px; }
 
-            /* Footer को 30% और छोटा किया */
+            /* Footer छोटा करने का कोड */
             footer { 
                 padding: 5px 5px !important; 
             }
@@ -339,7 +351,6 @@
                 margin-top: 2px; 
                 padding-top: 0;
             }
-            /* छोटे टेक्स्ट (Developed By) के लिए */
             .developer-info div {
                 font-size: 0.7em !important;
             }
@@ -498,10 +509,10 @@
             
             if (menu.classList.contains("active")) {
                 btn.innerHTML = "&times;";
-                btn.style.fontSize = "45px";
+                btn.style.fontSize = "30px"; /* Close Icon Smaller */
             } else {
                 btn.innerHTML = "&#9776;";
-                btn.style.fontSize = "35px";
+                btn.style.fontSize = "25px"; /* Open Icon Smaller */
             }
         }
 
@@ -512,7 +523,7 @@
                 if (menu.classList.contains("active")) {
                     menu.classList.remove("active");
                     btn.innerHTML = "&#9776;";
-                    btn.style.fontSize = "35px";
+                    btn.style.fontSize = "25px";
                 }
             }
         });
