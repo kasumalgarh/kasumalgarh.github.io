@@ -3,234 +3,257 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KASUMALGARH - The Royal Legacy</title>
+    <title>FORT KASUMBI - The Royal Legacy</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
         /* ----------------------------- */
         /* ✨ शाही वेरियबल्स */
         /* ----------------------------- */
         :root {
-            --royal-bg: #1a0505; /* गहरा काला-मरून */
-            --paper-bg: #fffbf0; /* पुराना कागज */
+            --royal-bg: #000033;       
+            --paper-bg: #fffbf0;       
             --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
-            --gold-border: #C5A059;
-            --maroon-accent: #800000;
+            --maroon-text: #800000;    
+            --gold-accent: #d4af37;    
         }
 
-        /* ----------------------------- */
-        /* 🏰 बॉडी और स्क्रीन बॉर्डर */
-        /* ----------------------------- */
         body { 
             margin: 0; 
             background-color: var(--royal-bg);
-            /* शाही पैटर्न बैकग्राउंड */
             background-image: url('https://www.transparenttextures.com/patterns/black-scales.png');
             color: #333;
             font-family: 'Playfair Display', serif;
-            overflow-x: hidden; /* क्षैतिज स्क्रॉल बंद */
+            overflow-x: hidden;
         }
 
-        /* पूरी स्क्रीन पर फिक्स गोल्डन बॉर्डर */
+        /* फिक्स गोल्डन बॉर्डर */
         .royal-frame {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             border: 10px solid transparent;
-            border-image: url("https://i.imgur.com/w1p9Xq8.png") 30 stretch; /* अगर इमेज न हो तो नीचे वाला काम करेगा */
             border-image: var(--gold-gradient) 1;
             z-index: 9999;
-            pointer-events: none; /* इसके आर-पार क्लिक हो सके */
-            box-sizing: border-box;
+            pointer-events: none;
         }
 
         /* ----------------------------- */
-        /* 🏰 नेविगेशन बार (NAVBAR) */
+        /* 🏰 एनिमेशन (Animations) */
+        /* ----------------------------- */
+        
+        /* ऊपर से नीचे (For Name) */
+        @keyframes slideDown {
+            from { transform: translateY(-100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* दायें से बाएं (For Logo) */
+        @keyframes slideRightToLeft {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* ----------------------------- */
+        /* 🏰 नेविगेशन बार */
         /* ----------------------------- */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 40px; 
-            background: rgba(26, 5, 5, 0.95); /* पारदर्शी गहरा बैकग्राउंड */
+            padding: 15px 20px;
+            background: #000033;
             border-bottom: 2px solid #b38728;
             box-shadow: 0 5px 20px rgba(0,0,0,0.8);
             position: sticky; top: 0; z-index: 2000;
         }
 
-        .navbar-brand-container { display: flex; align-items: center; }
+        .navbar-brand-container { display: flex; align-items: center; overflow: hidden; }
 
         #menu-logo {
-            width: 60px; height: 60px; border-radius: 50%; 
+            width: 50px; height: 50px; border-radius: 50%; 
             border: 2px solid #fcf6ba;
             box-shadow: 0 0 15px #bf953f;
             background: white;
+            /* 👇 लोगो एनिमेशन: दायें से बाएं */
+            animation: slideRightToLeft 1.5s ease-out;
+            position: relative; /* एनीमेशन के लिए जरूरी */
         }
 
         .navbar-brand {
-            font-family: 'Cinzel Decorative', serif; /* बहुत ज्यादा सजावटी फोंट */
-            font-size: 1.8em; font-weight: 900;
+            font-family: 'Cinzel', serif; 
+            font-size: 1.5em; 
+            font-weight: 900; 
             margin-left: 15px; text-decoration: none;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0px 0px 10px rgba(191, 149, 63, 0.4);
+            color: #fcf6ba; 
+            text-shadow: 0 0 2px #bf953f, 0 0 10px #000; 
             letter-spacing: 1px;
+            display: inline-block;
+            /* 👇 नाम एनिमेशन: ऊपर से नीचे */
+            animation: slideDown 1.5s ease-out;
         }
 
-        /* मेनू लिंक्स */
+        /* डेस्कटॉप मेनू */
         .navbar-links { list-style: none; margin: 0; padding: 0; display: flex; }
         .navbar-links li { margin-left: 15px; } 
 
         .navbar-links a {
             color: #d4af37; text-decoration: none; padding: 8px 15px; display: block;
-            font-family: 'Cinzel', serif; font-weight: bold; letter-spacing: 1px;
+            font-family: 'Cinzel', serif; font-weight: 700; letter-spacing: 1px;
             border: 1px solid transparent;
             transition: all 0.5s ease;
-            position: relative;
         }
-
-        /* मेनू होवर इफेक्ट (तलवार की चमक जैसा) */
-        .navbar-links a::after {
-            content: ''; position: absolute; width: 0; height: 2px;
-            bottom: 0; left: 50%; background: var(--gold-gradient);
-            transition: all 0.4s ease;
-        }
-        .navbar-links a:hover::after { width: 100%; left: 0; }
         .navbar-links a:hover { color: #fff; text-shadow: 0 0 8px #d4af37; }
 
         .menu-toggle { color: #d4af37; font-size: 30px; cursor: pointer; display: none; }
 
+        /* 📱 मोबाइल मेनू */
+        @media (max-width: 768px) {
+            .navbar-brand { font-size: 1.2em; }
+            .menu-toggle { display: block; }
+            .navbar-links {
+                display: none; flex-direction: column; position: absolute;
+                top: 100%; left: 0; width: 100%;
+                background-color: #000033;
+                border-top: 1px solid #b38728; border-bottom: 2px solid #b38728;
+                padding: 0; text-align: center; z-index: 1000;
+            }
+            .navbar-links.active { display: flex; }
+            .navbar-links li { margin: 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+            .navbar-links a { padding: 15px; font-size: 1.1em; }
+        }
+
         /* ----------------------------- */
-        /* 👑 HERO SECTION (शाही प्रवेश) */
+        /* 👑 HERO SECTION & SLIDER */
         /* ----------------------------- */
         .hero-section {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(26, 5, 5, 1)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mehrangarh_Fort_Jodhpur.jpg/1200px-Mehrangarh_Fort_Jodhpur.jpg');
-            background-attachment: fixed; background-size: cover; background-position: center;
+            background-image: linear-gradient(rgba(0, 0, 51, 0.6), rgba(0, 0, 51, 0.9)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mehrangarh_Fort_Jodhpur.jpg/1200px-Mehrangarh_Fort_Jodhpur.jpg');
+            background-size: cover; background-position: center;
             height: 500px;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             text-align: center; color: white;
-            position: relative;
+            position: relative; transition: background-image 1s ease-in-out;
         }
 
         .hero-welcome {
-            font-family: 'Great Vibes', cursive; /* कर्सिव शाही लिखावट */
-            font-size: 3em; color: #fcf6ba; margin-bottom: -10px;
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5em; color: #fcf6ba; margin-bottom: -5px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
         .hero-title {
-            font-family: 'Cinzel Decorative', cursive; 
-            font-size: 4.5em; margin: 0; line-height: 1.2;
+            font-family: 'Cinzel', serif; 
+            font-size: 3.5em; margin: 0; line-height: 1.2;
+            font-weight: 900; 
             background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.8));
+            letter-spacing: 2px;
+            animation: slideDown 2s ease-out; /* स्लाइड इफेक्ट */
         }
 
-        .divider-ornament {
-            font-size: 30px; color: #bf953f; margin: 10px 0;
-        }
+        .divider-ornament { font-size: 30px; color: #bf953f; margin: 10px 0; }
 
         /* ----------------------------- */
-        /* 📜 CONTENT & JHAROKHA CARDS */
+        /* 📜 CONTENT & CARDS */
         /* ----------------------------- */
-        .main-content { padding: 50px 20px; text-align: center; position: relative; }
+        .main-content { padding: 50px 20px; text-align: center; }
 
         .intro-box {
-            max-width: 850px; margin: 0 auto 60px auto; padding: 50px 30px;
-            background: var(--paper-bg); /* पुराना कागज */
-            border: 4px double var(--maroon-accent);
-            border-radius: 20px;
+            max-width: 850px; margin: 0 auto 60px auto; padding: 30px 20px;
+            background: var(--paper-bg);
+            border: 4px double var(--maroon-text); border-radius: 20px;
             box-shadow: 0 0 30px rgba(191, 149, 63, 0.2);
-            position: relative;
         }
         
-        /* शाही कोने का डिजाइन */
-        .ornament-corner {
-            position: absolute; width: 40px; height: 40px;
-            border: 3px solid var(--maroon-accent);
-        }
-        .tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
-        .tr { top: 10px; right: 10px; border-left: none; border-bottom: none; }
-        .bl { bottom: 10px; left: 10px; border-right: none; border-top: none; }
-        .br { bottom: 10px; right: 10px; border-left: none; border-top: none; }
-
         .section-heading {
-            font-family: 'Cinzel Decorative', serif; color: var(--maroon-accent); 
-            font-size: 2.5em; margin-bottom: 20px; border-bottom: 2px solid #d4af37; display: inline-block;
+            font-family: 'Cinzel', serif; font-weight: 700; color: var(--maroon-text); 
+            font-size: 2em; margin-bottom: 20px; border-bottom: 2px solid #d4af37; display: inline-block;
         }
 
-        /* कार्ड्स कंटेनर */
-        .card-container { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; margin-top: 20px; }
+        .card-container { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 20px; }
 
-        /* 🏰 झरोखा कार्ड (Jharokha Style) */
         .jharokha-card {
-            background: #fff; width: 300px; padding: 40px 20px 30px 20px;
-            position: relative; transition: all 0.4s ease;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            /* ऊपर से गोल (Arch Shape) */
-            border-radius: 150px 150px 10px 10px; 
-            border: 4px solid #b38728;
-            background-image: linear-gradient(to bottom, #fffbf0, #fff);
-            overflow: hidden;
+            width: 300px; min-height: 400px; 
+            padding: 110px 25px 40px 25px; 
+            position: relative; transition: all 0.4s ease; text-align: center;
+            background-color: transparent; border: none; 
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 420'%3E%3Cpath d='M10,410 L10,180 C10,180 10,140 40,145 C60,150 75,125 65,105 C55,85 95,65 115,75 C135,85 140,50 150,40 C160,50 165,85 185,75 C205,65 245,85 235,105 C225,125 240,150 260,145 C290,140 290,180 290,180 L290,410 Z' fill='%23fffbf0' stroke='%23b38728' stroke-width='5' /%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-size: 100% 100%;
+            filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.5));
         }
 
-        .jharokha-card:hover { 
-            transform: translateY(-15px) scale(1.02); 
-            border-color: #fcf6ba; 
-            box-shadow: 0 0 30px rgba(191, 149, 63, 0.6);
-        }
+        .jharokha-card:hover { transform: translateY(-15px); filter: drop-shadow(0px 15px 25px rgba(191, 149, 63, 0.7)); }
 
-        .card-icon { 
-            font-size: 60px; display: block; margin-bottom: 10px; color: var(--maroon-accent); 
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
-        }
-        
-        .card-title { 
-            font-family: 'Cinzel Decorative', serif; font-size: 1.6em; 
-            color: #1a0505; margin: 10px 0; font-weight: bold; 
-        }
-
+        .card-icon { font-size: 50px; display: block; margin-bottom: 10px; color: var(--maroon-text); }
+        .card-title { font-family: 'Cinzel', serif; font-size: 1.6em; color: #1a0505; margin: 10px 0; font-weight: 700; }
         .card-btn {
             display: inline-block; margin-top: 15px; padding: 10px 30px;
-            background: linear-gradient(to right, #800000, #4d0000); 
+            background: linear-gradient(to right, #000033, #000066); 
             color: #d4af37; text-decoration: none;
-            font-family: 'Cinzel', serif; border: 1px solid #d4af37;
-            border-radius: 50px; /* गोल बटन */
-            transition: 0.3s; font-weight: bold; text-transform: uppercase;
-        }
-        .card-btn:hover { 
-            background: var(--gold-gradient); color: #000; 
-            box-shadow: 0 0 15px #d4af37;
+            font-family: 'Cinzel', serif; border: 1px solid #d4af37; border-radius: 50px; transition: 0.3s; font-weight: bold;
         }
 
         /* ----------------------------- */
-        /* ✨ शाही फ़ुटर */
+        /* ✨ शाही फ़ुटर (Updated) */
         /* ----------------------------- */
         footer { 
-            text-align: center; color: #b38728; padding: 60px 20px;
-            background-color: #0d0000; /* पिच ब्लैक */
-            border-top: 4px solid #d4af37;
-            position: relative;
+            text-align: center; color: #b38728; padding: 50px 20px;
+            background-color: #000022; border-top: 4px solid #d4af37;
         }
         
-        .footer-menu { display: flex; justify-content: center; list-style: none; padding: 0; margin-bottom: 20px; flex-wrap: wrap; }
-        .footer-menu li { margin: 0 15px; }
-        
-        .footer-menu a {
-            color: #d4af37; text-decoration: none; font-family: 'Cinzel', serif; 
-            font-size: 1.1em; transition: 0.3s;
+        .footer-heading {
+            font-family: 'Cinzel', serif; font-weight: 900; 
+            color: #fcf6ba; margin-bottom: 20px; font-size: 2em; /* बड़ा फोंट */
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px #bf953f;
         }
-        .footer-menu a:hover { color: #fff; text-shadow: 0 0 15px #d4af37; }
 
-        /* मोबाइल रिस्पॉन्सिव */
+        .footer-menu { display: flex; justify-content: center; list-style: none; padding: 0; margin-bottom: 30px; flex-wrap: wrap; }
+        .footer-menu li { margin: 0 15px; }
+        .footer-menu a { 
+            color: #d4af37; text-decoration: none; font-family: 'Cinzel', serif; font-size: 1.1em;
+            transition: 0.3s;
+        }
+        .footer-menu a:hover { color: #fff; text-shadow: 0 0 10px #fff; }
+
+        /* डेवलपर नाम का रॉयल स्टाइल */
+        .developer-info {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+        
+        .royal-name {
+            display: block;
+            font-family: 'Cinzel', serif; 
+            font-size: 1.6em; /* बहुत बड़ा साइज */
+            font-weight: 900;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            text-decoration: none;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.8));
+        }
+        
+        .royal-name:hover {
+            filter: drop-shadow(0 0 10px #bf953f);
+        }
+
+        .fb-link {
+            color: #fff; text-decoration: none; font-size: 1.1em;
+            display: inline-flex; align-items: center; gap: 10px;
+            margin-top: 5px;
+            padding: 5px 15px; border: 1px solid #b38728; border-radius: 20px;
+        }
+        .fb-link:hover { background: #b38728; color: #000; }
+
         @media (max-width: 600px) {
-            .royal-frame { border-width: 5px; } /* मोबाइल पर फ्रेम पतला */
-            .navbar-links {
-                display: none; flex-direction: column; position: absolute;
-                top: 100%; left: 0; width: 100%; background: #0d0000; 
-                border-bottom: 2px solid #bf953f;
-            }
-            .navbar-links.active { display: flex !important; }
-            .hero-title { font-size: 2.5em; }
-            .hero-welcome { font-size: 2em; }
+            .royal-frame { border-width: 5px; } 
+            .hero-title { font-size: 2.2em; }
+            .hero-welcome { font-size: 1.8em; }
             .jharokha-card { width: 100%; max-width: 300px; }
+            .footer-menu { flex-direction: column; gap: 10px; }
         }
     </style>
 </head>
@@ -243,7 +266,8 @@
             <img id="menu-logo" src="menulogo.png" alt="Logo"> 
             <a class="navbar-brand" href="index.html">KASUMALGARH</a>
         </div>
-        <div class="menu-toggle" onclick="toggleMenu(event)">&#9776;</div>
+        <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+        
         <ul class="navbar-links" id="nav-menu">
             <li><a href="vanshawali.html">VANSHAWALI</a></li>
             <li><a href="history.html">HISTORY</a></li>
@@ -254,83 +278,105 @@
         </ul>
     </nav>
 
-    <header class="hero-section">
+    <header class="hero-section" id="hero-slider">
         <div class="hero-welcome">Khama Ghani Hukum</div>
         <h1 class="hero-title">KASUMALGARH</h1>
         <div class="divider-ornament">⚜️ ⚜️ ⚜️</div>
-        <p style="color: #e0e0e0; font-size: 1.2em; letter-spacing: 3px; text-transform: uppercase;">The Royal Heritage</p>
+        <p style="color: #e0e0e0; font-size: 1.1em; letter-spacing: 2px; text-transform: uppercase; font-family: 'Cinzel', serif;">
+            The Royal Heritage
+        </p>
     </header>
 
     <main class="main-content">
-        
         <section class="intro-box">
-            <div class="ornament-corner tl"></div><div class="ornament-corner tr"></div>
-            <div class="ornament-corner bl"></div><div class="ornament-corner br"></div>
-            
             <h2 class="section-heading">Legacy & Honor</h2>
-            <p style="font-size: 1.2em; line-height: 1.8; color: #4a3b2a; font-family: 'Playfair Display', serif;">
+            <p style="font-size: 1.1em; line-height: 1.6; color: #4a3b2a; font-family: 'Playfair Display', serif;">
                 जय माता दी। यह <strong>कसूमलगढ़ (Kasumalgarh)</strong> का डिजिटल प्रांगण है। 
-                यहाँ राठौड़ वंश की शौर्य गाथाएं, परंपराएं और हमारे पूर्वजों का इतिहास स्वर्ण अक्षरों में अंकित है।
+                यहाँ राठौड़ वंश की शौर्य गाथाएं और इतिहास संरक्षित है।
             </p>
             <div style="font-size: 2em; margin-top: 10px; color: #800000;">❖</div>
         </section>
 
         <div class="card-container">
-            
             <div class="jharokha-card">
                 <span class="card-icon">📜</span>
                 <h3 class="card-title">Vanshawali</h3>
-                <p>राजवंश की विस्तृत वंशावली और पीढ़ियों की सूची।</p>
+                <p>राजवंश की विस्तृत वंशावली।</p>
                 <a href="vanshawali.html" class="card-btn">View Chart</a>
             </div>
-
             <div class="jharokha-card">
                 <span class="card-icon">🏰</span>
                 <h3 class="card-title">History</h3>
-                <p>ठिकाने का गौरवशाली इतिहास और युद्ध गाथाएं।</p>
+                <p>ठिकाने का गौरवशाली इतिहास।</p>
                 <a href="history.html" class="card-btn">Read History</a>
             </div>
-
             <div class="jharokha-card">
                 <span class="card-icon">⚔️</span>
                 <h3 class="card-title">Gallery</h3>
-                <p>दुर्ग और उत्सवों के दुर्लभ छायाचित्र।</p>
+                <p>दुर्लभ छायाचित्रों का संग्रह।</p>
                 <a href="gallery.html" class="card-btn">Open Gallery</a>
             </div>
-
         </div>
-
     </main>
 
     <footer>
-        <h2 style="font-family: 'Cinzel Decorative', serif; color: #fcf6ba; margin-bottom: 20px; font-size: 2em;">KASUMALGARH</h2>
+        <div class="footer-heading">FORT KASUMBI</div>
+        
         <ul class="footer-menu">
             <li><a href="index.html">Home</a></li> 
             <li><a href="vanshawali.html">Vanshawali</a></li>
             <li><a href="history.html">History</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="admin_login.html">Admin</a></li>
         </ul>
         
-        <div class="divider-ornament" style="font-size: 20px; opacity: 0.7;">⚜️</div>
-        
-        <div style="color: #665; font-size: 0.9em; letter-spacing: 1px; margin-top: 10px;">
-            &copy; 2025 | Developed by <strong>Yuvraj Gajraj Singh</strong>
+        <div class="developer-info">
+            <div style="font-size: 0.9em; color: #888; margin-bottom: 5px;">Developed & Designed By:</div>
+            
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="royal-name">
+                Yuvraj Gajraj Singh
+            </a>
+            
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="fb-link">
+                <i class="fab fa-facebook"></i> Connect on Facebook
+            </a>
+            
+            <div style="font-size: 0.8em; margin-top: 15px; color: #666;">
+                &copy; 2025 | All Rights Reserved.
+            </div>
         </div>
     </footer>
 
     <script>
-        function toggleMenu(event) {
-            event.stopPropagation(); 
-            var menu = document.getElementById("nav-menu");
-            menu.classList.toggle("active");
-        }
-        window.onclick = function(event) {
+        function toggleMenu() {
             var menu = document.getElementById("nav-menu");
             if (menu.classList.contains("active")) {
                 menu.classList.remove("active");
+            } else {
+                menu.classList.add("active");
             }
         }
+
+        const images = [
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mehrangarh_Fort_Jodhpur.jpg/1200px-Mehrangarh_Fort_Jodhpur.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Jaisalmer_Fort_03.jpg/1200px-Jaisalmer_Fort_03.jpg', 
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/City_Palace_Udaipur_02.jpg/1200px-City_Palace_Udaipur_02.jpg'
+        ];
+        
+        let currentIndex = 0;
+        const heroSection = document.getElementById('hero-slider');
+
+        function changeBackgroundImage() {
+            currentIndex++;
+            if (currentIndex >= images.length) {
+                currentIndex = 0;
+            }
+            heroSection.style.backgroundImage = `linear-gradient(rgba(0, 0, 51, 0.6), rgba(0, 0, 51, 0.9)), url('${images[currentIndex]}')`;
+        }
+
+        setInterval(changeBackgroundImage, 3000);
     </script>
 
 </body>
