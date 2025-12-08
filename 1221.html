@@ -188,6 +188,7 @@
         .intro-image-container {
             flex: 0 0 200px; /* फोटो की चौड़ाई फिक्स */
             position: relative;
+            text-align: center; /* CAPTON CENTER करने के लिए जोड़ा */
         }
 
         .thakur-img {
@@ -275,11 +276,8 @@
             color: #fcf6ba; margin-bottom: 20px; font-size: 2em; letter-spacing: 2px;
             text-transform: uppercase; text-shadow: 0 0 10px #bf953f;
         }
-        .footer-menu { display: flex; justify-content: center; list-style: none; padding: 0; margin-bottom: 30px; flex-wrap: wrap; }
-        .footer-menu li { margin: 0 15px; }
-        .footer-menu a { color: #d4af37; text-decoration: none; font-family: 'Cinzel', serif; font-size: 1.1em; transition: 0.3s; }
-        .footer-menu a:hover { color: #fff; text-shadow: 0 0 10px #fff; }
-
+        /* Footer Menu Removed */
+        
         .developer-info { margin-top: 30px; padding-top: 20px; border-top: 1px solid #333; }
         .royal-name {
             display: block; font-family: 'Cinzel', serif; font-size: 1.6em; font-weight: 900;
@@ -298,7 +296,6 @@
             .hero-title { font-size: 2.2em; }
             .hero-welcome { font-size: 1.8em; }
             .jharokha-card { width: 100%; max-width: 300px; }
-            .footer-menu { flex-direction: column; gap: 10px; }
         }
     </style>
 </head>
@@ -350,6 +347,9 @@
 
                 <div class="intro-image-container">
                     <img src="YGSR.png" alt="Yuvraj Gajraj Singh" class="thakur-img">
+                    <div style="margin-top: 15px; color: #b38728; font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.9em; letter-spacing: 1px; text-transform: uppercase;">
+                        Admin of Website
+                    </div>
                 </div>
             </div>
             
@@ -417,15 +417,6 @@
 
     <footer>
         <div class="footer-heading">FORT KASUMBI</div>
-        <ul class="footer-menu">
-            <li><a href="index.html">Home</a></li> 
-            <li><a href="vanshawali.html">Vanshawali</a></li>
-            <li><a href="history.html">History</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="admin_login.html">Admin(GAJSA)</a></li>
-        </ul>
         
         <div class="developer-info">
             <div style="font-size: 0.9em; color: #888; margin-bottom: 5px;">Developed & Designed By:</div>
