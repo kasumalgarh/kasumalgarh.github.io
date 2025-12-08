@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FORT KASUMBI - The Royal Legacy</title>
+    <title>KASUMALGARH</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -87,14 +87,13 @@
         /* हैमबर्गर बटन स्टाइल */
         .menu-toggle { 
             color: #d4af37; 
-            font-size: 35px; /* थोड़ा बड़ा किया ताकि टच करने में आसानी हो */
+            font-size: 35px;
             cursor: pointer; 
             display: none; 
             user-select: none;
             transition: transform 0.3s ease;
         }
         
-        /* जब मेनू खुलेगा तो बटन थोड़ा घूमेगा */
         .menu-toggle.rotate { transform: rotate(90deg); }
 
         /* 📱 मोबाइल मेनू */
@@ -124,8 +123,9 @@
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             text-align: center; color: white;
             position: relative; transition: background-image 1s ease-in-out;
-            /* पहली फोटो CSS में सेट कर दी, बाकी JS से बदलेगी */
-            background-image: linear-gradient(rgba(0, 0, 51, 0.6), rgba(0, 0, 51, 0.9)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mehrangarh_Fort_Jodhpur.jpg/1200px-Mehrangarh_Fort_Jodhpur.jpg');
+            
+            /* 👇👇 पहली इमेज: 1.jpg (लोकल फाइल) 👇👇 */
+            background-image: linear-gradient(rgba(0, 0, 51, 0.6), rgba(0, 0, 51, 0.9)), url('1.jpg');
         }
 
         .hero-welcome {
@@ -227,7 +227,7 @@
     <nav class="navbar">
         <div class="navbar-brand-container">
             <img id="menu-logo" src="menulogo.png" alt="Logo"> 
-            <a class="navbar-brand" href="index.html">FORT KASUMBI</a>
+            <a class="navbar-brand" href="index.html">KASUMALGARH</a>
         </div>
         
         <div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMenu()">&#9776;</div>
@@ -238,13 +238,13 @@
             <li><a href="about.html">ABOUT</a></li>
             <li><a href="contact.html">CONTACT</a></li>
             <li><a href="gallery.html">GALLERY</a></li>
-            <li><a href="admin_login.html">ADMIN</a></li>
+            <li><a href="admin_login.html">ADMIN(GAJSA)</a></li>
         </ul>
     </nav>
 
     <header class="hero-section" id="hero-slider">
         <div class="hero-welcome">Khama Ghani Hukum</div>
-        <h1 class="hero-title">FORT KASUMBI</h1>
+        <h1 class="hero-title">RATHORE</h1>
         <div class="divider-ornament">⚜️ ⚜️ ⚜️</div>
         <p style="color: #e0e0e0; font-size: 1.1em; letter-spacing: 2px; text-transform: uppercase; font-family: 'Cinzel', serif;">
             The Royal Heritage
@@ -292,7 +292,7 @@
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact</a></li>
             <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="admin_login.html">Admin</a></li>
+            <li><a href="admin_login.html">Admin(GAJSA)</a></li>
         </ul>
         
         <div class="developer-info">
@@ -313,46 +313,39 @@
     </footer>
 
     <script>
-        // 1. मेनू टॉगल और आइकॉन चेंज फंक्शन
         function toggleMenu() {
             const menu = document.getElementById("nav-menu");
             const btn = document.getElementById("mobile-menu-btn");
             
-            // क्लास टॉगल करें
             menu.classList.toggle("active");
             
-            // बटन का आइकॉन बदलें (3 लाइन vs Cross X)
             if (menu.classList.contains("active")) {
-                btn.innerHTML = "&times;"; // X का निशान
-                btn.style.fontSize = "45px"; // X थोड़ा बड़ा अच्छा लगता है
+                btn.innerHTML = "&times;";
+                btn.style.fontSize = "45px";
             } else {
-                btn.innerHTML = "&#9776;"; // 3 लाइन
+                btn.innerHTML = "&#9776;";
                 btn.style.fontSize = "35px";
             }
         }
 
-        // 2. मेनू के बाहर क्लिक करने पर बंद करना
         document.addEventListener('click', function(event) {
             const menu = document.getElementById("nav-menu");
             const btn = document.getElementById("mobile-menu-btn");
 
-            // अगर क्लिक मेनू पर नहीं है और बटन पर भी नहीं है
             if (!menu.contains(event.target) && !btn.contains(event.target)) {
-                // और अगर मेनू खुला है
                 if (menu.classList.contains("active")) {
                     menu.classList.remove("active");
-                    // आइकॉन वापस 3 लाइन करें
                     btn.innerHTML = "&#9776;";
                     btn.style.fontSize = "35px";
                 }
             }
         });
 
-        // 3. इमेज स्लाइडर
+        /* 👇👇 लोकल इमेजेस की लिस्ट 👇👇 */
         const images = [
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mehrangarh_Fort_Jodhpur.jpg/1200px-Mehrangarh_Fort_Jodhpur.jpg',
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Jaisalmer_Fort_03.jpg/1200px-Jaisalmer_Fort_03.jpg', 
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/City_Palace_Udaipur_02.jpg/1200px-City_Palace_Udaipur_02.jpg'
+            '1.jpg',
+            '2.jpg', 
+            '3.jpg'
         ];
         
         let currentIndex = 0;
