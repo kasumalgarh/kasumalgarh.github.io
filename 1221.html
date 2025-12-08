@@ -18,6 +18,7 @@
             --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             --maroon-text: #800000;
             --dark-gold-line: #aa8c2c; 
+            --theme-gold: #897148;
         }
 
         html {
@@ -96,7 +97,7 @@
         /* ----------------------------- */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 20px;
+            padding: 15px 20px; 
             background: #000033;
             border-bottom: 2px solid #b38728;
             box-shadow: 0 5px 20px rgba(0,0,0,0.8);
@@ -229,7 +230,8 @@
         .thakur-img {
             width: 100%;
             border-radius: 10px;
-            border: 3px solid #897148; /* गोल्ड फ्रेम */
+            /* ✅ यहाँ से बॉर्डर हटा दिया गया है */
+            /* border: 3px solid #897148; */
             box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
             transition: transform 0.3s ease;
         }
@@ -410,7 +412,7 @@
                 <div class="intro-text">
                     <h2 class="section-heading">!!! जय माता दी !!!</h2>
                     <p style="font-size: 1.1em; line-height: 1.6; color: #805500; font-family: 'Playfair Display', serif; margin: 0;">
-                         यह <strong style="color: #660000;">कसूमलगढ़ (Fort Kasumbi)</strong> का डिजिटल प्रांगण है। 
+                             यह <strong style="color: #660000;">कसूमलगढ़ (Fort Kasumbi)</strong> का डिजिटल प्रांगण है। 
 यह भूमि सूर्यवंशी राठौड़ों के उस महान वंश से जुड़ी है, जिन्होंने पीढ़ी दर पीढ़ी आन, बान और शान के सिद्धांतों की रक्षा की है।
 
 इस डिजिटल प्रयास का उद्देश्य पूज्य पूर्वजों के बलिदान और ठिकाना कसुम्बी के इतिहास को आने वाली पीढ़ियों के लिए संरक्षित करना है, साथ ही हम यहाँ अपनी विस्तृत वंशावली (Genealogy) को संजोते हैं, ताकि सभी सदस्य और भावी पीढ़ियाँ इसे जान सकें और जुड़ सकें।
@@ -424,9 +426,23 @@
 
                 <div class="intro-image-container">
                     <img src="YGSR.png" alt="Yuvraj Gajraj Singh" class="thakur-img">
-                </div><div style="margin-top: 10px; color: #897148; font-family: 'Cinzel', serif; font-weight: bold; font-size: 0.9em; letter-spacing: 1px;">
-                        Admin of Website
+
+                    <div style="margin-top: 15px; text-align: center;">
+                        <span style="
+                            font-family: 'Cinzel', serif; 
+                            color: var(--maroon-text); 
+                            font-size: .6em; 
+                            font-weight: 900; 
+                            letter-spacing: 2px; 
+                            border-bottom: 2px solid var(--theme-gold);
+                            padding-bottom: 5px;
+                            display: inline-block;
+                        ">
+                            ADMIN OF WEBSITE
+                        </span>
                     </div>
+
+                </div>
 
             </div>
             
@@ -563,8 +579,3 @@
 
 </body>
 </html>
-
-
-
-
-
