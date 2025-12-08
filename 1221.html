@@ -17,7 +17,6 @@
             --paper-bg: #fffbf0;       
             --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             --maroon-text: #800000;    
-            --gold-accent: #d4af37;    
         }
 
         body { 
@@ -39,22 +38,6 @@
         }
 
         /* ----------------------------- */
-        /* 🏰 एनिमेशन (Animations) */
-        /* ----------------------------- */
-        
-        /* ऊपर से नीचे (For Name) */
-        @keyframes slideDown {
-            from { transform: translateY(-100px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        /* दायें से बाएं (For Logo) */
-        @keyframes slideRightToLeft {
-            from { transform: translateX(100px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        /* ----------------------------- */
         /* 🏰 नेविगेशन बार */
         /* ----------------------------- */
         .navbar {
@@ -66,71 +49,83 @@
             position: sticky; top: 0; z-index: 2000;
         }
 
-        .navbar-brand-container { display: flex; align-items: center; overflow: hidden; }
+        /* एनिमेशन */
+        @keyframes slideDown { from { transform: translateY(-100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes slideRightToLeft { from { transform: translateX(100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        .navbar-brand-container { display: flex; align-items: center; }
 
         #menu-logo {
             width: 50px; height: 50px; border-radius: 50%; 
             border: 2px solid #fcf6ba;
             box-shadow: 0 0 15px #bf953f;
             background: white;
-            /* 👇 लोगो एनिमेशन: दायें से बाएं */
-            animation: slideRightToLeft 1.5s ease-out;
-            position: relative; /* एनीमेशन के लिए जरूरी */
+            animation: slideRightToLeft 1.5s ease-out; /* दायें से बाएं */
         }
 
         .navbar-brand {
             font-family: 'Cinzel', serif; 
-            font-size: 1.5em; 
-            font-weight: 900; 
+            font-size: 1.5em; font-weight: 900; 
             margin-left: 15px; text-decoration: none;
             color: #fcf6ba; 
             text-shadow: 0 0 2px #bf953f, 0 0 10px #000; 
             letter-spacing: 1px;
             display: inline-block;
-            /* 👇 नाम एनिमेशन: ऊपर से नीचे */
-            animation: slideDown 1.5s ease-out;
+            animation: slideDown 1.5s ease-out; /* ऊपर से नीचे */
         }
 
-        /* डेस्कटॉप मेनू */
         .navbar-links { list-style: none; margin: 0; padding: 0; display: flex; }
         .navbar-links li { margin-left: 15px; } 
 
         .navbar-links a {
             color: #d4af37; text-decoration: none; padding: 8px 15px; display: block;
             font-family: 'Cinzel', serif; font-weight: 700; letter-spacing: 1px;
-            border: 1px solid transparent;
-            transition: all 0.5s ease;
+            border: 1px solid transparent; transition: all 0.5s ease;
         }
         .navbar-links a:hover { color: #fff; text-shadow: 0 0 8px #d4af37; }
 
-        .menu-toggle { color: #d4af37; font-size: 30px; cursor: pointer; display: none; }
+        /* हैमबर्गर बटन स्टाइल */
+        .menu-toggle { 
+            color: #d4af37; 
+            font-size: 35px; /* थोड़ा बड़ा किया ताकि टच करने में आसानी हो */
+            cursor: pointer; 
+            display: none; 
+            user-select: none;
+            transition: transform 0.3s ease;
+        }
+        
+        /* जब मेनू खुलेगा तो बटन थोड़ा घूमेगा */
+        .menu-toggle.rotate { transform: rotate(90deg); }
 
         /* 📱 मोबाइल मेनू */
         @media (max-width: 768px) {
             .navbar-brand { font-size: 1.2em; }
             .menu-toggle { display: block; }
+            
             .navbar-links {
                 display: none; flex-direction: column; position: absolute;
                 top: 100%; left: 0; width: 100%;
                 background-color: #000033;
                 border-top: 1px solid #b38728; border-bottom: 2px solid #b38728;
                 padding: 0; text-align: center; z-index: 1000;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.9);
             }
-            .navbar-links.active { display: flex; }
+            .navbar-links.active { display: flex; animation: slideDown 0.5s ease; }
             .navbar-links li { margin: 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
             .navbar-links a { padding: 15px; font-size: 1.1em; }
         }
 
         /* ----------------------------- */
-        /* 👑 HERO SECTION & SLIDER */
+        /* 👑 HERO & SLIDER */
         /* ----------------------------- */
         .hero-section {
-            background-image: linear-gradient(rgba(0, 0, 51, 0.6), rgba(0, 0, 51, 0.9)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mehrangarh_Fort_Jodhpur.jpg/1200px-Mehrangarh_Fort_Jodhpur.jpg');
             background-size: cover; background-position: center;
             height: 500px;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             text-align: center; color: white;
             position: relative; transition: background-image 1s ease-in-out;
+            /* पहली फोटो CSS में सेट कर दी, बाकी JS से बदलेगी */
+            background-image: linear-gradient(rgba(0, 0, 51, 0.6), rgba(0, 0, 51, 0.9)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mehrangarh_Fort_Jodhpur.jpg/1200px-Mehrangarh_Fort_Jodhpur.jpg');
         }
 
         .hero-welcome {
@@ -141,14 +136,11 @@
 
         .hero-title {
             font-family: 'Cinzel', serif; 
-            font-size: 3.5em; margin: 0; line-height: 1.2;
-            font-weight: 900; 
+            font-size: 3.5em; margin: 0; line-height: 1.2; font-weight: 900; 
             background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.8));
-            letter-spacing: 2px;
-            animation: slideDown 2s ease-out; /* स्लाइड इफेक्ट */
+            filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.8)); letter-spacing: 2px;
+            animation: slideDown 2s ease-out; /* ऊपर से नीचे */
         }
-
         .divider-ornament { font-size: 30px; color: #bf953f; margin: 10px 0; }
 
         /* ----------------------------- */
@@ -158,8 +150,7 @@
 
         .intro-box {
             max-width: 850px; margin: 0 auto 60px auto; padding: 30px 20px;
-            background: var(--paper-bg);
-            border: 4px double var(--maroon-text); border-radius: 20px;
+            background: var(--paper-bg); border: 4px double var(--maroon-text); border-radius: 20px;
             box-shadow: 0 0 30px rgba(191, 149, 63, 0.2);
         }
         
@@ -171,8 +162,7 @@
         .card-container { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 20px; }
 
         .jharokha-card {
-            width: 300px; min-height: 400px; 
-            padding: 110px 25px 40px 25px; 
+            width: 300px; min-height: 400px; padding: 110px 25px 40px 25px; 
             position: relative; transition: all 0.4s ease; text-align: center;
             background-color: transparent; border: none; 
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 420'%3E%3Cpath d='M10,410 L10,180 C10,180 10,140 40,145 C60,150 75,125 65,105 C55,85 95,65 115,75 C135,85 140,50 150,40 C160,50 165,85 185,75 C205,65 245,85 235,105 C225,125 240,150 260,145 C290,140 290,180 290,180 L290,410 Z' fill='%23fffbf0' stroke='%23b38728' stroke-width='5' /%3E%3C/svg%3E");
@@ -181,7 +171,6 @@
         }
 
         .jharokha-card:hover { transform: translateY(-15px); filter: drop-shadow(0px 15px 25px rgba(191, 149, 63, 0.7)); }
-
         .card-icon { font-size: 50px; display: block; margin-bottom: 10px; color: var(--maroon-text); }
         .card-title { font-family: 'Cinzel', serif; font-size: 1.6em; color: #1a0505; margin: 10px 0; font-weight: 700; }
         .card-btn {
@@ -192,58 +181,32 @@
         }
 
         /* ----------------------------- */
-        /* ✨ शाही फ़ुटर (Updated) */
+        /* ✨ फ़ुटर */
         /* ----------------------------- */
         footer { 
             text-align: center; color: #b38728; padding: 50px 20px;
             background-color: #000022; border-top: 4px solid #d4af37;
         }
-        
         .footer-heading {
             font-family: 'Cinzel', serif; font-weight: 900; 
-            color: #fcf6ba; margin-bottom: 20px; font-size: 2em; /* बड़ा फोंट */
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-shadow: 0 0 10px #bf953f;
+            color: #fcf6ba; margin-bottom: 20px; font-size: 2em; letter-spacing: 2px;
+            text-transform: uppercase; text-shadow: 0 0 10px #bf953f;
         }
-
         .footer-menu { display: flex; justify-content: center; list-style: none; padding: 0; margin-bottom: 30px; flex-wrap: wrap; }
         .footer-menu li { margin: 0 15px; }
-        .footer-menu a { 
-            color: #d4af37; text-decoration: none; font-family: 'Cinzel', serif; font-size: 1.1em;
-            transition: 0.3s;
-        }
+        .footer-menu a { color: #d4af37; text-decoration: none; font-family: 'Cinzel', serif; font-size: 1.1em; transition: 0.3s; }
         .footer-menu a:hover { color: #fff; text-shadow: 0 0 10px #fff; }
 
-        /* डेवलपर नाम का रॉयल स्टाइल */
-        .developer-info {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #333;
-        }
-        
+        .developer-info { margin-top: 30px; padding-top: 20px; border-top: 1px solid #333; }
         .royal-name {
-            display: block;
-            font-family: 'Cinzel', serif; 
-            font-size: 1.6em; /* बहुत बड़ा साइज */
-            font-weight: 900;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-            text-decoration: none;
+            display: block; font-family: 'Cinzel', serif; font-size: 1.6em; font-weight: 900;
+            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 10px; letter-spacing: 1px; text-decoration: none;
             filter: drop-shadow(0 2px 2px rgba(0,0,0,0.8));
         }
-        
-        .royal-name:hover {
-            filter: drop-shadow(0 0 10px #bf953f);
-        }
-
         .fb-link {
             color: #fff; text-decoration: none; font-size: 1.1em;
-            display: inline-flex; align-items: center; gap: 10px;
-            margin-top: 5px;
+            display: inline-flex; align-items: center; gap: 10px; margin-top: 5px;
             padding: 5px 15px; border: 1px solid #b38728; border-radius: 20px;
         }
         .fb-link:hover { background: #b38728; color: #000; }
@@ -264,9 +227,10 @@
     <nav class="navbar">
         <div class="navbar-brand-container">
             <img id="menu-logo" src="menulogo.png" alt="Logo"> 
-            <a class="navbar-brand" href="index.html">KASUMALGARH</a>
+            <a class="navbar-brand" href="index.html">FORT KASUMBI</a>
         </div>
-        <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+        
+        <div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMenu()">&#9776;</div>
         
         <ul class="navbar-links" id="nav-menu">
             <li><a href="vanshawali.html">VANSHAWALI</a></li>
@@ -280,7 +244,7 @@
 
     <header class="hero-section" id="hero-slider">
         <div class="hero-welcome">Khama Ghani Hukum</div>
-        <h1 class="hero-title">KASUMALGARH</h1>
+        <h1 class="hero-title">FORT KASUMBI</h1>
         <div class="divider-ornament">⚜️ ⚜️ ⚜️</div>
         <p style="color: #e0e0e0; font-size: 1.1em; letter-spacing: 2px; text-transform: uppercase; font-family: 'Cinzel', serif;">
             The Royal Heritage
@@ -291,7 +255,7 @@
         <section class="intro-box">
             <h2 class="section-heading">Legacy & Honor</h2>
             <p style="font-size: 1.1em; line-height: 1.6; color: #4a3b2a; font-family: 'Playfair Display', serif;">
-                जय माता दी। यह <strong>कसूमलगढ़ (Kasumalgarh)</strong> का डिजिटल प्रांगण है। 
+                जय माता दी। यह <strong>कसूमलगढ़ (Fort Kasumbi)</strong> का डिजिटल प्रांगण है। 
                 यहाँ राठौड़ वंश की शौर्य गाथाएं और इतिहास संरक्षित है।
             </p>
             <div style="font-size: 2em; margin-top: 10px; color: #800000;">❖</div>
@@ -321,7 +285,6 @@
 
     <footer>
         <div class="footer-heading">FORT KASUMBI</div>
-        
         <ul class="footer-menu">
             <li><a href="index.html">Home</a></li> 
             <li><a href="vanshawali.html">Vanshawali</a></li>
@@ -350,15 +313,42 @@
     </footer>
 
     <script>
+        // 1. मेनू टॉगल और आइकॉन चेंज फंक्शन
         function toggleMenu() {
-            var menu = document.getElementById("nav-menu");
+            const menu = document.getElementById("nav-menu");
+            const btn = document.getElementById("mobile-menu-btn");
+            
+            // क्लास टॉगल करें
+            menu.classList.toggle("active");
+            
+            // बटन का आइकॉन बदलें (3 लाइन vs Cross X)
             if (menu.classList.contains("active")) {
-                menu.classList.remove("active");
+                btn.innerHTML = "&times;"; // X का निशान
+                btn.style.fontSize = "45px"; // X थोड़ा बड़ा अच्छा लगता है
             } else {
-                menu.classList.add("active");
+                btn.innerHTML = "&#9776;"; // 3 लाइन
+                btn.style.fontSize = "35px";
             }
         }
 
+        // 2. मेनू के बाहर क्लिक करने पर बंद करना
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById("nav-menu");
+            const btn = document.getElementById("mobile-menu-btn");
+
+            // अगर क्लिक मेनू पर नहीं है और बटन पर भी नहीं है
+            if (!menu.contains(event.target) && !btn.contains(event.target)) {
+                // और अगर मेनू खुला है
+                if (menu.classList.contains("active")) {
+                    menu.classList.remove("active");
+                    // आइकॉन वापस 3 लाइन करें
+                    btn.innerHTML = "&#9776;";
+                    btn.style.fontSize = "35px";
+                }
+            }
+        });
+
+        // 3. इमेज स्लाइडर
         const images = [
             'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mehrangarh_Fort_Jodhpur.jpg/1200px-Mehrangarh_Fort_Jodhpur.jpg',
             'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Jaisalmer_Fort_03.jpg/1200px-Jaisalmer_Fort_03.jpg', 
