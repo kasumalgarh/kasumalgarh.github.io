@@ -20,7 +20,6 @@
             --dark-gold-line: #aa8c2c; 
         }
 
-        /* 🟢 CHANGE 1: बैकग्राउंड कलर html पर शिफ्ट किया ताकि टेक्सचर ऊपर दिखे */
         html {
             background-color: var(--royal-bg);
             min-height: 100%;
@@ -28,31 +27,30 @@
 
         body { 
             margin: 0; 
-            background-color: transparent; /* बॉडी पारदर्शी ताकि html का नीला रंग दिखे */
+            background-color: transparent; 
             color: #333;
             font-family: 'Playfair Display', serif;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* 🟢 CHANGE 2: टेक्सचर को सिल्वर/सफेद बनाने का कोड */
+        /* ✨ शाही सिल्वर टेक्सचर */
         body::before {
             content: "";
-            position: fixed; /* पेज स्क्रॉल होने पर भी टेक्सचर वहीं रहेगा */
+            position: fixed;
             top: 0; 
             left: 0; 
             width: 100%; 
             height: 100%;
             background-image: url('https://www.transparenttextures.com/patterns/black-scales.png');
-            /* 👇 यह जादुई लाइन है: इन्वर्ट से काला रंग -> सफेद हो जाएगा */
             filter: invert(1); 
-            opacity: 0.4; /* बहुत हल्का और शाही दिखेगा */
+            opacity: 0.4; 
             pointer-events: none;
-            z-index: -1; /* कंटेंट के पीछे रहेगा */
+            z-index: -1; 
         }
 
         /* ----------------------------- */
-        /* 🖼️ एनिमेटेड लाइन (बिना बॉर्डर) */
+        /* 🖼️ एनिमेटेड लाइन */
         /* ----------------------------- */
         .royal-frame {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -222,7 +220,6 @@
         }
         .thakur-img:hover { transform: scale(1.05); }
 
-        /* मोबाइल पर फोटो नीचे आ जाएगी */
         @media (max-width: 768px) {
             .intro-layout {
                 flex-direction: column; /* ऊपर-नीचे */
@@ -287,19 +284,26 @@
         }
 
         /* ----------------------------- */
-        /* ✨ फ़ुटर */
-        /* ----------------------------- */
-        footer { 
-            text-align: center; color: #b38728; padding: 50px 20px;
-            background-color: #000022; border-top: 4px solid #d4af37;
-        }
-        .footer-heading {
-            font-family: 'Cinzel', serif; font-weight: 900; 
-            color: #fcf6ba; margin-bottom: 20px; font-size: 2em; letter-spacing: 2px;
-            text-transform: uppercase; text-shadow: 0 0 10px #bf953f;
+        /* ✨ फ़ुटर (BACKGROUND IMAGE ADDED) */
+        /* ----------------------------- */footer { 
+            text-align: center; 
+            color: #b38728; 
+            padding: 20px 20px;
+            background-color: #000022; 
+            
+            /* 👇 यहाँ बदलाव किया है */
+            background-image: url('footerbg.png');
+            background-repeat: repeat; /* ✅ अब यह पैटर्न की तरह रिपीट होगी */
+            
+            border-top: 4px solid #d4af37;
         }
         
-        .developer-info { margin-top: 30px; padding-top: 20px; border-top: 1px solid #333; }
+        .developer-info { 
+            margin-top: 0px; 
+            padding-top: 10px; 
+            border-top: none; 
+        }
+
         .royal-name {
             display: block; font-family: 'Cinzel', serif; font-size: 1.6em; font-weight: 900;
             background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
@@ -312,6 +316,13 @@
             padding: 5px 15px; border: 1px solid #b38728; border-radius: 20px;
         }
         .fb-link:hover { background: #b38728; color: #000; }
+
+        .footer-heading-moved {
+            font-family: 'Cinzel', serif; font-weight: 900; 
+            color: #fcf6ba; margin-bottom: 15px; font-size: 1.8em; letter-spacing: 2px;
+            text-transform: uppercase; text-shadow: 0 0 10px #bf953f;
+            display: block;
+        }
 
         @media (max-width: 600px) {
             .hero-title { font-size: 2.2em; }
@@ -368,9 +379,6 @@
 
                 <div class="intro-image-container">
                     <img src="YGSR.png" alt="Yuvraj Gajraj Singh" class="thakur-img">
-                    <div style="margin-top: 15px; color: #b38728; font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.9em; letter-spacing: 1px; text-transform: uppercase;">
-                        Admin of Website
-                    </div>
                 </div>
             </div>
             
@@ -437,9 +445,11 @@
     </main>
 
     <footer>
-        <div class="footer-heading">FORT KASUMBI</div>
         
         <div class="developer-info">
+            
+            <div class="footer-heading-moved">FORT KASUMBI</div>
+            
             <div style="font-size: 0.9em; color: #888; margin-bottom: 5px;">Developed & Designed By:</div>
             
             <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="royal-name">
@@ -483,7 +493,6 @@
             }
         });
 
-        /* 👇👇 लोकल इमेजेस की लिस्ट 👇👇 */
         const images = [
             '1.jpg',
             '2.jpg', 
