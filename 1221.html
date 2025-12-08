@@ -38,10 +38,12 @@
             animation: slideLeft 1s forwards, logoGlow 2s infinite alternate 0.5s;
         }
 
+        /* 👇👇 यहाँ रंग बदला गया है (MAROON) 👇👇 */
         .navbar-brand {
-            color: white; text-decoration: none; font-size: 1.4em; margin-left: 10px; font-weight: bold;
+            color: #800000; /* मरून (Maroon) रंग */
+            text-decoration: none; font-size: 1.4em; margin-left: 10px; font-weight: bold;
             animation: slideDown 1s forwards, textGlow 2s infinite alternate 1s;
-            text-shadow: 0 0 5px #FFD700;
+            text-shadow: 0 0 5px #FFD700; /* गोल्ड शैडो ताकि मरून रंग पर चमके */
         }
 
         /* ----------------------------- */
@@ -56,7 +58,7 @@
             padding: 8px 12px;
             display: block;
             
-            /* 🟡 गोल्ड बॉर्डर (जैसा था) 🟡 */
+            /* 🟡 गोल्ड बॉर्डर */
             border: 2px solid #A98F39; 
             border-radius: 6px; 
             
@@ -117,18 +119,14 @@
         }
 
         /* ----------------------------- */
-        /* ✨👑 फ़ुटर (FOOTER) ROYAL DESIGN (Updated) 👑✨ */
+        /* ✨👑 फ़ुटर (FOOTER) ROYAL DESIGN 👑✨ */
         /* ----------------------------- */
         footer { 
             text-align: center; 
             color: #fff;
             padding: 30px 20px; 
             position: relative;
-            
-            /* कॉर्नर गोल किया गया */
             border-radius: 10px 10px 0 0; 
-            
-            /* बेस बैकग्राउंड कलर (गहरा शाही नीला) */
             background-color: #000033; 
             
             /* राजस्थानी पैटर्न बैकग्राउंड */
@@ -137,7 +135,6 @@
             background-size: 100px; 
             background-attachment: scroll; 
             
-            /* 1. बॉर्डर कलर जोड़ा गया (#4d3300) */
             border: 3px solid #4d3300; 
             box-shadow: none; 
         }
@@ -156,7 +153,6 @@
 
         .footer-menu li {
             font-size: 0.9em;
-            /* मेनू आइटम्स के बीच गोल्ड बॉर्डर */
             border-right: 2px solid #A98F39; 
             padding: 0 10px;
         }
@@ -166,19 +162,15 @@
         }
         
         .footer-menu a {
-            /* 2. फ़ुटर लिंक का रंग बदला गया (#4d3300) */
             color: #4d3300; 
             text-decoration: none;
             padding: 5px 0;
             display: block;
-            /* टेक्स्ट शैडो को हटा दिया गया ताकि रंग साफ दिखे */
             text-shadow: none; 
             font-weight: bold;
         }
         
-        /* ⚜️ हर लिंक से पहले शाही प्रतीक (डिज़ाइन) ⚜️ */
         .footer-menu a::before {
-            /* 2. प्रतीक का रंग बदला गया (#4d3300) */
             content: '⚜️ '; 
             color: #4d3300; 
             font-size: 0.8em;
@@ -193,7 +185,6 @@
 
         .copyright-text {
             font-size: 0.8em;
-            /* 2. कॉपीराइट टेक्स्ट का रंग बदला गया (#4d3300) */
             color: #4d3300;
             margin-top: 15px;
             text-shadow: 0 0 3px #000;
@@ -201,7 +192,7 @@
         }
 
         /* ----------------------------- */
-        /* CSS एनिमेशन की परिभाषाएँ */
+        /* CSS एनिमेशन */
         /* ----------------------------- */
         @keyframes slideLeft { from {transform: translateX(100vw);} to {transform: translateX(0);} } 
         @keyframes slideDown { from {transform: translateY(-50px);} to {transform: translateY(0);} } 
@@ -253,7 +244,6 @@
     </footer>
 
     <script>
-        // हैमबर्गर आइकॉन पर क्लिक करने पर मेनू को टॉगल (दिखाना/छिपाना) करता है
         function toggleMenu(event) {
             event.stopPropagation(); 
             var menu = document.getElementById("nav-menu");
@@ -264,7 +254,6 @@
             }
         }
 
-        // मेनू के बाहर कहीं भी क्लिक करने पर खुले मेनू को बंद कर देता है
         window.onclick = function(event) {
             var menu = document.getElementById("nav-menu");
             if (menu.classList.contains("active")) {
