@@ -135,14 +135,12 @@
             user-select: none; transition: transform 0.3s ease;
         }
 
-        /* 👇 MOBILE MENU UPDATES (SMALLER) 👇 */
+        /* 👇 MOBILE MENU UPDATES (HEIGHT REDUCED) 👇 */
         @media (max-width: 768px) {
             
-            /* Logo & Brand Smaller */
             .navbar-brand { font-size: 1.0em; margin-left: 10px; }
             #menu-logo { width: 35px; height: 35px; }
             
-            /* Menu Icon Smaller */
             .menu-toggle { display: block; font-size: 25px; } 
 
             .navbar-links {
@@ -156,10 +154,10 @@
             .navbar-links.active { display: flex; animation: slideDown 0.5s ease; }
             .navbar-links li { margin: 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
             
-            /* Menu Links Smaller */
+            /* 👇 यहाँ Padding कम करके हाइट घटाई गई है (5px) */
             .navbar-links a { 
-                padding: 10px; /* Reduced padding */
-                font-size: 0.85em; /* Reduced Font Size */
+                padding: 5px 10px; 
+                font-size: 0.8em; 
             }
         }
 
@@ -333,7 +331,7 @@
             display: block;
         }
 
-        /* 👇 MOBILE RESPONSIVE UPDATES (SUPER COMPACT FOOTER) */
+        /* 👇 MOBILE RESPONSIVE UPDATES (SUPER COMPACT) */
         @media (max-width: 600px) {
             .hero-title { font-size: 2.2em; }
             .hero-welcome { font-size: 1.8em; }
@@ -509,10 +507,10 @@
             
             if (menu.classList.contains("active")) {
                 btn.innerHTML = "&times;";
-                btn.style.fontSize = "30px"; /* Close Icon Smaller */
+                btn.style.fontSize = "30px";
             } else {
                 btn.innerHTML = "&#9776;";
-                btn.style.fontSize = "25px"; /* Open Icon Smaller */
+                btn.style.fontSize = "25px";
             }
         }
 
