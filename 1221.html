@@ -12,12 +12,11 @@
         body { 
             margin: 0; 
             font-family: Arial, sans-serif; 
-            /* 📜 OLD PAPER/PARCHMENT COLOR: पूरे पेज की पृष्ठभूमि (Background) का रंग पुराने कागज़ जैसा सेट किया गया है */
             background: #ffffcc; 
         }
 
         /* ----------------------------- */
-        /* NAVBAR / HEADER स्टाइल्स (सिर्फ़ गोल्ड ग्लो) */
+        /* NAVBAR / HEADER स्टाइल्स */
         /* ----------------------------- */
         .navbar {
             display: flex;
@@ -28,31 +27,25 @@
             min-height: 40px;
             z-index: 2000;
             
-            /* 👑 PURE DARK GOLD GLOW BACKGROUND 👑: मेनू बैकग्राउंड में रेडियल ग्रेडिएंट (गोल्ड ग्लो इफ़ेक्ट) */
-            background: radial-gradient(circle at center, # 0%, # 100%); 
-            background-color: #001a33; /* डार्क गोल्ड फॉलबैक कलर */
+            /* मेनू बैकग्राउंड कलर (गहरा शाही नीला) */
+            background: #000033; 
         }
 
         .navbar-brand-container { display: flex; align-items: center; }
         
         #menu-logo {
-            /* लोगो का साइज़ और गोल बॉर्डर */
             width: 60px; height: 45px; border-radius: 50%; background: white;
-            /* लोगो में एनिमेशन: स्लाइड और ग्लो */
             animation: slideLeft 1s forwards, logoGlow 2s infinite alternate 0.5s;
         }
 
         .navbar-brand {
-            /* ब्रांड नाम (KASUMALGARH) की स्टाइलिंग */
             color: white; text-decoration: none; font-size: 1.4em; margin-left: 10px; font-weight: bold;
-            /* ब्रांड नाम में एनिमेशन: स्लाइड डाउन और टेक्स्ट ग्लो */
             animation: slideDown 1s forwards, textGlow 2s infinite alternate 1s;
-            /* टेक्स्ट ग्लो को गोल्ड थीम के लिए बदला गया है */
             text-shadow: 0 0 5px #FFD700;
         }
 
         /* ----------------------------- */
-        /* 👑 डेस्कटॉप मेनू और 3D बटन स्टाइल्स 👑 */
+        /* 👑 डेस्कटॉप मेनू और 3D बटन स्टाइल्स */
         /* ----------------------------- */
         .navbar-links { list-style: none; margin: 0; padding: 0; display: flex; }
         .navbar-links li { margin-left: 15px; } 
@@ -63,35 +56,35 @@
             padding: 8px 12px;
             display: block;
             
-            /* 🟡 गोल्ड बॉर्डर 🟡 */
+            /* 🟡 गोल्ड बॉर्डर (जैसा था) 🟡 */
             border: 2px solid #A98F39; 
             border-radius: 6px; 
             
             font-weight: bold;
             transition: all 0.2s ease;
-            /* ⚜️ बटन का बेस कलर (डार्क गोल्ड शेड) ⚜️ */
             background-color: #6B5B3E; 
             
-            /* 👑 3D उभरा हुआ लुक 👑 */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4),
                         0 1px 1px rgba(255, 255, 255, 0.1) inset; 
         }
 
         .navbar-links a:hover {
-            /* होवर पर बटन का रंग और "दबा हुआ" इफ़ेक्ट */
-            background: #8D7756; /* हल्का गोल्ड शेड */
+            background: #8D7756; 
             transform: translateY(1px); 
             box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4); 
         }
         
         /* हैमबर्गर आइकॉन (मोबाइल के लिए) */
         .menu-toggle {
-            color: #4d3300; font-size: 30px; cursor: pointer; display: none;
+            color: white; 
+            font-size: 30px; 
+            cursor: pointer; 
+            display: none;
             user-select: none;
         }
 
         /* ----------------------------- */
-        /* मोबाइल मेनू स्टाइल्स (स्क्रीन 600px से कम होने पर) */
+        /* मोबाइल मेनू स्टाइल्स */
         /* ----------------------------- */
         @media (max-width: 600px) {
             .navbar-links {
@@ -101,8 +94,7 @@
                 top: 100%;
                 left: 0;
                 width: 100%;
-                /* मोबाइल ड्रॉपडाउन का बैकग्राउंड कलर (डार्क गोल्ड) */
-                background: #4F4000; 
+                background: #000033; 
                 z-index: 1000;
                 box-shadow: 0 8px 16px rgba(0,0,0,0.5);
             }
@@ -113,7 +105,6 @@
 
             .navbar-links li { border-top: 1px solid #555; margin: 0; }
             .navbar-links a { 
-                /* मोबाइल में 3D इफ़ेक्ट को हटाना */
                 padding: 15px; 
                 text-align: center;
                 box-shadow: none; 
@@ -126,20 +117,32 @@
         }
 
         /* ----------------------------- */
-        /* फ़ुटर (FOOTER) स्टाइल्स */
+        /* ✨👑 फ़ुटर (FOOTER) ROYAL DESIGN (Updated) 👑✨ */
         /* ----------------------------- */
         footer { 
             text-align: center; 
             color: #fff;
-            padding: 15px 10px;
+            padding: 30px 20px; 
+            position: relative;
             
-            /* 👑 ROYAL RAJASTHANI BACKGROUND 👑 */
-            background: url('http://googleusercontent.com/image_collection/image_retrieval/11993649056714680459') repeat;
-            background-color: #222; 
-            background-size: cover; 
-            background-attachment: fixed; 
+            /* कॉर्नर गोल किया गया */
+            border-radius: 10px 10px 0 0; 
+            
+            /* बेस बैकग्राउंड कलर (गहरा शाही नीला) */
+            background-color: #000033; 
+            
+            /* राजस्थानी पैटर्न बैकग्राउंड */
+            background-image: url('http://googleusercontent.com/image_collection/image_retrieval/11993649056714680459');
+            background-repeat: repeat;
+            background-size: 100px; 
+            background-attachment: scroll; 
+            
+            /* 1. बॉर्डर कलर जोड़ा गया (#4d3300) */
+            border: 3px solid #4d3300; 
+            box-shadow: none; 
         }
         
+        /* फ़ुटर मेनू की स्टाइलिंग */
         .footer-menu {
             display: flex;
             justify-content: center;
@@ -148,11 +151,12 @@
             margin: 0 auto 10px auto;
             flex-wrap: wrap;
             max-width: 900px;
+            padding-bottom: 10px;
         }
 
         .footer-menu li {
-            /* मेनू आइटम्स के बीच गोल्ड बॉर्डर */
             font-size: 0.9em;
+            /* मेनू आइटम्स के बीच गोल्ड बॉर्डर */
             border-right: 2px solid #A98F39; 
             padding: 0 10px;
         }
@@ -162,23 +166,38 @@
         }
         
         .footer-menu a {
-            color: #ccc;
+            /* 2. फ़ुटर लिंक का रंग बदला गया (#4d3300) */
+            color: #4d3300; 
             text-decoration: none;
             padding: 5px 0;
             display: block;
+            /* टेक्स्ट शैडो को हटा दिया गया ताकि रंग साफ दिखे */
+            text-shadow: none; 
+            font-weight: bold;
+        }
+        
+        /* ⚜️ हर लिंक से पहले शाही प्रतीक (डिज़ाइन) ⚜️ */
+        .footer-menu a::before {
+            /* 2. प्रतीक का रंग बदला गया (#4d3300) */
+            content: '⚜️ '; 
+            color: #4d3300; 
+            font-size: 0.8em;
+            display: inline-block;
+            margin-right: 5px;
         }
 
         .footer-menu a:hover {
-            color: #A98F39; 
+            color: #fff; 
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
         .copyright-text {
-            /* कॉपीराइट टेक्स्ट की स्टाइलिंग */
             font-size: 0.8em;
-            color: #888;
-            margin-top: 5px;
-            /* बैकग्राउंड पर टेक्स्ट को स्पष्ट दिखाने के लिए शैडो */
+            /* 2. कॉपीराइट टेक्स्ट का रंग बदला गया (#4d3300) */
+            color: #4d3300;
+            margin-top: 15px;
             text-shadow: 0 0 3px #000;
+            font-weight: bold;
         }
 
         /* ----------------------------- */
@@ -186,7 +205,6 @@
         /* ----------------------------- */
         @keyframes slideLeft { from {transform: translateX(100vw);} to {transform: translateX(0);} } 
         @keyframes slideDown { from {transform: translateY(-50px);} to {transform: translateY(0);} } 
-        /* टेक्स्ट ग्लो को गोल्ड के लिए अपडेट किया गया */
         @keyframes textGlow { from {text-shadow: 0 0 5px rgba(255,215,0,0.4);} to {text-shadow: 0 0 12px #FFD700;} } 
         @keyframes logoGlow { from {box-shadow: 0 0 0 rgba(255,255,255,0);} to {box-shadow: 0 0 10px white;} } 
 
@@ -197,7 +215,7 @@
 
     <nav class="navbar">
         <div class="navbar-brand-container">
-            <img id="menu-logo" src="menulogo.png" alt="Logo">
+            <img id="menu-logo" src="menulogo.png" alt="Logo"> 
             <a class="navbar-brand" href="#">KASUMALGARH</a>
         </div>
 
@@ -215,7 +233,7 @@
 
     <main>
         <h2>स्वागत है हुकम</h2>
-        <p>अब नेविगेशन बार और उसके बटन पूरी तरह से डार्क गोल्ड थीम पर हैं।</p>
+        <p>यह आपकी मुख्य सामग्री (Main Content) होगी।</p>
     </main>
 
     <footer>
