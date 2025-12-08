@@ -138,6 +138,11 @@
         /* 👇 MOBILE MENU UPDATES (HEIGHT REDUCED) 👇 */
         @media (max-width: 768px) {
             
+            /* ✅ Navbar की हाइट कम करने के लिए Padding कम की (5px top/bottom) */
+            .navbar {
+                padding: 5px 15px; 
+            }
+
             .navbar-brand { font-size: 1.0em; margin-left: 10px; }
             #menu-logo { width: 35px; height: 35px; }
             
@@ -154,7 +159,7 @@
             .navbar-links.active { display: flex; animation: slideDown 0.5s ease; }
             .navbar-links li { margin: 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
             
-            /* 👇 यहाँ Padding कम करके हाइट घटाई गई है (5px) */
+            /* ✅ लिंक्स के बीच का गैप (Height) और कम किया */
             .navbar-links a { 
                 padding: 5px 10px; 
                 font-size: 0.8em; 
