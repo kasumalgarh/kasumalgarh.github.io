@@ -319,75 +319,93 @@
         padding-left: 10px !important;
     }
 }/* ------------------------------------------------ */
-/* ✨ MOBILE VIEW FIX: Cream Paper Look */
+/* ✨ FINAL MOBILE FIX: Dhingasara Style (पतली लाइनें) */
 /* ------------------------------------------------ */
 
 @media screen and (max-width: 768px) {
 
-    /* 1. पूरी स्क्रीन का बैकग्राउंड क्रीम/सफ़ेद करें (नीला हटाएं) */
+    /* 1. हीरो सेक्शन और एक्स्ट्रा जगह हटाएं */
+    .hero-section, .royal-frame { display: none !important; }
+    
+    /* 2. बैकग्राउंड क्रीम (सादा) करें */
     body {
-        background-color: #fffbf0 !important; /* क्रीम कलर */
-        background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png') !important; /* पेपर टेक्सचर */
+        background: #fffbf0 url('https://www.transparenttextures.com/patterns/cream-paper.png') !important;
+        overflow-x: hidden !important; /* साइड स्क्रॉल रोकें */
     }
+    body::before { display: none !important; }
 
-    /* 2. नीली थीम वाली परत (Overlay) हटाएं */
-    body::before {
-        display: none !important;
-    }
-
-    /* 3. हीरो सेक्शन (बड़ी फोटो) हटाएं */
-    .hero-section {
-        display: none !important;
-    }
-
-    /* 4. वंशावली कंटेनर को साफ़ करें */
+    /* 3. मेन कंटेनर को चिपका दें (गैप हटाएं) */
     .royal-scroll-box {
         background: transparent !important;
         border: none !important;
         box-shadow: none !important;
-        padding: 10px !important;
-        margin-top: 0 !important;
+        padding: 10px 5px !important;
+        margin: 0 !important;
+        width: 100% !important;
     }
 
-    /* 5. टेक्स्ट का रंग गहरा भूरा (Dark Brown) करें ताकि साफ़ दिखे */
-    .member-name {
-        color: #5c3a21 !important; /* गहरा भूरा */
-        font-weight: 900 !important;
-        font-size: 13px !important;
+    /* 4. ट्री की सेटिंग्स (Indentation कम करें) */
+    .tree-wrapper { text-align: left !important; padding: 0 !important; }
+    .vertical-tree { min-width: auto !important; padding: 0 !important; }
+    .vertical-tree ul { padding-left: 15px !important; } /* सीढ़ी की चौड़ाई कम की */
+
+    .vertical-tree li {
+        padding-top: 5px !important;   /* ऊपर-नीचे का गैप कम किया */
+        padding-bottom: 5px !important;
+        min-height: auto !important;
+        line-height: 1.2 !important;
     }
 
-    /* 6. Founder (नारायण सिंह जी) का नाम मरून रंग में */
-    .founder-card .member-name {
-        color: #800000 !important;
-        font-size: 15px !important;
-        border-bottom: 2px solid #800000 !important;
-        display: inline-block;
-        margin-bottom: 5px;
+    /* 5. ✨ जादुई लाइनें (पतली और भूरी) */
+    /* खड़ी लाइन (Vertical) */
+    .vertical-tree li::before {
+        width: 1px !important;          /* लाइन एकदम पतली */
+        background-color: #8B4513 !important; /* गहरा भूरा रंग */
+        left: -8px !important;          /* नाम के पास खिसकाया */
+        box-shadow: none !important;    /* चमक हटाई */
+        top: -10px !important;          /* लाइन को ऊपर से जोड़ा */
+        bottom: 0 !important;
+        height: auto !important;
     }
-    
-    .founder-card {
+
+    /* आड़ी लाइन (Horizontal - जो नाम से जुड़ती है) */
+    .vertical-tree li::after {
+        height: 1px !important;         /* लाइन एकदम पतली */
+        width: 8px !important;          /* छोटी लाइन */
+        background-color: #8B4513 !important;
+        left: -8px !important;          /* खड़ी लाइन से जोड़ा */
+        top: 14px !important;           /* टेक्स्ट के बीच में सेट किया */
+        box-shadow: none !important;
+    }
+
+    /* 6. नाम (टेक्स्ट) को साफ़ और छोटा दिखाएं */
+    .member-card {
         background: transparent !important;
         border: none !important;
-        padding: 0 !important;
-    }
-
-    /* 7. टाइटल (Header) को भी साफ़ दिखाएं */
-    .scroll-header div {
-        color: #800000 !important; /* मरून */
-        text-shadow: none !important;
-    }
-
-    /* 8. लाइनों का रंग गहरा गोल्ड/ऑरेंज करें */
-    .vertical-tree li::before, 
-    .vertical-tree li::after {
-        background-color: #d4af37 !important; /* गहरा गोल्ड */
         box-shadow: none !important;
-        width: 2px !important; /* लाइन थोड़ी पतली और साफ़ */
+        padding: 0 !important;
+        margin: 0 !important;
+        color: #5c3a21 !important;      /* गहरा भूरा टेक्स्ट */
+        font-family: 'Verdana', sans-serif !important; /* साफ़ फॉन्ट */
+        font-size: 13px !important;     /* छोटा साइज़ */
+        font-weight: normal !important;
+        display: inline-block !important;
+        vertical-align: middle !important;
+        white-space: normal !important; /* नाम को टूटने न दें */
+    }
+
+    /* 7. फाउंडर (Th. Narayan Singh) का स्टाइल */
+    .founder-card .member-name {
+        color: #800000 !important;
+        font-weight: bold !important;
+        font-size: 15px !important;
+        border-bottom: 1px solid #800000;
+        font-family: 'Cinzel', serif !important;
     }
     
-    .vertical-tree li::after {
-        height: 2px !important;
-    }
+    /* 8. ऊपर का हेडर छोटा करें */
+    .scroll-header { margin-bottom: 10px !important; }
+    .scroll-header div { font-size: 1.2em !important; color: #800000 !important; }
 } </style>
 </head>
 <body>
