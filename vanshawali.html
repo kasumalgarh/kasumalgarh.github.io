@@ -318,94 +318,122 @@
         text-align: left !important;
         padding-left: 10px !important;
     }
-}/* ------------------------------------------------ */
-/* ✨ FINAL MOBILE FIX: Dhingasara Style (पतली लाइनें) */
-/* ------------------------------------------------ */
+}/* ========================================= */
+/* ✨ FINAL FIX: Dhingasara Style (Exact Copy) */
+/* ========================================= */
 
 @media screen and (max-width: 768px) {
 
-    /* 1. हीरो सेक्शन और एक्स्ट्रा जगह हटाएं */
-    .hero-section, .royal-frame { display: none !important; }
+    /* 1. अनचाही चीज़ें छुपाएं */
+    .hero-section, .royal-frame, .navbar, #preloader { display: none !important; }
     
-    /* 2. बैकग्राउंड क्रीम (सादा) करें */
+    /* 2. बैकग्राउंड क्रीम पेपर जैसा */
     body {
         background: #fffbf0 url('https://www.transparenttextures.com/patterns/cream-paper.png') !important;
-        overflow-x: hidden !important; /* साइड स्क्रॉल रोकें */
+        padding: 10px !important;
+        overflow-x: hidden;
     }
-    body::before { display: none !important; }
 
-    /* 3. मेन कंटेनर को चिपका दें (गैप हटाएं) */
-    .royal-scroll-box {
-        background: transparent !important;
+    /* 3. मेन कंटेनर की सेटिंग */
+    .tree-wrapper, .vertical-tree, .royal-scroll-box {
+        padding: 0 !important;
+        margin: 0 !important;
+        background: none !important;
         border: none !important;
         box-shadow: none !important;
-        padding: 10px 5px !important;
-        margin: 0 !important;
         width: 100% !important;
     }
 
-    /* 4. ट्री की सेटिंग्स (Indentation कम करें) */
-    .tree-wrapper { text-align: left !important; padding: 0 !important; }
-    .vertical-tree { min-width: auto !important; padding: 0 !important; }
-    .vertical-tree ul { padding-left: 15px !important; } /* सीढ़ी की चौड़ाई कम की */
+    /* 4. लिस्ट (ul) - इंडेंटेशन (दूरी) कम की */
+    .vertical-tree ul {
+        padding-left: 20px !important; /* पहले यह ज्यादा था, अब टाइट किया है */
+        list-style: none !important;
+        position: relative;
+    }
 
+    /* 5. आइटम्स (li) - सेटिंग */
     .vertical-tree li {
-        padding-top: 5px !important;   /* ऊपर-नीचे का गैप कम किया */
-        padding-bottom: 5px !important;
-        min-height: auto !important;
-        line-height: 1.2 !important;
+        position: relative;
+        padding-left: 15px !important; /* लाइन के लिए जगह */
+        margin: 0 !important;
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+        box-sizing: border-box;
+        line-height: 1.5 !important; /* लाइनों के बीच सही गैप */
     }
 
-    /* 5. ✨ जादुई लाइनें (पतली और भूरी) */
-    /* खड़ी लाइन (Vertical) */
-    .vertical-tree li::before {
-        width: 1px !important;          /* लाइन एकदम पतली */
-        background-color: #8B4513 !important; /* गहरा भूरा रंग */
-        left: -8px !important;          /* नाम के पास खिसकाया */
-        box-shadow: none !important;    /* चमक हटाई */
-        top: -10px !important;          /* लाइन को ऊपर से जोड़ा */
-        bottom: 0 !important;
-        height: auto !important;
+    /* ------------------------------------- */
+    /* 📐 लाइनों का जादुई कोड (Tree Lines) */
+    /* ------------------------------------- */
+
+    /* खड़ी लाइन (Vertical) - एकदम पतली */
+    .vertical-tree ul li::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 1px !important;         /* 1px पतली लाइन */
+        border-left: 1px solid #8B4513 !important; /* भूरा रंग */
     }
 
-    /* आड़ी लाइन (Horizontal - जो नाम से जुड़ती है) */
-    .vertical-tree li::after {
-        height: 1px !important;         /* लाइन एकदम पतली */
-        width: 8px !important;          /* छोटी लाइन */
-        background-color: #8B4513 !important;
-        left: -8px !important;          /* खड़ी लाइन से जोड़ा */
-        top: 14px !important;           /* टेक्स्ट के बीच में सेट किया */
-        box-shadow: none !important;
+    /* आखिरी बच्चे की लाइन को टेक्स्ट पर रोकें */
+    .vertical-tree ul li:last-child::before {
+        height: 18px !important; /* यह लाइन को नाम के बीच तक लाएगा और रोक देगा */
+        bottom: auto !important;
     }
 
-    /* 6. नाम (टेक्स्ट) को साफ़ और छोटा दिखाएं */
+    /* आड़ी लाइन (Horizontal Connector) */
+    .vertical-tree ul li::after {
+        content: '';
+        position: absolute;
+        top: 18px; /* खड़ी लाइन से जुड़ने की जगह */
+        left: 0;
+        width: 12px !important; /* छोटी सी डैश */
+        height: 1px !important;
+        border-top: 1px solid #8B4513 !important;
+    }
+
+    /* 6. नाम (Text) का लुक - कार्ड हटाकर सिंपल टेक्स्ट */
     .member-card {
-        background: transparent !important;
+        background: none !important;
         border: none !important;
         box-shadow: none !important;
-        padding: 0 !important;
+        padding: 5px 0 !important;
         margin: 0 !important;
-        color: #5c3a21 !important;      /* गहरा भूरा टेक्स्ट */
-        font-family: 'Verdana', sans-serif !important; /* साफ़ फॉन्ट */
-        font-size: 13px !important;     /* छोटा साइज़ */
-        font-weight: normal !important;
         display: inline-block !important;
-        vertical-align: middle !important;
-        white-space: normal !important; /* नाम को टूटने न दें */
+        vertical-align: top !important;
+        
+        /* फॉन्ट सेटिंग */
+        font-family: 'Cinzel', serif !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        color: #4a3b32 !important; /* गहरा भूरा टेक्स्ट */
+        text-transform: uppercase;
     }
 
-    /* 7. फाउंडर (Th. Narayan Singh) का स्टाइल */
-    .founder-card .member-name {
-        color: #800000 !important;
-        font-weight: bold !important;
-        font-size: 15px !important;
-        border-bottom: 1px solid #800000;
-        font-family: 'Cinzel', serif !important;
+    /* 7. फाउंडर (Narayan Singh) - सबसे ऊपर, बिना लाइन के */
+    .vertical-tree > ul > li::before, 
+    .vertical-tree > ul > li::after {
+        display: none !important; /* फाउंडर के पास वाली लाइन हटाएं */
     }
     
-    /* 8. ऊपर का हेडर छोटा करें */
-    .scroll-header { margin-bottom: 10px !important; }
-    .scroll-header div { font-size: 1.2em !important; color: #800000 !important; }
+    .founder-card {
+        margin-bottom: 15px !important;
+        display: block !important;
+        padding-left: 5px !important;
+    }
+    
+    .founder-card .member-name {
+        font-size: 18px !important;
+        color: #800000 !important; /* मरून */
+        border-bottom: 2px solid #800000;
+        display: inline-block;
+    }
+
+    /* 8. हेडर एडजस्टमेंट */
+    .scroll-header { margin-bottom: 10px !important; margin-top: 10px !important; }
+    .scroll-header div { font-size: 1.2em !important; color: #800000 !important; text-shadow: none !important; }
 } </style>
 </head>
 <body>
