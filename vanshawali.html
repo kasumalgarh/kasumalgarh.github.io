@@ -233,6 +233,22 @@
     border: 2px solid #800000 !important;
     color: #2c0e0e !important;
 }
+        /* Mobile View Adjustment */
+@media screen and (max-width: 768px) {
+    /* Tree ke andar ke text/link ka size chhota karein */
+    .tree li a, .tree li div, .tree span {
+        font-size: 10px !important;  /* Font size 10px kar diya */
+        padding: 4px 6px !important; /* Box ka padding kam kiya */
+        line-height: 1.2 !important; /* Lines ke beech ka gap kam kiya */
+        white-space: normal !important; /* Lambe naam agli line mein aa jayein, cut na ho */
+        min-width: auto !important;  /* Box ko content ke hisab se shrink hone dein */
+    }
+
+    /* Agar lines (connectors) bahut badi hain to unhe bhi adjust karein */
+    .tree ul ul::before {
+        left: 50% !important; /* Line ko center mein rakhe */
+    }
+}
     </style>
 </head>
 <body>
