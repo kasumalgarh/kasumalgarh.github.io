@@ -19,6 +19,7 @@
             --maroon-text: #800000;
             --bright-gold-line: #FFD700; 
             --line-shadow: 0px 0px 4px rgba(0,0,0,0.8); 
+            --tree-line-color: #8B4513; /* गहरा भूरा रंग */
         }
 
         html { background-color: var(--royal-bg); min-height: 100%; }
@@ -32,19 +33,20 @@
             position: relative;
         }
 
-        /* 🌳 DESKTOP STYLES (बड़ी स्क्रीन) */
+        /* Desktop: Background Overlay */
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/black-scales.png');
+            filter: invert(1); opacity: 0.4; pointer-events: none; z-index: -1; 
+        }
+
+        /* 🌳 DESKTOP STYLES (बड़ी स्क्रीन के लिए) */
         .tree-wrapper {
-            max-width: 100%;
-            overflow-x: auto;
-            padding: 40px 10px;
-            text-align: center; 
+            max-width: 100%; overflow-x: auto; padding: 40px 10px; text-align: center; 
         }
 
         .vertical-tree {
-            display: inline-block;
-            min-width: 300px;
-            padding-right: 20px;
-            text-align: left; 
+            display: inline-block; min-width: 300px; padding-right: 20px; text-align: left; 
         }
 
         .vertical-tree ul { padding-left: 40px; list-style: none; position: relative; }
@@ -73,72 +75,115 @@
             text-transform: uppercase; box-shadow: 0 5px 10px rgba(0,0,0,0.5);
             white-space: nowrap; position: relative; z-index: 2;
         }
+        .member-detail { display: block; font-size: 0.7em; color: #555; margin-top: 5px; text-transform: none; font-family: sans-serif; }
         
         .founder-card {
             background: var(--gold-gradient); color: #2c0e0e; border: 2px solid #fff;
             padding: 15px 30px; margin-bottom: 10px; margin-left: 5px;
         }
 
-        /* Navbar & Extras */
+        /* Navbar & Hero (Desktop) */
         .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #000033; border-bottom: 2px solid #b38728; position: sticky; top: 0; z-index: 2000; }
         .navbar-brand { font-family: 'Cinzel', serif; font-size: 1.5em; font-weight: 900; color: #fcf6ba; text-decoration: none; }
         .hero-section { height: 350px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; background-image: linear-gradient(rgba(0, 0, 51, 0.6), rgba(0, 0, 51, 0.9)), url('1.jpg'); background-size: cover; }
         .hero-title { font-family: 'Cinzel', serif; font-size: 3.5em; margin: 0; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; } 
         .royal-scroll-box { background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png'); border: 8px double #800000; border-radius: 15px; padding: 30px; margin: 0 auto; overflow-x: auto; max-width: 1000px; background-color: #e3dac9; }
 
-        /* ========================================= */
-        /* ✨ FINAL FIX: Dhingasara Style (Old Data Included) */
-        /* ========================================= */
+        /* Footer Styles */
+        footer { text-align: center; color: #b38728; padding: 20px 20px; background-color: #000022; border-top: 4px solid #897148; }
+
+
+        /* ====================================================== */
+        /* 🔴 MOBILE VIEW FIX: Dhingasara Style (Final) */
+        /* ====================================================== */
 
         @media screen and (max-width: 768px) {
-            /* 1. क्लीन अप */
-            .hero-section, .royal-frame, .navbar, #preloader, footer { display: none !important; }
-            
-            /* 2. बैकग्राउंड */
+            /* 1. क्लीन अप और बैकग्राउंड */
+            .hero-section, .royal-frame, .navbar, #preloader, footer, body::before { display: none !important; }
             body {
                 background: #fffbf0 url('https://www.transparenttextures.com/patterns/cream-paper.png') !important;
                 padding: 10px !important; margin: 0 !important; overflow-x: hidden;
             }
 
-            /* 3. कंटेनर */
+            /* 2. कंटेनर और स्पेस */
             .tree-wrapper, .vertical-tree, .royal-scroll-box {
                 padding: 0 !important; margin: 0 !important; background: none !important;
                 border: none !important; box-shadow: none !important; width: 100% !important;
             }
+            .scroll-header { margin-bottom: 20px !important; margin-top: 10px !important; }
+            .scroll-header div { font-size: 1.2em !important; color: #800000 !important; }
 
-            /* 4. लिस्ट सेटिंग्स */
-            .vertical-tree ul { padding-left: 20px !important; list-style: none !important; margin: 0 !important; }
-            .vertical-tree li { position: relative; padding-left: 15px !important; margin: 0 !important; padding-top: 5px !important; padding-bottom: 5px !important; line-height: 1.4 !important; }
 
-            /* 5. ✨ पतली लाइनें (1px) */
+            /* 3. लिस्ट आइटम्स का स्पेस */
+            .vertical-tree li {
+                position: relative;
+                padding-left: 0 !important; 
+                margin: 0 !important;
+                padding-top: 5px !important;
+                padding-bottom: 5px !important;
+                line-height: 1.4 !important;
+            }
+
+            /* 4. ✨ खड़ी लाइन (Vertical Line) - अब सिर्फ पैरेंट UL पर */
+            .vertical-tree ul {
+                padding-left: 20px !important; /* इंडेंटेशन */
+                list-style: none !important;
+                margin: 0 !important;
+                position: relative;
+            }
+            .vertical-tree ul::before {
+                content: ''; 
+                position: absolute; 
+                top: 0; 
+                bottom: 0; 
+                left: 20px; /* खड़ी लाइन का स्थान */
+                width: 1px !important; 
+                background-color: var(--tree-line-color) !important; 
+            }
+
+            /* 5. हॉरिजॉन्टल कनेक्टर (Horizontal Connector) */
             .vertical-tree li::before {
-                content: ''; position: absolute; top: 0; bottom: 0; left: 0;
-                width: 1px !important; background-color: #8B4513 !important;
+                content: ''; 
+                position: absolute;
+                top: 15px; /* नाम के बीच में */
+                left: 20px !important; /* UL की खड़ी लाइन से जोड़ें */
+                width: 10px !important; /* कनेक्टर की लंबाई */
+                height: 1px !important;
+                background-color: var(--tree-line-color) !important;
+                bottom: auto !important; 
             }
             .vertical-tree li::after {
-                content: ''; position: absolute; top: 15px; left: 0;
-                width: 10px !important; height: 1px !important; background-color: #8B4513 !important;
+                display: none !important; /* पुरानी हॉरिजॉन्टल लाइन बंद */
             }
-            .vertical-tree li:last-child::before { height: 16px !important; bottom: auto !important; }
 
-            /* 6. टेक्स्ट स्टाइल */
+            /* 6. आख़िरी बच्चे की पूँछ काटें */
+            .vertical-tree ul > li:last-child::before {
+                display: none !important; /* लास्ट चाइल्ड के पास खुद की खड़ी लाइन नहीं होती */
+            }
+
+
+            /* 7. नाम का लुक (Cards Removed) */
             .member-card {
                 background: none !important; border: none !important; box-shadow: none !important;
                 padding: 0 !important; margin: 0 !important; display: inline-block !important;
+                
+                margin-left: 35px !important; /* नाम को लाइन से दूर खिसकाएं */
+                
                 font-family: 'Cinzel', serif !important; font-size: 14px !important;
                 font-weight: 700 !important; color: #4a3b32 !important; 
                 text-transform: uppercase; white-space: normal !important;
             }
+            .member-detail { font-size: 11px !important; color: #666 !important; margin-left: 5px; display: inline-block; text-transform: none; }
+            
+            /* 8. फाउंडर (सबसे ऊपर) - इसकी लाइनें हटेंगी */
+            .vertical-tree > ul::before { display: none !important; }
+            .vertical-tree > ul > li::before { display: none !important; }
+            .vertical-tree > ul > li:first-child::before { top: 0px !important; }
 
-            /* 7. फाउंडर */
-            .vertical-tree > ul > li::before, .vertical-tree > ul > li::after { display: none !important; }
-            .founder-card { margin-bottom: 20px !important; display: block !important; padding: 0 !important; margin-left: -5px !important; }
-            .founder-card .member-name { font-size: 18px !important; color: #800000 !important; border-bottom: 2px solid #800000 !important; padding-bottom: 2px; }
-            .member-detail { display: block; font-size: 10px; color: #666; font-family: sans-serif; text-transform: none; margin-top: 2px; }
+            .founder-card { margin-bottom: 20px !important; display: block !important; padding: 0 !important; margin-left: 0 !important; }
+            .founder-card .member-name { font-size: 18px !important; color: #800000 !important; border-bottom: 2px solid #800000 !important; padding-bottom: 2px; margin-left: 0 !important; }
+            .founder-card .member-detail { display: block; margin-left: 0 !important; }
 
-            /* 8. हेडर */
-            .scroll-header { margin-bottom: 20px !important; margin-top: 10px !important; }
-            .scroll-header div { font-size: 1.2em !important; color: #800000 !important; }
         }
     </style>
 </head>
@@ -160,6 +205,7 @@
 
             <div class="tree-wrapper">
                 <div class="vertical-tree">
+                    
                     <ul>
                         <li>
                             <div class="member-card founder-card">
@@ -187,16 +233,14 @@
                                                                             <div class="member-card"><span class="member-name">Th. Ridmal Singh</span></div>
                                                                             <ul>
                                                                                 <li>
-                                                                                    <div class="member-card"><span class="member-name">Th. Bhairu Singh</span><br><span class="member-detail">(married at Maheswas)</span></div>
+                                                                                    <div class="member-card"><span class="member-name">Th. Bhairu Singh</span><span class="member-detail">(married at Maheswas)</span></div>
                                                                                     <ul>
                                                                                         <li>
-                                                                                            <div class="member-card"><span class="member-name">Th. Mahendra Singh</span><br><span class="member-detail">(Present Tikai Thakur - Chaingarh)</span></div>
+                                                                                            <div class="member-card"><span class="member-name">Th. Mahendra Singh</span><span class="member-detail">(Present Tikai - Chaingarh)</span></div>
                                                                                             <ul>
                                                                                                 <li>
-                                                                                                    <div class="member-card"><span class="member-name">Yuvraj GajRaj Singh</span><br><span class="member-detail">(married at Lakher)</span></div>
-                                                                                                    <ul>
-                                                                                                        <li><div class="member-card"><span class="member-name">Bhanwar Khushvendra Singh</span></div></li>
-                                                                                                    </ul>
+                                                                                                    <div class="member-card"><span class="member-name">Yuvraj GajRaj Singh</span><span class="member-detail">(married at Lakher)</span></div>
+                                                                                                    <ul><li><div class="member-card"><span class="member-name">Bhanwar Khushvendra Singh</span></div></li></ul>
                                                                                                 </li>
                                                                                                 <li><div class="member-card"><span class="member-name">Kr. Shivraj Singh</span></div></li>
                                                                                                 <li><div class="member-card"><span class="member-name">Baisa Hrishiraj Rathore</span></div></li>
@@ -210,10 +254,7 @@
                                                                                         <li>
                                                                                             <div class="member-card"><span class="member-name">Th. Rajendra Singh</span></div>
                                                                                             <ul>
-                                                                                                <li>
-                                                                                                    <div class="member-card"><span class="member-name">Kr. Arun Singh</span></div>
-                                                                                                    <ul><li><div class="member-card"><span class="member-name">Bhanwar baisa Raghvi rathore</span></div></li></ul>
-                                                                                                </li>
+                                                                                                <li><div class="member-card"><span class="member-name">Kr. Arun Singh</span></div><ul><li><div class="member-card"><span class="member-name">Bhanwar baisa Raghvi rathore</span></div></li></ul></li>
                                                                                                 <li><div class="member-card"><span class="member-name">Baisa Rajlaxmi Rathore</span></div></li>
                                                                                             </ul>
                                                                                         </li>
@@ -450,13 +491,6 @@
         </div>
     </main>
 
-    <footer>
-        <div class="developer-info">
-            <div style="font-size: 0.9em; color: #888;">Developed & Designed By:</div>
-            <a href="#" class="royal-name">Yuvraj Gajraj Singh</a>
-            <div style="font-size: 0.8em; margin-top: 15px; color: #666;">&copy; 2025 | All Rights Reserved.</div>
-        </div>
-    </footer>
-
+    <script></script>
 </body>
 </html>
