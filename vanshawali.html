@@ -4,15 +4,78 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vanshawali - KASUMALGARH</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 <style>
     /* -------------------------------------------------- */
-    /* 🌳 CSS Tree Styling (कोडिंग से बनी लाइनें) */
+    /* 🌳 बेसिक सेटिंग्स */
     /* -------------------------------------------------- */
     body {
         font-family: 'Georgia', serif;
-        background-color: #fcf6ba; /* हल्का पीला शाही रंग */
+        background-color: #fcf6ba;
         color: #333;
-        padding: 40px;
+        margin: 0;
+        padding: 20px;
+        display: flex; /* इंडेक्स और ट्री को अलग रखने के लिए */
+    }
+
+    /* -------------------------------------------------- */
+    /* 📜 Name Index (नाम सूची - साइडबार) */
+    /* -------------------------------------------------- */
+    #index-container {
+        width: 250px;
+        height: 90vh;
+        position: fixed;
+        right: 20px;
+        top: 20px;
+        background: #fff;
+        border: 2px solid #800000;
+        border-radius: 8px;
+        padding: 10px;
+        overflow-y: auto; /* स्क्रॉल के लिए */
+        box-shadow: -5px 5px 15px rgba(0,0,0,0.2);
+        z-index: 1000;
+    }
+
+    #index-container h3 {
+        text-align: center;
+        color: #800000;
+        margin-top: 0;
+        border-bottom: 1px solid #d4af37;
+        padding-bottom: 5px;
+    }
+
+    #name-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    #name-list li {
+        margin-bottom: 5px;
+    }
+
+    #name-list a {
+        text-decoration: none;
+        color: #333;
+        font-size: 14px;
+        display: block;
+        padding: 3px;
+        transition: 0.3s;
+        text-transform: capitalize;
+    }
+
+    #name-list a:hover {
+        background-color: #800000;
+        color: white;
+        padding-left: 10px;
+    }
+
+    /* -------------------------------------------------- */
+    /* 🌳 वंशवृक्ष (Main Tree Area) */
+    /* -------------------------------------------------- */
+    #tree-container {
+        flex-grow: 1;
+        padding-right: 280px; /* इंडेक्स के लिए जगह छोड़ें */
     }
 
     h1 {
@@ -23,146 +86,370 @@
         text-transform: uppercase;
     }
 
-    /* पेड़ की जड़ (Main Container) */
+    /* पेड़ की जड़ */
     .tree, .tree ul {
-        list-style-type: none; /* बुलेट पॉइंट्स हटाएँ */
+        list-style-type: none;
         margin: 0;
         padding: 0;
     }
 
     .tree ul {
-        padding-left: 20px; /* बच्चों को थोड़ा आगे खिसकाएं */
+        padding-left: 20px;
     }
 
     .tree li {
         margin: 0;
         padding: 0 12px;
-        line-height: 25px; /* लाइनों के बीच की दूरी */
+        line-height: 35px; /* वर्टिकल स्पेस थोड़ा बढ़ाया */
         position: relative;
         font-weight: bold;
         color: #2c0e0e;
     }
 
-    /* ─── खड़ी लाइन (Vertical Line) ─── */
+    /* ─── खड़ी लाइन ─── */
     .tree li::before {
         content: "";
         position: absolute;
         top: 0;
         left: 0;
-        border-left: 2px solid #800000; /* लाइन का रंग और मोटाई */
+        border-left: 2px solid #800000;
         height: 100%;
         width: 1px;
     }
 
-    /* ─── आड़ी लाइन (Horizontal Line) ─── */
+    /* ─── आड़ी लाइन ─── */
     .tree li::after {
         content: "";
         position: absolute;
-        top: 12px; /* लाइन को टेक्स्ट के बीच में लाएं */
+        top: 18px; /* लाइन को कार्ड के बीच में सेट किया */
         left: 0;
         border-top: 2px solid #800000;
         height: 1px;
-        width: 10px; /* लाइन की लंबाई */
+        width: 10px;
     }
 
-    /* ✂️ आखिरी बच्चे की लाइन काटना (ताकि लाइन नीचे तक न जाए) */
     .tree li:last-child::before {
-        height: 13px; /* सिर्फ आड़ी लाइन तक ही खड़ी लाइन रहे */
+        height: 19px;
     }
 
-    /* नाम को सुंदर दिखाने के लिए */
-    .member-name {
+    /* -------------------------------------------------- */
+    /* 🎴 मेंबर कार्ड डिजाइन */
+    /* -------------------------------------------------- */
+    .member-card {
         background-color: #fff;
         border: 1px solid #d4af37;
-        padding: 3px 8px;
+        padding: 5px 10px;
         border-radius: 4px;
         display: inline-block;
-        margin-bottom: 5px;
         box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        position: relative;
+        cursor: pointer;
     }
-    
-    .member-name:hover {
+
+    .founder-card {
+        background: linear-gradient(to bottom, #fcf6ba, #d4af37);
+        border: 2px solid #800000;
+    }
+
+    .member-name {
+        text-transform: capitalize; /* नाम का पहला अक्षर बड़ा करें */
+    }
+
+    .crown-icon {
+        color: #800000;
+        margin-right: 5px;
+    }
+
+    /* Hover Effect Style */
+    .member-card:hover {
         background-color: #800000;
         color: #fff;
-        cursor: pointer;
+        transform: scale(1.05); /* थोड़ा बड़ा हो जाएगा */
+        z-index: 100;
+    }
+    
+    .member-card:hover .crown-icon { color: #fff; }
+
+    /* Highlight (जब इंडेक्स से क्लिक करें) */
+    .highlight-name {
+        background-color: yellow !important;
+        border: 2px solid red !important;
+        color: black !important;
+        animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+
+    /* -------------------------------------------------- */
+    /* 💬 Tooltip (होवर करने पर दिखने वाला बॉक्स) */
+    /* -------------------------------------------------- */
+    #tooltip {
+        position: absolute;
+        display: none;
+        background: #2c0e0e;
+        color: #fcf6ba;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #d4af37;
+        font-size: 0.9em;
+        pointer-events: none; /* ताकी माउस बीच में न आए */
+        z-index: 2000;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        min-width: 150px;
+    }
+
+    #tooltip strong {
+        color: #ffcc00;
+        display: block;
+        border-bottom: 1px solid #555;
+        margin-bottom: 5px;
+        padding-bottom: 2px;
     }
 
 </style>
 </head>
 <body>
 
-    <h1>Thikana Kasumalgarh Vanshawali</h1>
-
-    <ul class="tree">
-        <li>
-            <span class="member-name">Th. Narayan Singh</span>
-            <ul>
-                <li>
-                    <span class="member-name">Akhe Singh</span>
-                    <ul>
-                        <li>
-                            <span class="member-name">Mangal Singh</span>
-                            <ul>
-                                <li>
-                                    <span class="member-name">Bakhtawar Singh</span>
-                                    <ul>
-                                        <li>
-                                            <span class="member-name">Raghunath Singh</span>
-                                            <ul>
-                                                <li>
-                                                    <span class="member-name">Roop Singh</span>
-                                                    <ul>
-                                                        <li><span class="member-name">Ridmal Singh</span></li>
-                                                    </ul>
-                                                </li>
-                                                <li><span class="member-name">Gopinath Singh</span></li>
-                                            </ul>
-                                        </li>
-                                        <li><span class="member-name">Sonath Singh</span></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <span class="member-name">Javhar Singh</span>
-                                    <ul>
-                                        <li><span class="member-name">Sabal Singh</span></li>
-                                        <li><span class="member-name">Balwant Singh</span></li>
-                                        <li><span class="member-name">Sanwat Singh</span></li>
-                                        <li>
-                                            <span class="member-name">Bhiv Singh</span>
-                                            <ul>
-                                                <li>
-                                                    <span class="member-name">Lal Singh</span>
-                                                    <ul>
-                                                        <li>
-                                                            <span class="member-name">Richhpal Singh</span>
-                                                            <ul>
-                                                                <li>
-                                                                    <span class="member-name">Bhawani Singh</span>
-                                                                    <ul>
-                                                                        <li>
-                                                                            <span class="member-name">Devendra Singh</span>
-                                                                            <ul>
-                                                                                <li><span class="member-name">Daksh Singh</span></li>
-                                                                            </ul>
-                                                                        </li>
-                                                                        <li><span class="member-name">Ajeet Singh</span></li>
-                                                                    </ul>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
+    <div id="index-container">
+        <h3>Name Index</h3>
+        <input type="text" id="search-box" placeholder="Search name..." onkeyup="filterNames()" style="width: 90%; padding: 5px; margin-bottom: 10px;">
+        <ul id="name-list">
             </ul>
-        </li>
-    </ul>
+    </div>
+
+    <div id="tree-container">
+        <h1>Thikana Kasumalgarh Vanshawali</h1>
+        
+        <div id="tooltip"></div>
+
+        <ul class="tree">
+            <li>
+                <div class="member-card founder-card" id="root-node">
+                    <i class="fas fa-crown crown-icon"></i>
+                    <span class="member-name">Th. Narayan Singh</span>
+                </div>
+                
+                <ul>
+                    <li>
+                        <div class="member-card"><span class="member-name">Akhe Singh</span></div>
+                        <ul>
+                            <li>
+                                <div class="member-card"><span class="member-name">Mangal Singh</span></div>
+                                <ul>
+                                    <li>
+                                        <div class="member-card"><span class="member-name">Bakhtawar Singh</span></div>
+                                        <ul>
+                                            <li>
+                                                <div class="member-card"><span class="member-name">Raghunath Singh</span></div>
+                                                <ul>
+                                                    <li>
+                                                        <div class="member-card"><span class="member-name">Roop Singh</span></div>
+                                                        <ul>
+                                                            <li><div class="member-card"><span class="member-name">Ridmal Singh</span></div></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><div class="member-card"><span class="member-name">Gopinath Singh</span></div></li>
+                                                </ul>
+                                            </li>
+                                            <li><div class="member-card"><span class="member-name">Sonath Singh</span></div></li>
+                                            <li>
+                                                <div class="member-card"><span class="member-name">Javhar Singh</span></div>
+                                                <ul>
+                                                    <li><div class="member-card"><span class="member-name">Sabal Singh</span></div></li>
+                                                    <li><div class="member-card"><span class="member-name">Balwant Singh</span></div></li>
+                                                    <li><div class="member-card"><span class="member-name">Sanwat Singh</span></div></li>
+                                                    <li>
+                                                        <div class="member-card"><span class="member-name">Bhiv Singh</span></div>
+                                                        <ul>
+                                                            <li>
+                                                                <div class="member-card"><span class="member-name">Lal Singh</span></div>
+                                                                <ul>
+                                                                    <li>
+                                                                        <div class="member-card"><span class="member-name">Richhpal Singh</span></div>
+                                                                        <ul>
+                                                                            <li>
+                                                                                <div class="member-card"><span class="member-name">Bhawani Singh</span></div>
+                                                                                <ul>
+                                                                                    <li>
+                                                                                        <div class="member-card"><span class="member-name">Devendra Singh</span></div>
+                                                                                        <ul>
+                                                                                            <li><div class="member-card"><span class="member-name">Daksh Singh</span></div></li>
+                                                                                        </ul>
+                                                                                    </li>
+                                                                                    <li><div class="member-card"><span class="member-name">Ajeet Singh</span></div></li>
+                                                                                </ul>
+                                                                            </li>
+                                                                            <li>
+                                                                                <div class="member-card"><span class="member-name">Ratan Singh</span></div>
+                                                                                <ul>
+                                                                                    <li><div class="member-card"><span class="member-name">Vikram Singh</span></div></li>
+                                                                                </ul>
+                                                                            </li>
+                                                                            <li>
+                                                                                <div class="member-card"><span class="member-name">Narpat Singh</span></div>
+                                                                                <ul>
+                                                                                    <li><div class="member-card"><span class="member-name">Yogendra Singh</span></div></li>
+                                                                                    <li><div class="member-card"><span class="member-name">Kuldeep Singh</span></div></li>
+                                                                                </ul>
+                                                                            </li>
+                                                                            <li>
+                                                                                <div class="member-card"><span class="member-name">Tej Singh</span></div>
+                                                                                <ul>
+                                                                                    <li><div class="member-card"><span class="member-name">Jaydeep Singh</span></div></li>
+                                                                                </ul>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="member-card"><span class="member-name">Bhagirath Singh</span></div>
+                                                                        <ul>
+                                                                            <li><div class="member-card"><span class="member-name">Rajendra Singh</span></div></li>
+                                                                            <li><div class="member-card"><span class="member-name">Manohar Singh</span></div></li>
+                                                                            <li><div class="member-card"><span class="member-name">Aanand Singh</span></div></li>
+                                                                            <li><div class="member-card"><span class="member-name">Gajendra Singh</span></div></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li>
+                                                                <div class="member-card"><span class="member-name">Keshar Singh</span></div>
+                                                                <ul>
+                                                                    <li>
+                                                                        <div class="member-card"><span class="member-name">Sopal Singh</span></div>
+                                                                        <ul>
+                                                                            <li><div class="member-card"><span class="member-name">Indra Singh</span></div></li>
+                                                                            <li><div class="member-card"><span class="member-name">Narendra Singh</span></div></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li><div class="member-card"><span class="member-name">Ugam Singh</span></div></li>
+                                                                    <li>
+                                                                        <div class="member-card"><span class="member-name">Baagh Singh</span></div>
+                                                                        <ul>
+                                                                            <li><div class="member-card"><span class="member-name">Laxman Singh</span></div></li>
+                                                                            <li><div class="member-card"><span class="member-name">Narpat Singh</span></div></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li><div class="member-card"><span class="member-name">Partap Singh</span></div></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><div class="member-card"><span class="member-name">Banne Singh</span></div></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    </ul>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const memberCards = document.querySelectorAll('.member-card');
+            const nameList = document.getElementById('name-list');
+            const tooltip = document.getElementById('tooltip');
+            let namesArray = [];
+
+            // 1. Generate Index & Add IDs
+            memberCards.forEach((card, index) => {
+                let nameSpan = card.querySelector('.member-name');
+                if(nameSpan) {
+                    let name = nameSpan.textContent.trim();
+                    let uniqueId = 'member-' + index;
+                    card.setAttribute('id', uniqueId); // कार्ड को ID दें
+                    
+                    namesArray.push({ name: name, id: uniqueId });
+                }
+            });
+
+            // नामों को सॉर्ट करें (Alphabetical Order)
+            namesArray.sort((a, b) => a.name.localeCompare(b.name));
+
+            // लिस्ट बनाएं
+            namesArray.forEach(item => {
+                let li = document.createElement('li');
+                li.innerHTML = `<a href="#${item.id}" onclick="highlightMember('${item.id}')">${item.name}</a>`;
+                nameList.appendChild(li);
+            });
+
+            // 2. Hover Tooltip Logic
+            memberCards.forEach(card => {
+                card.addEventListener('mousemove', function(e) {
+                    let name = this.querySelector('.member-name').innerText;
+                    
+                    // पिता का नाम ढूंढना (Logic: Parent UL -> Previous Sibling LI -> .member-card)
+                    let parentUl = this.closest('ul');
+                    let parentCard = null;
+                    let fatherName = "Th. Narayan Singh (Founder)";
+                    
+                    if (parentUl && parentUl.parentElement.closest('li')) {
+                         // अगर यह रूट नहीं है
+                         let parentLi = parentUl.parentElement;
+                         let potentialFather = parentLi.querySelector('.member-card');
+                         if(potentialFather) {
+                             fatherName = potentialFather.querySelector('.member-name').innerText;
+                         }
+                    } else {
+                        fatherName = "Rathore Lineage";
+                    }
+
+                    // Tooltip Content
+                    tooltip.innerHTML = `<strong>${name}</strong>Son of: ${fatherName}`;
+                    
+                    // Tooltip Position
+                    tooltip.style.display = 'block';
+                    tooltip.style.left = (e.pageX + 15) + 'px';
+                    tooltip.style.top = (e.pageY + 15) + 'px';
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    tooltip.style.display = 'none';
+                });
+            });
+        });
+
+        // 3. Highlight Function
+        function highlightMember(id) {
+            // पुराने हाइलाइट हटाएं
+            document.querySelectorAll('.highlight-name').forEach(el => el.classList.remove('highlight-name'));
+            
+            // नया हाइलाइट जोड़ें
+            let element = document.getElementById(id);
+            if(element) {
+                element.classList.add('highlight-name');
+                setTimeout(() => {
+                    element.classList.remove('highlight-name');
+                }, 3000); // 3 सेकंड बाद हटा दें
+            }
+        }
+
+        // 4. Search Filter
+        function filterNames() {
+            let input = document.getElementById('search-box').value.toLowerCase();
+            let ul = document.getElementById("name-list");
+            let li = ul.getElementsByTagName('li');
+
+            for (let i = 0; i < li.length; i++) {
+                let a = li[i].getElementsByTagName("a")[0];
+                let txtValue = a.textContent || a.innerText;
+                if (txtValue.toLowerCase().indexOf(input) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 
 </body>
 </html>
