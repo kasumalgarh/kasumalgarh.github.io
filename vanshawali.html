@@ -9,211 +9,52 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        /* ----------------------------- */
-        /* ✨ शाही वेरियबल्स */
-        /* ----------------------------- */
         :root {
             --royal-bg: #000033;        
             --paper-bg: #fffbf0;        
             --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             --maroon-text: #800000;
-            --dark-gold-line: #aa8c2c; 
-            --theme-gold: #897148;
+            --bright-gold-line: #FFD700; /* ज्यादा चमकदार गोल्ड */
         }
 
-        html {
-            background-color: var(--royal-bg);
-            min-height: 100%;
-        }
+        html { background-color: var(--royal-bg); min-height: 100%; }
+        body { margin: 0; background-color: transparent; color: #333; font-family: 'Playfair Display', serif; overflow-x: hidden; position: relative; }
 
-        body { 
-            margin: 0; 
-            background-color: transparent; 
-            color: #333;
-            font-family: 'Playfair Display', serif;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* ✨ शाही सिल्वर टेक्सचर */
         body::before {
-            content: "";
-            position: fixed;
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%;
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://www.transparenttextures.com/patterns/black-scales.png');
-            filter: invert(1); 
-            opacity: 0.4; 
-            pointer-events: none;
-            z-index: -1; 
+            filter: invert(1); opacity: 0.4; pointer-events: none; z-index: -1; 
         }
 
-        /* ----------------------------- */
-        /* ☀️ ROYAL SUN PRELOADER */
-        /* ----------------------------- */
+        /* PRELOADER */
         #preloader {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #000033;
-            z-index: 10000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000033; z-index: 10000;
+            display: flex; justify-content: center; align-items: center; flex-direction: column;
             transition: opacity 0.8s ease;
         }
-
-        .sun-container {
-            position: relative;
-            width: 140px;
-            height: 140px;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 25px rgba(255, 140, 0, 0.8));
-        }
-
-        .sun-svg {
-            width: 100%; height: 100%;
-            animation: spinSun 8s linear infinite;
-        }
-
-        .sun-face {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 55px; height: 55px;
-            z-index: 2;
-        }
-
+        .sun-container { width: 140px; height: 140px; margin-bottom: 20px; filter: drop-shadow(0 0 25px rgba(255, 140, 0, 0.8)); }
+        .sun-svg { width: 100%; height: 100%; animation: spinSun 8s linear infinite; }
         @keyframes spinSun { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        .loading-text {
-            font-family: 'Cinzel', serif;
-            color: #fcf6ba;
-            font-size: 1.5em;
-            letter-spacing: 4px;
-            font-weight: 900;
-            text-shadow: 0 0 10px #bf953f;
-            margin-top: 10px;
-            animation: breathe 2s ease-in-out infinite;
-        }
-
-        .sub-text {
-            margin-top: 8px;
-            color: #ffcc00;
-            font-size: 0.8em;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
-        @keyframes breathe {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(0.98); }
-        }
-
-        .progress-container {
-            width: 180px; height: 3px;
-            background: rgba(255, 255, 255, 0.1);
-            margin-top: 25px;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%; width: 0%;
-            background: linear-gradient(90deg, #ffcc00, #ff4500, #ffcc00);
-            animation: loadingFill 3s ease-in-out forwards;
-        }
-
+        .loading-text { font-family: 'Cinzel', serif; color: #fcf6ba; font-size: 1.5em; letter-spacing: 4px; font-weight: 900; text-shadow: 0 0 10px #bf953f; margin-top: 10px; animation: breathe 2s ease-in-out infinite; }
+        .progress-container { width: 180px; height: 3px; background: rgba(255, 255, 255, 0.1); margin-top: 25px; border-radius: 2px; overflow: hidden; }
+        .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #ffcc00, #ff4500, #ffcc00); animation: loadingFill 3s ease-in-out forwards; }
         @keyframes loadingFill { 0% { width: 0%; } 100% { width: 100%; } }
 
-        /* ----------------------------- */
-        /* 🖼️ एनिमेटेड लाइन */
-        /* ----------------------------- */
-        .royal-frame {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            border: none; 
-            box-sizing: border-box; 
-            z-index: 9999;
-            pointer-events: none;
-            overflow: hidden; 
-        }
-
-        .royal-frame span { position: absolute; display: block; }
-
-        .royal-frame span:nth-child(1) {
-            top: 0; left: -100%; width: 100%; height: 4px;
-            background: linear-gradient(90deg, transparent, var(--dark-gold-line));
-            animation: btn-anim1 4s linear infinite;
-        }
-        @keyframes btn-anim1 { 0% { left: -100%; } 50%,100% { left: 100%; } }
-
-        .royal-frame span:nth-child(2) {
-            top: -100%; right: 0; width: 4px; height: 100%;
-            background: linear-gradient(180deg, transparent, var(--dark-gold-line));
-            animation: btn-anim2 4s linear infinite; animation-delay: 1s;
-        }
-        @keyframes btn-anim2 { 0% { top: -100%; } 50%,100% { top: 100%; } }
-
-        .royal-frame span:nth-child(3) {
-            bottom: 0; right: -100%; width: 100%; height: 4px;
-            background: linear-gradient(270deg, transparent, var(--dark-gold-line));
-            animation: btn-anim3 4s linear infinite; animation-delay: 2s;
-        }
-        @keyframes btn-anim3 { 0% { right: -100%; } 50%,100% { right: 100%; } }
-
-        .royal-frame span:nth-child(4) {
-            bottom: -100%; left: 0; width: 4px; height: 100%;
-            background: linear-gradient(360deg, transparent, var(--dark-gold-line));
-            animation: btn-anim4 4s linear infinite; animation-delay: 3s;
-        }
-        @keyframes btn-anim4 { 0% { bottom: -100%; } 50%,100% { bottom: 100%; } }
-
-        /* ----------------------------- */
-        /* 🏰 नेविगेशन बार */
-        /* ----------------------------- */
+        /* NAVBAR */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 20px; 
-            background: #000033;
-            border-bottom: 2px solid #b38728;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.8);
-            position: sticky; top: 0; z-index: 2000;
+            padding: 15px 20px; background: #000033; border-bottom: 2px solid #b38728;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.8); position: sticky; top: 0; z-index: 2000;
         }
-
         .navbar-brand-container { display: flex; align-items: center; }
-
-        #menu-logo {
-            width: 50px; height: 50px; border-radius: 50%; 
-            border: 2px solid #fcf6ba;
-            box-shadow: 0 0 15px #bf953f;
-            background: white;
-            animation: slideRightToLeft 1.5s ease-out;
-        }
-
-        .navbar-brand {
-            font-family: 'Cinzel', serif; font-size: 1.5em; font-weight: 900; 
-            margin-left: 15px; text-decoration: none; color: #fcf6ba; 
-            text-shadow: 0 0 2px #bf953f, 0 0 10px #000; letter-spacing: 1px;
-            display: inline-block; animation: slideDown 1.5s ease-out;
-        }
-
+        #menu-logo { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fcf6ba; box-shadow: 0 0 15px #bf953f; background: white; }
+        .navbar-brand { font-family: 'Cinzel', serif; font-size: 1.5em; font-weight: 900; margin-left: 15px; text-decoration: none; color: #fcf6ba; text-shadow: 0 0 2px #bf953f; display: inline-block; }
         .navbar-links { list-style: none; margin: 0; padding: 0; display: flex; }
         .navbar-links li { margin-left: 15px; } 
-
-        .navbar-links a {
-            color: #897148; text-decoration: none; padding: 8px 15px; display: block;
-            font-family: 'Cinzel', serif; font-weight: 700; letter-spacing: 1px;
-            border: 1px solid transparent; transition: all 0.5s ease;
-        }
+        .navbar-links a { color: #897148; text-decoration: none; padding: 8px 15px; display: block; font-family: 'Cinzel', serif; font-weight: 700; transition: all 0.5s ease; }
         .navbar-links a:hover { color: #fff; text-shadow: 0 0 8px #897148; }
-
-        .menu-toggle { 
-            color: #897148; font-size: 35px; cursor: pointer; display: none; 
-            user-select: none; transition: transform 0.3s ease;
-        }
+        .menu-toggle { color: #897148; font-size: 35px; cursor: pointer; display: none; user-select: none; }
 
         @media (max-width: 768px) {
             .navbar { padding: 5px 15px; }
@@ -222,217 +63,123 @@
             .menu-toggle { display: block; font-size: 25px; } 
             .navbar-links {
                 display: none; flex-direction: column; position: absolute;
-                top: 100%; left: 0; width: 100%;
-                background-color: #000033;
+                top: 100%; left: 0; width: 100%; background-color: #000033;
                 border-top: 1px solid #b38728; border-bottom: 2px solid #b38728;
-                padding: 0; text-align: center; z-index: 1000;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.9);
+                padding: 0; text-align: center; z-index: 1000; box-shadow: 0 10px 20px rgba(0,0,0,0.9);
             }
             .navbar-links.active { display: flex; animation: slideDown 0.5s ease; }
             .navbar-links li { margin: 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
-            .navbar-links a { padding: 5px 10px; font-size: 0.8em; }
+            .navbar-links a { padding: 10px; font-size: 0.9em; }
         }
+        @keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        @keyframes slideDown { from { transform: translateY(-100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        @keyframes slideRightToLeft { from { transform: translateX(100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-
-        /* ----------------------------- */
-        /* 👑 HERO SECTION (Small for Vanshawali) */
-        /* ----------------------------- */
+        /* HERO SECTION */
         .hero-section {
-            background-size: cover; background-position: center;
-            height: 300px; /* Reduced height for Vanshawali page */
+            background-size: cover; background-position: center; height: 250px;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; color: white;
-            position: relative; transition: background-image 1s ease-in-out;
+            text-align: center; color: white; transition: background-image 1s ease-in-out;
             background-image: linear-gradient(rgba(0, 0, 51, 0.7), rgba(0, 0, 51, 0.9)), url('1.jpg');
         }
-
         .hero-title {
-            font-family: 'Cinzel', serif; 
-            font-size: 3.5em; margin: 0; line-height: 1.2; font-weight: 900; 
+            font-family: 'Cinzel', serif; font-size: 3em; margin: 0; line-height: 1.2; font-weight: 900; 
             background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.8)); letter-spacing: 2px;
-            animation: slideDown 2s ease-out;
-        }
-        .divider-ornament { font-size: 30px; color: #bf953f; margin: 10px 0; }
-
-        /* ----------------------------- */
-        /* 🌳 TREE CSS (ROYAL THEME) */
-        /* ----------------------------- */
-        .main-content { padding: 40px 20px; text-align: center; overflow-x: auto;}
-
-        .tree-container {
-            width: max-content; /* Allows horizontal scroll */
-            margin: 0 auto;
-            padding: 20px;
+            filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.8));
         }
 
-        .tree-container ul {
-            padding-top: 20px; position: relative;
-            transition: all 0.5s; list-style: none; padding-left: 0;
-            display: flex; justify-content: center;
-        }
+        /* ----- FIXED VERTICAL TREE CSS (SOLID LINES) ----- */
+        .main-content { padding: 40px 20px; display: flex; justify-content: center; }
+        .tree-container { text-align: left; display: inline-block; padding: 10px; }
 
-        .tree-container li {
-            text-align: center; list-style-type: none;
-            position: relative; padding: 20px 5px 0 5px;
-            transition: all 0.5s;
-        }
+        /* Reset styles */
+        .tree-container ul, .tree-container li { padding: 0; margin: 0; list-style: none; position: relative; }
+        
+        /* Indentation (कम किया ताकि मोबाइल में ज्यादा राइट न भागे) */
+        .tree-container ul { padding-left: 30px; } 
+        .tree-container > ul { padding-left: 0; }
 
-        /* ✨ GOLD Connecting Lines */
-        .tree-container li::before, .tree-container li::after {
-            content: ''; position: absolute; top: 0; right: 50%;
-            border-top: 2px solid var(--dark-gold-line); /* GOLD LINE */
-            width: 50%; height: 20px;
-        }
-        .tree-container li::after {
-            right: auto; left: 50%;
-            border-left: 2px solid var(--dark-gold-line); /* GOLD LINE */
-        }
-        .tree-container li:only-child::after, .tree-container li:only-child::before {
-            display: none;
-        }
-        .tree-container li:only-child { padding-top: 0; }
-        .tree-container li:first-child::before, .tree-container li:last-child::after {
-            border: 0 none;
-        }
-        .tree-container li:last-child::before {
-            border-right: 2px solid var(--dark-gold-line);
-            border-radius: 0 5px 0 0;
-        }
-        .tree-container li:first-child::after {
-            border-radius: 5px 0 0 0;
-        }
-        .tree-container ul ul::before {
-            content: ''; position: absolute; top: 0; left: 50%;
-            border-left: 2px solid var(--dark-gold-line);
-            width: 0; height: 20px;
-        }
-
-        /* ✨ ROYAL MEMBER CARD */
-        .member-card {
-            border: 2px solid #b38728; /* Gold Border */
-            background-color: var(--paper-bg); /* Cream/Paper BG */
-            padding: 12px 18px;
-            text-decoration: none;
-            color: var(--maroon-text); /* Maroon Text */
-            display: inline-block;
-            border-radius: 8px;
-            transition: all 0.4s;
-            min-width: 140px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            font-family: 'Cinzel', serif;
+        .tree-container li { 
+            padding-left: 20px; /* Space for the horizontal connector */
+            margin-top: 10px;
             position: relative;
         }
 
-        .member-name {
-            display: block; font-weight: 900;
-            text-transform: uppercase; letter-spacing: 1px;
-            font-size: 0.9em;
+        /* 1. VERTICAL LINE (खड़ी लाइन) */
+        .tree-container li::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px; /* Thick Line */
+            height: 100%;
+            background-color: var(--bright-gold-line); /* Solid Color, no border */
         }
-        
-        /* Founder Special */
+
+        /* 2. HORIZONTAL LINE (आड़ी लाइन) */
+        .tree-container li::after {
+            content: '';
+            position: absolute;
+            top: 25px; /* Center of the card roughly */
+            left: 0;
+            width: 20px; /* Connector length */
+            height: 3px; /* Thick Line */
+            background-color: var(--bright-gold-line); /* Solid Color */
+        }
+
+        /* FIX: Last child vertical line should stop halfway */
+        .tree-container li:last-child::before {
+            height: 28px; /* Stop at the connector */
+        }
+
+        /* Remove lines for the very first Root Element (Narayan Singh) */
+        .tree-container > ul > li::before,
+        .tree-container > ul > li::after {
+            display: none;
+        }
+        .tree-container > ul > li { padding-left: 0; }
+
+        /* ----------------------------------------------- */
+
+        /* CARDS */
+        .member-card {
+            border: 3px solid #b38728; 
+            background-color: var(--paper-bg); 
+            padding: 10px 15px; 
+            text-decoration: none; 
+            color: var(--maroon-text);
+            display: inline-block; 
+            border-radius: 8px; 
+            transition: all 0.4s; 
+            min-width: 140px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); 
+            font-family: 'Cinzel', serif; 
+            position: relative;
+            z-index: 5; 
+        }
+        .member-name { display: block; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9em; }
         .founder-card {
-            background: var(--gold-gradient);
-            border-color: #fff;
-            color: #2c0e0e;
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+            background: var(--gold-gradient); border-color: #fff; color: #2c0e0e;
+            transform: scale(1.1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); margin-bottom: 15px; margin-left: 10px;
         }
-        .founder-card .member-name { font-size: 1.1em; }
-        .founder-card .member-detail { color: #4a0d0d; font-weight: bold; }
-
-        .crown-icon {
-            color: #800000; display: block;
-            margin-bottom: 5px; font-size: 1.4rem;
-        }
-
-        /* Hover Effects */
+        .crown-icon { color: #800000; display: block; margin-bottom: 5px; font-size: 1.4rem; }
         .member-card:hover {
-            background: #fff;
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(179, 135, 40, 0.5);
-            z-index: 10;
+            background: #fff; transform: translateX(10px);
+            box-shadow: 0 10px 25px rgba(179, 135, 40, 0.6); z-index: 10; border-color: #aa8c2c;
         }
 
-        /* ----------------------------- */
-        /* ✨ फ़ुटर */
-        /* ----------------------------- */
-        footer { 
-            text-align: center; color: #b38728; 
-            padding: 20px 20px;
-            background-color: #000022; 
-            background-image: url('footerbg.png');
-            background-repeat: repeat; 
-            border-top: 4px solid #897148;
-        }
-        
-        .developer-info { 
-            margin-top: 0px; 
-            padding-top: 10px; 
-            border-top: none; 
-        }
-
-        .royal-name {
-            display: block; font-family: 'Cinzel', serif; font-size: 1.6em; font-weight: 900;
-            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin-bottom: 10px; letter-spacing: 1px; text-decoration: none;
-            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.8));
-        }
-        .fb-link {
-            color: #fff; text-decoration: none; font-size: 1.1em;
-            display: inline-flex; align-items: center; gap: 10px; margin-top: 5px;
-            padding: 5px 15px; border: 1px solid #b38728; border-radius: 20px;
-        }
-        .fb-link:hover { background: #b38728; color: #000; }
-
-        .footer-heading-moved {
-            font-family: 'Cinzel', serif; font-weight: 900; 
-            color: #fcf6ba; margin-bottom: 15px; font-size: 1.8em; letter-spacing: 2px;
-            text-transform: uppercase; text-shadow: 0 0 10px #bf953f;
-            display: block;
-        }
-
-        /* Mobile Adjustments */
-        @media (max-width: 600px) {
-            .hero-title { font-size: 2.2em; }
-            footer { padding: 5px 5px !important; }
-            .footer-heading-moved { font-size: 0.9em !important; margin-bottom: 2px; }
-            .developer-info { margin-top: 2px; padding-top: 0; }
-            .royal-name { font-size: 0.85em !important; margin-bottom: 2px; }
-            .fb-link { font-size: 0.75em !important; padding: 3px 10px; margin-top: 5px; }
-        }
+        /* Footer */
+        footer { text-align: center; color: #b38728; padding: 20px; background: #000022; border-top: 4px solid #897148; }
+        .royal-name { font-family: 'Cinzel', serif; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
     </style>
 </head>
 <body>
 
     <div id="preloader">
         <div class="sun-container">
-            <svg class="sun-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="sunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#ffff00;stop-opacity:1" />
-                        <stop offset="50%" style="stop-color:#ff9900;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#ff0000;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                <path fill="url(#sunGrad)" stroke="#b30000" stroke-width="0.5" d="M50 0 L55 15 L68 5 L65 20 L80 15 L72 28 L90 28 L78 40 L95 48 L80 55 L95 68 L78 72 L88 85 L70 80 L65 95 L55 82 L50 100 L45 82 L35 95 L30 80 L12 85 L22 72 L5 68 L20 55 L5 48 L22 40 L10 28 L28 28 L20 15 L35 20 L32 5 L45 15 Z" />
-            </svg>
-            <svg class="sun-face" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="42" fill="#ffcc00" stroke="#b30000" stroke-width="3" />
-                <path d="M50 15 L50 35" stroke="#b30000" stroke-width="4" stroke-linecap="round"/>
-                <circle cx="50" cy="40" r="3" fill="#b30000"/>
-                <path d="M25 65 Q50 60 75 65" stroke="#000" stroke-width="3" fill="none" />
-            </svg>
+            <svg class="sun-svg" viewBox="0 0 100 100"><path fill="orange" d="M50 0 L55 15 L68 5 L65 20 L80 15 L72 28 L90 28 L78 40 L95 48 L80 55 L95 68 L78 72 L88 85 L70 80 L65 95 L55 82 L50 100 L45 82 L35 95 L30 80 L12 85 L22 72 L5 68 L20 55 L5 48 L22 40 L10 28 L28 28 L20 15 L35 20 L32 5 L45 15 Z" /></svg>
+            <svg class="sun-face" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="#ffcc00"/></svg>
         </div>
         <div class="loading-text">VANSHAWALI</div>
-        <div class="sub-text">|| जय सूर्यदेव ||</div>
         <div class="progress-container"><div class="progress-bar"></div></div>
-    </div>
-
-    <div class="royal-frame">
-        <span></span> <span></span> <span></span> <span></span>
     </div>
 
     <nav class="navbar">
@@ -442,7 +189,7 @@
         </div>
         <div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMenu()">&#9776;</div>
         <ul class="navbar-links" id="nav-menu">
-            <li><a href="vanshawali.html" style="color: #fff; text-shadow: 0 0 8px #897148;">VANSHAWALI</a></li>
+            <li><a href="vanshawali.html">VANSHAWALI</a></li>
             <li><a href="history.html">HISTORY</a></li>
             <li><a href="about.html">ABOUT</a></li>
             <li><a href="contact.html">CONTACT</a></li>
@@ -452,9 +199,8 @@
     </nav>
 
     <header class="hero-section" id="hero-slider">
-        <div class="hero-welcome">Lineage of</div>
-        <h1 class="hero-title">Rathore</h1>
-        <div class="divider-ornament">⚜️ ⚜️ ⚜️</div>
+        <div style="font-family:'Great Vibes'; font-size:2em; color:#fcf6ba;">Lineage of</div>
+        <h1 class="hero-title">RATHORE</h1>
     </header>
 
     <main class="main-content">
@@ -464,494 +210,1040 @@
                   <div class="member-card founder-card">
                     <i class="fas fa-crown crown-icon"></i>
                     <span class="member-name">Th. Narayan Singh</span>
-                    <span class="member-detail" style="font-size:0.7em;">Founder (1827 AD)</span>
+                    <span class="member-detail">Founder</span>
                   </div>
                   <ul>
-                    <li>
-                      <div class="member-card">
-                        <span class="member-name">akhe</span>
-                      </div>
-                      <ul>
-                        <li>
-                          <div class="member-card">
-                            <span class="member-name">mangal</span>
-                          </div>
-                          <ul>
-                            <li>
-                              <div class="member-card">
-                                <span class="member-name">bakhtawar</span>
-                              </div>
-                              <ul>
-                                <li>
-                                  <div class="member-card">
-                                    <span class="member-name">raghunath</span>
-                                  </div>
-                                  <ul>
-                                    <li>
-                                      <div class="member-card">
-                                        <span class="member-name">roop</span>
-                                      </div>
-                                      <ul>
-                                        <li><div class="member-card"><span class="member-name">ridmal</span></div></li>
-                                      </ul>
-                                    </li>
-                                    <li><div class="member-card"><span class="member-name">gopinath</span></div></li>
-                                  </ul>
-                                </li>
-                                <li><div class="member-card"><span class="member-name">sonath</span></div></li>
-                              </ul>
-                            </li>
-                            <li>
-                              <div class="member-card">
-                                <span class="member-name">javhar</span>
-                              </div>
-                              <ul>
-                                <li><div class="member-card"><span class="member-name">sabal</span></div></li>
-                                <li><div class="member-card"><span class="member-name">balwant</span></div></li>
-                                <li><div class="member-card"><span class="member-name">sanwat</span></div></li>
-                                <li>
-                                  <div class="member-card"><span class="member-name">bhiv</span></div>
-                                  <ul>
-                                    <li>
-                                      <div class="member-card"><span class="member-name">lal</span></div>
-                                      <ul>
-                                        <li>
-                                          <div class="member-card"><span class="member-name">richhpal</span></div>
-                                          <ul>
-                                            <li>
-                                              <div class="member-card"><span class="member-name">bhawani</span></div>
-                                              <ul>
-                                                <li>
-                                                  <div class="member-card"><span class="member-name">devendra</span></div>
-                                                  <ul>
-                                                    <li><div class="member-card"><span class="member-name">daksh</span></div></li>
-                                                  </ul>
-                                                </li>
-                                                <li><div class="member-card"><span class="member-name">ajeet</span></div></li>
-                                              </ul>
-                                            </li>
-                                            <li>
-                                              <div class="member-card"><span class="member-name">ratan</span></div>
-                                              <ul>
-                                                <li><div class="member-card"><span class="member-name">vikrm</span></div></li>
-                                              </ul>
-                                            </li>
-                                            <li>
-                                              <div class="member-card"><span class="member-name">narpat</span></div>
-                                              <ul>
-                                                <li><div class="member-card"><span class="member-name">yogendra</span></div></li>
-                                                <li><div class="member-card"><span class="member-name">kuldeep</span></div></li>
-                                              </ul>
-                                            </li>
-                                            <li>
-                                              <div class="member-card"><span class="member-name">tej</span></div>
-                                              <ul>
-                                                <li><div class="member-card"><span class="member-name">jaydeep</span></div></li>
-                                              </ul>
-                                            </li>
-                                          </ul>
-                                        </li>
-                                        <li>
-                                          <div class="member-card"><span class="member-name">bhagirath</span></div>
-                                          <ul>
-                                            <li><div class="member-card"><span class="member-name">rajendra</span></div></li>
-                                            <li><div class="member-card"><span class="member-name">manohar</span></div></li>
-                                            <li><div class="member-card"><span class="member-name">aanand</span></div></li>
-                                            <li><div class="member-card"><span class="member-name">gajendra</span></div></li>
-                                          </ul>
-                                        </li>
-                                      </ul>
-                                    </li>
-                                    <li>
-                                      <div class="member-card"><span class="member-name">keshar</span></div>
-                                      <ul>
-                                        <li>
-                                          <div class="member-card"><span class="member-name">sopal</span></div>
-                                          <ul>
-                                            <li><div class="member-card"><span class="member-name">indra</span></div></li>
-                                            <li><div class="member-card"><span class="member-name">narendra</span></div></li>
-                                          </ul>
-                                        </li>
-                                        <li><div class="member-card"><span class="member-name">ugam</span></div></li>
-                                        <li>
-                                          <div class="member-card"><span class="member-name">baagh</span></div>
-                                          <ul>
-                                            <li><div class="member-card"><span class="member-name">laxman</span></div></li>
-                                            <li><div class="member-card"><span class="member-name">narpat</span></div></li>
-                                          </ul>
-                                        </li>
-                                        <li><div class="member-card"><span class="member-name">partap</span></div></li>
-                                      </ul>
-                                    </li>
-                                    <li><div class="member-card"><span class="member-name">banne</span></div></li>
-                                  </ul>
-                                </li>
-                              </ul>
-                            </li>
-                          </ul>
-                        </li>
-                        <li>
-                          <div class="member-card"><span class="member-name">bhairoon</span></div>
-                          <ul>
-                            <li><div class="member-card"><span class="member-name">laxman</span></div></li>
-                            <li>
-                              <div class="member-card"><span class="member-name">bhopal</span></div>
-                              <ul>
-                                <li>
-                                  <div class="member-card"><span class="member-name">aman</span></div>
-                                  <ul>
-                                    <li>
-                                      <div class="member-card"><span class="member-name">hari</span></div>
-                                      <ul>
-                                        <li><div class="member-card"><span class="member-name">bhanwar</span></div></li>
-                                        <li><div class="member-card"><span class="member-name">bhagirath</span></div></li>
-                                      </ul>
-                                    </li>
-                                    <li>
-                                      <div class="member-card"><span class="member-name">sujan</span></div>
-                                      <ul>
-                                        <li>
-                                          <div class="member-card"><span class="member-name">nawal</span></div>
-                                          <ul>
-                                            <li><div class="member-card"><span class="member-name">ranveer</span></div></li>
-                                            <li>
-                                              <div class="member-card"><span class="member-name">sumer</span></div>
-                                              <ul>
-                                                <li>
-                                                  <div class="member-card"><span class="member-name">sudhir</span></div>
-                                                  <ul>
-                                                    <li><div class="member-card"><span class="member-name">anirudh</span></div></li>
-                                                  </ul>
-                                                </li>
-                                                <li><div class="member-card"><span class="member-name">himmat</span></div></li>
-                                                <li><div class="member-card"><span class="member-name">kishan</span></div></li>
-                                              </ul>
-                                            </li>
-                                            <li>
-                                              <div class="member-card"><span class="member-name">girdhari</span></div>
-                                              <ul>
-                                                <li><div class="member-card"><span class="member-name">aaditya</span></div></li>
-                                              </ul>
-                                            </li>
-                                          </ul>
-                                        </li>
-                                      </ul>
-                                    </li>
-                                    <li><div class="member-card"><span class="member-name">khuman</span></div></li>
-                                    <li><div class="member-card"><span class="member-name">banne</span></div></li>
-                                    <li><div class="member-card"><span class="member-name">ugam</span></div></li>
-                                    <li><div class="member-card"><span class="member-name">kaan</span></div></li>
-                                    <li>
-                                      <div class="member-card"><span class="member-name">sanwant</span></div>
-                                      <ul>
-                                        <li>
-                                          <div class="member-card"><span class="member-name">mahaveer</span></div>
-                                          <ul>
-                                            <li><div class="member-card"><span class="member-name">nitendra</span></div></li>
-                                            <li><div class="member-card"><span class="member-name">hem</span></div></li>
-                                          </ul>
-                                        </li>
-                                      </ul>
-                                    </li>
-                                    <li>
-                                      <div class="member-card"><span class="member-name">achal</span></div>
-                                      <ul>
-                                        <li><div class="member-card"><span class="member-name">ram</span></div></li>
-                                        <li><div class="member-card"><span class="member-name">moti</span></div></li>
-                                      </ul>
-                                    </li>
-                                  </ul>
-                                </li>
-                                <li><div class="member-card"><span class="member-name">balwant</span></div></li>
-                                <li><div class="member-card"><span class="member-name">bakshiram</span></div></li>
-                                <li>
-                                  <div class="member-card"><span class="member-name">chatter</span></div>
-                                  <ul>
-                                    <li>
-                                      <div class="member-card"><span class="member-name">ganesh</span></div>
-                                      <ul>
-                                        <li>
-                                          <div class="member-card"><span class="member-name">bhanwar</span></div>
-                                          <ul>
-                                            <li><div class="member-card"><span class="member-name">gajendra</span></div></li>
-                                          </ul>
-                                        </li>
-                                        <li>
-                                          <div class="member-card"><span class="member-name">mohan</span></div>
-                                          <ul>
-                                            <li>
-                                              <div class="member-card"><span class="member-name">bajrang</span></div>
-                                              <ul>
-                                                <li><div class="member-card"><span class="member-name">rudrapartap</span></div></li>
-                                              </ul>
-                                            </li>
-                                          </ul>
-                                        </li>
-                                        <li>
-                                          <div class="member-card"><span class="member-name">dungar</span></div>
-                                          <ul>
-                                            <li><div class="member-card"><span class="member-name">ajeet</span></div></li>
-                                          </ul>
-                                        </li>
-                                      </ul>
-                                    </li>
-                                    <li>
-                                      <div class="member-card"><span class="member-name">tool</span></div>
-                                      <ul>
-                                        <li>
-                                          <div class="member-card"><span class="member-name">rawant</span></div>
-                                          <ul>
-                                            <li>
-                                              <div class="member-card"><span class="member-name">govind</span></div>
-                                              <ul>
-                                                <li><div class="member-card"><span class="member-name">harshvardhan</span></div></li>
-                                                <li><div class="member-card"><span class="member-name">yashvardhan</span></div></li>
-                                              </ul>
-                                            </li>
-                                            <li>
-                                              <div class="member-card"><span class="member-name">mahendra</span></div>
-                                              <ul>
-                                                <li><div class="member-card"><span class="member-name">suryavardhan</span></div></li>
-                                              </ul>
-                                            </li>
-                                          </ul>
-                                        </li>
-                                      </ul>
-                                    </li>
-                                    <li>
-                                      <div class="member-card"><span class="member-name">kishore</span></div>
-                                      <ul>
-                                        <li>
-                                          <div class="member-card"><span class="member-name">karan</span></div>
-                                          <ul>
-                                            <li><div class="member-card"><span class="member-name">jitendra</span></div></li>
-                                          </ul>
-                                        </li>
-                                        <li>
-                                          <div class="member-card"><span class="member-name">rajveer</span></div>
-                                          <ul>
-                                            <li><div class="member-card"><span class="member-name">aryan</span></div></li>
-                                          </ul>
-                                        </li>
-                                      </ul>
-                                    </li>
-                                  </ul>
-                                </li>
-                              </ul>
-                            </li>
-                          </ul>
-                        </li>
-                        <li>
-                          <div class="member-card"><span class="member-name">ranjeet</span></div>
-                          <ul>
-                            <li>
-                              <div class="member-card"><span class="member-name">bachan</span></div>
-                              <ul>
-                                <li>
-                                  <div class="member-card"><span class="member-name">ganga</span></div>
-                                  <ul>
-                                    <li><div class="member-card"><span class="member-name">sardar</span></div></li>
-                                    <li><div class="member-card"><span class="member-name">selab</span></div></li>
-                                    <li>
-                                      <div class="member-card"><span class="member-name">bhoor</span></div>
-                                      <ul>
-                                        <li>
-                                          <div class="member-card"><span class="member-name">dukal</span></div>
-                                          <ul>
-                                            <li><div class="member-card"><span class="member-name">madan</span></div></li>
-                                            <li><div class="member-card"><span class="member-name">chhagan</span></div></li>
-                                            <li>
-                                              <div class="member-card"><span class="member-name">bhagirath</span></div>
-                                              <ul>
-                                                <li>
-                                                  <div class="member-card"><span class="member-name">norang</span></div>
-                                                  <ul>
-                                                    <li><div class="member-card"><span class="member-name">govind</span></div></li>
-                                                    <li><div class="member-card"><span class="member-name">manvendra</span></div></li>
-                                                  </ul>
-                                                </li>
-                                              </ul>
-                                            </li>
-                                            <li><div class="member-card"><span class="member-name">laxman</span></div></li>
-                                            <li><div class="member-card"><span class="member-name">manohar</span></div></li>
-                                            <li><div class="member-card"><span class="member-name">bhanwar</span></div></li>
-                                          </ul>
-                                        </li>
-                                        <li><div class="member-card"><span class="member-name">hukam</span></div></li>
-                                        <li><div class="member-card"><span class="member-name">magh</span></div></li>
-                                      </ul>
-                                    </li>
-                                    <li><div class="member-card"><span class="member-name">ajeet</span></div></li>
-                                    <li><div class="member-card"><span class="member-name">sarup</span></div></li>
-                                  </ul>
-                                </li>
-                              </ul>
-                            </li>
-                            <li>
-                              <div class="member-card"><span class="member-name">om</span></div>
-                              <ul>
-                                <li><div class="member-card"><span class="member-name">ganga</span></div></li>
-                                <li><div class="member-card"><span class="member-name">dhan</span></div></li>
-                                <li>
-                                  <div class="member-card"><span class="member-name">sujan</span></div>
-                                  <ul>
-                                    <li><div class="member-card"><span class="member-name">rawat</span></div></li>
-                                    <li><div class="member-card"><span class="member-name">dheer</span></div></li>
-                                    <li>
-                                      <div class="member-card"><span class="member-name">fool</span></div>
-                                      <ul>
-                                        <li>
-                                          <div class="member-card"><span class="member-name">raghuveer</span></div>
-                                          <ul>
-                                            <li><div class="member-card"><span class="member-name">mahipal</span></div></li>
-                                            <li><div class="member-card"><span class="member-name">sarwan</span></div></li>
-                                            <li><div class="member-card"><span class="member-name">hari</span></div></li>
-                                          </ul>
-                                        </li>
-                                      </ul>
-                                    </li>
-                                  </ul>
-                                </li>
-                              </ul>
-                            </li>
-                          </ul>
-                        </li>
-                        <li><div class="member-card"><span class="member-name">sangram</span></div></li>
-                        <li>
-                          <div class="member-card"><span class="member-name">surat</span></div>
-                          <ul>
-                            <li>
-                              <div class="member-card"><span class="member-name">hanwat</span></div>
-                              <ul>
-                                <li>
-                                  <div class="member-card"><span class="member-name">jagat</span></div>
-                                  <ul>
-                                    <li>
-                                      <div class="member-card"><span class="member-name">baldev</span></div>
-                                      <ul>
-                                        <li><div class="member-card"><span class="member-name">sadul</span></div></li>
-                                        <li>
-                                          <div class="member-card"><span class="member-name">guman</span></div>
-                                          <ul>
-                                            <li><div class="member-card"><span class="member-name">mool</span></div></li>
-                                            <li><div class="member-card"><span class="member-name">dool</span></div></li>
-                                          </ul>
-                                        </li>
-                                        <li><div class="member-card"><span class="member-name">devi</span></div></li>
-                                      </ul>
-                                    </li>
-                                    <li><div class="member-card"><span class="member-name">kushal</span></div></li>
-                                    <li>
-                                      <div class="member-card"><span class="member-name">gangabaks</span></div>
-                                      <ul>
-                                        <li>
-                                          <div class="member-card"><span class="member-name">daal</span></div>
-                                          <ul>
-                                            <li>
-                                              <div class="member-card"><span class="member-name">fathe</span></div>
-                                              <ul>
-                                                <li>
-                                                  <div class="member-card"><span class="member-name">bhanwar</span></div>
-                                                  <ul>
-                                                    <li><div class="member-card"><span class="member-name">yashpal</span></div></li>
-                                                    <li><div class="member-card"><span class="member-name">shakti</span></div></li>
-                                                  </ul>
-                                                </li>
-                                                <li>
-                                                  <div class="member-card"><span class="member-name">mahendra</span></div>
-                                                  <ul>
-                                                    <li><div class="member-card"><span class="member-name">vijaypal</span></div></li>
-                                                    <li><div class="member-card"><span class="member-name">ajaypal</span></div></li>
-                                                  </ul>
-                                                </li>
-                                                <li>
-                                                  <div class="member-card"><span class="member-name">girwar</span></div>
-                                                  <ul>
-                                                    <li><div class="member-card"><span class="member-name">narendra</span></div></li>
-                                                    <li><div class="member-card"><span class="member-name">gopal</span></div></li>
-                                                  </ul>
-                                                </li>
-                                                <li>
-                                                  <div class="member-card"><span class="member-name">bhawani</span></div>
-                                                  <ul>
-                                                    <li><div class="member-card"><span class="member-name">shivraj</span></div></li>
-                                                    <li><div class="member-card"><span class="member-name">jivraj</span></div></li>
-                                                  </ul>
-                                                </li>
-                                              </ul>
-                                            </li>
-                                            <li>
-                                              <div class="member-card"><span class="member-name">nathu</span></div>
-                                              <ul>
-                                                <li><div class="member-card"><span class="member-name">bhagwan</span></div></li>
-                                                <li><div class="member-card"><span class="member-name">bajrang</span></div></li>
-                                                <li><div class="member-card"><span class="member-name">prithvi</span></div></li>
-                                                <li><div class="member-card"><span class="member-name">vikram</span></div></li>
-                                              </ul>
-                                            </li>
-                                          </ul>
-                                        </li>
-                                        <li><div class="member-card"><span class="member-name">ganpat</span></div></li>
-                                        <li><div class="member-card"><span class="member-name">sodan</span></div></li>
-                                      </ul>
-                                    </li>
-                                  </ul>
-                                </li>
-                                <li>
-                                  <div class="member-card"><span class="member-name">hamir</span></div>
-                                  <ul>
-                                    <li>
-                                      <div class="member-card"><span class="member-name">pem</span></div>
-                                      <ul>
-                                        <li>
-                                          <div class="member-card"><span class="member-name">govind</span></div>
-                                          <ul>
-                                            <li>
-                                              <div class="member-card"><span class="member-name">jagmal</span></div>
-                                              <ul>
-                                                <li><div class="member-card"><span class="member-name">mangu</span></div></li>
-                                                <li><div class="member-card"><span class="member-name">partap</span></div></li>
-                                              </ul>
-                                            </li>
-                                            <li>
-                                              <div class="member-card"><span class="member-name">sopal</span></div>
-                                              <ul>
-                                                <li><div class="member-card"><span class="member-name">raghuveer</span></div></li>
-                                                <li><div class="member-card"><span class="member-name">bhagwan</span></div></li>
-                                              </ul>
-                                            </li>
-                                            <li>
-                                              <div class="member-card"><span class="member-name">ugam</span></div>
-                                              <ul>
-                                                <li><div class="member-card"><span class="member-name">manmohan</span></div></li>
-                                                <li><div class="member-card"><span class="member-name">maan</span></div></li>
-                                                <li><div class="member-card"><span class="member-name">kaan</span></div></li>
-                                              </ul>
-                                            </li>
-                                          </ul>
-                                        </li>
-                                        <li>
-                                          <div class="member-card"><span class="member-name">jet</span></div>
-                                          <ul>
-                                            <li><div class="member-card"><span class="member-name">sawai</span></div></li>
-                                            <li><div class="member-card"><span class="member-name">ranveer</span></div></li>
-                                          </ul>
-                                        </li>
-                                      </ul>
-                                    </li>
-                                  </ul>
-                                </li>
-                                <li><div class="member-card"><span class="member-name">mehtab</span></div></li>
-                                <li><div class="member-card"><span class="member-name">saal</span></div></li>
-                                <li><div class="member-card"><span class="member-name">onad</span></div></li>
-                              </ul>
-                            </li>
-                            <li><div class="member-card"><span class="member-name">bhag</span></div></li>
-                          </ul>
-                        </li>
-                        <li><div class="member-card"><span class="member-name">sardar</span></div></li>
-                      </ul>
-                    </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Akhe Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Mangal Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Bakhtawar Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Raghunath Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Roop Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Ridmal Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Gopinath Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Sonath Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Javhar Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Sabal Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Balwant Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Sanwat Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Bhiv Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Lal Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Richhpal Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Bhawani Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Devendra Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Daksh Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Ajeet Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Ratan Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Vikrm Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Narpat Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Yogendra Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Kuldeep Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Tej Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Jaydeep Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Bhagirath Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Rajendra Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Manohar Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Aanand Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Gajendra Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Keshar Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Sopal Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Indra Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Narendra Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Ugam Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Baagh Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Laxman Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Narpat Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Partap Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Banne Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Bhairoon Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Laxman Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Bhopal Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Aman Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Hari Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Bhanwar Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Bhagirath Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Sujan Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Nawal Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Ranveer Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Sumer Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Sudhir Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Anirudh Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Himmat Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Kishan Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Girdhari Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Aaditya Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Khuman Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Banne Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Ugam Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Kaan Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Sanwant Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Mahaveer Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Nitendra Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Hem Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Achal Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Ram Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Moti Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Balwant Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Bakshiram Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Chatter Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Ganesh Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Bhanwar Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Gajendra Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Mohan Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Bajrang Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Rudrapartap Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Dungar Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Ajeet Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Tool Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Rawant Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Govind Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Harshvardhan Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Yashvardhan Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Mahendra Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Suryavardhan Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Kishore Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Karan Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Jitendra Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Rajveer Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Aryan Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Ranjeet Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Bachan Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Ganga Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Sardar Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Selab Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Bhoor Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Dukal Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Madan Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Chhagan Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Bhagirath Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Norang Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Govind Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Manvendra Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Laxman Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Manohar Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Bhanwar Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Hukam Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Magh Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Ajeet Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Sarup Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Om Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Ganga Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Dhan Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Sujan Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Rawat Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Dheer Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Fool Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Raghuveer Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Mahipal Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Sarwan Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Hari Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Sangram Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Surat Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Hanwat Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Jagat Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Baldev Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Sadul Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Guman Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Mool Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Dool Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Devi Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Kushal Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Gangabaks Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Daal Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Fathe Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Bhanwar Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Yashpal Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Shakti Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Mahendra Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Vijaypal Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Ajaypal Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Girwar Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Narendra Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Gopal Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Bhawani Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Shivraj Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Jivraj Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Nathu Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Bhagwan Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Bajrang Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Prithvi Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Vikram Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Ganpat Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Sodan Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Hamir Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Pem Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Govind Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Jagmal Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Mangu Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Partap Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Sopal Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Raghuveer Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Bhagwan Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Ugam Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Manmohan Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Maan Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Kaan Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Jet Singh</span>
+                  </div>
+                  <ul>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Sawai Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Ranveer Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Mehtab Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Saal Singh</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Onad Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Bhag Singh</span>
+                  </div>
+                </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="member-card">
+                    <span class="member-name">Sardar Singh</span>
+                  </div>
+                </li>
                   </ul>
                 </li>
             </ul>
@@ -961,16 +1253,9 @@
     <footer>
         <div class="developer-info">
             <div class="footer-heading-moved">FORT KASUMBI</div>
-            <div style="font-size: 0.9em; color: #888; margin-bottom: 5px;">Developed & Designed By:</div>
-            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="royal-name">
-                Yuvraj Gajraj Singh
-            </a>
-            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="fb-link">
-                <i class="fab fa-facebook"></i> Connect on Facebook
-            </a>
-            <div style="font-size: 0.8em; margin-top: 15px; color: #666;">
-                &copy; 2025 | All Rights Reserved.
-            </div>
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="royal-name">Yuvraj Gajraj Singh</a>
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="fb-link"><i class="fab fa-facebook"></i> Connect on Facebook</a>
+            <div style="font-size: 0.8em; margin-top: 15px; color: #666;">&copy; 2025 | All Rights Reserved.</div>
         </div>
     </footer>
 
@@ -978,25 +1263,27 @@
         // PAGE LOADER
         window.addEventListener("load", function() {
             const loader = document.getElementById("preloader");
-            setTimeout(() => {
-                loader.style.opacity = "0";
-                setTimeout(() => { loader.style.display = "none"; }, 800);
-            }, 3000); 
+            setTimeout(() => { loader.style.opacity = "0"; setTimeout(() => { loader.style.display = "none"; }, 800); }, 3000); 
         });
 
-        // MENU LOGIC
+        // MENU LOGIC (Fixed)
         function toggleMenu() {
             const menu = document.getElementById("nav-menu");
             const btn = document.getElementById("mobile-menu-btn");
             menu.classList.toggle("active");
             if (menu.classList.contains("active")) {
-                btn.innerHTML = "&times;";
-                btn.style.fontSize = "30px";
+                btn.innerHTML = "&times;"; btn.style.fontSize = "30px";
             } else {
-                btn.innerHTML = "&#9776;";
-                btn.style.fontSize = "25px";
+                btn.innerHTML = "&#9776;"; btn.style.fontSize = "25px";
             }
         }
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById("nav-menu");
+            const btn = document.getElementById("mobile-menu-btn");
+            if (menu.classList.contains("active") && !btn.contains(event.target)) {
+                 toggleMenu();
+            }
+        });
 
         // SLIDER
         const images = ['1.png', '2.jpg', '4.jpg', '3.jpg'];
@@ -1004,12 +1291,10 @@
         let currentIndex = 0;
         const heroSection = document.getElementById('hero-slider');
         function changeBackgroundImage() {
-            currentIndex++;
-            if (currentIndex >= images.length) currentIndex = 0;
+            currentIndex++; if (currentIndex >= images.length) currentIndex = 0;
             heroSection.style.backgroundImage = `linear-gradient(rgba(0, 0, 51, 0.7), rgba(0, 0, 51, 0.9)), url('${images[currentIndex]}')`;
         }
         setInterval(changeBackgroundImage, 3000);
     </script>
-
 </body>
 </html>
