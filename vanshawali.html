@@ -248,7 +248,77 @@
     .tree ul ul::before {
         left: 50% !important; /* Line ko center mein rakhe */
     }
-}    </style>
+}   /* ------------------------------------------------ */
+/* ✨ MOBILE VIEW: जैसा आपने फोटो में भेजा (Dhingasara Style) */
+/* ------------------------------------------------ */
+
+@media screen and (max-width: 768px) {
+
+    /* 1. बड़ी फोटो (Hero Section) को छुपा दें ताकि वंशावली तुरंत दिखे */
+    .hero-section {
+        display: none !important;
+    }
+
+    /* 2. वंशावली के बाहरी बॉक्स का बैकग्राउंड और बॉर्डर हटा दें (ताकि प्लेन दिखे) */
+    .royal-scroll-box {
+        background: transparent !important;
+        background-image: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin-top: 10px !important;
+    }
+
+    /* 3. "Royal Genealogy" वाले टाइटल को थोड़ा छोटा और ऊपर करें */
+    .scroll-header {
+        margin-bottom: 20px !important;
+    }
+    .scroll-header div {
+        font-size: 1.2em !important; /* टेक्स्ट छोटा किया */
+    }
+
+    /* 4. [सबसे ज़रूरी] कार्ड्स (Boxes) को हटाकर सिंपल टेक्स्ट जैसा बनाएं */
+    .member-card {
+        background: transparent !important; /* बैकग्राउंड हटाया */
+        border: none !important;          /* बॉर्डर हटाई */
+        box-shadow: none !important;      /* परछाई हटाई */
+        padding: 2px 5px !important;      /* स्पेस कम किया */
+        
+        color: #5c3a21 !important;        /* गहरा भूरा रंग (फोटो जैसा) */
+        font-family: 'Cinzel', serif !important;
+        font-weight: 700 !important;
+        font-size: 14px !important;       /* मोबाइल के लिए सही साइज़ */
+        text-align: left !important;      /* लेफ्ट अलाइन */
+        
+        /* अगर टेक्स्ट के नीचे गोल्ड लाइन चाहिए तो इसे रखें, वरना हटा दें */
+        border-bottom: 1px solid rgba(139, 69, 19, 0.2) !important; 
+        width: auto !important;
+        display: inline-block;
+    }
+
+    /* 5. मुख्य नाम (Founder) को थोड़ा अलग दिखाएं */
+    .founder-card {
+        color: #800000 !important; /* मरून रंग */
+        font-size: 16px !important;
+        border-bottom: 2px solid #800000 !important;
+    }
+
+    /* 6. कनेक्टिंग लाइनों को टेक्स्ट के पास लाएं */
+    .vertical-tree li::after {
+        width: 10px !important; /* लाइन छोटी की */
+        left: -20px !important;
+    }
+    
+    .vertical-tree ul {
+        padding-left: 20px !important; /* ट्री को स्क्रीन के पास लाएं */
+    }
+
+    /* 7. ट्री को लेफ्ट साइड में शिफ्ट करें (सेंटर की जगह) */
+    .tree-wrapper {
+        text-align: left !important;
+        padding-left: 10px !important;
+    }
+} </style>
 </head>
 <body>
 
