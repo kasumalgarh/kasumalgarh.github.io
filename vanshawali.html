@@ -318,6 +318,76 @@
         text-align: left !important;
         padding-left: 10px !important;
     }
+}/* ------------------------------------------------ */
+/* ✨ MOBILE VIEW FIX: Cream Paper Look */
+/* ------------------------------------------------ */
+
+@media screen and (max-width: 768px) {
+
+    /* 1. पूरी स्क्रीन का बैकग्राउंड क्रीम/सफ़ेद करें (नीला हटाएं) */
+    body {
+        background-color: #fffbf0 !important; /* क्रीम कलर */
+        background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png') !important; /* पेपर टेक्सचर */
+    }
+
+    /* 2. नीली थीम वाली परत (Overlay) हटाएं */
+    body::before {
+        display: none !important;
+    }
+
+    /* 3. हीरो सेक्शन (बड़ी फोटो) हटाएं */
+    .hero-section {
+        display: none !important;
+    }
+
+    /* 4. वंशावली कंटेनर को साफ़ करें */
+    .royal-scroll-box {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 10px !important;
+        margin-top: 0 !important;
+    }
+
+    /* 5. टेक्स्ट का रंग गहरा भूरा (Dark Brown) करें ताकि साफ़ दिखे */
+    .member-name {
+        color: #5c3a21 !important; /* गहरा भूरा */
+        font-weight: 900 !important;
+        font-size: 13px !important;
+    }
+
+    /* 6. Founder (नारायण सिंह जी) का नाम मरून रंग में */
+    .founder-card .member-name {
+        color: #800000 !important;
+        font-size: 15px !important;
+        border-bottom: 2px solid #800000 !important;
+        display: inline-block;
+        margin-bottom: 5px;
+    }
+    
+    .founder-card {
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+    }
+
+    /* 7. टाइटल (Header) को भी साफ़ दिखाएं */
+    .scroll-header div {
+        color: #800000 !important; /* मरून */
+        text-shadow: none !important;
+    }
+
+    /* 8. लाइनों का रंग गहरा गोल्ड/ऑरेंज करें */
+    .vertical-tree li::before, 
+    .vertical-tree li::after {
+        background-color: #d4af37 !important; /* गहरा गोल्ड */
+        box-shadow: none !important;
+        width: 2px !important; /* लाइन थोड़ी पतली और साफ़ */
+    }
+    
+    .vertical-tree li::after {
+        height: 2px !important;
+    }
 } </style>
 </head>
 <body>
