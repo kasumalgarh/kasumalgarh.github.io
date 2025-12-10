@@ -82,12 +82,14 @@
         }
 
         /* आइटम्स की सेटिंग */
-        .vertical-tree li {
-            margin-top: 0; /* गैप हटाया */
-            padding-top: 20px; /* कार्ड्स के बीच की दूरी */
-            position: relative;
-            line-height: 1.2;
-        }
+        /* इसे भी ढूँढें और अपडेट करें */
+.vertical-tree li {
+    padding-top: 5px !important; /* पहले 20px था, इसे 5px करें ताकि नाम पास-पास आएं */
+    /* बाकी सब वैसा ही रहने दें */
+    margin-top: 0;
+    position: relative;
+    line-height: 1.2;
+}
 
         /* 1. खड़ी लाइन (Vertical Line) - हर आइटम के लिए */
         .vertical-tree li::before {
