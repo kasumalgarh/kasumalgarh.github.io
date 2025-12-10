@@ -14,7 +14,7 @@
             --paper-bg: #fffbf0;        
             --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             --maroon-text: #800000;
-            --bright-gold-line: #FFD700; /* ज्यादा चमकदार गोल्ड */
+            --bright-gold-line: #FFD700; /* ठोस गोल्ड रंग */
         }
 
         html { background-color: var(--royal-bg); min-height: 100%; }
@@ -86,88 +86,105 @@
             filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.8));
         }
 
-        /* ----- FIXED VERTICAL TREE CSS (SOLID LINES) ----- */
-        .main-content { padding: 40px 20px; display: flex; justify-content: center; }
-        .tree-container { text-align: left; display: inline-block; padding: 10px; }
+        /* ----- IMPROVED VERTICAL TREE CSS ----- */
+        /* FIX 1: Allow Horizontal Scrolling properly */
+        .main-content { 
+            padding: 20px; 
+            overflow-x: auto; /* Enable scroll */
+            white-space: nowrap; /* Prevent wrapping causing layout issues */
+            text-align: left; /* Start from left to prevent cutting off */
+        }
+        
+        .tree-container { 
+            display: inline-block; 
+            padding: 10px;
+            min-width: 100%; /* Ensure container takes full width */
+        }
 
         /* Reset styles */
         .tree-container ul, .tree-container li { padding: 0; margin: 0; list-style: none; position: relative; }
         
-        /* Indentation (कम किया ताकि मोबाइल में ज्यादा राइट न भागे) */
-        .tree-container ul { padding-left: 30px; } 
+        /* Indentation */
+        .tree-container ul { padding-left: 20px; } /* Slightly reduced padding for mobile */
         .tree-container > ul { padding-left: 0; }
 
         .tree-container li { 
-            padding-left: 20px; /* Space for the horizontal connector */
-            margin-top: 10px;
+            padding-left: 25px; 
+            margin-top: 15px;
             position: relative;
         }
 
-        /* 1. VERTICAL LINE (खड़ी लाइन) */
+        /* FIX 2: THICK SOLID LINES (Not Borders) */
+        
+        /* Vertical Line */
         .tree-container li::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 3px; /* Thick Line */
-            height: 100%;
-            background-color: var(--bright-gold-line); /* Solid Color, no border */
+            width: 3px; /* Thick solid line */
+            height: 100%; /* Full height connection */
+            background-color: var(--bright-gold-line); 
         }
 
-        /* 2. HORIZONTAL LINE (आड़ी लाइन) */
+        /* Horizontal Line connecting to card */
         .tree-container li::after {
             content: '';
             position: absolute;
-            top: 25px; /* Center of the card roughly */
+            top: 30px; /* Align with card center approximately */
             left: 0;
-            width: 20px; /* Connector length */
-            height: 3px; /* Thick Line */
-            background-color: var(--bright-gold-line); /* Solid Color */
+            width: 25px; /* Length to reach card */
+            height: 3px; /* Thick solid line */
+            background-color: var(--bright-gold-line);
         }
 
-        /* FIX: Last child vertical line should stop halfway */
+        /* Special handling for the last child to stop the vertical line */
         .tree-container li:last-child::before {
-            height: 28px; /* Stop at the connector */
+            height: 33px; /* Stops right at the horizontal connector */
         }
 
-        /* Remove lines for the very first Root Element (Narayan Singh) */
+        /* Hide lines for the very first root element */
         .tree-container > ul > li::before,
         .tree-container > ul > li::after {
             display: none;
         }
-        .tree-container > ul > li { padding-left: 0; }
+        .tree-container > ul > li { padding-left: 0; margin-top: 0; }
 
-        /* ----------------------------------------------- */
 
         /* CARDS */
         .member-card {
             border: 3px solid #b38728; 
             background-color: var(--paper-bg); 
-            padding: 10px 15px; 
+            padding: 12px 18px; 
             text-decoration: none; 
             color: var(--maroon-text);
             display: inline-block; 
             border-radius: 8px; 
             transition: all 0.4s; 
-            min-width: 140px;
+            min-width: 160px; /* Consistent width */
             box-shadow: 0 5px 15px rgba(0,0,0,0.3); 
             font-family: 'Cinzel', serif; 
             position: relative;
             z-index: 5; 
+            white-space: normal; /* Allow text inside card to wrap normally */
+            vertical-align: top;
         }
         .member-name { display: block; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9em; }
+        
         .founder-card {
             background: var(--gold-gradient); border-color: #fff; color: #2c0e0e;
-            transform: scale(1.1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); margin-bottom: 15px; margin-left: 10px;
+            transform: scale(1.1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); 
+            margin-bottom: 20px; margin-left: 5px;
         }
         .crown-icon { color: #800000; display: block; margin-bottom: 5px; font-size: 1.4rem; }
+        
         .member-card:hover {
             background: #fff; transform: translateX(10px);
             box-shadow: 0 10px 25px rgba(179, 135, 40, 0.6); z-index: 10; border-color: #aa8c2c;
         }
 
         /* Footer */
-        footer { text-align: center; color: #b38728; padding: 20px; background: #000022; border-top: 4px solid #897148; }
+        footer { text-align: center; color: #b38728; padding: 20px; background: #000022; border-top: 4px solid #897148; white-space: normal; }
         .royal-name { font-family: 'Cinzel', serif; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
     </style>
 </head>
@@ -1266,7 +1283,7 @@
             setTimeout(() => { loader.style.opacity = "0"; setTimeout(() => { loader.style.display = "none"; }, 800); }, 3000); 
         });
 
-        // MENU LOGIC (Fixed)
+        // MENU LOGIC
         function toggleMenu() {
             const menu = document.getElementById("nav-menu");
             const btn = document.getElementById("mobile-menu-btn");
