@@ -229,9 +229,24 @@
 
 /* कार्ड्स को साफ़ दिखाएं */
 .member-card {
-    background: #fff !important;
-    border: 2px solid #800000 !important;
-    color: #2c0e0e !important;
+    display: inline-block;
+    background: #fff;  /* बैकग्राउंड सफ़ेद */
+    border: 1px solid #800000; /* बॉर्डर को 3px से 1px (पतला) किया */
+    
+    /* --- क्रीम थीम वाली साइज के लिए यह सबसे जरुरी है --- */
+    padding: 2px 6px !important;   /* पहले 12px 20px था, इसे बहुत कम किया */
+    font-size: 11px !important;    /* पहले 0.95em था, इसे 11px किया */
+    line-height: 1.2 !important;   /* लाइनों के बीच गैप कम किया */
+    
+    border-radius: 4px; /* गोलाई थोड़ी कम की */
+    color: #800000;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    box-shadow: none; /* भारी परछाई हटाई ताकि क्लीन दिखे */
+    white-space: nowrap;
+    position: relative;
+    z-index: 2;
 }
 /* Mobile View Adjustment */
 @media screen and (max-width: 768px) {
