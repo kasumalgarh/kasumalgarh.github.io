@@ -1,364 +1,168 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vanshawali - KASUMALGARH</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vanshawali - KASUMALGARH</title>
+<style>
+    /* -------------------------------------------------- */
+    /* 🌳 CSS Tree Styling (कोडिंग से बनी लाइनें) */
+    /* -------------------------------------------------- */
+    body {
+        font-family: 'Georgia', serif;
+        background-color: #fcf6ba; /* हल्का पीला शाही रंग */
+        color: #333;
+        padding: 40px;
+    }
 
-    <style>
-        /* ----------------------------- */
-        /* ✨ शाही वेरियबल्स */
-        /* ----------------------------- */
-        :root {
-            --scroll-bg: #e3dac9;
-            --tree-line-color: #8B4513; 
-            --royal-bg: #000033;        
-            --paper-bg: #fffbf0;        
-            --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
-            --maroon-text: #800000;
-            --bright-gold-line: #FFD700; 
-            --line-shadow: 0px 0px 4px rgba(0,0,0,0.8); 
-        }
+    h1 {
+        text-align: center;
+        color: #800000;
+        border-bottom: 2px solid #800000;
+        padding-bottom: 10px;
+        text-transform: uppercase;
+    }
 
-        html { background-color: var(--royal-bg); min-height: 100%; }
-        
-        body { 
-            margin: 0; 
-            background-color: transparent; 
-            color: #333;
-            font-family: 'Playfair Display', serif;
-            overflow-x: hidden;
-            position: relative;
-        }
+    /* पेड़ की जड़ (Main Container) */
+    .tree, .tree ul {
+        list-style-type: none; /* बुलेट पॉइंट्स हटाएँ */
+        margin: 0;
+        padding: 0;
+    }
 
-        body::before {
-            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('https://www.transparenttextures.com/patterns/black-scales.png');
-            filter: invert(1); opacity: 0.4; pointer-events: none; z-index: -1; 
-        }
+    .tree ul {
+        padding-left: 20px; /* बच्चों को थोड़ा आगे खिसकाएं */
+    }
 
-        /* ----------------------------- */
-        /* 🌳 VERTICAL TREE CSS (DESKTOP/ROYAL STYLE) */
-        /* ----------------------------- */
-        .tree-wrapper {
-            max-width: 100%; overflow-x: auto; padding: 40px 10px; text-align: center; 
-        }
+    .tree li {
+        margin: 0;
+        padding: 0 12px;
+        line-height: 25px; /* लाइनों के बीच की दूरी */
+        position: relative;
+        font-weight: bold;
+        color: #2c0e0e;
+    }
 
-        .vertical-tree {
-            display: inline-block; min-width: 300px; padding-right: 20px; text-align: left; 
-        }
+    /* ─── खड़ी लाइन (Vertical Line) ─── */
+    .tree li::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-left: 2px solid #800000; /* लाइन का रंग और मोटाई */
+        height: 100%;
+        width: 1px;
+    }
 
-        .vertical-tree ul { padding-left: 40px; list-style: none; position: relative; }
-        .vertical-tree li { margin-top: 0; padding-top: 20px; position: relative; line-height: 1.2; }
+    /* ─── आड़ी लाइन (Horizontal Line) ─── */
+    .tree li::after {
+        content: "";
+        position: absolute;
+        top: 12px; /* लाइन को टेक्स्ट के बीच में लाएं */
+        left: 0;
+        border-top: 2px solid #800000;
+        height: 1px;
+        width: 10px; /* लाइन की लंबाई */
+    }
 
-        /* 1. खड़ी लाइन (Vertical Line) */
-        .vertical-tree li::before {
-            content: ''; position: absolute; top: 0; bottom: 0; left: -20px; 
-            width: 4px; background-color: var(--bright-gold-line); box-shadow: var(--line-shadow);
-        }
+    /* ✂️ आखिरी बच्चे की लाइन काटना (ताकि लाइन नीचे तक न जाए) */
+    .tree li:last-child::before {
+        height: 13px; /* सिर्फ आड़ी लाइन तक ही खड़ी लाइन रहे */
+    }
 
-        /* 2. आड़ी लाइन (Horizontal Connector) */
-        .vertical-tree li::after {
-            content: ''; position: absolute; top: 45px; left: -20px; 
-            width: 20px; height: 4px; background-color: var(--bright-gold-line); box-shadow: var(--line-shadow);
-        }
+    /* नाम को सुंदर दिखाने के लिए */
+    .member-name {
+        background-color: #fff;
+        border: 1px solid #d4af37;
+        padding: 3px 8px;
+        border-radius: 4px;
+        display: inline-block;
+        margin-bottom: 5px;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .member-name:hover {
+        background-color: #800000;
+        color: #fff;
+        cursor: pointer;
+    }
 
-        /* 3. आखिरी बच्चे की पूंछ काटना */
-        .vertical-tree li:last-child::before { height: 49px; bottom: auto; }
-
-        /* 4. पहले बच्चे की लाइन को ऊपर बढ़ाना */
-        .vertical-tree ul > li:first-child::before { top: -20px; height: auto; bottom: 0; }
-        .vertical-tree ul > li:first-child:last-child::before { height: 69px; bottom: auto; }
-
-        /* 5. मुख्य Founder के लिए लाइनें हटाना */
-        .vertical-tree > ul > li::before, .vertical-tree > ul > li::after { display: none; }
-        .vertical-tree > ul { padding-left: 0; }
-        .vertical-tree > ul > li { padding-top: 0; }
-
-        /* कार्ड का लुक */
-        .member-card {
-            display: inline-block; background: var(--paper-bg); border: 3px solid #b38728;
-            padding: 12px 20px; border-radius: 6px; color: var(--maroon-text);
-            font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.95em;
-            text-transform: uppercase; box-shadow: 0 5px 10px rgba(0,0,0,0.5);
-            white-space: nowrap; position: relative; z-index: 2;
-        }
-        
-        .founder-card {
-            background: var(--gold-gradient); color: #2c0e0e; border: 2px solid #fff;
-            padding: 15px 30px; margin-bottom: 10px; margin-left: 5px;
-        }
-
-        /* 📜 पुराना कागज वाला बॉक्स डिज़ाइन */
-        .royal-scroll-box {
-            background-color: var(--scroll-bg);
-            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
-            border: 8px double #800000;
-            border-radius: 15px;
-            padding: 30px;
-            max-width: 1000px;
-            margin: 0 auto;
-            overflow-x: auto;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
-        }
-
-        /* कार्ड्स को साफ़ दिखाएं (Desktop/Tablet) */
-        .member-card {
-            background: #fff !important;
-            border: 2px solid #800000 !important;
-            color: #2c0e0e !important;
-        }
-
-        /* ----------------------------- */
-        /* (Navbar & Hero Styles) */
-        /* ----------------------------- */
-        /* Note: No media queries used here to keep the desktop look on mobile */
-        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000033; z-index: 10000; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: opacity 0.8s ease; }
-        .sun-container { position: relative; width: 140px; height: 140px; margin-bottom: 20px; filter: drop-shadow(0 0 25px rgba(255, 140, 0, 0.8)); }
-        .sun-svg { width: 100%; height: 100%; animation: spinSun 8s linear infinite; }
-        @keyframes spinSun { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .loading-text { font-family: 'Cinzel', serif; color: #fcf6ba; font-size: 1.5em; letter-spacing: 4px; font-weight: 900; text-shadow: 0 0 10px #bf953f; margin-top: 10px; }
-        .royal-frame { position: fixed; top: 0; left: 0; width: 100%; height: 100%; border: none; box-sizing: border-box; z-index: 9999; pointer-events: none; overflow: hidden; }
-        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #000033; border-bottom: 2px solid #b38728; box-shadow: 0 5px 20px rgba(0,0,0,0.8); position: sticky; top: 0; z-index: 2000; }
-        .navbar-brand-container { display: flex; align-items: center; }
-        #menu-logo { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fcf6ba; box-shadow: 0 0 15px #bf953f; background: white; }
-        .navbar-brand { font-family: 'Cinzel', serif; font-size: 1.5em; font-weight: 900; margin-left: 15px; text-decoration: none; color: #fcf6ba; }
-        .navbar-links { list-style: none; margin: 0; padding: 0; display: flex; } .navbar-links li { margin-left: 15px; } 
-        .navbar-links a { color: #897148; text-decoration: none; padding: 8px 15px; display: block; font-family: 'Cinzel', serif; font-weight: 700; letter-spacing: 1px; transition: all 0.5s ease; } .navbar-links a:hover { color: #fff; }
-        .menu-toggle { color: #897148; font-size: 35px; cursor: pointer; display: none; user-select: none; } /* Desktop: Hamburger hidden */
-        .hero-section { background-size: cover; background-position: center; height: 350px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; position: relative; transition: background-image 1s ease-in-out; background-image: linear-gradient(rgba(0, 0, 51, 0.6), rgba(0, 0, 51, 0.9)), url('1.jpg'); }
-        .hero-title { font-family: 'Cinzel', serif; font-size: 3.5em; margin: 0; line-height: 1.2; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.8)); letter-spacing: 2px; }
-        footer { text-align: center; color: #b38728; padding: 20px 20px; background-color: #000022; border-top: 4px solid #897148; }
-
-        /* ----------------------------- */
-        /* ⚙️ MOBILE ADJUSTMENTS (REQUIRED) */
-        /* ----------------------------- */
-        @media (max-width: 768px) {
-            /* Navbar Fixes (Keep it visible but compact) */
-            .navbar { padding: 5px 15px; } 
-            .navbar-brand { font-size: 1.0em; margin-left: 10px; } 
-            #menu-logo { width: 35px; height: 35px; } 
-            
-            /* Hamburger Menu (Make it visible for navigation) */
-            .menu-toggle { display: block; font-size: 25px; } 
-            
-            /* Hide Links by default, show when hamburger is clicked */
-            .navbar-links { 
-                display: none; 
-                flex-direction: column; 
-                position: absolute; 
-                top: 100%; left: 0; width: 100%; 
-                background-color: #000033; 
-                border-top: 1px solid #b38728; 
-                padding: 0; text-align: center; 
-                z-index: 1000; 
-            } 
-            .navbar-links.active { display: flex; } 
-            .navbar-links li { margin: 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); } 
-            .navbar-links a { padding: 5px 10px; font-size: 0.8em; }
-
-            /* Hero/Footer Sizing */
-            .hero-title { font-size: 2.2em; }
-            .hero-welcome { font-size: 1.8em; }
-            footer { padding: 5px 5px; }
-            .developer-info div { font-size: 0.7em !important; }
-            .royal-name { font-size: 0.85em !important; }
-
-            /* 🌳 वंशवृक्ष सुधार: मोबाइल पर सिकुड़ें (समायोजन शुरू) */
-            .royal-scroll-box { padding: 10px; } /* बॉक्स की पैडिंग कम करें */
-            .tree-wrapper { padding: 10px 5px; } /* रैपर की पैडिंग कम करें */
-            .vertical-tree ul { padding-left: 20px; } /* इंडेंटेशन कम करें */
-            
-            /* कार्ड का साइज़ छोटा करें */
-            .member-card {
-                padding: 5px 8px; /* पैडिंग बहुत कम करें */
-                font-size: 0.7em !important; /* फॉन्ट बहुत छोटा करें */
-                font-weight: 400; /* फॉन्ट पतला करें */
-                line-height: 1;
-                margin: 0;
-            }
-            .founder-card { padding: 8px 12px !important; margin-left: 0; margin-bottom: 5px; }
-
-            /* लाइनें छोटी करें ताकि वे कार्ड के करीब हों */
-            .vertical-tree li::before { left: -10px; width: 2px; } /* खड़ी लाइन */
-            .vertical-tree li::after { left: -10px; width: 10px; height: 2px; top: 30px; } /* आड़ी लाइन */
-            .vertical-tree ul > li:first-child:last-child::before { height: 40px; }
-            .vertical-tree li:last-child::before { height: 30px; }
-            .vertical-tree li { padding-top: 10px; }
-            /* 🌳 वंशवृक्ष सुधार: मोबाइल पर सिकुड़ें (समायोजन समाप्त) */
-        }
-    </style>
+</style>
 </head>
 <body>
 
-    <div id="preloader">
-        <div class="sun-container">
-            <svg class="sun-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="sunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#ffff00;stop-opacity:1" />
-                        <stop offset="50%" style="stop-color:#ff9900;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#ff0000;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                <path fill="url(#sunGrad)" stroke="#b30000" stroke-width="0.5" d="M50 0 L55 15 L68 5 L65 20 L80 15 L72 28 L90 28 L78 40 L95 48 L80 55 L95 68 L78 72 L88 85 L70 80 L65 95 L55 82 L50 100 L45 82 L35 95 L30 80 L12 85 L22 72 L5 68 L20 55 L5 48 L22 40 L10 28 L28 28 L20 15 L35 20 L32 5 L45 15 Z" />
-            </svg>
-            <svg class="sun-face" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="42" fill="#ffcc00" stroke="#b30000" stroke-width="3" />
-                <path d="M50 15 L50 35" stroke="#b30000" stroke-width="4" stroke-linecap="round"/>
-                <circle cx="50" cy="40" r="3" fill="#b30000"/>
-                <path d="M25 65 Q50 60 75 65" stroke="#000" stroke-width="3" fill="none" />
-            </svg>
-        </div>
-        <div class="loading-text">KASUMALGARH</div>
-        <div class="progress-container"><div class="progress-bar"></div></div>
-    </div>
+    <h1>Thikana Kasumalgarh Vanshawali</h1>
 
-    <div class="royal-frame"><span></span> <span></span> <span></span> <span></span></div>
+    <ul class="tree">
+        <li>
+            <span class="member-name">Th. Narayan Singh</span>
+            <ul>
+                <li>
+                    <span class="member-name">Akhe Singh</span>
+                    <ul>
+                        <li>
+                            <span class="member-name">Mangal Singh</span>
+                            <ul>
+                                <li>
+                                    <span class="member-name">Bakhtawar Singh</span>
+                                    <ul>
+                                        <li>
+                                            <span class="member-name">Raghunath Singh</span>
+                                            <ul>
+                                                <li>
+                                                    <span class="member-name">Roop Singh</span>
+                                                    <ul>
+                                                        <li><span class="member-name">Ridmal Singh</span></li>
+                                                    </ul>
+                                                </li>
+                                                <li><span class="member-name">Gopinath Singh</span></li>
+                                            </ul>
+                                        </li>
+                                        <li><span class="member-name">Sonath Singh</span></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span class="member-name">Javhar Singh</span>
+                                    <ul>
+                                        <li><span class="member-name">Sabal Singh</span></li>
+                                        <li><span class="member-name">Balwant Singh</span></li>
+                                        <li><span class="member-name">Sanwat Singh</span></li>
+                                        <li>
+                                            <span class="member-name">Bhiv Singh</span>
+                                            <ul>
+                                                <li>
+                                                    <span class="member-name">Lal Singh</span>
+                                                    <ul>
+                                                        <li>
+                                                            <span class="member-name">Richhpal Singh</span>
+                                                            <ul>
+                                                                <li>
+                                                                    <span class="member-name">Bhawani Singh</span>
+                                                                    <ul>
+                                                                        <li>
+                                                                            <span class="member-name">Devendra Singh</span>
+                                                                            <ul>
+                                                                                <li><span class="member-name">Daksh Singh</span></li>
+                                                                            </ul>
+                                                                        </li>
+                                                                        <li><span class="member-name">Ajeet Singh</span></li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
 
-    <nav class="navbar">
-        <div class="navbar-brand-container">
-            <img id="menu-logo" src="menulogo.png" alt="Logo"> 
-            <a class="navbar-brand" href="index.html">KASUMALGARH</a>
-        </div>
-        <div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMenu()">&#9776;</div>
-        <ul class="navbar-links" id="nav-menu">
-            <li><a href="vanshawali.html">VANSHAWALI</a></li>
-            <li><a href="history.html">HISTORY</a></li>
-            <li><a href="about.html">ABOUT</a></li>
-            <li><a href="contact.html">CONTACT</a></li>
-            <li><a href="gallery.html">GALLERY</a></li>
-            <li><a href="admin_login.html">ADMIN(GAJSA)</a></li>
-        </ul>
-    </nav>
-
-    <header class="hero-section" id="hero-slider">
-        <div class="hero-welcome">Lineage of</div>
-        <h1 class="hero-title">RATHORE</h1>
-        <div class="divider-ornament">⚜️ ⚜️ ⚜️</div>
-    </header>
-
-    <main class="main-content" style="padding: 0;">
-        <div class="royal-scroll-box">
-            <div class="scroll-header" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
-                <div style="font-family: 'Great Vibes', cursive; font-size: 2em; color: #800000;">Royal Genealogy of</div>
-                <div style="font-family: 'Cinzel', serif; font-size: 1.5em; font-weight: 900; color: #2c0e0e;">THIKANA KASUMBI</div>
-            </div>
-            
-            <div class="tree-wrapper">
-                <div class="vertical-tree">
-                    
-                    <ul>
-                        <li>
-                            <div class="member-card founder-card">
-                                <i class="fas fa-crown" style="margin-right: 5px;"></i> Th. Narayan Singh
-                            </div>
-                            <ul>
-                                <li>
-                                    <div class="member-card">Akhe Singh</div>
-                                    <ul>
-                                        <li>
-                                            <div class="member-card">Mangal Singh</div>
-                                            <ul>
-                                                <li>
-                                                    <div class="member-card">Bakhtawar Singh</div>
-                                                    <ul>
-                                                        <li>
-                                                            <div class="member-card">Raghunath Singh</div>
-                                                            <ul>
-                                                                <li>
-                                                                    <div class="member-card">Roop Singh</div>
-                                                                    <ul>
-                                                                        <li><div class="member-card">Ridmal Singh</div></li>
-                                                                    </ul>
-                                                                </li>
-                                                                <li><div class="member-card">Gopinath Singh</div></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li><div class="member-card">Sonath Singh</div></li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <div class="member-card">Javhar Singh</div>
-                                                    <ul>
-                                                        <li><div class="member-card">Sabal Singh</div></li>
-                                                        <li><div class="member-card">Balwant Singh</div></li>
-                                                        <li><div class="member-card">Sanwat Singh</div></li>
-                                                        <li>
-                                                            <div class="member-card">Bhiv Singh</div>
-                                                            <ul>
-                                                                <li>
-                                                                    <div class="member-card">Lal Singh</div>
-                                                                    <ul>
-                                                                        <li>
-                                                                            <div class="member-card">Richhpal Singh</div>
-                                                                            <ul>
-                                                                                <li>
-                                                                                    <div class="member-card">Bhawani Singh</div>
-                                                                                    <ul>
-                                                                                        <li>
-                                                                                            <div class="member-card">Devendra Singh</div>
-                                                                                            <ul>
-                                                                                                <li><div class="member-card">Daksh Singh</div></li>
-                                                                                            </ul>
-                                                                                        </li>
-                                                                                        <li><div class="member-card">Ajeet Singh</div></li>
-                                                                                    </ul>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </li>
-                                                                    </ul>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    </div>
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        <div class="developer-info">
-            <div class="footer-heading-moved">FORT KASUMBI</div>
-            <div style="font-size: 0.9em; color: #888; margin-bottom: 5px;">Developed & Designed By:</div>
-            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="royal-name">Yuvraj Gajraj Singh</a>
-            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="fb-link"><i class="fab fa-facebook"></i> Connect on Facebook</a>
-            <div style="font-size: 0.8em; margin-top: 15px; color: #666;">&copy; 2025 | All Rights Reserved.</div>
-        </div>
-    </footer>
-
-    <script>
-        // JS Functions (Removed all animation/carousel code for simplicity)
-
-        window.addEventListener("load", function() {
-            const loader = document.getElementById("preloader");
-            setTimeout(() => { loader.style.opacity = "0"; setTimeout(() => { loader.style.display = "none"; }, 800); }, 3000); 
-        });
-
-        function toggleMenu() {
-            const menu = document.getElementById("nav-menu");
-            const btn = document.getElementById("mobile-menu-btn");
-            menu.classList.toggle("active");
-            if (menu.classList.contains("active")) { btn.innerHTML = "&times;"; btn.style.fontSize = "30px"; } else { btn.innerHTML = "&#9776;"; btn.style.fontSize = "25px"; }
-        }
-        document.addEventListener('click', function(event) {
-            const menu = document.getElementById("nav-menu");
-            const btn = document.getElementById("mobile-menu-btn");
-            if (!menu.contains(event.target) && !btn.contains(event.target)) { if (menu.classList.contains("active")) { toggleMenu(); } }
-        });
-
-        // Note: Image slider JS is removed here.
-    </script>
 </body>
 </html>
