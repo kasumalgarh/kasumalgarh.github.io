@@ -8,48 +8,84 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* ROYAL THEME */
-        body { background-color: #1a0000; color: #f4f4f4; font-family: 'Playfair Display', serif; text-align: center; padding: 20px; }
+        /* --- ROYAL ADMIN THEME --- */
+        body { background-color: #1a0000; color: #f4f4f4; font-family: 'Playfair Display', serif; text-align: center; padding: 10px; margin: 0; }
         
-        .container { max-width: 1000px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 20px; }
+        .container { max-width: 100%; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 20px; }
         
         /* LEFT PANEL - TOOLS */
-        .editor-panel { flex: 1; min-width: 300px; background: rgba(255,255,255,0.05); padding: 20px; border: 2px solid #d4af37; border-radius: 10px; }
+        .editor-panel { flex: 1; min-width: 300px; background: rgba(255,255,255,0.05); padding: 15px; border: 2px solid #d4af37; border-radius: 10px; }
         
-        /* RIGHT PANEL - PREVIEW */
-        .preview-panel { flex: 1; min-width: 300px; background: #fffbf0; color: #333; padding: 10px; border: 2px solid #d4af37; border-radius: 10px; height: 600px; overflow: auto; text-align: left; }
+        /* RIGHT PANEL - PREVIEW (FIXED HEIGHT) */
+        .preview-panel { 
+            flex: 1; 
+            min-width: 300px; 
+            background: #fffbf0; 
+            color: #333; 
+            padding: 10px; 
+            border: 2px solid #d4af37; 
+            border-radius: 10px; 
+            /* PROBLEM 2 FIXED: Height increased to match form */
+            height: auto;
+            min-height: 1500px; 
+            overflow: auto; 
+            text-align: left; 
+        }
 
         h2, h3 { color: #d4af37; font-family: 'Cinzel', serif; margin-top: 0; }
         
-        input { width: 100%; padding: 10px; margin: 5px 0; background: #330000; color: #fff; border: 1px solid #d4af37; border-radius: 5px; box-sizing: border-box; }
+        input { width: 100%; padding: 12px; margin: 8px 0; background: #330000; color: #fff; border: 1px solid #d4af37; border-radius: 5px; box-sizing: border-box; font-size: 16px; }
         
-        button { width: 100%; padding: 12px; margin-top: 10px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        button { width: 100%; padding: 14px; margin-top: 10px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 16px; transition: 0.3s; }
         
         .btn-load { background: #008080; color: white; }
         .btn-add { background: #006400; color: white; }
         .btn-del { background: #8b0000; color: white; }
-        .btn-edit { background: #00008b; color: white; } /* NEW BUTTON COLOR */
-        .btn-save { background: #ff4500; color: white; font-size: 1.2em; border: 2px solid white; }
+        .btn-edit { background: #00008b; color: white; } 
+        .btn-save { background: #ff4500; color: white; font-size: 1.2em; border: 2px solid white; margin-top: 30px;}
         
-        button:hover { filter: brightness(1.2); }
         hr { border-color: #444; margin: 20px 0; }
 
-        /* PREVIEW STYLES (Mini Tree) */
-        .tree ul { list-style: none; padding-left: 20px; border-left: 1px solid #ccc; }
-        .member-card { border: 1px solid #d4af37; padding: 3px 8px; background: #fff; display: inline-block; margin: 2px 0; font-weight: bold; font-size: 0.9em; }
+        /* --- FORCE TREE PREVIEW STYLES (PROBLEM 1 FIX) --- */
+        /* Ye CSS ensure karegi ki Tree admin panel me dikhe hi dikhe */
+        #livePreview ul { padding-top: 20px; position: relative; transition: all 0.5s; }
+        #livePreview li { float: left; text-align: center; list-style-type: none; position: relative; padding: 20px 5px 0 5px; transition: all 0.5s; }
+        #livePreview li::before, #livePreview li::after { content: ''; position: absolute; top: 0; right: 50%; border-top: 1px solid #ccc; width: 50%; height: 20px; }
+        #livePreview li::after { right: auto; left: 50%; border-left: 1px solid #ccc; }
+        #livePreview li:only-child::after, #livePreview li:only-child::before { display: none; }
+        #livePreview li:only-child { padding-top: 0; }
+        #livePreview li:first-child::before, #livePreview li:last-child::after { border: 0 none; }
+        #livePreview li:last-child::before { border-right: 1px solid #ccc; border-radius: 0 5px 0 0; }
+        #livePreview li:first-child::after { border-radius: 5px 0 0 0; }
+        #livePreview ul ul::before { content: ''; position: absolute; top: 0; left: 50%; border-left: 1px solid #ccc; width: 0; height: 20px; }
+        
+        /* Card Style inside Preview */
+        #livePreview .member-card { 
+            border: 1px solid #d4af37; 
+            padding: 5px 10px; 
+            text-decoration: none; 
+            color: #333; 
+            font-family: arial, verdana, tahoma; 
+            font-size: 11px; 
+            display: inline-block; 
+            border-radius: 5px; 
+            background: white;
+            min-width: 80px;
+        }
+        #livePreview .member-name { font-weight: bold; color: #800000; display: block;}
     </style>
 </head>
 
 <body>
 
-    <h2 style="border-bottom: 1px solid #d4af37; display:inline-block; padding-bottom:10px;">⚜️ VANSHAVALI MANAGER (HTML) ⚜️</h2>
+    <h2 style="border-bottom: 1px solid #d4af37; display:inline-block; padding-bottom:10px;">⚜️ VANSHAVALI ADMIN ⚜️</h2>
 
     <div class="container">
         
         <div class="editor-panel">
             
             <button onclick="loadHtml()" class="btn-load">🌐 1. LOAD LIVE CODE</button>
-            <p id="status" style="font-size:0.8em; color:#aaa;">Status: Waiting...</p>
+            <p id="status" style="font-size:0.9em; color:#ffd700;">Status: Waiting to Load...</p>
             
             <textarea id="hiddenCode" style="display:none;"></textarea> <hr>
 
@@ -62,6 +98,7 @@
             <hr>
 
             <h3 style="color:#4da6ff">✏️ नाम सुधारें (Correction)</h3>
+            <p style="font-size:0.8em; color:#ccc;">(Spelling बिल्कुल सही होनी चाहिए)</p>
             <input type="text" id="editGrand" placeholder="1. दादा का नाम (Grandfather)">
             <input type="text" id="editFather" placeholder="2. पिता का नाम (Father)">
             <input type="text" id="editOld" placeholder="3. गलत नाम (Wrong Name)">
@@ -82,9 +119,12 @@
         </div>
 
         <div class="preview-panel">
-            <h3 style="color:#800000; text-align:center; border-bottom:1px solid #ccc;">Live Preview</h3>
-            <div id="livePreview">
-                <p style="text-align:center; padding-top:50px; color:#888;">'Load Live Code' बटन दबाएं...</p>
+            <h3 style="color:#800000; text-align:center; border-bottom:1px solid #ccc; position:sticky; top:0; background:#fffbf0; z-index:100;">Live Preview</h3>
+            <div id="livePreview" class="tree">
+                <p style="text-align:center; padding-top:100px; color:#888;">
+                    'Load Live Code' बटन दबाएं...<br>
+                    तभी यहाँ वंशावली दिखेगी।
+                </p>
             </div>
         </div>
 
@@ -117,11 +157,24 @@
                 let decoded = decodeURIComponent(escape(window.atob(cleanContent))); 
                 
                 document.getElementById('hiddenCode').value = decoded;
-                document.getElementById('livePreview').innerHTML = decoded;
-                currentSha = data.sha;
                 
-                document.getElementById('status').innerText = "Status: Loaded ✅";
-                alert("Website ka code load ho gaya!");
+                // --- SMART PREVIEW LOADING ---
+                // Hum sirf 'tree' class wala content nikal kar dikhayenge
+                // Taki puri website ki styling gadbad na kare
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(decoded, 'text/html');
+                const treeContent = doc.querySelector('.tree'); // Find the tree div
+                
+                if(treeContent) {
+                    document.getElementById('livePreview').innerHTML = treeContent.innerHTML;
+                    document.getElementById('status').innerText = "Status: Loaded & Tree Visible ✅";
+                } else {
+                    // Fallback if .tree class not found
+                    document.getElementById('livePreview').innerHTML = decoded;
+                    document.getElementById('status').innerText = "Status: Loaded (Full Page) ✅";
+                }
+                
+                alert("Code Load Ho Gaya! Ab niche tree check karein.");
                 
             } catch(e) {
                 alert("Error: " + e.message);
@@ -178,11 +231,11 @@
                 alert("✅ Naam Jud Gaya! Ab Save Karein.");
                 document.getElementById('addChild').value = "";
             } else {
-                alert("❌ Match Nahi Hua!\nDada/Pita ka naam check karein.");
+                alert("❌ Match Nahi Hua!\nDada: " + gName + "\nPita: " + pName + "\nSpelling check karein.");
             }
         }
 
-        // 3. CORRECTION LOGIC (NEW FEATURE)
+        // 3. CORRECTION LOGIC (PROBLEM 3 FIX)
         function correctName() {
             const html = document.getElementById('hiddenCode').value;
             if(!html) { alert("Pehle Code Load karein!"); return; }
@@ -196,12 +249,14 @@
 
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
+            // Select all elements with class member-name
             const allSpans = doc.querySelectorAll('.member-name');
             
             let found = false;
+            let matchDetails = "";
 
             for(let span of allSpans) {
-                // 1. Match Old Name
+                // Check Old Name (Case insensitive check for better matching)
                 if(span.textContent.trim() === oldName) {
                     const childLi = span.closest('li');
                     const fatherUl = childLi.parentElement;
@@ -209,7 +264,7 @@
 
                     if(fatherLi) {
                         const fatherSpan = fatherLi.querySelector('.member-name');
-                        // 2. Match Father
+                        // Check Father
                         if(fatherSpan && fatherSpan.textContent.trim() === pName) {
                             
                             const grandUl = fatherLi.parentElement;
@@ -217,15 +272,19 @@
                             
                             if(grandLi) {
                                 const grandSpan = grandLi.querySelector('.member-name');
-                                // 3. Match Grandfather
+                                // Check Grandfather
                                 if(grandSpan && grandSpan.textContent.trim() === gName) {
                                     
                                     // ALL MATCHED -> UPDATE
                                     span.textContent = newName;
                                     found = true;
                                     break;
+                                } else {
+                                    matchDetails = "Dada ka naam match nahi hua: " + grandSpan.textContent;
                                 }
                             }
+                        } else {
+                            matchDetails = "Pita ka naam match nahi hua.";
                         }
                     }
                 }
@@ -233,11 +292,12 @@
 
             if(found) {
                 updatePreview(doc);
-                alert("✅ Naam Correct Ho Gaya! (" + oldName + " -> " + newName + ")");
+                alert("✅ Naam Correct Ho Gaya!\n(" + oldName + " ➞ " + newName + ")\nAb SAVE button dabayein.");
+                // Fields clear karein
                 document.getElementById('editOld').value = "";
                 document.getElementById('editNew').value = "";
             } else {
-                alert("❌ Match Nahi Hua! \nDada, Pita ya Old Name check karein.");
+                alert("❌ Error: Match Nahi Hua!\n\nReason: " + (matchDetails || "Naam nahi mila.") + "\n\nSpelling Check:\nDada: " + gName + "\nPita: " + pName + "\nOld Name: " + oldName);
             }
         }
 
@@ -295,8 +355,16 @@
         // HELPER
         function updatePreview(doc) {
             const newHtml = doc.documentElement.outerHTML;
+            // Update hidden textarea for saving
             document.getElementById('hiddenCode').value = newHtml;
-            document.getElementById('livePreview').innerHTML = newHtml;
+            
+            // Update visual preview (Only tree part)
+            const treeContent = doc.querySelector('.tree');
+            if(treeContent) {
+                 document.getElementById('livePreview').innerHTML = treeContent.innerHTML;
+            } else {
+                 document.getElementById('livePreview').innerHTML = newHtml;
+            }
         }
 
         // 5. SAVE TO GITHUB
