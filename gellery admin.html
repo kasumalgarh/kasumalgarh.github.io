@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="utf-8">
+    <title>GALLERY MANAGER ADMIN</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- ADMIN PANEL THEME --- */
+        body { background-color: #1a0000; color: #f4f4f4; font-family: 'Playfair Display', serif; text-align: center; margin: 0; padding: 10px; }
+        .container { display: flex; flex-direction: column; gap: 20px; max-width: 100%; margin: 0 auto; }
+        .editor-panel { background: rgba(255,255,255,0.05); padding: 15px; border: 2px solid #d4af37; border-radius: 10px; }
+        
+        /* PREVIEW (Showing the Gallery items) */
+        .preview-panel { 
+            background: #fffbf0; 
+            color: #333; 
+            border: 2px solid #d4af37; 
+            border-radius: 10px; 
+            height: 600px; 
+            overflow: auto; 
+            text-align: center;
+            padding: 15px;
+        }
+
+        h3 { color: #d4af37; margin-top: 5px; border-bottom: 1px solid #444; padding-bottom: 5px; }
+        
+        input { width: 100%; padding: 12px; margin: 8px 0; background: #330000; color: #fff; border: 1px solid #d4af37; border-radius: 4px; box-sizing: border-box; font-size: 16px; }
+        
+        button { width: 100%; padding: 14px; margin-top: 8px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.2s; }
+        
+        .btn-load { background: #008080; color: white; }
+        .btn-add { background: #006400; color: white; }
+        .btn-del { background: #8b0000; color: white; }
+        .btn-save { background: #ff4500; color: white; font-size: 1.1em; border: 2px solid white; margin-top: 20px; }
+
+        /* --- PREVIEW ITEM STYLING (To make items visible in admin) --- */
+        .preview-panel .gallery-item {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            text-align: left;
+            background: white;
+            border-radius: 5px;
+        }
+        .preview-panel .gallery-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            margin-right: 15px;
+            border-radius: 4px;
+        }
+        .preview-panel .image-title {
+            font-weight: bold;
+            color: #800000;
+            font-size: 1em;
+            margin: 0;
+        }
+        .preview-panel .image-date {
+            font-size: 0.8em;
+            color: #666;
+            margin: 0;
+        }
+        
+    </style>
+</head>
+
+<body>
+
+    <h2 style="color:#d4af37;">🖼️ GALLERY MANAGER ⚜️</h2>
+
+    <div class="container">
+        
+        <div class="editor-panel">
+            <button onclick="loadHtml()" class="btn-load">1. LOAD LIVE GALLERY CODE 🔄</button>
+            <p id="status" style="color:#ffd700; font-size:0.8em;">Status: Waiting...</p>
+            <textarea id="hiddenCode" style="display:none;"></textarea>
+
+            <hr>
+
+            <h3>➕ ADD NEW PHOTO</h3>
+            <p style="font-size:0.8em; color:#ccc;">(फ़ोटो का URL (लिंक) ज़रूरी है)</p>
+            <input type="url" id="addImageUrl" placeholder="1. Image URL (e.g., https://i.imgur.com/photo.jpg)">
+            <input type="text" id="addImageTitle" placeholder="2. Title (e.g., शाही स्वागत समारोह)">
+            <input type="text" id="addImageDate" placeholder="3. Date (e.g., 20-11-2025)">
+            <button onclick="addPhoto()" class="btn-add">Add Photo</button>
+
+            <hr>
+
+            <h3 style="color:#ff6666">🗑️ DELETE PHOTO</h3>
+            <p style="font-size:0.8em; color:#ccc;">(फ़ोटो का पूरा Title या URL पेस्ट करें)</p>
+            <input type="text" id="deleteTarget" placeholder="Title या Image URL to Delete">
+            <button onclick="deletePhoto()" class="btn-del">Delete Photo</button>
+
+            <hr>
+            <button onclick="saveToGithub()" class="btn-save">💾 SAVE TO WEBSITE</button>
+        </div>
+
+        <div class="preview-panel">
+            <div style="background:#ddd; padding:5px; font-weight:bold; position:sticky; top:0; z-index:10; border-bottom:1px solid #999;">
+                LIVE GALLERY LIST
+            </div>
+            <div id="livePreview">
+                <br>Click "LOAD LIVE GALLERY CODE"<br>to see the current gallery items.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIGURATION ---
+        const USER = "kasumalgarh";      
+        const REPO = "kasumalgarh.github.io";  
+        const FILE = "gallery.html"; // अब यह gallery.html को मैनेज करेगा   
+        const PASS = "kasumalgarh2025";
+        // ---------------------
+
+        let currentSha = null;
+
+        // 1. LOAD CODE
+        async function loadHtml() {
+            let p = prompt("Enter Password:");
+            if(p !== PASS) { alert("Wrong Password!"); return; }
+
+            document.getElementById('status').innerText = "Status: Loading...";
+            
+            try {
+                const res = await fetch(`https://api.github.com/repos/${USER}/${REPO}/contents/${FILE}?t=${Date.now()}`);
+                if(!res.ok) throw new Error("File not found! (Check filename)");
+                
+                const data = await res.json();
+                currentSha = data.sha; 
+                
+                let cleanContent = data.content.replace(/\s/g, '');
+                let decoded = decodeURIComponent(escape(window.atob(cleanContent)));
+                
+                document.getElementById('hiddenCode').value = decoded;
+                updateVisualPreview(decoded);
+                
+                document.getElementById('status').innerText = "Status: Code Loaded ✅";
+                alert("Gallery Code Loaded! Preview नीचे देखें।");
+
+            } catch(e) {
+                alert("Error: " + e.message);
+            }
+        }
+
+        // PREVIEW HELPER
+        function updateVisualPreview(htmlContent) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlContent, 'text/html');
+            
+            // Look for the main gallery container (as defined in the demo code)
+            const galleryContainer = doc.getElementById('mainGallery');
+            
+            if (galleryContainer) {
+                let previewHtml = '';
+                // Only take the items, then re-style them for clear viewing in admin panel
+                const items = galleryContainer.querySelectorAll('.gallery-item');
+                
+                items.forEach(item => {
+                    // Extract data from the item using the classes defined in the demo code
+                    const img = item.querySelector('img');
+                    const title = item.querySelector('.image-title');
+                    const date = item.querySelector('.image-date');
+
+                    // Create simple list view for admin panel
+                    if (img && title) {
+                        previewHtml += `
+                            <div class="gallery-item">
+                                <img src="${img.getAttribute('src')}" alt="${title.textContent}">
+                                <div>
+                                    <p class="image-title">${title.textContent}</p>
+                                    <p class="image-date">${date ? date.textContent : 'No Date'}</p>
+                                </div>
+                            </div>`;
+                    }
+                });
+
+                document.getElementById('livePreview').innerHTML = previewHtml || "No items found in the gallery.";
+
+            } else {
+                document.getElementById('livePreview').innerHTML = "Error: Cannot find the 'mainGallery' container in the HTML.";
+            }
+        }
+
+
+        // 2. ADD PHOTO
+        function addPhoto() {
+            if(!currentSha) { alert("Pehle Code Load karein!"); return; }
+            
+            let html = document.getElementById('hiddenCode').value;
+            let url = document.getElementById('addImageUrl').value.trim();
+            let title = document.getElementById('addImageTitle').value.trim();
+            let date = document.getElementById('addImageDate').value.trim();
+            
+            if(!url || !title) { alert("Image URL और Title ज़रूरी है!"); return; }
+
+            // New Item HTML (uses the structure defined in the demo code)
+            const newItemHtml = `
+                <div class="gallery-item" data-title="${title}">
+                    <img src="${url}" alt="${title}">
+                    <div class="image-caption">
+                        <p class="image-title">${title}</p>
+                        <p class="image-date">दिनांक: ${date}</p>
+                    </div>
+                </div>
+            `;
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const galleryContainer = doc.getElementById('mainGallery');
+            
+            if (galleryContainer) {
+                // Insert the new item at the beginning of the gallery container
+                galleryContainer.insertAdjacentHTML('afterbegin', newItemHtml);
+                
+                updateAll(doc);
+                alert("✅ Photo Jud Gayi! Ab Save Karein.");
+                document.getElementById('addImageUrl').value = "";
+                document.getElementById('addImageTitle').value = "";
+                document.getElementById('addImageDate').value = "";
+            } else {
+                alert("Error: Gallery container ID 'mainGallery' not found.");
+            }
+        }
+
+
+        // 3. DELETE PHOTO
+        function deletePhoto() {
+            if(!currentSha) { alert("Pehle Code Load karein!"); return; }
+
+            let html = document.getElementById('hiddenCode').value;
+            let target = document.getElementById('deleteTarget').value.trim();
+            
+            if(!target) { alert("डिलीट करने के लिए Title या Image URL डालें!"); return; }
+
+            if(!confirm(`क्या आप '${target}' को हटाना चाहते हैं?`)) return;
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const galleryContainer = doc.getElementById('mainGallery');
+            let deleted = false;
+            
+            if (galleryContainer) {
+                const items = galleryContainer.querySelectorAll('.gallery-item');
+                
+                items.forEach(item => {
+                    const title = item.querySelector('.image-title').textContent.trim();
+                    const imgUrl = item.querySelector('img').getAttribute('src').trim();
+
+                    // Match by Title or by URL
+                    if (title === target || imgUrl === target) {
+                        item.remove();
+                        deleted = true;
+                    }
+                });
+            }
+
+            if(deleted) {
+                updateAll(doc);
+                alert("🗑️ Photo Delete Ho Gayi. Ab Save Karein.");
+                document.getElementById('deleteTarget').value = "";
+            } else {
+                alert("❌ Photo मिली नहीं! Title या URL पूरा चेक करें।");
+            }
+        }
+
+        // HELPER TO UPDATE BOTH VIEWS
+        function updateAll(doc) {
+            let newHtml = doc.documentElement.outerHTML;
+            document.getElementById('hiddenCode').value = newHtml;
+            updateVisualPreview(newHtml);
+        }
+
+        // 4. SAVE TO GITHUB (Uses the robust SHA checking logic)
+        async function saveToGithub() {
+            const html = document.getElementById('hiddenCode').value;
+            if(!html) return;
+
+            const token = prompt("Enter GitHub Key:");
+            if(!token) return;
+
+            const btn = document.querySelector('.btn-save');
+            btn.innerText = "⏳ Saving...";
+
+            try {
+                // 1. Fetch Latest SHA again to avoid error
+                const checkRes = await fetch(`https://api.github.com/repos/${USER}/${REPO}/contents/${FILE}`);
+                const checkData = await checkRes.json();
+                currentSha = checkData.sha; 
+
+                // 2. Save
+                const content = btoa(unescape(encodeURIComponent(html)));
+                
+                const res = await fetch(`https://api.github.com/repos/${USER}/${REPO}/contents/${FILE}`, {
+                    method: "PUT",
+                    headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        message: "Gallery Admin Update",
+                        content: content,
+                        sha: currentSha, 
+                        branch: "main"
+                    })
+                });
+
+                if(res.ok) {
+                    const d = await res.json();
+                    currentSha = d.content.sha;
+                    alert("🎉 GALLERY SAVED SUCCESSFULLY!");
+                    btn.innerText = "💾 SAVE TO WEBSITE";
+                } else {
+                    const err = await res.json();
+                    alert("Error: " + err.message);
+                }
+            } catch(e) {
+                alert("Network Error: " + e.message);
+            }
+        }
+    </script>
+</body>
+</html>
