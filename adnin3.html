@@ -66,7 +66,7 @@
         
         <div class="editor-section">
             <h2 style="color:#d4af37;">📝 Vanshavali Manager</h2>
-            <p style="color:#ccc;">नाम जोड़ें या हटाएं, फिर 'Save' करें।</p>
+            <p style="color:#ccc;">नाम जोड़ें या हटाएं (दादा, पिता, और पुत्र का मिलान करके)</p>
 
             <div class="editor-wrapper">
                 
@@ -79,6 +79,7 @@
                     <hr style="border-color:#555; margin: 20px 0;">
 
                     <h3>2. नाम जोड़ें (Add)</h3>
+                    <input type="text" id="grandParentName" placeholder="दादा का नाम (Grandfather): Ex: Th. Zorawar Singh">
                     <input type="text" id="parentName" placeholder="पिता का नाम (Father): Ex: Th. Bhairu Singh">
                     <input type="text" id="newName" placeholder="नया नाम (Child): Ex: Kr. Yuvraj Singh">
                     <button onclick="addName()" class="tool-btn">➕ नाम जोड़ें</button>
@@ -86,10 +87,11 @@
                     <hr style="border-color:#555; margin: 20px 0;">
 
                     <h3 style="color:#ff4444;">3. नाम हटाएँ (Delete)</h3>
-                    <p style="font-size:0.8em; color:#ccc;">गलती से बचने के लिए, हटाने वाले का नाम और उसके पिता का नाम दोनों लिखें।</p>
+                    <p style="font-size:0.8em; color:#ccc;">सुरक्षा के लिए, हटाने वाले के दादा और पिता दोनों का नाम लिखें।</p>
                     
+                    <input type="text" id="deleteGrandParentInput" placeholder="दादा का नाम (His Grandfather's Name)">
+                    <input type="text" id="parentOfDeleteInput" placeholder="पिता का नाम (His Father's Name)">
                     <input type="text" id="deleteNameInput" placeholder="हटाने वाला नाम (Name to Delete)">
-                    <input type="text" id="parentOfDeleteInput" placeholder="उसके पिता का नाम (His Father's Name)">
                     
                     <button onclick="deleteName()" class="tool-btn delete-btn">🗑️ नाम हटाएं (DELETE)</button>
 
@@ -156,13 +158,14 @@
             if(code) document.getElementById('livePreview').innerHTML = code;
         }
 
-        // 4. ADD NAME LOGIC
+        // 4. ADD NAME LOGIC (Updated with Grandfather Check)
         function addName() {
             const htmlContent = document.getElementById('inputHtml').value;
+            const grandParent = document.getElementById('grandParentName').value.trim();
             const parent = document.getElementById('parentName').value.trim();
             const child = document.getElementById('newName').value.trim();
 
-            if (!htmlContent || !parent || !child) { alert("कृपया नाम भरें!"); return; }
+            if (!htmlContent || !parent || !child || !grandParent) { alert("कृपया दादा, पिता और बच्चे तीनों का नाम भरें!"); return; }
 
             const parser = new DOMParser();
             const doc = parser.parseFromString(htmlContent, 'text/html');
@@ -170,36 +173,60 @@
             let parentFound = false;
 
             for (let span of allSpans) {
+                // 1. पिता का नाम ढूंढो
                 if (span.textContent.trim() === parent) {
-                    const parentLi = span.closest('li'); 
-                    let childUl = parentLi.querySelector('ul');
-                    if (!childUl) {
-                        childUl = doc.createElement('ul');
-                        parentLi.appendChild(childUl);
+                    const parentLi = span.closest('li');
+                    
+                    // 2. पिता के ऊपर दादा का नाम ढूंढो
+                    const grandParentUl = parentLi.parentElement; // पिता की लिस्ट
+                    const grandParentLi = grandParentUl ? grandParentUl.closest('li') : null; // दादा का LI
+
+                    if (grandParentLi) {
+                        const grandParentSpan = grandParentLi.querySelector('.member-name');
+                        // 3. चेक करो क्या दादा का नाम मैच करता है?
+                        if (grandParentSpan && grandParentSpan.textContent.trim() === grandParent) {
+                            
+                            // अगर दादा और पिता दोनों मैच हो गए, तो बच्चा जोड़ो
+                            let childUl = parentLi.querySelector('ul');
+                            if (!childUl) {
+                                childUl = doc.createElement('ul');
+                                parentLi.appendChild(childUl);
+                            }
+                            const newLi = doc.createElement('li');
+                            newLi.innerHTML = `<div class="member-card"><span class="member-name">${child}</span></div>`;
+                            childUl.appendChild(newLi);
+                            parentFound = true;
+                            break; // काम हो गया, लूप रोको
+                        }
+                    } else {
+                        // अगर दादा नहीं मिले (शायद पिता ही फाउंडर हैं), तो यूज़र को बतायें
+                        // या आप चाहें तो इसे allow कर सकते हैं, पर अभी हम strict चेक रख रहे हैं।
                     }
-                    const newLi = doc.createElement('li');
-                    newLi.innerHTML = `<div class="member-card"><span class="member-name">${child}</span></div>`;
-                    childUl.appendChild(newLi);
-                    parentFound = true;
-                    break; 
                 }
             }
 
             if (parentFound) {
                 updateAndPreview(doc);
-                alert("✅ नाम जुड़ गया! अब सेव करें।");
-            } else { alert("❌ पिता का नाम (Father Name) नहीं मिला।"); }
+                alert("✅ नाम जुड़ गया! (दादा -> पिता -> पुत्र वेरीफाई हो गया)। अब सेव करें।");
+                // Clear fields
+                document.getElementById('newName').value = "";
+            } else { 
+                alert(`❌ पिता का नाम "${parent}" और दादा का नाम "${grandParent}" का मिलान नहीं हुआ।\nकृपया स्पेलिंग चेक करें।`); 
+            }
         }
 
-        // 5. DELETE NAME LOGIC (With Parent Check)
+        // 5. DELETE NAME LOGIC (Updated with Grandfather Check)
         function deleteName() {
-            const nameToDelete = document.getElementById('deleteNameInput').value.trim();
+            const grandParentName = document.getElementById('deleteGrandParentInput').value.trim();
             const parentOfDelete = document.getElementById('parentOfDeleteInput').value.trim();
+            const nameToDelete = document.getElementById('deleteNameInput').value.trim();
             const htmlContent = document.getElementById('inputHtml').value;
 
-            if (!nameToDelete || !parentOfDelete || !htmlContent) { alert("दोनों नाम भरें और कोड लोड करें!"); return; }
+            if (!nameToDelete || !parentOfDelete || !grandParentName || !htmlContent) { 
+                alert("कृपया दादा, पिता और हटाने वाले का नाम भरें!"); return; 
+            }
 
-            if(!confirm(`चेतावनी: क्या आप ${parentOfDelete} के बेटे "${nameToDelete}" को हटाना चाहते हैं?`)) return;
+            if(!confirm(`चेतावनी: क्या आप ${grandParentName} के पोते और ${parentOfDelete} के बेटे "${nameToDelete}" को हटाना चाहते हैं?`)) return;
 
             const parser = new DOMParser();
             const doc = parser.parseFromString(htmlContent, 'text/html');
@@ -207,23 +234,34 @@
             let deleted = false;
 
             for (let span of allSpans) {
-                // 1. नाम मैच करो
+                // 1. जिसे हटाना है उसका नाम मैच करो
                 if (span.textContent.trim() === nameToDelete) {
                     const liToDelete = span.closest('li'); 
                     const parentUl = liToDelete ? liToDelete.parentElement : null;
 
                     if (parentUl) {
                         // 2. उसका पिता (Parent) ढूँढो
-                        const grandParentLi = parentUl.closest('li');
-                        // अगर top level (founder) नहीं है
-                        if(grandParentLi) {
-                            const grandParentSpan = grandParentLi.querySelector('.member-name');
+                        const fatherLi = parentUl.closest('li');
+                        if(fatherLi) {
+                            const fatherSpan = fatherLi.querySelector('.member-name');
                             
                             // 3. चेक करो क्या पिता का नाम मैच करता है?
-                            if (grandParentSpan && grandParentSpan.textContent.trim() === parentOfDelete) {
-                                liToDelete.remove(); // DELETE
-                                deleted = true;
-                                break; 
+                            if (fatherSpan && fatherSpan.textContent.trim() === parentOfDelete) {
+                                
+                                // 4. अब पिता के भी ऊपर जाओ (Grandfather)
+                                const grandFatherUl = fatherLi.parentElement;
+                                const grandFatherLi = grandFatherUl ? grandFatherUl.closest('li') : null;
+
+                                if (grandFatherLi) {
+                                    const grandFatherSpan = grandFatherLi.querySelector('.member-name');
+                                    
+                                    // 5. चेक करो क्या दादा का नाम मैच करता है?
+                                    if (grandFatherSpan && grandFatherSpan.textContent.trim() === grandParentName) {
+                                        liToDelete.remove(); // DELETE
+                                        deleted = true;
+                                        break; 
+                                    }
+                                }
                             }
                         }
                     }
@@ -234,9 +272,8 @@
                 updateAndPreview(doc);
                 alert(`🗑️ "${nameToDelete}" को सफलतापूर्वक हटा दिया गया है। अब 'Save' बटन दबाएं।`);
                 document.getElementById('deleteNameInput').value = ""; 
-                document.getElementById('parentOfDeleteInput').value = ""; 
             } else {
-                alert(`❌ नाम मैच नहीं हुआ! \nया तो "${nameToDelete}" लिस्ट में नहीं है, \nया उसके पिता का नाम "${parentOfDelete}" गलत है।`);
+                alert(`❌ नाम मैच नहीं हुआ! \nसंभवतः दादा या पिता का नाम गलत है, या वंशावली में यह क्रम नहीं मिला।`);
             }
         }
 
