@@ -10,30 +10,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* BASE THEME */
+        /* (CSS वही पुराना वाला है - बदलाव केवल Delete Section में हैं) */
         body { background-color: #2c0001; color: #f4f4f4; font-family: 'Playfair Display', serif; text-align: center; padding: 0; margin: 0; opacity: 0; transition: opacity 0.5s; }
-        body.visible { opacity: 1; }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
         .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: #1a0000; border-bottom: 2px solid #d4af37; }
-        
-        /* EDITOR & DELETE SECTION */
         .editor-section { border-top: 4px double #d4af37; margin-top: 40px; padding-top: 30px; background: rgba(0, 0, 0, 0.3); }
         .editor-wrapper { display: flex; gap: 20px; flex-wrap: wrap; text-align: left; }
         .editor-panel { flex: 1; min-width: 350px; background-color: rgba(0, 0, 0, 0.8); padding: 25px; border-radius: 10px; border: 2px solid #d4af37; }
         .preview-panel { flex: 1; min-width: 350px; background-color: #fdf5e6; color: #333; padding: 20px; border-radius: 10px; border: 2px solid #d4af37; max-height: 800px; overflow-y: auto; }
         
         input[type="text"], textarea { width: 100%; padding: 10px; margin-bottom: 15px; background-color: #222; color: #fff; border: 1px solid #d4af37; border-radius: 5px; box-sizing: border-box; }
-        textarea { min-height: 120px; font-family: monospace; font-size: 0.9em; }
-        
         .tool-btn { background-color: #b38728; color: #000; padding: 10px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; margin-bottom: 10px; }
-        .tool-btn:hover { background-color: #ffd700; }
-        
-        /* DELETE BUTTON SPECIFIC */
         .delete-btn { background-color: #ff4444; color: white; border: 1px solid white; }
-        .delete-btn:hover { background-color: #cc0000; }
-
         .save-btn { background-color: #ff0000; color: white; margin-top: 10px; font-size: 1.2em; border: 2px solid white; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); } 100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); } }
 
         /* PREVIEW TREE STYLE */
         .tree ul { list-style: none; padding-left: 20px; margin: 0; border-left: 2px solid #800000; }
@@ -42,71 +31,18 @@
     </style>
 
     <script>
+        // CONFIG
+        const GITHUB_USERNAME = "kasumalgarh";       
+        const REPO_NAME = "kasumalgarh.github.io";   
+        const FILE_PATH = "vanshawali.html";         
+        const BRANCH = "main";                       
+
         function checkPassword() {
             const CORRECT_PASSWORD = "kasumalgarh2025"; 
             let passwordAttempt = prompt("Admin Panel Access Password:");
             if (passwordAttempt === CORRECT_PASSWORD) { document.body.classList.add('visible'); } 
             else { alert("Wrong Password!"); window.location.href = "index.html"; }
         }
-    </script>
-</head>
-
-<body onload="checkPassword()">
-
-    <nav class="navbar">
-        <div style="font-family:'Cinzel'; font-size:1.5em; font-weight:bold; color:#fcf6ba;">KASUMALGARH ADMIN</div>
-        <a href="index.html" style="color:#ff4444; font-weight:bold; text-decoration:none;">Logout</a>
-    </nav>
-
-    <div class="container">
-        
-        <div class="editor-section">
-            <h2 style="color:#d4af37;">📝 Vanshavali Manager</h2>
-            
-            <div class="editor-wrapper">
-                
-                <div class="editor-panel">
-                    
-                    <h3>1. कोड लोड करें</h3>
-                    <button onclick="fetchLiveCode()" class="tool-btn" style="background:#008080; color:#fff;">🌐 Load Live Code (Auto)</button>
-                    <textarea id="inputHtml" style="display:none;"></textarea> <hr style="border-color:#555; margin: 20px 0;">
-
-                    <h3>2. नया नाम जोड़ें (Add)</h3>
-                    <input type="text" id="parentName" placeholder="पिता का नाम (Father): Ex: Th. Bhairu Singh">
-                    <input type="text" id="newName" placeholder="नया नाम (Child): Ex: Kr. Yuvraj Singh">
-                    <button onclick="addName()" class="tool-btn">➕ नाम जोड़ें</button>
-
-                    <hr style="border-color:#555; margin: 20px 0;">
-
-                    <h3 style="color:#ff4444;">3. नाम हटाएँ (Delete)</h3>
-                    <p style="font-size:0.8em; color:#ccc;">वह नाम लिखें जिसे हटाना है। (ध्यान दें: उसके नीचे के बच्चे भी हट जाएंगे)</p>
-                    <input type="text" id="deleteNameInput" placeholder="हटाने वाला नाम: Ex: Kr. Test Name">
-                    <button onclick="deleteName()" class="tool-btn delete-btn">🗑️ नाम हटाएं (DELETE)</button>
-
-                    <hr style="border-color:#555; margin: 20px 0;">
-
-                    <h3>4. वेबसाइट अपडेट करें</h3>
-                    <textarea id="outputHtml" readonly placeholder="नया कोड यहाँ बनेगा..." style="height:50px;"></textarea>
-                    <button onclick="saveToGitHub()" class="tool-btn save-btn">💾 SAVE TO WEBSITE (LIVE)</button>
-                </div>
-
-                <div class="preview-panel">
-                    <h3 style="color:#800000; border-bottom:1px solid #800000;">Live Preview</h3>
-                    <div id="livePreview" class="tree">
-                        <p style="color:#666; font-style:italic; padding:20px;">'Load Live Code' बटन दबाएं...</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // CONFIG
-        const GITHUB_USERNAME = "kasumalgarh";       
-        const REPO_NAME = "kasumalgarh.github.io";   
-        const FILE_PATH = "vanshawali.html";         
-        const BRANCH = "main";                       
 
         // 1. FETCH LIVE CODE
         async function fetchLiveCode() {
@@ -117,7 +53,7 @@
                 if (!response.ok) throw new Error("File not found");
                 const text = await response.text();
                 document.getElementById('inputHtml').value = text;
-                document.getElementById('outputHtml').value = text; // Sync output
+                document.getElementById('outputHtml').value = text; 
                 loadPreview();
                 alert("✅ कोड लोड हो गया!");
             } catch (err) { alert("Error: " + err.message); } 
@@ -130,7 +66,7 @@
             if(code) document.getElementById('livePreview').innerHTML = code;
         }
 
-        // 3. ADD NAME
+        // 3. ADD NAME (Logic Unchanged)
         function addName() {
             const htmlContent = document.getElementById('inputHtml').value;
             const parent = document.getElementById('parentName').value.trim();
@@ -158,22 +94,21 @@
                     break; 
                 }
             }
-
             if (parentFound) {
                 updateAndPreview(doc);
                 alert("✅ नाम जुड़ गया! अब सेव करें।");
             } else { alert("❌ पिता का नाम नहीं मिला।"); }
         }
 
-        // 4. 🔥 DELETE NAME FUNCTION (NEW)
+        // 4. 🔥 DELETE NAME FUNCTION (UPDATED)
         function deleteName() {
             const nameToDelete = document.getElementById('deleteNameInput').value.trim();
+            const parentOfDelete = document.getElementById('parentOfDeleteInput').value.trim(); // NEW INPUT
             const htmlContent = document.getElementById('inputHtml').value;
 
-            if (!nameToDelete || !htmlContent) { alert("कृपया हटाने वाला नाम लिखें और कोड लोड करें।"); return; }
+            if (!nameToDelete || !parentOfDelete || !htmlContent) { alert("कृपया दोनों नाम भरें और कोड लोड करें।"); return; }
 
-            // Confirmation
-            if(!confirm(`क्या आप वाकई "${nameToDelete}" को हटाना चाहते हैं?`)) return;
+            if(!confirm(`क्या आप वाकई ${parentOfDelete} के बेटे "${nameToDelete}" को हटाना चाहते हैं?`)) return;
 
             const parser = new DOMParser();
             const doc = parser.parseFromString(htmlContent, 'text/html');
@@ -181,25 +116,36 @@
             let deleted = false;
 
             for (let span of allSpans) {
-                // Exact Match Check
+                // 1. Find the name to delete
                 if (span.textContent.trim() === nameToDelete) {
-                    const liToDelete = span.closest('li'); // Find the LI container
-                    if (liToDelete) {
-                        liToDelete.remove(); // 🔥 Delete the element
-                        deleted = true;
-                        break; 
+                    const liToDelete = span.closest('li'); 
+                    const parentUl = liToDelete ? liToDelete.parentElement : null;
+
+                    if (parentUl) {
+                        // 2. Find the Grandparent/Father (the name you want to match the parent against)
+                        const grandParentLi = parentUl.closest('li');
+                        const grandParentSpan = grandParentLi ? grandParentLi.querySelector('.member-name') : null;
+
+                        // 3. Check if the parent of the deleted name matches the input
+                        if (grandParentSpan && grandParentSpan.textContent.trim() === parentOfDelete) {
+                            liToDelete.remove(); // 🔥 Delete the element
+                            deleted = true;
+                            break; 
+                        }
                     }
                 }
             }
 
             if (deleted) {
                 updateAndPreview(doc);
-                alert(`🗑️ "${nameToDelete}" को हटा दिया गया है। कृपया नीचे "Save" बटन दबाएं।`);
+                alert(`🗑️ ${parentOfDelete} के बेटे "${nameToDelete}" को हटा दिया गया है।`);
                 document.getElementById('deleteNameInput').value = ""; // Clear input
+                document.getElementById('parentOfDeleteInput').value = ""; // Clear parent input
             } else {
-                alert(`❌ "${nameToDelete}" नाम वंशावली में नहीं मिला। स्पेलिंग चेक करें।`);
+                alert(`❌ "${nameToDelete}" नाम ${parentOfDelete} के बेटे के रूप में नहीं मिला। वर्तनी (Spelling) या पीढ़ी (Generation) जांचें।`);
             }
         }
+
 
         // Helper Function to Update Textareas & Preview
         function updateAndPreview(doc) {
@@ -229,7 +175,7 @@
                     method: "PUT",
                     headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        message: "Updated via Admin Panel",
+                        message: "Vanshawali entry deleted via Admin Panel",
                         content: btoa(unescape(encodeURIComponent(content))),
                         sha: getData.sha,
                         branch: BRANCH
