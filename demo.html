@@ -2,7 +2,7 @@
 <html lang="hi">
 <head>
     <meta charset="utf-8">
-    <title>VANSHAVALI ADMIN (FIXED)</title>
+    <title>ROYAL ADMIN (MOBILE)</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
@@ -11,30 +11,28 @@
         /* --- 1. ADMIN PANEL THEME --- */
         body { background-color: #1a0000; color: #f4f4f4; font-family: 'Playfair Display', serif; text-align: center; margin: 0; padding: 10px; }
         
-        .container { display: flex; flex-wrap: wrap; gap: 20px; max-width: 100%; margin: 0 auto; }
+        .container { display: flex; flex-direction: column; gap: 20px; max-width: 100%; margin: 0 auto; }
         
-        /* LEFT SIDE (TOOLS) */
-        .editor-panel { flex: 1; min-width: 300px; background: rgba(255,255,255,0.05); padding: 15px; border: 2px solid #d4af37; border-radius: 10px; }
+        /* TOOLS PANEL */
+        .editor-panel { background: rgba(255,255,255,0.05); padding: 15px; border: 2px solid #d4af37; border-radius: 10px; }
         
-        /* RIGHT SIDE (PREVIEW) */
+        /* PREVIEW PANEL (VERTICAL FIX) */
         .preview-panel { 
-            flex: 1; 
-            min-width: 320px; 
-            background: #fffbf0; /* Paper Color */
+            background: #fffbf0; 
             color: #333; 
             border: 2px solid #d4af37; 
             border-radius: 10px; 
-            height: 80vh; /* Mobile Friendly Height */
-            overflow: auto; /* Scrollbar */
-            text-align: center;
-            position: relative;
+            height: 600px; 
+            overflow: auto; 
+            text-align: left; /* Text Align Left for List */
+            padding: 15px;
         }
 
         h3 { color: #d4af37; margin-top: 5px; border-bottom: 1px solid #444; padding-bottom: 5px; }
         
-        input { width: 100%; padding: 10px; margin: 5px 0; background: #330000; color: #fff; border: 1px solid #d4af37; border-radius: 4px; box-sizing: border-box; }
+        input { width: 100%; padding: 12px; margin: 8px 0; background: #330000; color: #fff; border: 1px solid #d4af37; border-radius: 4px; box-sizing: border-box; font-size: 16px; }
         
-        button { width: 100%; padding: 12px; margin-top: 8px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.2s; }
+        button { width: 100%; padding: 14px; margin-top: 8px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.2s; }
         
         .btn-load { background: #008080; color: white; }
         .btn-add { background: #006400; color: white; }
@@ -42,50 +40,54 @@
         .btn-del { background: #8b0000; color: white; }
         .btn-save { background: #ff4500; color: white; font-size: 1.1em; border: 2px solid white; margin-top: 20px; }
 
-        /* --- 2. FORCED TREE CSS (PREVIEW FIX) --- */
-        /* Ye CSS ensure karegi ki Preview me Ped (Tree) hi dikhe, baki faltu chize nahi */
+        /* --- 2. MOBILE FRIENDLY TREE (VERTICAL LIST STYLE) --- */
+        /* Isse tree sidha (List) dikhega taki mobile me padha ja sake */
         
-        #livePreview { padding: 20px; transform-origin: top center; }
-        
-        /* Hide Website Header/Footer in Preview */
-        #livePreview header, #livePreview nav, #livePreview footer, #livePreview .search-box { display: none !important; }
-        
-        /* Tree Lines Structure */
-        #livePreview ul { padding-top: 20px; position: relative; transition: all 0.5s; display: flex; justify-content: center; }
-        #livePreview li { float: left; text-align: center; list-style-type: none; position: relative; padding: 20px 5px 0 5px; transition: all 0.5s; }
-        
-        /* Connecting Lines */
-        #livePreview li::before, #livePreview li::after { content: ''; position: absolute; top: 0; right: 50%; border-top: 1px solid #ccc; width: 50%; height: 20px; }
-        #livePreview li::after { right: auto; left: 50%; border-left: 1px solid #ccc; }
-        #livePreview li:only-child::after, #livePreview li:only-child::before { display: none; }
-        #livePreview li:only-child { padding-top: 0; }
-        #livePreview li:first-child::before, #livePreview li:last-child::after { border: 0 none; }
-        #livePreview li:last-child::before { border-right: 1px solid #ccc; border-radius: 0 5px 0 0; }
-        #livePreview li:first-child::after { border-radius: 5px 0 0 0; }
-        #livePreview ul ul::before { content: ''; position: absolute; top: 0; left: 50%; border-left: 1px solid #ccc; width: 0; height: 20px; }
-        
-        /* Member Card Box */
-        #livePreview .member-card { 
-            border: 1px solid #d4af37; 
-            padding: 5px 10px; 
-            text-decoration: none; 
-            color: #333; 
-            font-family: arial, sans-serif; 
-            font-size: 12px; 
-            display: inline-block; 
-            border-radius: 5px; 
-            background: white;
-            min-width: 100px;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        #livePreview ul { 
+            padding-left: 20px; 
+            list-style-type: none;
+            border-left: 2px solid #d4af37; /* Line on left */
+            margin-left: 10px;
         }
-        #livePreview .member-name { font-weight: bold; color: #800000; display: block; }
+        
+        #livePreview li { 
+            position: relative; 
+            padding-left: 10px; 
+            margin-bottom: 5px;
+        }
+
+        #livePreview li::before {
+            content: "─"; /* Connector Dash */
+            position: absolute;
+            left: -20px;
+            top: 10px;
+            color: #d4af37;
+            font-weight: bold;
+        }
+
+        /* Hide Website Extras */
+        #livePreview header, #livePreview nav, #livePreview footer, #livePreview .search-box { display: none !important; }
+
+        /* Card Style inside Preview */
+        #livePreview .member-card { 
+            border: 1px solid #ccc; 
+            padding: 5px 8px; 
+            display: inline-block; 
+            border-radius: 4px; 
+            background: white;
+            font-family: sans-serif; 
+            font-size: 14px; 
+            width: auto;
+        }
+        
+        #livePreview .member-name { font-weight: bold; color: #800000; }
         
     </style>
 </head>
 
 <body>
 
-    <h2 style="color:#d4af37;">⚜️ ADMIN PANEL (V3) ⚜️</h2>
+    <h2 style="color:#d4af37;">⚜️ ROYAL ADMIN (MOBILE) ⚜️</h2>
 
     <div class="container">
         
@@ -118,9 +120,11 @@
         </div>
 
         <div class="preview-panel">
-            <div style="background:#ddd; padding:5px; font-weight:bold; position:sticky; top:0; z-index:10;">LIVE PREVIEW (Tree Only)</div>
+            <div style="background:#e6e6e6; padding:5px; font-weight:bold; position:sticky; top:0; z-index:10; border-bottom:1px solid #999;">
+                📜 LIVE LIST VIEW
+            </div>
             <div id="livePreview">
-                <br><br>Click "LOAD LIVE CODE"<br>to see the Vanshawali here.
+                <br><br>Click "LOAD LIVE CODE"<br>to see the List here.
             </div>
         </div>
 
@@ -148,38 +152,29 @@
                 if(!res.ok) throw new Error("File not found");
                 
                 const data = await res.json();
-                currentSha = data.sha; // Capture SHA correctly
+                currentSha = data.sha; 
                 
-                // Decode Content
                 let cleanContent = data.content.replace(/\s/g, '');
                 let decoded = decodeURIComponent(escape(window.atob(cleanContent)));
                 
                 document.getElementById('hiddenCode').value = decoded;
                 
-                // Show Preview (Only the Tree Part)
-                updateVisualPreview(decoded);
+                // Show Preview (TREE ONLY)
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(decoded, 'text/html');
+                const treeDiv = doc.querySelector('.tree');
                 
-                document.getElementById('status').innerText = "Status: Code Loaded ✅";
-                alert("Code Loaded! Preview check karein.");
+                if(treeDiv) {
+                    document.getElementById('livePreview').innerHTML = treeDiv.outerHTML;
+                    document.getElementById('status').innerText = "Status: Code Loaded ✅";
+                } else {
+                    document.getElementById('livePreview').innerHTML = "Error: Tree section not found.";
+                }
+                
+                alert("Loaded! Ab Preview niche dekhein.");
 
             } catch(e) {
                 alert("Error: " + e.message);
-            }
-        }
-
-        // PREVIEW HELPER
-        function updateVisualPreview(htmlContent) {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(htmlContent, 'text/html');
-            
-            // Try to find the tree div specifically
-            const treeDiv = doc.querySelector('.tree');
-            
-            if(treeDiv) {
-                document.getElementById('livePreview').innerHTML = treeDiv.outerHTML;
-            } else {
-                // If .tree class not found, show body but warn
-                document.getElementById('livePreview').innerHTML = doc.body.innerHTML;
             }
         }
 
@@ -187,7 +182,6 @@
         function addName() {
             if(!currentSha) { alert("Please Load Code First!"); return; }
             
-            // Logic Same as before but safer
             let html = document.getElementById('hiddenCode').value;
             let g = document.getElementById('addGrand').value.trim();
             let p = document.getElementById('addFather').value.trim();
@@ -219,13 +213,11 @@
             }
 
             if(found) {
-                let newHtml = doc.documentElement.outerHTML;
-                document.getElementById('hiddenCode').value = newHtml;
-                updateVisualPreview(newHtml);
+                updateAll(doc);
                 alert("Added! Now click Save.");
                 document.getElementById('addChild').value = "";
             } else {
-                alert("Parent not found. Check spelling of Father & Grandfather.");
+                alert("Parent not found. Check spelling.");
             }
         }
 
@@ -254,7 +246,7 @@
                         let gLi = pLi.parentElement.closest('li');
                         if(gLi && gLi.querySelector('.member-name').textContent.trim() === g) {
                             
-                            span.textContent = newN; // UPDATE
+                            span.textContent = newN; 
                             found = true; break;
                         }
                     }
@@ -262,24 +254,19 @@
             }
 
             if(found) {
-                let newHtml = doc.documentElement.outerHTML;
-                document.getElementById('hiddenCode').value = newHtml;
-                updateVisualPreview(newHtml);
+                updateAll(doc);
                 alert("Corrected! Now click Save.");
                 document.getElementById('editOld').value = "";
                 document.getElementById('editNew').value = "";
             } else {
-                alert("Name not found. Verify Father/Grandfather spelling strictly.");
+                alert("Name not found. Check Spellings.");
             }
         }
 
         // 4. DELETE NAME
         function deleteName() {
-             // Same logic, just strictly checking SHA
              if(!currentSha) { alert("Load Code First"); return; }
              let html = document.getElementById('hiddenCode').value;
-             // ... (Logic remains same as previous provided code for brevity, assumes standard delete)
-             // Re-using simplified version:
              let g = document.getElementById('delGrand').value.trim();
              let p = document.getElementById('delFather').value.trim();
              let c = document.getElementById('delChild').value.trim();
@@ -292,7 +279,6 @@
              for(let span of spans) {
                  if(span.textContent.trim() === c) {
                      let li = span.closest('li');
-                     // Simple check for now to save space
                      if(li.parentElement.closest('li').querySelector('.member-name').textContent.trim() === p) {
                          li.remove();
                          deleted = true; break;
@@ -301,16 +287,26 @@
              }
              
              if(deleted) {
-                 let newHtml = doc.documentElement.outerHTML;
-                 document.getElementById('hiddenCode').value = newHtml;
-                 updateVisualPreview(newHtml);
+                 updateAll(doc);
                  alert("Deleted. Click Save.");
              } else {
                  alert("Not found.");
              }
         }
 
-        // 5. SAVE TO GITHUB (FIXED ERROR)
+        // HELPER TO UPDATE BOTH VIEWS
+        function updateAll(doc) {
+            let newHtml = doc.documentElement.outerHTML;
+            document.getElementById('hiddenCode').value = newHtml;
+            
+            // Only update tree view
+            const treeDiv = doc.querySelector('.tree');
+            if(treeDiv) {
+                document.getElementById('livePreview').innerHTML = treeDiv.outerHTML;
+            }
+        }
+
+        // 5. SAVE TO GITHUB (AUTO SHA FIX)
         async function saveToGithub() {
             const html = document.getElementById('hiddenCode').value;
             if(!html) return;
@@ -319,17 +315,15 @@
             if(!token) return;
 
             const btn = document.querySelector('.btn-save');
-            btn.innerText = "⏳ Verifying...";
+            btn.innerText = "⏳ Saving...";
 
             try {
-                // STEP A: FETCH LATEST SHA (Safety Check)
-                // Agar purana SHA expire ho gaya ya null hai, to naya layenge
+                // 1. Fetch Latest SHA again to avoid error
                 const checkRes = await fetch(`https://api.github.com/repos/${USER}/${REPO}/contents/${FILE}`);
                 const checkData = await checkRes.json();
-                currentSha = checkData.sha; // Update SHA immediately before saving
+                currentSha = checkData.sha; 
 
-                // STEP B: SAVE
-                btn.innerText = "⏳ Saving...";
+                // 2. Save
                 const content = btoa(unescape(encodeURIComponent(html)));
                 
                 const res = await fetch(`https://api.github.com/repos/${USER}/${REPO}/contents/${FILE}`, {
@@ -338,24 +332,22 @@
                     body: JSON.stringify({
                         message: "Admin Panel Update",
                         content: content,
-                        sha: currentSha, // Now this is 100% valid string
+                        sha: currentSha, 
                         branch: "main"
                     })
                 });
 
                 if(res.ok) {
                     const d = await res.json();
-                    currentSha = d.content.sha; // Update for next save
-                    alert("🎉 SUCCESS! Website Updated.");
+                    currentSha = d.content.sha;
+                    alert("🎉 SAVED SUCCESSFULLY!");
                     btn.innerText = "💾 SAVE TO WEBSITE";
                 } else {
                     const err = await res.json();
-                    alert("Github Error: " + err.message);
-                    btn.innerText = "❌ Retry";
+                    alert("Error: " + err.message);
                 }
             } catch(e) {
                 alert("Network Error: " + e.message);
-                btn.innerText = "💾 SAVE TO WEBSITE";
             }
         }
     </script>
