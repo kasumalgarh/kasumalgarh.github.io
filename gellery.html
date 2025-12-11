@@ -1,1 +1,82 @@
-gs
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>KASUMALGARH :: ROYAL GALLERY</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+        h1 { text-align: center; color: #800000; }
+        
+        /* यह मुख्य कंटेनर है जिसे Admin Panel समझेगा */
+        .image-gallery-container { 
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 3 कॉलम का लेआउट */
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+
+        /* यह हर फ़ोटो का बॉक्स है जिसे Admin Panel समझेगा */
+        .gallery-item {
+            border: 1px solid #d4af37; /* Royal Gold Border */
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: white;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px; /* फ़ोटो की ऊंचाई */
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-caption {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .image-title {
+            font-weight: bold;
+            color: #800000;
+            margin: 0;
+        }
+        .image-date {
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>⚜️ रॉयल गैलरी - मुख्य तस्वीरें ⚜️</h1>
+    
+    <div class="image-gallery-container" id="mainGallery">
+
+        <div class="gallery-item" data-title="शाही स्वागत समारोह">
+            <img src="https://i.imgur.com/example-link-1.jpg" alt="शाही स्वागत समारोह">
+            <div class="image-caption">
+                <p class="image-title">शाही स्वागत समारोह</p>
+                <p class="image-date">दिनांक: 15-08-2025</p>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-title="किले का दृश्य">
+            <img src="https://i.imgur.com/example-link-2.jpg" alt="किले का दृश्य">
+            <div class="image-caption">
+                <p class="image-title">किले का दृश्य</p>
+                <p class="image-date">दिनांक: 01-01-2025</p>
+            </div>
+        </div>
+        
+        </div>
+    
+</body>
+</html>
