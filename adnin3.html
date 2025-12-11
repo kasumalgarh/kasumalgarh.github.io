@@ -10,13 +10,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* (CSS वही पुराना वाला है - जगह बचाने के लिए छोटा कर रहा हूँ) */
-        body { background-color: #2c0001; color: #f4f4f4; font-family: 'Playfair Display', serif; text-align: center; padding: 0; margin: 0; }
+        /* BASE THEME */
+        body { background-color: #2c0001; color: #f4f4f4; font-family: 'Playfair Display', serif; text-align: center; padding: 0; margin: 0; opacity: 0; transition: opacity 0.5s; }
+        body.visible { opacity: 1; }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
         .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: #1a0000; border-bottom: 2px solid #d4af37; }
-        .action-btn { display: block; background: #008000; color: white; padding: 10px; border-radius: 5px; font-weight: bold; text-decoration: none; }
         
-        /* EDITOR STYLES */
+        /* EDITOR & DELETE SECTION */
         .editor-section { border-top: 4px double #d4af37; margin-top: 40px; padding-top: 30px; background: rgba(0, 0, 0, 0.3); }
         .editor-wrapper { display: flex; gap: 20px; flex-wrap: wrap; text-align: left; }
         .editor-panel { flex: 1; min-width: 350px; background-color: rgba(0, 0, 0, 0.8); padding: 25px; border-radius: 10px; border: 2px solid #d4af37; }
@@ -24,22 +24,34 @@
         
         input[type="text"], textarea { width: 100%; padding: 10px; margin-bottom: 15px; background-color: #222; color: #fff; border: 1px solid #d4af37; border-radius: 5px; box-sizing: border-box; }
         textarea { min-height: 120px; font-family: monospace; font-size: 0.9em; }
-        .tool-btn { background-color: #b38728; color: #000; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; margin-bottom: 10px; }
+        
+        .tool-btn { background-color: #b38728; color: #000; padding: 10px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; margin-bottom: 10px; }
         .tool-btn:hover { background-color: #ffd700; }
         
-        /* ✨ SAVE BUTTON STYLE */
-        .save-btn { background-color: #ff0000; color: white; margin-top: 10px; font-size: 1.2em; border: 2px solid white; animation: pulse 2s infinite; }
-        .save-btn:hover { background-color: #cc0000; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); } }
+        /* DELETE BUTTON SPECIFIC */
+        .delete-btn { background-color: #ff4444; color: white; border: 1px solid white; }
+        .delete-btn:hover { background-color: #cc0000; }
 
-        /* Preview Tree Style */
+        .save-btn { background-color: #ff0000; color: white; margin-top: 10px; font-size: 1.2em; border: 2px solid white; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); } 100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); } }
+
+        /* PREVIEW TREE STYLE */
         .tree ul { list-style: none; padding-left: 20px; margin: 0; border-left: 2px solid #800000; }
         .tree li { padding: 5px 0; position: relative; }
         .member-card { border: 2px solid #b38728; padding: 5px 10px; background: #fffbf0; color: #800000; font-weight: bold; display: inline-block; border-radius: 5px; }
     </style>
+
+    <script>
+        function checkPassword() {
+            const CORRECT_PASSWORD = "kasumalgarh2025"; 
+            let passwordAttempt = prompt("Admin Panel Access Password:");
+            if (passwordAttempt === CORRECT_PASSWORD) { document.body.classList.add('visible'); } 
+            else { alert("Wrong Password!"); window.location.href = "index.html"; }
+        }
+    </script>
 </head>
 
-<body>
+<body onload="checkPassword()">
 
     <nav class="navbar">
         <div style="font-family:'Cinzel'; font-size:1.5em; font-weight:bold; color:#fcf6ba;">KASUMALGARH ADMIN</div>
@@ -48,33 +60,34 @@
 
     <div class="container">
         
-        <div class="editor-section" id="editor-tool">
-            <h2 style="color:#d4af37;">📝 Vanshavali Editor (Direct Save Mode)</h2>
-            <p style="color:#ccc; margin-bottom: 20px;">नाम जोड़ें और 'Save to Website' दबाएं। 1 मिनट में अपडेट हो जाएगा।</p>
-
+        <div class="editor-section">
+            <h2 style="color:#d4af37;">📝 Vanshavali Manager</h2>
+            
             <div class="editor-wrapper">
                 
                 <div class="editor-panel">
-                    <h3>1. कोड लोड करें</h3>
-                    <button onclick="fetchLiveCode()" class="tool-btn" style="background:#008080; color:#fff;">🌐 Load Live Code</button>
-                    <textarea id="inputHtml" placeholder="कोड यहाँ आएगा..."></textarea>
-
-                    <hr style="border-color:#555; margin: 20px 0;">
-
-                    <h3>2. नाम जोड़ें</h3>
-                    <input type="text" id="grandParentName" placeholder="दादा (Grandparent): Th. Ridmal Singh">
-                    <input type="text" id="parentName" placeholder="पिता (Father): Th. Bhairu Singh">
-                    <input type="text" id="newName" placeholder="नया नाम (Child): Kr. Yuvraj Singh">
-                    <button onclick="addName()" class="tool-btn" style="background:#d4af37; color:#000;">➕ नाम लिस्ट में जोड़ें</button>
-
-                    <hr style="border-color:#555; margin: 20px 0;">
-
-                    <h3>3. वेबसाइट पर सेव करें</h3>
-                    <textarea id="outputHtml" readonly placeholder="नया कोड यहाँ बनेगा..."></textarea>
                     
-                    <button onclick="saveToGitHub()" class="tool-btn save-btn">
-                        💾 SAVE TO WEBSITE (LIVE)
-                    </button>
+                    <h3>1. कोड लोड करें</h3>
+                    <button onclick="fetchLiveCode()" class="tool-btn" style="background:#008080; color:#fff;">🌐 Load Live Code (Auto)</button>
+                    <textarea id="inputHtml" style="display:none;"></textarea> <hr style="border-color:#555; margin: 20px 0;">
+
+                    <h3>2. नया नाम जोड़ें (Add)</h3>
+                    <input type="text" id="parentName" placeholder="पिता का नाम (Father): Ex: Th. Bhairu Singh">
+                    <input type="text" id="newName" placeholder="नया नाम (Child): Ex: Kr. Yuvraj Singh">
+                    <button onclick="addName()" class="tool-btn">➕ नाम जोड़ें</button>
+
+                    <hr style="border-color:#555; margin: 20px 0;">
+
+                    <h3 style="color:#ff4444;">3. नाम हटाएँ (Delete)</h3>
+                    <p style="font-size:0.8em; color:#ccc;">वह नाम लिखें जिसे हटाना है। (ध्यान दें: उसके नीचे के बच्चे भी हट जाएंगे)</p>
+                    <input type="text" id="deleteNameInput" placeholder="हटाने वाला नाम: Ex: Kr. Test Name">
+                    <button onclick="deleteName()" class="tool-btn delete-btn">🗑️ नाम हटाएं (DELETE)</button>
+
+                    <hr style="border-color:#555; margin: 20px 0;">
+
+                    <h3>4. वेबसाइट अपडेट करें</h3>
+                    <textarea id="outputHtml" readonly placeholder="नया कोड यहाँ बनेगा..." style="height:50px;"></textarea>
+                    <button onclick="saveToGitHub()" class="tool-btn save-btn">💾 SAVE TO WEBSITE (LIVE)</button>
                 </div>
 
                 <div class="preview-panel">
@@ -89,14 +102,11 @@
     </div>
 
     <script>
-        // ---------------------------------------------------------
-        // ⚠️ CONFIGURATION - अपनी जानकारी यहाँ भरें
-        // ---------------------------------------------------------
-        const GITHUB_USERNAME = "kasumalgarh";       // आपकी GitHub ID
-        const REPO_NAME = "kasumalgarh.github.io";   // आपके Repo का नाम
-        const FILE_PATH = "vanshawali.html";         // जिस फाइल को बदलना है
-        const BRANCH = "main";                       // ब्रांच (main या master)
-        // ---------------------------------------------------------
+        // CONFIG
+        const GITHUB_USERNAME = "kasumalgarh";       
+        const REPO_NAME = "kasumalgarh.github.io";   
+        const FILE_PATH = "vanshawali.html";         
+        const BRANCH = "main";                       
 
         // 1. FETCH LIVE CODE
         async function fetchLiveCode() {
@@ -107,10 +117,11 @@
                 if (!response.ok) throw new Error("File not found");
                 const text = await response.text();
                 document.getElementById('inputHtml').value = text;
+                document.getElementById('outputHtml').value = text; // Sync output
                 loadPreview();
                 alert("✅ कोड लोड हो गया!");
             } catch (err) { alert("Error: " + err.message); } 
-            finally { btn.innerHTML = "🌐 Load Live Code"; }
+            finally { btn.innerHTML = "🌐 Load Live Code (Auto)"; }
         }
 
         // 2. LOAD PREVIEW
@@ -119,14 +130,13 @@
             if(code) document.getElementById('livePreview').innerHTML = code;
         }
 
-        // 3. ADD NAME LOGIC
+        // 3. ADD NAME
         function addName() {
             const htmlContent = document.getElementById('inputHtml').value;
-            const grandParent = document.getElementById('grandParentName').value.trim();
             const parent = document.getElementById('parentName').value.trim();
             const child = document.getElementById('newName').value.trim();
 
-            if (!htmlContent || !grandParent || !parent || !child) { alert("कृपया सभी नाम भरें!"); return; }
+            if (!htmlContent || !parent || !child) { alert("नाम भरें!"); return; }
 
             const parser = new DOMParser();
             const doc = parser.parseFromString(htmlContent, 'text/html');
@@ -150,72 +160,87 @@
             }
 
             if (parentFound) {
-                const updatedHTML = doc.documentElement.outerHTML; 
-                document.getElementById('outputHtml').value = updatedHTML;
-                document.getElementById('livePreview').innerHTML = updatedHTML;
-                document.getElementById('inputHtml').value = updatedHTML; 
-                alert("✅ नाम जुड़ गया! अब नीचे लाल बटन दबाकर सेव करें।");
+                updateAndPreview(doc);
+                alert("✅ नाम जुड़ गया! अब सेव करें।");
+            } else { alert("❌ पिता का नाम नहीं मिला।"); }
+        }
+
+        // 4. 🔥 DELETE NAME FUNCTION (NEW)
+        function deleteName() {
+            const nameToDelete = document.getElementById('deleteNameInput').value.trim();
+            const htmlContent = document.getElementById('inputHtml').value;
+
+            if (!nameToDelete || !htmlContent) { alert("कृपया हटाने वाला नाम लिखें और कोड लोड करें।"); return; }
+
+            // Confirmation
+            if(!confirm(`क्या आप वाकई "${nameToDelete}" को हटाना चाहते हैं?`)) return;
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlContent, 'text/html');
+            const allSpans = doc.querySelectorAll('.member-name');
+            let deleted = false;
+
+            for (let span of allSpans) {
+                // Exact Match Check
+                if (span.textContent.trim() === nameToDelete) {
+                    const liToDelete = span.closest('li'); // Find the LI container
+                    if (liToDelete) {
+                        liToDelete.remove(); // 🔥 Delete the element
+                        deleted = true;
+                        break; 
+                    }
+                }
+            }
+
+            if (deleted) {
+                updateAndPreview(doc);
+                alert(`🗑️ "${nameToDelete}" को हटा दिया गया है। कृपया नीचे "Save" बटन दबाएं।`);
+                document.getElementById('deleteNameInput').value = ""; // Clear input
             } else {
-                alert("❌ पिता का नाम नहीं मिला।");
+                alert(`❌ "${nameToDelete}" नाम वंशावली में नहीं मिला। स्पेलिंग चेक करें।`);
             }
         }
 
-        // 4. 🔥 SAVE TO GITHUB (THE MAGIC FUNCTION)
+        // Helper Function to Update Textareas & Preview
+        function updateAndPreview(doc) {
+            const updatedHTML = doc.documentElement.outerHTML;
+            document.getElementById('outputHtml').value = updatedHTML;
+            document.getElementById('livePreview').innerHTML = updatedHTML;
+            document.getElementById('inputHtml').value = updatedHTML; 
+        }
+
+        // 5. SAVE TO GITHUB
         async function saveToGitHub() {
-            // सिक्योरिटी के लिए टोकन हर बार पूछेंगे (ब्राउज़र में सेव नहीं करेंगे)
-            const token = prompt("कृपया अपनी GitHub Secret Key (Token) डालें:");
-            
+            const token = prompt("GitHub Secret Key (Token):");
             if (!token) { alert("Token ज़रूरी है!"); return; }
 
             const content = document.getElementById('outputHtml').value;
-            if (!content) { alert("सेव करने के लिए कुछ नहीं है!"); return; }
+            if (!content) { alert("खाली कोड सेव नहीं कर सकते!"); return; }
 
             const btn = document.querySelector('.save-btn');
             btn.innerHTML = "⏳ Saving...";
 
             try {
-                // Step A: Get current file SHA (GitHub की ज़रूरत)
                 const apiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}`;
-                
-                const getRes = await fetch(apiUrl, {
-                    headers: { "Authorization": `token ${token}` }
-                });
-                
+                const getRes = await fetch(apiUrl, { headers: { "Authorization": `token ${token}` } });
                 const getData = await getRes.json();
-                const currentSha = getData.sha;
-
-                // Step B: Update File (PUT Request)
-                // GitHub को Base64 एनकोडेड कंटेंट चाहिए होता है (UTF-8 सपोर्ट के साथ)
-                const base64Content = btoa(unescape(encodeURIComponent(content)));
-
-                const putBody = {
-                    message: "Vanshawali Updated via Admin Panel",
-                    content: base64Content,
-                    sha: currentSha,
-                    branch: BRANCH
-                };
-
+                
                 const putRes = await fetch(apiUrl, {
                     method: "PUT",
-                    headers: {
-                        "Authorization": `token ${token}`,
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(putBody)
+                    headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        message: "Updated via Admin Panel",
+                        content: btoa(unescape(encodeURIComponent(content))),
+                        sha: getData.sha,
+                        branch: BRANCH
+                    })
                 });
 
-                if (putRes.ok) {
-                    alert("🎉 बधाई हो! वेबसाइट अपडेट हो गई है। (बदलाव दिखने में 1-2 मिनट लग सकते हैं)");
-                } else {
-                    const err = await putRes.json();
-                    alert("❌ सेव नहीं हुआ! Error: " + err.message);
-                }
+                if (putRes.ok) alert("🎉 बधाई हो! वेबसाइट अपडेट हो गई है।");
+                else { const err = await putRes.json(); alert("Error: " + err.message); }
 
-            } catch (err) {
-                alert("❌ नेटवर्क एरर: " + err.message);
-            } finally {
-                btn.innerHTML = "💾 SAVE TO WEBSITE (LIVE)";
-            }
+            } catch (err) { alert("Network Error"); } 
+            finally { btn.innerHTML = "💾 SAVE TO WEBSITE (LIVE)"; }
         }
     </script>
 
