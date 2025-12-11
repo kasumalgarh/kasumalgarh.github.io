@@ -14,7 +14,6 @@
         --royal-maroon: #800000;
         --bg-paper: #fffbf0;
         --text-dark: #2c0e0e;
-        --header-height: 130px; /* हेडर की ऊंचाई */
     }
 
     * { box-sizing: border-box; }
@@ -30,23 +29,20 @@
     a { text-decoration: none; color: inherit; }
 
     /* ========================================= */
-    /* 🏰 HEADER SECTION (FIXED / STICKY) */
+    /* 🏰 HEADER SECTION (STICKY) */
     /* ========================================= */
     header {
         background: linear-gradient(to bottom, #fffbf0, #fcf6ba);
         border-bottom: 4px solid var(--royal-maroon);
         text-align: center;
         padding-top: 10px;
-        /* ✨ FIX: मेनु अब ऊपर चिपका रहेगा */
         position: sticky;
         top: 0;
         z-index: 1000;
         box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
 
-    .header-content {
-        padding-bottom: 10px;
-    }
+    .header-content { padding-bottom: 10px; }
 
     .main-title {
         font-size: 2rem;
@@ -59,7 +55,6 @@
     
     .main-title span { color: var(--royal-maroon); }
 
-    /* Navigation Bar */
     .navbar {
         background-color: #b8860b;
         border-top: 2px solid #5c3a00;
@@ -84,7 +79,7 @@
     }
 
     /* ========================================= */
-    /* 📜 MAIN LAYOUT */
+    /* 📜 SIDEBAR (INDEX & SEARCH) */
     /* ========================================= */
     .container {
         display: flex;
@@ -94,19 +89,17 @@
         position: relative;
     }
 
-    /* Left Sidebar (Name Index) */
     .sidebar {
-        width: 250px;
+        width: 280px; /* Width increased for search bar */
         flex-shrink: 0;
-        /* ✨ FIX: साइडबार भी चिपका रहेगा, लेकिन हेडर के नीचे */
         position: sticky; 
-        top: 140px; /* हेडर की ऊंचाई के हिसाब से */
+        top: 140px; 
         height: calc(100vh - 150px);
         overflow-y: auto;
         border-right: 2px solid var(--royal-maroon);
         padding-right: 15px;
         margin-right: 20px;
-        background: var(--bg-paper); /* ताकि टेक्स्ट के ऊपर ट्रांसपेरेंट न दिखे */
+        background: var(--bg-paper);
         scrollbar-width: thin;
         scrollbar-color: var(--royal-maroon) var(--bg-paper);
     }
@@ -114,10 +107,33 @@
     .sidebar h3 {
         color: var(--royal-maroon);
         border-bottom: 2px solid var(--royal-gold);
-        padding-bottom: 10px;
+        padding-bottom: 5px;
         margin-top: 0;
-        font-size: 1.4rem;
         text-align: center;
+    }
+
+    /* 🔍 Search Bar Style */
+    .search-container {
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    #search-box {
+        width: 100%;
+        padding: 8px;
+        border: 2px solid #b8860b;
+        border-radius: 4px;
+        background-color: #fff;
+        font-family: 'Georgia', serif;
+        color: var(--royal-maroon);
+    }
+
+    #member-count {
+        font-size: 0.9rem;
+        color: #555;
+        text-align: center;
+        margin-bottom: 10px;
+        font-style: italic;
     }
 
     .name-list { list-style: none; padding: 0; }
@@ -178,7 +194,7 @@
         border: 1px solid transparent;
         transition: all 0.3s ease;
         cursor: pointer;
-        position: relative; /* Tooltip position ke liye */
+        position: relative; 
     }
     
     .founder-card .member-name {
@@ -199,7 +215,6 @@
     
     .member-card:hover .member-name { color: var(--royal-maroon); }
 
-    /* ✨ HIGHLIGHT EFFECT */
     .highlight-node .member-name {
         background-color: yellow;
         color: red;
@@ -210,55 +225,34 @@
     }
 
     /* ========================================= */
-    /* 💬 TOOLTIP (SCREENSHOT STYLE) */
+    /* 💬 SMART TOOLTIP */
     /* ========================================= */
     #tooltip {
         position: absolute;
         display: none;
-        /* रॉयल ग्रेडिएंट बैकग्राउंड जैसा आपके स्क्रीनशॉट में है */
         background: linear-gradient(to bottom, #946f36, #7a5620);
         color: #fff;
-        padding: 10px 15px;
+        padding: 12px 15px;
         border: 2px solid #fff;
         border-radius: 8px;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         z-index: 2000;
         box-shadow: 0 10px 25px rgba(0,0,0,0.6);
         pointer-events: none;
-        min-width: 250px;
-        max-width: 300px;
+        min-width: 300px;
+        max-width: 400px;
         text-align: left;
-        
-        /* नीचे वाला तीर (Arrow) */
-        transform: translate(-50%, -100%); /* एलिमेंट के ऊपर सेंटर करने के लिए */
-        margin-top: -10px; /* नाम से थोड़ा ऊपर */
+        line-height: 1.5;
+        transform: translate(-50%, -100%);
+        margin-top: -10px;
     }
 
-    /* Tooltip का तीर */
     #tooltip::after {
-        content: "";
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        margin-left: -8px;
-        border-width: 8px;
-        border-style: solid;
-        border-color: #7a5620 transparent transparent transparent;
+        content: ""; position: absolute; top: 100%; left: 50%; margin-left: -8px;
+        border-width: 8px; border-style: solid; border-color: #7a5620 transparent transparent transparent;
     }
 
-    #tooltip strong {
-        color: #ffeb3b; /* Yellow Highlight */
-        font-size: 1.1em;
-        display: block;
-        margin-bottom: 5px;
-        border-bottom: 1px solid rgba(255,255,255,0.3);
-        padding-bottom: 3px;
-    }
-    
-    #tooltip .detail {
-        font-size: 0.85em;
-        line-height: 1.4;
-    }
+    #tooltip strong { color: #ffeb3b; font-size: 1.1em; }
 
     /* ========================================= */
     /* 🦶 FOOTER */
@@ -270,15 +264,13 @@
         padding: 15px 0;
         border-top: 4px solid #b8860b;
         margin-top: 50px;
-        position: relative;
-        z-index: 1001;
+        position: relative; z-index: 1001;
     }
 
     @media (max-width: 768px) {
         .sidebar { display: none; }
-        header { position: static; } /* मोबाइल में स्टिकी हटा सकते हैं अगर जगह कम हो */
+        header { position: static; }
     }
-
 </style>
 </head>
 <body>
@@ -290,17 +282,21 @@
         </div>
         <nav class="navbar">
             <a href="#">Home</a>
-            <a href="#">History</a>
             <a href="#" class="active">Family Tree</a>
-            <a href="#">About</a>
+            <a href="#">History</a>
             <a href="#">Contact</a>
         </nav>
     </header>
 
     <div class="container">
-        
         <aside class="sidebar">
             <h3>Name Index</h3>
+            
+            <div class="search-container">
+                <input type="text" id="search-box" placeholder="Search name..." onkeyup="filterNames()">
+            </div>
+            <div id="member-count">Total Members: 0</div>
+
             <ul class="name-list" id="index-list">
                 </ul>
         </aside>
@@ -371,11 +367,7 @@
                                                                                     <li><div class="member-card"><span class="member-name">Ajeet Singh</span></div></li>
                                                                                 </ul>
                                                                             </li>
-                                                                            <li>
-                                                                                <div class="member-card"><span class="member-name">Ratan Singh</span></div>
-                                                                                <ul><li><div class="member-card"><span class="member-name">Vikram Singh</span></div></li></ul>
-                                                                            </li>
-                                                                        </ul>
+                                                                            </ul>
                                                                     </li>
                                                                 </ul>
                                                             </li>
@@ -404,7 +396,11 @@
             const treeCards = document.querySelectorAll('.tree .member-card');
             const indexList = document.getElementById('index-list');
             const tooltip = document.getElementById('tooltip');
+            const memberCountLabel = document.getElementById('member-count');
             let namesArray = [];
+            
+            // Founder Name (Assuming first card is founder)
+            const founderName = document.querySelector('.founder-card .member-name').textContent.trim();
 
             // 1. Generate Index & Set IDs
             treeCards.forEach((card, i) => {
@@ -417,11 +413,13 @@
                 }
             });
 
-            namesArray.sort((a, b) => a.name.localeCompare(b.name));
+            // Update Total Count
+            memberCountLabel.textContent = `Total Members: ${namesArray.length}`;
 
+            // Sort & Create Index
+            namesArray.sort((a, b) => a.name.localeCompare(b.name));
             namesArray.forEach(item => {
                 let li = document.createElement('li');
-                // ✨ FIX: onmouseenter पर सिर्फ हाईलाइट होगा, स्क्रॉल नहीं (No Shaking)
                 li.innerHTML = `<a href="#${item.id}" 
                                    onmouseenter="highlightNode('${item.id}')" 
                                    onmouseleave="removeHighlight('${item.id}')">
@@ -430,38 +428,91 @@
                 indexList.appendChild(li);
             });
 
-            // 2. Tree Tooltip Logic (Show ABOVE the name)
+            // 2. SMART TOOLTIP LOGIC
             treeCards.forEach(card => {
                 card.addEventListener('mouseenter', function() {
                     let name = this.querySelector('.member-name').textContent;
                     
-                    // पिता का नाम ढूंढना
-                    let fatherName = "Founder / Root";
-                    let parentLi = this.closest('li').parentElement.closest('li');
-                    if(parentLi) {
-                        let fatherCard = parentLi.querySelector('.member-card .member-name');
-                        if(fatherCard) fatherName = fatherCard.textContent;
+                    // --- Logic Start ---
+                    let fatherName = "Unknown";
+                    let generation = 1;
+                    let relationText = "";
+                    let siblingText = "";
+
+                    // Calculate Generation (Depth)
+                    let depth = 0;
+                    let tempEl = this;
+                    while(tempEl.parentElement.closest('ul')) {
+                        depth++;
+                        tempEl = tempEl.parentElement.closest('ul').parentElement;
+                        if(tempEl.tagName === 'DIV' || tempEl.classList.contains('tree')) break;
+                    }
+                    generation = depth; // Founder is Gen 1 (depth 1 based on loop logic adjustment)
+
+                    // Find Father & Siblings
+                    let currentLi = this.closest('li');
+                    let parentUl = currentLi.parentElement;
+                    
+                    if(this.classList.contains('founder-card')) {
+                        // Special text for Founder
+                        tooltip.innerHTML = `<strong>${name}</strong><br>Founder of Thikana Kasumalgarh`;
+                    } else {
+                        // Find Father
+                        let parentLi = parentUl.parentElement.closest('li');
+                        if(parentLi) {
+                            let fatherCard = parentLi.querySelector('.member-card .member-name');
+                            fatherName = fatherCard ? fatherCard.textContent : "Unknown";
+                        }
+
+                        // Find Siblings & Order
+                        let siblings = Array.from(parentUl.children).filter(child => child.tagName === 'LI');
+                        let myIndex = siblings.indexOf(currentLi);
+                        let totalSiblings = siblings.length;
+                        let otherSiblingsCount = totalSiblings - 1;
+
+                        // Ordinal Logic (Eldest, 2nd, Youngest)
+                        let orderStr = "";
+                        if (totalSiblings === 1) {
+                            orderStr = "only";
+                        } else if (myIndex === 0) {
+                            orderStr = "eldest";
+                        } else if (myIndex === totalSiblings - 1) {
+                            orderStr = "youngest";
+                        } else {
+                            // 2nd, 3rd logic
+                            let n = myIndex + 1;
+                            let ord = 'th';
+                            if(n===2) ord='nd'; if(n===3) ord='rd';
+                            orderStr = n + ord;
+                        }
+
+                        // Sibling Text
+                        if(otherSiblingsCount > 0) {
+                            let s = otherSiblingsCount > 1 ? "s" : "";
+                            siblingText = `He has ${otherSiblingsCount} more sibling${s}`;
+                        } else {
+                            siblingText = `He is the only son`;
+                        }
+
+                        // Generation Suffix
+                        let genSuffix = 'th';
+                        if(generation === 1) genSuffix = 'st';
+                        if(generation === 2) genSuffix = 'nd';
+                        if(generation === 3) genSuffix = 'rd';
+
+                        // --- Final HTML Construction ---
+                        tooltip.innerHTML = `
+                            <strong>${name}</strong>
+                            ${name} is the ${orderStr} son of <b>${fatherName}</b>.<br>
+                            ${siblingText} and are ${generation}${genSuffix} generation progeny of <b>${founderName}</b>.
+                        `;
                     }
 
-                    // Tooltip Content (Screenshot Style)
-                    tooltip.innerHTML = `
-                        <strong>${name}</strong>
-                        <div class="detail">
-                            Son of <b>${fatherName}</b><br>
-                            <span style="font-size:0.8em; opacity:0.8;">Thikana Kasumalgarh Lineage</span>
-                        </div>
-                    `;
+                    // --- Positioning ---
                     tooltip.style.display = 'block';
-
-                    // ✨ FIX: Position Calculation (Just Above the Card)
                     let rect = this.getBoundingClientRect();
-                    let tooltipRect = tooltip.getBoundingClientRect();
-                    
-                    // Top: कार्ड के ऊपर (window scroll जोड़ना न भूलें)
                     let topPos = rect.top + window.scrollY;
-                    // Left: कार्ड के बीच में
                     let leftPos = rect.left + (rect.width / 2);
-
                     tooltip.style.top = topPos + 'px';
                     tooltip.style.left = leftPos + 'px';
                 });
@@ -472,7 +523,7 @@
             });
         });
 
-        // 3. Highlight Function (No Auto Scroll on Hover)
+        // 3. Highlight Function
         function highlightNode(id) {
             let el = document.getElementById(id);
             if(el) el.classList.add('highlight-node');
@@ -481,6 +532,23 @@
         function removeHighlight(id) {
             let el = document.getElementById(id);
             if(el) el.classList.remove('highlight-node');
+        }
+
+        // 4. Search Function
+        function filterNames() {
+            let input = document.getElementById('search-box').value.toLowerCase();
+            let ul = document.getElementById("index-list");
+            let li = ul.getElementsByTagName('li');
+
+            for (let i = 0; i < li.length; i++) {
+                let a = li[i].getElementsByTagName("a")[0];
+                let txtValue = a.textContent || a.innerText;
+                if (txtValue.toLowerCase().indexOf(input) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
         }
     </script>
 
