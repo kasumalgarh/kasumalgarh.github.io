@@ -29,48 +29,53 @@
     a { text-decoration: none; color: inherit; }
 
     /* ========================================= */
-    /* 🏰 HEADER SECTION (STICKY) */
+    /* 🏰 HEADER SECTION */
     /* ========================================= */
     header {
         background: linear-gradient(to bottom, #fffbf0, #fcf6ba);
-        border-bottom: 4px solid var(--royal-maroon);
+        /* Note: Header is NOT sticky anymore, only Navbar will be */
+        position: relative; 
         text-align: center;
-        padding-top: 10px;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        padding-top: 15px;
     }
 
-    .header-content { padding-bottom: 10px; }
+    .header-content { padding-bottom: 15px; }
 
     .main-title {
-        font-size: 2rem;
+        font-size: 2.5rem;
         color: var(--text-dark);
         text-transform: uppercase;
         margin: 5px 0;
-        font-weight: bold;
-        letter-spacing: 2px;
+        font-weight: 900;
+        letter-spacing: 3px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     }
     
     .main-title span { color: var(--royal-maroon); }
 
+    /* ✨ NAVBAR STICKY LOGIC */
     .navbar {
         background-color: #b8860b;
-        border-top: 2px solid #5c3a00;
+        border-top: 3px solid #5c3a00;
+        border-bottom: 3px solid #5c3a00;
         display: flex;
         justify-content: center;
         padding: 0;
+        /* यह लाइन मेनु को ऊपर चिपकाएगी */
+        position: sticky;
+        top: 0;
+        z-index: 5000; /* सबसे ऊपर */
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
 
     .navbar a {
-        padding: 10px 20px;
+        padding: 12px 25px;
         color: #fff;
         font-weight: bold;
         text-transform: uppercase;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         transition: 0.3s;
-        border-right: 1px solid rgba(255,255,255,0.3);
+        border-right: 1px solid rgba(255,255,255,0.2);
     }
 
     .navbar a:hover, .navbar a.active {
@@ -90,11 +95,12 @@
     }
 
     .sidebar {
-        width: 280px; /* Width increased for search bar */
+        width: 280px;
         flex-shrink: 0;
         position: sticky; 
-        top: 140px; 
-        height: calc(100vh - 150px);
+        /* मेनु बार की ऊंचाई (approx 50px) + थोड़ा गैप */
+        top: 60px; 
+        height: calc(100vh - 80px);
         overflow-y: auto;
         border-right: 2px solid var(--royal-maroon);
         padding-right: 15px;
@@ -112,18 +118,13 @@
         text-align: center;
     }
 
-    /* 🔍 Search Bar Style */
-    .search-container {
-        margin-bottom: 10px;
-        text-align: center;
-    }
+    .search-container { margin-bottom: 10px; text-align: center; }
 
     #search-box {
         width: 100%;
         padding: 8px;
         border: 2px solid #b8860b;
         border-radius: 4px;
-        background-color: #fff;
         font-family: 'Georgia', serif;
         color: var(--royal-maroon);
     }
@@ -192,7 +193,7 @@
         margin: 5px 0;
         padding: 5px 10px;
         border: 1px solid transparent;
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
         cursor: pointer;
         position: relative; 
     }
@@ -211,17 +212,28 @@
         color: #4a4a4a;
         font-size: 1rem;
         text-transform: capitalize;
+        border-radius: 4px;
+        padding: 2px 5px; /* हाईलाइट के लिए पैडिंग */
     }
     
     .member-card:hover .member-name { color: var(--royal-maroon); }
 
+    /* ✨ LINEAGE HIGHLIGHT (PATH TO ROOT) */
+    .path-active .member-name {
+        background-color: #ffd700; /* Bright Gold */
+        color: #800000 !important; /* Maroon Text */
+        border: 1px solid #800000;
+        box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+        transform: scale(1.1);
+        z-index: 10;
+        font-weight: 900;
+    }
+
+    /* Index search highlight */
     .highlight-node .member-name {
         background-color: yellow;
         color: red;
-        padding: 2px 5px;
-        border: 1px solid red;
-        border-radius: 4px;
-        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        border: 2px solid red;
     }
 
     /* ========================================= */
@@ -244,7 +256,7 @@
         text-align: left;
         line-height: 1.5;
         transform: translate(-50%, -100%);
-        margin-top: -10px;
+        margin-top: -15px;
     }
 
     #tooltip::after {
@@ -269,7 +281,7 @@
 
     @media (max-width: 768px) {
         .sidebar { display: none; }
-        header { position: static; }
+        .navbar { position: static; } /* मोबाइल में स्टिकी हटा सकते हैं */
     }
 </style>
 </head>
@@ -280,13 +292,15 @@
             <p style="margin:0; color:#b8860b; font-family:cursive;">Rathore Family of Thikana</p>
             <h1 class="main-title">KASUMALGARH</h1>
         </div>
-        <nav class="navbar">
-            <a href="#">Home</a>
-            <a href="#" class="active">Family Tree</a>
-            <a href="#">History</a>
-            <a href="#">Contact</a>
-        </nav>
     </header>
+
+    <nav class="navbar">
+        <a href="#">Home</a>
+        <a href="#" class="active">Family Tree</a>
+        <a href="#">History</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </nav>
 
     <div class="container">
         <aside class="sidebar">
@@ -399,7 +413,6 @@
             const memberCountLabel = document.getElementById('member-count');
             let namesArray = [];
             
-            // Founder Name (Assuming first card is founder)
             const founderName = document.querySelector('.founder-card .member-name').textContent.trim();
 
             // 1. Generate Index & Set IDs
@@ -428,18 +441,31 @@
                 indexList.appendChild(li);
             });
 
-            // 2. SMART TOOLTIP LOGIC
+            // 2. MOUSE ENTER: Lineage Highlight + Smart Tooltip
             treeCards.forEach(card => {
                 card.addEventListener('mouseenter', function() {
                     let name = this.querySelector('.member-name').textContent;
                     
-                    // --- Logic Start ---
+                    // --- A. LINEAGE HIGHLIGHT LOGIC (Papa, Dada...) ---
+                    let ancestor = this;
+                    while (ancestor) {
+                        ancestor.classList.add('path-active'); // Highlight Card
+                        
+                        // Find parent LI's parent UL's parent LI (Grandparent)
+                        let parentLi = ancestor.closest('li').parentElement.closest('li');
+                        if (parentLi) {
+                            ancestor = parentLi.querySelector('.member-card');
+                        } else {
+                            ancestor = null; // Reached Root
+                        }
+                    }
+
+                    // --- B. SMART TOOLTIP LOGIC ---
                     let fatherName = "Unknown";
                     let generation = 1;
                     let relationText = "";
                     let siblingText = "";
 
-                    // Calculate Generation (Depth)
                     let depth = 0;
                     let tempEl = this;
                     while(tempEl.parentElement.closest('ul')) {
@@ -447,46 +473,36 @@
                         tempEl = tempEl.parentElement.closest('ul').parentElement;
                         if(tempEl.tagName === 'DIV' || tempEl.classList.contains('tree')) break;
                     }
-                    generation = depth; // Founder is Gen 1 (depth 1 based on loop logic adjustment)
+                    generation = depth; 
 
-                    // Find Father & Siblings
                     let currentLi = this.closest('li');
                     let parentUl = currentLi.parentElement;
                     
                     if(this.classList.contains('founder-card')) {
-                        // Special text for Founder
                         tooltip.innerHTML = `<strong>${name}</strong><br>Founder of Thikana Kasumalgarh`;
                     } else {
-                        // Find Father
                         let parentLi = parentUl.parentElement.closest('li');
                         if(parentLi) {
                             let fatherCard = parentLi.querySelector('.member-card .member-name');
                             fatherName = fatherCard ? fatherCard.textContent : "Unknown";
                         }
 
-                        // Find Siblings & Order
                         let siblings = Array.from(parentUl.children).filter(child => child.tagName === 'LI');
                         let myIndex = siblings.indexOf(currentLi);
                         let totalSiblings = siblings.length;
                         let otherSiblingsCount = totalSiblings - 1;
 
-                        // Ordinal Logic (Eldest, 2nd, Youngest)
                         let orderStr = "";
-                        if (totalSiblings === 1) {
-                            orderStr = "only";
-                        } else if (myIndex === 0) {
-                            orderStr = "eldest";
-                        } else if (myIndex === totalSiblings - 1) {
-                            orderStr = "youngest";
-                        } else {
-                            // 2nd, 3rd logic
+                        if (totalSiblings === 1) { orderStr = "only"; } 
+                        else if (myIndex === 0) { orderStr = "eldest"; } 
+                        else if (myIndex === totalSiblings - 1) { orderStr = "youngest"; } 
+                        else {
                             let n = myIndex + 1;
                             let ord = 'th';
                             if(n===2) ord='nd'; if(n===3) ord='rd';
                             orderStr = n + ord;
                         }
 
-                        // Sibling Text
                         if(otherSiblingsCount > 0) {
                             let s = otherSiblingsCount > 1 ? "s" : "";
                             siblingText = `He has ${otherSiblingsCount} more sibling${s}`;
@@ -494,13 +510,11 @@
                             siblingText = `He is the only son`;
                         }
 
-                        // Generation Suffix
                         let genSuffix = 'th';
                         if(generation === 1) genSuffix = 'st';
                         if(generation === 2) genSuffix = 'nd';
                         if(generation === 3) genSuffix = 'rd';
 
-                        // --- Final HTML Construction ---
                         tooltip.innerHTML = `
                             <strong>${name}</strong>
                             ${name} is the ${orderStr} son of <b>${fatherName}</b>.<br>
@@ -508,7 +522,7 @@
                         `;
                     }
 
-                    // --- Positioning ---
+                    // Tooltip Position
                     tooltip.style.display = 'block';
                     let rect = this.getBoundingClientRect();
                     let topPos = rect.top + window.scrollY;
@@ -517,16 +531,23 @@
                     tooltip.style.left = leftPos + 'px';
                 });
 
+                // --- C. MOUSE LEAVE: Clean up ---
                 card.addEventListener('mouseleave', function() {
                     tooltip.style.display = 'none';
+                    // Remove all highlight classes
+                    document.querySelectorAll('.path-active').forEach(el => el.classList.remove('path-active'));
                 });
             });
         });
 
-        // 3. Highlight Function
+        // 3. Functions
         function highlightNode(id) {
             let el = document.getElementById(id);
-            if(el) el.classList.add('highlight-node');
+            if(el) {
+                el.classList.add('highlight-node');
+                // Auto Scroll to name on Index hover (optional, remove if shakes)
+                // el.scrollIntoView({behavior: "smooth", block: "center"}); 
+            }
         }
 
         function removeHighlight(id) {
@@ -534,12 +555,10 @@
             if(el) el.classList.remove('highlight-node');
         }
 
-        // 4. Search Function
         function filterNames() {
             let input = document.getElementById('search-box').value.toLowerCase();
             let ul = document.getElementById("index-list");
             let li = ul.getElementsByTagName('li');
-
             for (let i = 0; i < li.length; i++) {
                 let a = li[i].getElementsByTagName("a")[0];
                 let txtValue = a.textContent || a.innerText;
