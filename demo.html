@@ -28,6 +28,7 @@
         .btn-load { background: #008080; color: white; }
         .btn-add { background: #006400; color: white; }
         .btn-del { background: #8b0000; color: white; }
+        .btn-edit { background: #00008b; color: white; } /* NEW BUTTON COLOR */
         .btn-save { background: #ff4500; color: white; font-size: 1.2em; border: 2px solid white; }
         
         button:hover { filter: brightness(1.2); }
@@ -60,6 +61,15 @@
 
             <hr>
 
+            <h3 style="color:#4da6ff">✏️ नाम सुधारें (Correction)</h3>
+            <input type="text" id="editGrand" placeholder="1. दादा का नाम (Grandfather)">
+            <input type="text" id="editFather" placeholder="2. पिता का नाम (Father)">
+            <input type="text" id="editOld" placeholder="3. गलत नाम (Wrong Name)">
+            <input type="text" id="editNew" placeholder="4. सही नाम (Correct Name)">
+            <button onclick="correctName()" class="btn-edit">Update Name</button>
+
+            <hr>
+
             <h3 style="color:#ff6666">🗑️ नाम हटाएं (Delete)</h3>
             <input type="text" id="delGrand" placeholder="1. दादा का नाम (Grandfather)">
             <input type="text" id="delFather" placeholder="2. पिता का नाम (Father)">
@@ -84,7 +94,7 @@
         // --- CONFIGURATION ---
         const USER = "kasumalgarh";      
         const REPO = "kasumalgarh.github.io";  
-        const FILE = "vanshawali.html";   // HTML File Only
+        const FILE = "vanshawali.html";   
         const PASS = "kasumalgarh2025";
         // ---------------------
 
@@ -99,15 +109,12 @@
             btn.innerText = "⏳ Loading...";
             
             try {
-                // Fetch from GitHub API
                 const res = await fetch(`https://api.github.com/repos/${USER}/${REPO}/contents/${FILE}?t=${new Date().getTime()}`);
                 if(!res.ok) throw new Error("File nahi mili!");
                 
                 const data = await res.json();
-                
-                // --- FIX: CLEANING DATA BEFORE DECODING ---
-                let cleanContent = data.content.replace(/\s/g, ''); // Remove spaces/newlines
-                let decoded = decodeURIComponent(escape(window.atob(cleanContent))); // Hindi Safe Decode
+                let cleanContent = data.content.replace(/\s/g, ''); 
+                let decoded = decodeURIComponent(escape(window.atob(cleanContent))); 
                 
                 document.getElementById('hiddenCode').value = decoded;
                 document.getElementById('livePreview').innerHTML = decoded;
@@ -123,7 +130,7 @@
             }
         }
 
-        // 2. ADD LOGIC (3 Generation Check)
+        // 2. ADD LOGIC
         function addName() {
             const html = document.getElementById('hiddenCode').value;
             if(!html) { alert("Pehle Code Load karein!"); return; }
@@ -132,20 +139,17 @@
             const pName = document.getElementById('addFather').value.trim();
             const cName = document.getElementById('addChild').value.trim();
 
-            if(!gName || !pName || !cName) { alert("Teeno naam bharein (Dada, Pita, Beta)"); return; }
+            if(!gName || !pName || !cName) { alert("Teeno naam bharein!"); return; }
 
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
-            const allSpans = doc.querySelectorAll('.member-name'); // Class name must match your website
+            const allSpans = doc.querySelectorAll('.member-name');
             
             let found = false;
 
             for(let span of allSpans) {
-                // 1. Find Father
                 if(span.textContent.trim() === pName) {
                     const fatherLi = span.closest('li');
-                    
-                    // 2. Check Grandfather (Father's parent)
                     const grandUl = fatherLi.parentElement; 
                     const grandLi = grandUl.closest('li');
                     
@@ -153,14 +157,12 @@
                         const grandSpan = grandLi.querySelector('.member-name');
                         if(grandSpan && grandSpan.textContent.trim() === gName) {
                             
-                            // 3. Match Found -> Add Child
                             let childUl = fatherLi.querySelector('ul');
                             if(!childUl) {
                                 childUl = doc.createElement('ul');
                                 fatherLi.appendChild(childUl);
                             }
                             const newLi = doc.createElement('li');
-                            // Website ka design structure use karein
                             newLi.innerHTML = `<div class="member-card"><span class="member-name">${cName}</span></div>`;
                             childUl.appendChild(newLi);
                             
@@ -176,11 +178,70 @@
                 alert("✅ Naam Jud Gaya! Ab Save Karein.");
                 document.getElementById('addChild').value = "";
             } else {
-                alert("❌ Match Nahi Hua!\nDada: " + gName + "\nPita: " + pName + "\nSpelling check karein.");
+                alert("❌ Match Nahi Hua!\nDada/Pita ka naam check karein.");
             }
         }
 
-        // 3. DELETE LOGIC (3 Generation Check)
+        // 3. CORRECTION LOGIC (NEW FEATURE)
+        function correctName() {
+            const html = document.getElementById('hiddenCode').value;
+            if(!html) { alert("Pehle Code Load karein!"); return; }
+
+            const gName = document.getElementById('editGrand').value.trim();
+            const pName = document.getElementById('editFather').value.trim();
+            const oldName = document.getElementById('editOld').value.trim();
+            const newName = document.getElementById('editNew').value.trim();
+
+            if(!gName || !pName || !oldName || !newName) { alert("Chaaro naam bharein!"); return; }
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const allSpans = doc.querySelectorAll('.member-name');
+            
+            let found = false;
+
+            for(let span of allSpans) {
+                // 1. Match Old Name
+                if(span.textContent.trim() === oldName) {
+                    const childLi = span.closest('li');
+                    const fatherUl = childLi.parentElement;
+                    const fatherLi = fatherUl.closest('li');
+
+                    if(fatherLi) {
+                        const fatherSpan = fatherLi.querySelector('.member-name');
+                        // 2. Match Father
+                        if(fatherSpan && fatherSpan.textContent.trim() === pName) {
+                            
+                            const grandUl = fatherLi.parentElement;
+                            const grandLi = grandUl.closest('li');
+                            
+                            if(grandLi) {
+                                const grandSpan = grandLi.querySelector('.member-name');
+                                // 3. Match Grandfather
+                                if(grandSpan && grandSpan.textContent.trim() === gName) {
+                                    
+                                    // ALL MATCHED -> UPDATE
+                                    span.textContent = newName;
+                                    found = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if(found) {
+                updatePreview(doc);
+                alert("✅ Naam Correct Ho Gaya! (" + oldName + " -> " + newName + ")");
+                document.getElementById('editOld').value = "";
+                document.getElementById('editNew').value = "";
+            } else {
+                alert("❌ Match Nahi Hua! \nDada, Pita ya Old Name check karein.");
+            }
+        }
+
+        // 4. DELETE LOGIC
         function deleteName() {
             const html = document.getElementById('hiddenCode').value;
             if(!html) return;
@@ -200,7 +261,6 @@
             let deleted = false;
 
             for(let span of allSpans) {
-                // 1. Find Child
                 if(span.textContent.trim() === cName) {
                     const childLi = span.closest('li');
                     const fatherUl = childLi.parentElement;
@@ -208,17 +268,13 @@
 
                     if(fatherLi) {
                         const fatherSpan = fatherLi.querySelector('.member-name');
-                        // 2. Check Father
                         if(fatherSpan && fatherSpan.textContent.trim() === pName) {
-                            
                             const grandUl = fatherLi.parentElement;
                             const grandLi = grandUl.closest('li');
-                            
                             if(grandLi) {
                                 const grandSpan = grandLi.querySelector('.member-name');
-                                // 3. Check Grandfather
                                 if(grandSpan && grandSpan.textContent.trim() === gName) {
-                                    childLi.remove(); // DELETE
+                                    childLi.remove(); 
                                     deleted = true;
                                     break;
                                 }
@@ -232,18 +288,18 @@
                 updatePreview(doc);
                 alert("🗑️ Naam Delete Ho Gaya.");
             } else {
-                alert("❌ Match Nahi Hua! Teeno naam check karein.");
+                alert("❌ Match Nahi Hua!");
             }
         }
 
-        // HELPER: UPDATE PREVIEW
+        // HELPER
         function updatePreview(doc) {
             const newHtml = doc.documentElement.outerHTML;
             document.getElementById('hiddenCode').value = newHtml;
             document.getElementById('livePreview').innerHTML = newHtml;
         }
 
-        // 4. SAVE TO GITHUB
+        // 5. SAVE TO GITHUB
         async function saveToGithub() {
             const html = document.getElementById('hiddenCode').value;
             if(!html) return;
@@ -255,17 +311,16 @@
             btn.innerText = "⏳ Saving...";
 
             try {
-                // Hindi Safe Encoding
                 const content = btoa(unescape(encodeURIComponent(html)));
                 
                 const res = await fetch(`https://api.github.com/repos/${USER}/${REPO}/contents/${FILE}`, {
                     method: "PUT",
                     headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        message: "Update from Admin Panel",
+                        message: "Update via Admin Panel",
                         content: content,
                         sha: currentSha,
-                        branch: "main" // Ensure branch is correct
+                        branch: "main" 
                     })
                 });
 
