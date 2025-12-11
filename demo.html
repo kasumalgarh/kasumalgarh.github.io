@@ -76,21 +76,37 @@
         let currentData = null;
         let currentSha = null;
 
-        // 1. DATA LOAD KARNA
+        // 1. DATA LOAD KARNA (FIXED FUNCTION HERE)
         async function loadData() {
             let p = prompt("Admin Password:");
             if(p !== PASS) { alert("Wrong Password!"); return; }
             
             document.getElementById('msg').innerText = "Loading...";
             try {
-                const res = await fetch(`https://api.github.com/repos/${USER}/${REPO}/contents/${FILE}`);
+                // Cache se bachne ke liye timestamp lagaya
+                const res = await fetch(`https://api.github.com/repos/${USER}/${REPO}/contents/${FILE}?t=${new Date().getTime()}`);
+                if (!res.ok) throw new Error("File nahi mili ya GitHub error.");
+                
                 const data = await res.json();
-                currentData = JSON.parse(atob(data.content));
+                
+                // --- 🛠️ FIX START ---
+                // GitHub kabhi-kabhi data me newlines (\n) bhejta hai, unhe hatana padta hai
+                const cleanContent = data.content.replace(/\s/g, '');
+                
+                // Hindi characters ke liye safe decoding
+                const decodedString = decodeURIComponent(escape(window.atob(cleanContent)));
+                
+                currentData = JSON.parse(decodedString);
+                // --- 🛠️ FIX END ---
+
                 currentSha = data.sha;
                 updateView();
                 alert("Data Load Ho Gaya! ✅");
                 document.getElementById('msg').innerText = "System Ready";
-            } catch(e) { alert("Error: " + e); }
+            } catch(e) { 
+                alert("Error: " + e.message); 
+                document.getElementById('msg').innerText = "Error: " + e.message;
+            }
         }
 
         // 2. NAAM JODNA (ADD)
@@ -101,7 +117,6 @@
             if(!father || !child) return alert("Dono naam bharein!");
 
             let found = false;
-            // Recursive function to find father
             function search(list) {
                 for(let m of list) {
                     if(m.name === father) {
@@ -130,7 +145,7 @@
             function search(list) {
                 for(let m of list) {
                     if(m.name === oldN) {
-                        m.name = newN; // Name Change
+                        m.name = newN; 
                         found = true;
                         return;
                     }
@@ -181,6 +196,7 @@
             let token = prompt("GitHub Token:");
             if(!token) return;
 
+            // Hindi characters save karne ke liye encoding
             let content = btoa(unescape(encodeURIComponent(JSON.stringify(currentData, null, 2))));
             
             try {
@@ -196,7 +212,10 @@
                     currentSha = d.content.sha; 
                     alert("🎉 Website Update Ho Gayi!"); 
                 }
-                else alert("Failed! Console check karein.");
+                else {
+                    let errData = await res.json();
+                    alert("Failed! " + errData.message);
+                }
             } catch(e) { alert("Error: " + e); }
         }
     </script>
