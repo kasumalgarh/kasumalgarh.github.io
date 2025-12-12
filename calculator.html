@@ -3,530 +3,388 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gajsa Pro Land Manager</title>
+    <title>Gajsa Ultimate All-in-One</title>
     <style>
         :root {
-            --primary: #2c3e50; /* Dark Blue */
+            --primary: #2c3e50;
             --accent: #d35400; /* Marwari Orange */
-            --light: #ecf0f1;
-            --success: #27ae60;
-            --card-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            --bg: #eceff1;
+            --card-bg: #ffffff;
+            --text: #333;
+            --border-radius: 12px;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            margin: 0; padding: 0; color: #333;
+            background-color: var(--bg);
+            margin: 0; padding: 15px; color: var(--text);
         }
 
-        /* --- Layout --- */
-        .app-container {
-            display: flex; min-height: 100vh;
-        }
+        .container { max-width: 1100px; margin: 0 auto; }
 
-        /* Sidebar */
-        .sidebar {
-            width: 250px; background-color: var(--primary); color: white;
-            padding: 20px; display: flex; flex-direction: column;
-            position: fixed; height: 100%; overflow-y: auto;
+        /* Header */
+        header {
+            background-color: var(--primary); color: white;
+            padding: 15px 20px; border-radius: var(--border-radius);
+            margin-bottom: 20px; display: flex; flex-wrap: wrap;
+            justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .sidebar h2 { margin-top: 0; font-size: 1.4rem; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 15px; }
-        .nav-btn {
-            background: none; border: none; color: #bdc3c7; text-align: left;
-            padding: 12px; cursor: pointer; font-size: 1rem; margin-bottom: 5px; border-radius: 6px;
-            transition: 0.3s; width: 100%; display: flex; align-items: center; gap: 10px;
+        .settings-box {
+            background: rgba(255,255,255,0.15); padding: 8px 15px;
+            border-radius: 6px; display: flex; align-items: center; gap: 10px;
         }
-        .nav-btn:hover, .nav-btn.active { background-color: rgba(255,255,255,0.1); color: white; font-weight: bold; }
-        .nav-btn i { width: 20px; }
+        .settings-box input { width: 50px; padding: 5px; text-align: center; font-weight: bold; border: none; border-radius: 4px; }
 
-        /* Main Content */
-        .main-content {
-            flex: 1; margin-left: 250px; padding: 25px;
+        /* Grid System */
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 20px; }
+        .row-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+        
+        @media (max-width: 768px) { 
+            .dashboard-grid, .row-grid { grid-template-columns: 1fr; } 
         }
-
-        /* Top Bar */
-        .top-bar {
-            background: white; padding: 15px 25px; border-radius: 12px;
-            display: flex; justify-content: space-between; align-items: center;
-            box-shadow: var(--card-shadow); margin-bottom: 25px;
-        }
-        .settings-group { display: flex; align-items: center; gap: 10px; }
-        .settings-group input { width: 60px; padding: 5px; text-align: center; font-weight: bold; border: 1px solid #ddd; border-radius: 4px; }
-
-        /* Sections */
-        .section { display: none; animation: fadeIn 0.4s; }
-        .section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Cards */
-        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: var(--card-shadow); margin-bottom: 20px; border-top: 4px solid var(--accent); }
-        .card h3 { margin-top: 0; color: var(--primary); border-bottom: 1px dashed #eee; padding-bottom: 10px; }
+        .card {
+            background: var(--card-bg); border-radius: var(--border-radius);
+            padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px; border-top: 4px solid var(--accent);
+        }
+        .card h3 { margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px; color: var(--primary); font-size: 1.1rem; }
+
+        /* --- 1. Simple Calculator Styles --- */
+        .calc-screen {
+            width: 100%; height: 50px; background: #222; color: #0f0;
+            font-size: 1.5rem; text-align: right; padding: 10px;
+            border-radius: 6px; margin-bottom: 10px; box-sizing: border-box; font-family: monospace;
+        }
+        .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        .calc-btn {
+            padding: 12px; font-size: 1.1rem; border: none; border-radius: 6px;
+            cursor: pointer; background: #f0f0f0; transition: 0.2s;
+        }
+        .calc-btn:hover { background: #ddd; }
+        .calc-btn.op { background: var(--primary); color: white; }
+        .calc-btn.eq { background: var(--accent); color: white; grid-column: span 2; }
+        .calc-btn.clr { background: #c0392b; color: white; }
+
+        /* --- 2. Land Calculator Inputs --- */
+        label { display: block; margin: 8px 0 4px; font-weight: 600; font-size: 0.85rem; color: #555; }
+        input[type="number"], select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
         
-        /* Grid */
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+        .toggle-container { display: flex; gap: 10px; margin-bottom: 15px; background: #f5f5f5; padding: 5px; border-radius: 8px; }
+        .toggle-btn { flex: 1; padding: 8px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; background: transparent; color: #666; }
+        .toggle-btn.active { background: var(--primary); color: white; }
 
-        /* Inputs */
-        label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 5px; color: #555; }
-        input, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 1rem; }
-        input:focus { outline: none; border-color: var(--accent); }
+        .jarib-row { display: flex; gap: 5px; } 
+        .jarib-row div { flex: 1; }
 
-        /* Buttons */
-        .btn { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; margin-top: 15px; transition: 0.3s; }
-        .btn:hover { background: #1a252f; }
-        .btn-outline { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
-        .btn-outline:hover { background: var(--accent); color: white; }
-        .btn-print { background: #7f8c8d; width: auto; padding: 8px 15px; float: right; }
+        .btn-action { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: 6px; margin-top: 15px; cursor: pointer; font-size: 1rem; font-weight: bold; }
+        .btn-action:hover { background-color: #bf4600; }
 
-        /* Result Tables */
-        .res-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        .res-table th { text-align: left; color: #777; font-size: 0.9rem; padding: 8px; border-bottom: 1px solid #eee; }
-        .res-table td { text-align: right; font-weight: bold; color: var(--primary); padding: 8px; border-bottom: 1px solid #eee; }
-        .res-highlight { color: var(--accent) !important; font-size: 1.2rem; }
+        /* Results Table */
+        .result-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .result-table th { text-align: left; color: #777; width: 40%; padding: 8px; border-bottom: 1px solid #eee; }
+        .result-table td { text-align: right; font-weight: bold; color: var(--primary); padding: 8px; border-bottom: 1px solid #eee; }
+        .highlight td { color: var(--accent); font-size: 1.1rem; background: #fff8e1; }
 
-        /* History Log */
-        .history-list { list-style: none; padding: 0; }
-        .history-item { background: #fff; padding: 15px; border-radius: 8px; border-left: 5px solid var(--success); margin-bottom: 10px; position: relative; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .h-title { font-weight: bold; display: block; }
-        .h-detail { font-size: 0.9rem; color: #666; }
-        .h-res { font-weight: bold; color: var(--accent); margin-top: 5px; display: block; }
-        .h-date { font-size: 0.75rem; color: #999; position: absolute; top: 10px; right: 10px; }
-        .btn-del { position: absolute; bottom: 10px; right: 10px; background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .app-container { flex-direction: column; }
-            .sidebar { width: 100%; height: auto; position: relative; padding: 10px; overflow-x: auto; flex-direction: row; gap: 10px; }
-            .sidebar h2 { display: none; }
-            .nav-btn { width: auto; white-space: nowrap; padding: 8px 15px; background: rgba(255,255,255,0.1); }
-            .main-content { margin-left: 0; padding: 15px; }
-            .grid-2, .grid-3 { grid-template-columns: 1fr; }
-        }
-
-        /* Print Mode */
-        @media print {
-            .sidebar, .btn, .no-print { display: none !important; }
-            .main-content { margin: 0; padding: 0; }
-            .card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
-            body { background: white; }
-        }
+        /* History */
+        .history-list { max-height: 200px; overflow-y: auto; padding: 0; list-style: none; }
+        .history-item { padding: 10px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; font-size: 0.9rem; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-<div class="app-container">
-    <div class="sidebar">
-        <h2>Gajsa Pro 📐</h2>
-        <button class="nav-btn active" onclick="showSection('dashboard')">📊 डैशबोर्ड (Home)</button>
-        <button class="nav-btn" onclick="showSection('irregular')">🚜 आडा-टेढ़ा खेत</button>
-        <button class="nav-btn" onclick="showSection('shapes')">📐 तिकोना / गोल</button>
-        <button class="nav-btn" onclick="showSection('money')">💰 भाव और बंटवारा</button>
-        <button class="nav-btn" onclick="showSection('soil')">🚚 मिट्टी / गड्ढा</button>
-        <button class="nav-btn" onclick="showSection('history')">💾 बही-खाता (History)</button>
-    </div>
-
-    <div class="main-content">
-        
-        <div class="top-bar no-print">
-            <div>
-                <h3 style="margin:0;">भूमि मापन यंत्र</h3>
-                <small>1 बीघा = 17,424 Sq Ft</small>
-            </div>
-            <div class="settings-group">
-                <span>🛠️ गज सेटिंग:</span>
-                <input type="number" id="gajSize" value="2" oninput="updateGlobals()">
-                <span>x</span>
-                <input type="number" id="gajSizeDisp" value="2" disabled style="background:#f9f9f9;">
-                <small>(=<span id="globalSqFt">4</span> sqft)</small>
-            </div>
+<div class="container">
+    
+    <header>
+        <div>
+            <h1 style="margin:0; font-size:1.5rem;">Gajsa Land Tool</h1>
+            <p style="margin:5px 0 0; font-size:0.8rem;">1 Bigha = 17,424 SqFt | 20 Biswa</p>
         </div>
+        <div class="settings-box">
+            <span style="color:#fff;">🛠️ गज:</span>
+            <input type="number" id="gajSize" value="2" oninput="updateSettings()">
+            <span style="color:#fff;">x</span>
+            <input type="number" id="gajSizeDisp" value="2" disabled style="background:#ddd;">
+            <small style="color:#eee;">(= <span id="currentSqFt">4</span> sqft)</small>
+        </div>
+    </header>
 
-        <div id="dashboard" class="section active">
-            <div class="grid-2">
-                <div class="card">
-                    <h3>📏 साधारण नाप (Rectangular)</h3>
-                    <div class="grid-2">
-                        <div><label>लंबाई</label><input type="number" id="std_l"></div>
-                        <div><label>चौड़ाई</label><input type="number" id="std_w"></div>
-                    </div>
-                    <label>यूनिट</label>
-                    <select id="std_unit">
-                        <option value="ft">फुट (Feet)</option>
-                        <option value="gaj">गज (Gaj - Local)</option>
-                        <option value="mtr">मीटर (Meter)</option>
-                    </select>
-                    <button class="btn" onclick="calcStandard()">हिसाब निकालें</button>
-                    <div id="res_std" style="display:none; margin-top:15px;">
-                        <table class="res-table">
-                            <tr><th>क्षेत्रफल (SqFt)</th><td id="rs_sqft">0</td></tr>
-                            <tr><th>बीघा</th><td class="res-highlight" id="rs_bigha">0</td></tr>
-                            <tr><th>बिस्वा</th><td id="rs_biswa">0</td></tr>
-                        </table>
-                        <button class="btn btn-outline" style="margin-top:10px; font-size:0.8rem;" onclick="saveToHistory('साधारण खेत', 'Simple Rectangular', document.getElementById('rs_bigha').innerText + ' Bigha')">💾 सेव करें</button>
-                    </div>
-                </div>
-
-                <div class="card" style="border-top-color: #27ae60;">
-                    <h3>📐 जारीब (Jarib) <span style="font-size:0.7rem; float:right;">(66ft / 16.5ft)</span></h3>
-                    <label>लंबाई (L)</label>
-                    <div class="grid-3">
-                        <input type="number" id="j_l_j" placeholder="जारीब">
-                        <input type="number" id="j_l_g" placeholder="गाँठ">
-                        <input type="number" id="j_l_a" placeholder="अंगूर">
-                    </div>
-                    <label style="margin-top:10px;">चौड़ाई (W)</label>
-                    <div class="grid-3">
-                        <input type="number" id="j_w_j" placeholder="जारीब">
-                        <input type="number" id="j_w_g" placeholder="गाँठ">
-                        <input type="number" id="j_w_a" placeholder="अंगूर">
-                    </div>
-                    <button class="btn" onclick="calcJarib()">जारीब का हिसाब निकालें</button>
-                    <div id="res_jarib" style="display:none; margin-top:15px;">
-                        <table class="res-table">
-                            <tr><th>कुल बीघा</th><td class="res-highlight" id="rj_bigha">0</td></tr>
-                            <tr><th>कुल बिस्वा</th><td id="rj_biswa">0</td></tr>
-                        </table>
-                        <button class="btn btn-outline" style="margin-top:10px; font-size:0.8rem;" onclick="saveToHistory('जारीब नाप', 'Jarib Measurement', document.getElementById('rj_bigha').innerText + ' Bigha')">💾 सेव करें</button>
-                    </div>
-                </div>
-            </div>
+    <div class="dashboard-grid">
+        
+        <div class="left-col">
             
             <div class="card">
-                <h3>🔄 तुरंत कन्वर्टर (इंच हेल्पर शामिल)</h3>
-                <div class="grid-2">
-                    <div>
-                        <label>संख्या डालें</label>
-                        <input type="number" id="convVal" placeholder="0" oninput="convert()">
-                    </div>
-                    <div>
-                        <label>यूनिट चुनें</label>
-                        <select id="convUnit" onchange="convert()">
+                <h3>🔢 साधारण कैलकुलेटर</h3>
+                <input type="text" class="calc-screen" id="calcScreen" readonly placeholder="0">
+                <div class="calc-grid">
+                    <button class="calc-btn clr" onclick="calcClear()">C</button>
+                    <button class="calc-btn op" onclick="calcAppend('/')">÷</button>
+                    <button class="calc-btn op" onclick="calcAppend('*')">×</button>
+                    <button class="calc-btn clr" onclick="calcBackspace()">⌫</button>
+                    <button class="calc-btn" onclick="calcAppend('7')">7</button>
+                    <button class="calc-btn" onclick="calcAppend('8')">8</button>
+                    <button class="calc-btn" onclick="calcAppend('9')">9</button>
+                    <button class="calc-btn op" onclick="calcAppend('-')">-</button>
+                    <button class="calc-btn" onclick="calcAppend('4')">4</button>
+                    <button class="calc-btn" onclick="calcAppend('5')">5</button>
+                    <button class="calc-btn" onclick="calcAppend('6')">6</button>
+                    <button class="calc-btn op" onclick="calcAppend('+')">+</button>
+                    <button class="calc-btn" onclick="calcAppend('1')">1</button>
+                    <button class="calc-btn" onclick="calcAppend('2')">2</button>
+                    <button class="calc-btn" onclick="calcAppend('3')">3</button>
+                    <button class="calc-btn op" onclick="calcAppend('.')">.</button>
+                    <button class="calc-btn" onclick="calcAppend('0')">0</button>
+                    <button class="calc-btn" onclick="calcAppend('00')">00</button>
+                    <button class="calc-btn eq" onclick="calcEqual()">=</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🔄 यूनिट कन्वर्टर (बीघा/हेक्टेयर)</h3>
+                <div style="display:flex; gap:10px;">
+                    <div style="flex:1"><input type="number" id="convVal" placeholder="संख्या" oninput="convertLand()"></div>
+                    <div style="flex:1">
+                        <select id="convUnit" onchange="convertLand()">
                             <option value="bigha">बीघा</option>
+                            <option value="hectare">हेक्टेयर</option>
+                            <option value="biswa">बिस्वा</option>
                             <option value="gaj">गज</option>
                             <option value="sqft">Sq Ft</option>
-                            <option value="inch">इंच (Inches) ➔ फुट</option>
                         </select>
                     </div>
                 </div>
-                <p id="convResult" style="font-weight:bold; color:var(--accent); text-align:center; font-size:1.2rem; margin-top:15px;">-</p>
-                <small style="text-align:center; display:block; color:#777;">(इंच चुनने पर यह आपको फुट में बता देगा: 12 इंच = 1 फुट)</small>
+                <table class="result-table">
+                    <tr class="highlight"><th>बीघा</th><td id="c_bigha">-</td></tr>
+                    <tr><th>बिस्वा</th><td id="c_biswa">-</td></tr>
+                    <tr><th>हेक्टेयर</th><td id="c_hec">-</td></tr>
+                    <tr><th>गज (Local)</th><td id="c_gaj">-</td></tr>
+                    <tr><th>Sq. Ft.</th><td id="c_sqft">-</td></tr>
+                </table>
             </div>
         </div>
 
-        <div id="irregular" class="section">
-            <div class="card">
-                <h3>🚜 आडा-टेढ़ा खेत (औसत विधि)</h3>
-                <p style="font-size:0.9rem; color:#666;">जब आमने-सामने की भुजाएं बराबर न हों।</p>
+        <div class="right-col">
+            <div class="card" style="border-top-color: #27ae60;">
+                <h3>📐 खेत का क्षेत्रफल (Area)</h3>
                 
-                <div class="grid-2">
-                    <div><label>पूर्व (East) भुजा</label><input type="number" id="irr_e"></div>
-                    <div><label>पश्चिम (West) भुजा</label><input type="number" id="irr_w"></div>
-                    <div><label>उत्तर (North) भुजा</label><input type="number" id="irr_n"></div>
-                    <div><label>दक्षिण (South) भुजा</label><input type="number" id="irr_s"></div>
+                <div class="toggle-container">
+                    <button class="toggle-btn active" id="btnModeSimple" onclick="setMode('simple')">साधारण (फुट/गज)</button>
+                    <button class="toggle-btn" id="btnModeJarib" onclick="setMode('jarib')">जारीब (Jarib)</button>
                 </div>
-                
-                <button class="btn" onclick="calcIrregular()">औसत क्षेत्रफल निकालें</button>
-                
-                <div id="res_irr" style="display:none; margin-top:20px; background:#f9f9f9; padding:15px; border-radius:8px;">
-                    <table class="res-table">
-                        <tr><th>औसत लंबाई</th><td id="ri_len">0</td></tr>
-                        <tr><th>औसत चौड़ाई</th><td id="ri_wid">0</td></tr>
-                        <tr><th>कुल बीघा</th><td class="res-highlight" id="ri_bigha">0</td></tr>
-                        <tr><th>कुल बिस्वा</th><td id="ri_biswa">0</td></tr>
+
+                <div id="modeSimple">
+                    <div style="display:flex; gap:10px;">
+                        <div style="flex:1"><label>लंबाई</label><input type="number" id="s_len"></div>
+                        <div style="flex:1"><label>चौड़ाई</label><input type="number" id="s_wid"></div>
+                    </div>
+                    <label>यूनिट</label>
+                    <select id="s_unit">
+                        <option value="ft">फुट (Feet)</option>
+                        <option value="gaj">गज (Gaj)</option>
+                        <option value="mtr">मीटर (Meter)</option>
+                    </select>
+                </div>
+
+                <div id="modeJarib" class="hidden">
+                    <label>लंबाई (L)</label>
+                    <div class="jarib-row">
+                        <div><input type="number" id="l_j" placeholder="जारीब"></div>
+                        <div><input type="number" id="l_g" placeholder="गाँठ"></div>
+                        <div><input type="number" id="l_a" placeholder="अंगूर"></div>
+                    </div>
+                    <label>चौड़ाई (W)</label>
+                    <div class="jarib-row">
+                        <div><input type="number" id="w_j" placeholder="जारीब"></div>
+                        <div><input type="number" id="w_g" placeholder="गाँठ"></div>
+                        <div><input type="number" id="w_a" placeholder="अंगूर"></div>
+                    </div>
+                </div>
+
+                <button class="btn-action" onclick="calculateArea()">हिसाब निकालें</button>
+
+                <div id="areaResult" class="hidden" style="margin-top:20px; background:#f9f9f9; padding:10px; border-radius:8px;">
+                    <table class="result-table">
+                        <tr class="highlight"><th>कुल बीघा</th><td id="res_bigha">0</td></tr>
+                        <tr><th>कुल बिस्वा</th><td id="res_biswa">0</td></tr>
+                        <tr><th>हेक्टेयर</th><td id="res_hec">0</td></tr>
+                        <tr><th>कुल गज</th><td id="res_gaj">0</td></tr>
+                        <tr><th>Sq. Ft.</th><td id="res_sqft">0</td></tr>
                     </table>
-                     <button class="btn btn-outline" style="margin-top:10px;" onclick="saveToHistory('आडा-टेढ़ा खेत', 'Average Method', document.getElementById('ri_bigha').innerText + ' Bigha')">💾 सेव करें</button>
+                    <button style="width:100%; padding:8px; margin-top:10px; background:#333; color:white; border:none; border-radius:4px; cursor:pointer;" onclick="saveHistory()">💾 सेव करें</button>
                 </div>
             </div>
         </div>
-
-        <div id="shapes" class="section">
-            <div class="grid-2">
-                <div class="card">
-                    <h3>📐 तिकोना खेत (Triangle)</h3>
-                    <p style="font-size:0.8rem;">तीनों भुजाओं की नाप डालें (Heron's Formula)</p>
-                    <input type="number" id="tri_a" placeholder="भुजा A (ft)" style="margin-bottom:10px;">
-                    <input type="number" id="tri_b" placeholder="भुजा B (ft)" style="margin-bottom:10px;">
-                    <input type="number" id="tri_c" placeholder="भुजा C (ft)">
-                    <button class="btn" onclick="calcTriangle()">हिसाब निकालें</button>
-                    <div id="res_tri" style="margin-top:10px; font-weight:bold; color:var(--accent);"></div>
-                </div>
-
-                <div class="card">
-                    <h3>⭕ गोल कुंड / कुआं (Circle)</h3>
-                    <label>व्यास (Diameter/चौड़ाई) फुट में:</label>
-                    <input type="number" id="circ_d">
-                    <button class="btn" onclick="calcCircle()">हिसाब निकालें</button>
-                    <div id="res_circ" style="margin-top:10px; font-weight:bold; color:var(--accent);"></div>
-                </div>
-            </div>
-        </div>
-
-        <div id="money" class="section">
-            <div class="card">
-                <h3>💰 कीमत कैलकुलेटर</h3>
-                <div class="grid-2">
-                    <div><label>कुल जमीन (बीघा में)</label><input type="number" id="cost_area"></div>
-                    <div><label>भाव (Rate) प्रति बीघा</label><input type="number" id="cost_rate"></div>
-                </div>
-                <button class="btn" onclick="calcCost()">कुल कीमत जानें</button>
-                <h2 id="res_cost" style="text-align:center; color:var(--success); margin-top:15px;">₹ 0</h2>
-            </div>
-
-            <div class="card">
-                <h3>👨‍👩‍👦‍👦 बंटवारा (Partition)</h3>
-                <div class="grid-2">
-                    <div><label>कुल जमीन (बीघा)</label><input type="number" id="part_area"></div>
-                    <div><label>हिससेदार (भाई/लोग)</label><input type="number" id="part_ppl"></div>
-                </div>
-                <button class="btn" onclick="calcPartition()">हिसाब करें</button>
-                <div id="res_part" style="margin-top:15px; font-weight:bold; text-align:center;"></div>
-            </div>
-        </div>
-
-        <div id="soil" class="section">
-            <div class="card">
-                <h3>🚚 मिट्टी भराई / खुदाई (Volume)</h3>
-                <p style="font-size:0.9rem;">(मानक: 1 ट्रॉली ≈ 100 घन फुट)</p>
-                <div class="grid-3">
-                    <div><label>लंबाई (ft)</label><input type="number" id="soil_l"></div>
-                    <div><label>चौड़ाई (ft)</label><input type="number" id="soil_w"></div>
-                    <div><label>गहराई (ft)</label><input type="number" id="soil_d"></div>
-                </div>
-                <button class="btn" onclick="calcSoil()">ट्रॉली का हिसाब निकालें</button>
-                <div id="res_soil" style="margin-top:20px;">
-                    <table class="res-table">
-                        <tr><th>कुल काम (Cubic Ft)</th><td id="rs_cft">0</td></tr>
-                        <tr><th>अनुमानित ट्रॉली</th><td class="res-highlight" id="rs_trolley">0</td></tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div id="history" class="section">
-            <div class="card">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                    <h3>💾 बही-खाता (Saved Records)</h3>
-                    <button class="btn-print no-print" onclick="window.print()">🖨️ प्रिंट करें</button>
-                </div>
-                <ul id="historyList" class="history-list">
-                    </ul>
-                <p id="noHistory" style="text-align:center; color:#999;">अभी कोई रिकॉर्ड सेव नहीं है।</p>
-                <button class="btn btn-outline no-print" onclick="clearHistory()" style="margin-top:20px; border-color:#e74c3c; color:#e74c3c;">पूरा इतिहास मिटाएं</button>
-            </div>
-        </div>
-
     </div>
+
+    <div class="row-grid">
+        
+        <div class="card">
+            <h3>🚜 आडा-टेढ़ा खेत (औसत)</h3>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                <input type="number" id="irr_e" placeholder="पूर्व भुजा">
+                <input type="number" id="irr_w" placeholder="पश्चिम भुजा">
+                <input type="number" id="irr_n" placeholder="उत्तर भुजा">
+                <input type="number" id="irr_s" placeholder="दक्षिण भुजा">
+            </div>
+            <button class="btn-action" style="background:#8e44ad;" onclick="calcIrregular()">औसत निकालें</button>
+            <div id="res_irr" class="hidden" style="margin-top:10px;">
+                <span style="font-weight:bold; color:#8e44ad; font-size:1.2rem;" id="irr_final">0 Bigha</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>💰 भाव कैलकुलेटर</h3>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                <input type="number" id="price_area" placeholder="जमीन (बीघा)">
+                <input type="number" id="price_rate" placeholder="भाव (रु)">
+            </div>
+            <button class="btn-action" style="background:#27ae60;" onclick="calcPrice()">कीमत जानें</button>
+             <div id="res_price" style="margin-top:15px; font-weight:bold; color:#27ae60; font-size:1.2rem; text-align:center;">-</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3 style="display:flex; justify-content:space-between;">💾 बही-खाता (History) <button onclick="clearHistory()" style="font-size:0.8rem; background:red; color:white; border:none; padding:5px 10px; border-radius:4px;">साफ़ करें</button></h3>
+        <ul id="historyList" class="history-list"></ul>
+    </div>
+
 </div>
 
 <script>
     // --- Constants ---
     const SQFT_BIGHA = 17424;
     const SQFT_BISWA = 871.2;
-    
-    // Jarib
-    const FT_JARIB = 66;
-    const FT_GATH = 16.5;
-    const FT_ANGUR = 4.125;
+    const SQFT_HECTARE = 107555.555;
+    const FT_JARIB = 66; const FT_GATH = 16.5; const FT_ANGUR = 4.125;
 
-    // --- Navigation Logic ---
-    function showSection(id) {
-        document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        
-        document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-        event.currentTarget.classList.add('active');
-    }
+    let currentMode = 'simple';
 
-    // --- Global Settings ---
+    // --- Settings ---
     function getGajSqFt() { return Math.pow(parseFloat(document.getElementById('gajSize').value) || 2, 2); }
-    function updateGlobals() {
-        let size = parseFloat(document.getElementById('gajSize').value) || 2;
+    function updateSettings() {
+        let size = parseFloat(document.getElementById('gajSize').value) || 0;
         document.getElementById('gajSizeDisp').value = size;
-        document.getElementById('globalSqFt').innerText = size * size;
+        document.getElementById('currentSqFt').innerText = size*size;
+        if(document.getElementById('convVal').value) convertLand();
     }
 
-    // --- 1. Standard Calc ---
-    function calcStandard() {
-        let l = parseFloat(document.getElementById('std_l').value) || 0;
-        let w = parseFloat(document.getElementById('std_w').value) || 0;
-        let unit = document.getElementById('std_unit').value;
-        let areaSqFt = 0;
+    // --- 1. Math Calculator ---
+    let screen = document.getElementById('calcScreen');
+    function calcAppend(v) { screen.value += v; }
+    function calcClear() { screen.value = ""; }
+    function calcBackspace() { screen.value = screen.value.slice(0, -1); }
+    function calcEqual() { try { screen.value = new Function('return ' + screen.value)(); } catch { screen.value = "Error"; } }
 
-        if (unit === 'ft') areaSqFt = l * w;
-        else if (unit === 'mtr') areaSqFt = (l * 3.28084) * (w * 3.28084);
-        else if (unit === 'gaj') {
-            let linearGaj = Math.sqrt(getGajSqFt());
-            areaSqFt = (l * linearGaj) * (w * linearGaj);
-        }
-
-        document.getElementById('res_std').style.display = 'block';
-        document.getElementById('rs_sqft').innerText = areaSqFt.toFixed(2);
-        document.getElementById('rs_bigha').innerText = (areaSqFt / SQFT_BIGHA).toFixed(4);
-        document.getElementById('rs_biswa').innerText = (areaSqFt / SQFT_BISWA).toFixed(2);
-    }
-
-    // --- 2. Jarib Calc ---
-    function calcJarib() {
-        let lenFt = (parseFloat(document.getElementById('j_l_j').value)||0)*FT_JARIB + 
-                    (parseFloat(document.getElementById('j_l_g').value)||0)*FT_GATH + 
-                    (parseFloat(document.getElementById('j_l_a').value)||0)*FT_ANGUR;
-        
-        let widFt = (parseFloat(document.getElementById('j_w_j').value)||0)*FT_JARIB + 
-                    (parseFloat(document.getElementById('j_w_g').value)||0)*FT_GATH + 
-                    (parseFloat(document.getElementById('j_w_a').value)||0)*FT_ANGUR;
-
-        let area = lenFt * widFt;
-        document.getElementById('res_jarib').style.display = 'block';
-        document.getElementById('rj_bigha').innerText = (area / SQFT_BIGHA).toFixed(4);
-        document.getElementById('rj_biswa').innerText = (area / SQFT_BISWA).toFixed(2);
-    }
-
-    // --- 3. Converter ---
-    function convert() {
+    // --- 2. Converter ---
+    function convertLand() {
         let val = parseFloat(document.getElementById('convVal').value);
         let unit = document.getElementById('convUnit').value;
-        let res = "";
-
         if(isNaN(val)) return;
+        
+        let sqft = 0;
+        if(unit==='bigha') sqft=val*SQFT_BIGHA;
+        else if(unit==='hectare') sqft=val*SQFT_HECTARE;
+        else if(unit==='biswa') sqft=val*SQFT_BISWA;
+        else if(unit==='gaj') sqft=val*getGajSqFt();
+        else sqft=val;
 
-        if(unit === 'inch') {
-            res = (val / 12).toFixed(2) + " फुट";
+        displayResults('c_', sqft);
+    }
+
+    // --- 3. Area Calculator ---
+    function setMode(mode) {
+        currentMode = mode;
+        document.getElementById('modeSimple').classList.toggle('hidden', mode!=='simple');
+        document.getElementById('modeJarib').classList.toggle('hidden', mode!=='jarib');
+        document.getElementById('btnModeSimple').className = mode==='simple' ? 'toggle-btn active' : 'toggle-btn';
+        document.getElementById('btnModeJarib').className = mode==='jarib' ? 'toggle-btn active' : 'toggle-btn';
+        document.getElementById('areaResult').classList.add('hidden');
+    }
+
+    function calculateArea() {
+        let sqft = 0;
+        if(currentMode === 'simple') {
+            let l = parseFloat(document.getElementById('s_len').value)||0;
+            let w = parseFloat(document.getElementById('s_wid').value)||0;
+            let u = document.getElementById('s_unit').value;
+            if(u==='ft') sqft = l*w;
+            else if(u==='mtr') sqft=(l*3.28)*(w*3.28);
+            else { let g=Math.sqrt(getGajSqFt()); sqft=(l*g)*(w*g); }
         } else {
-            let sqft = 0;
-            if(unit === 'bigha') sqft = val * SQFT_BIGHA;
-            else if(unit === 'gaj') sqft = val * getGajSqFt();
-            else sqft = val;
-
-            let bigha = (sqft / SQFT_BIGHA).toFixed(4);
-            res = `${sqft.toFixed(2)} SqFt | ${bigha} बीघा`;
+            let lj=parseFloat(document.getElementById('l_j').value)||0;
+            let lg=parseFloat(document.getElementById('l_g').value)||0;
+            let la=parseFloat(document.getElementById('l_a').value)||0;
+            let wj=parseFloat(document.getElementById('w_j').value)||0;
+            let wg=parseFloat(document.getElementById('w_g').value)||0;
+            let wa=parseFloat(document.getElementById('w_a').value)||0;
+            let lf = (lj*FT_JARIB)+(lg*FT_GATH)+(la*FT_ANGUR);
+            let wf = (wj*FT_JARIB)+(wg*FT_GATH)+(wa*FT_ANGUR);
+            sqft = lf*wf;
         }
-        document.getElementById('convResult').innerText = res;
+        document.getElementById('areaResult').classList.remove('hidden');
+        displayResults('res_', sqft);
     }
 
-    // --- 4. Irregular ---
+    function displayResults(prefix, sqft) {
+        document.getElementById(prefix+'sqft').innerText = sqft.toFixed(2);
+        document.getElementById(prefix+'bigha').innerText = (sqft/SQFT_BIGHA).toFixed(4);
+        document.getElementById(prefix+'biswa').innerText = (sqft/SQFT_BISWA).toFixed(2);
+        document.getElementById(prefix+'hec').innerText = (sqft/SQFT_HECTARE).toFixed(5);
+        document.getElementById(prefix+'gaj').innerText = (sqft/getGajSqFt()).toFixed(2);
+    }
+
+    // --- 4. Extra Features ---
     function calcIrregular() {
-        let e = parseFloat(document.getElementById('irr_e').value) || 0;
-        let w = parseFloat(document.getElementById('irr_w').value) || 0;
-        let n = parseFloat(document.getElementById('irr_n').value) || 0;
-        let s = parseFloat(document.getElementById('irr_s').value) || 0;
-
-        let avgLen = (e + w) / 2;
-        let avgWid = (n + s) / 2;
-        let area = avgLen * avgWid;
-
-        document.getElementById('res_irr').style.display = 'block';
-        document.getElementById('ri_len').innerText = avgLen.toFixed(1) + " ft";
-        document.getElementById('ri_wid').innerText = avgWid.toFixed(1) + " ft";
-        document.getElementById('ri_bigha').innerText = (area / SQFT_BIGHA).toFixed(4);
-        document.getElementById('ri_biswa').innerText = (area / SQFT_BISWA).toFixed(2);
+        let e=parseFloat(document.getElementById('irr_e').value)||0;
+        let w=parseFloat(document.getElementById('irr_w').value)||0;
+        let n=parseFloat(document.getElementById('irr_n').value)||0;
+        let s=parseFloat(document.getElementById('irr_s').value)||0;
+        let area = ((e+w)/2) * ((n+s)/2);
+        document.getElementById('res_irr').classList.remove('hidden');
+        document.getElementById('irr_final').innerText = (area/SQFT_BIGHA).toFixed(4) + " Bigha";
     }
 
-    // --- 5. Shapes ---
-    function calcTriangle() {
-        let a = parseFloat(document.getElementById('tri_a').value);
-        let b = parseFloat(document.getElementById('tri_b').value);
-        let c = parseFloat(document.getElementById('tri_c').value);
-
-        if(!a || !b || !c) return;
-
-        // Heron's Formula
-        let s = (a + b + c) / 2;
-        let area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
-        
-        if(isNaN(area)) { document.getElementById('res_tri').innerText = "अमान्य भुजाएं (Invalid Sides)"; return; }
-
-        let bigha = (area / SQFT_BIGHA).toFixed(4);
-        document.getElementById('res_tri').innerHTML = `क्षेत्रफल: ${area.toFixed(2)} SqFt <br> बीघा: ${bigha}`;
+    function calcPrice() {
+        let a = parseFloat(document.getElementById('price_area').value)||0;
+        let r = parseFloat(document.getElementById('price_rate').value)||0;
+        document.getElementById('res_price').innerText = "₹ " + (a*r).toLocaleString('en-IN');
     }
 
-    function calcCircle() {
-        let d = parseFloat(document.getElementById('circ_d').value);
-        if(!d) return;
-        let r = d / 2;
-        let area = Math.PI * r * r;
-        document.getElementById('res_circ').innerHTML = `क्षेत्रफल: ${area.toFixed(2)} SqFt`;
-    }
-
-    // --- 6. Utilities ---
-    function calcCost() {
-        let area = parseFloat(document.getElementById('cost_area').value) || 0;
-        let rate = parseFloat(document.getElementById('cost_rate').value) || 0;
-        document.getElementById('res_cost').innerText = "₹ " + (area * rate).toLocaleString('en-IN');
-    }
-
-    function calcPartition() {
-        let area = parseFloat(document.getElementById('part_area').value) || 0;
-        let ppl = parseFloat(document.getElementById('part_ppl').value) || 1;
-        let share = area / ppl;
-        document.getElementById('res_part').innerText = `हर एक का हिस्सा: ${share.toFixed(4)} बीघा`;
-    }
-
-    function calcSoil() {
-        let l = parseFloat(document.getElementById('soil_l').value) || 0;
-        let w = parseFloat(document.getElementById('soil_w').value) || 0;
-        let d = parseFloat(document.getElementById('soil_d').value) || 0;
-        
-        let cft = l * w * d;
-        let trolleys = cft / 100; // Approx 100 cft per trolley standard
-        
-        document.getElementById('rs_cft').innerText = cft.toFixed(2);
-        document.getElementById('rs_trolley').innerText = Math.ceil(trolleys);
-    }
-
-    // --- HISTORY STORAGE LOGIC ---
-    function saveToHistory(type, detail, result) {
-        let history = JSON.parse(localStorage.getItem('gajsa_land_history')) || [];
-        let now = new Date();
-        let dateStr = now.toLocaleDateString('hi-IN') + ' ' + now.toLocaleTimeString('hi-IN');
-        
-        history.unshift({ type, detail, result, date: dateStr });
-        if(history.length > 50) history.pop(); // Keep last 50 only
-
-        localStorage.setItem('gajsa_land_history', JSON.stringify(history));
-        loadHistory();
-        alert('रिकॉर्ड सेव हो गया!');
-    }
-
-    function loadHistory() {
-        let history = JSON.parse(localStorage.getItem('gajsa_land_history')) || [];
+    // --- History ---
+    function saveHistory() {
+        let val = document.getElementById('res_bigha').innerText;
         let list = document.getElementById('historyList');
-        list.innerHTML = "";
+        let li = document.createElement('li');
+        li.className = 'history-item';
+        li.innerHTML = `<span>Area Calc</span> <b>${val} Bigha</b>`;
+        list.prepend(li);
         
-        if(history.length === 0) {
-            document.getElementById('noHistory').style.display = 'block';
-            return;
+        // LocalStorage Logic
+        let old = localStorage.getItem('gajsa_hist') || "";
+        localStorage.setItem('gajsa_hist', li.innerHTML + "||" + old);
+    }
+    
+    function loadHistory() {
+        let old = localStorage.getItem('gajsa_hist');
+        if(old) {
+            old.split("||").forEach(h => {
+                if(h) {
+                    let li = document.createElement('li');
+                    li.className = 'history-item';
+                    li.innerHTML = h;
+                    document.getElementById('historyList').appendChild(li);
+                }
+            });
         }
-        document.getElementById('noHistory').style.display = 'none';
-
-        history.forEach((item, index) => {
-            let li = document.createElement('li');
-            li.className = 'history-item';
-            li.innerHTML = `
-                <span class="h-date">${item.date}</span>
-                <span class="h-title">${item.type}</span>
-                <span class="h-detail">${item.detail}</span>
-                <span class="h-res">${item.result}</span>
-                <button class="btn-del no-print" onclick="deleteHistoryItem(${index})">Delete</button>
-            `;
-            list.appendChild(li);
-        });
     }
-
-    function deleteHistoryItem(index) {
-        let history = JSON.parse(localStorage.getItem('gajsa_land_history'));
-        history.splice(index, 1);
-        localStorage.setItem('gajsa_land_history', JSON.stringify(history));
-        loadHistory();
-    }
-
     function clearHistory() {
-        if(confirm('क्या आप पूरा इतिहास मिटाना चाहते हैं?')) {
-            localStorage.removeItem('gajsa_land_history');
-            loadHistory();
-        }
+        localStorage.removeItem('gajsa_hist');
+        document.getElementById('historyList').innerHTML = "";
     }
 
-    // Init
     loadHistory();
 
 </script>
