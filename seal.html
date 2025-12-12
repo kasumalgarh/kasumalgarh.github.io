@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shubh Royal Seal - Kasumalgarh</title>
+    <title>Eagle & Trident Royal Seal - Kasumalgarh</title>
     <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
     <style>
         body {
@@ -26,24 +26,22 @@
         }
 
         .seal-container {
-            width: 300px;
-            height: 300px;
-            /* मोहर को हल्का सा घुमाया है ताकि असली ठप्पा लगे */
-            transform: rotate(-10deg);
+            width: 320px; /* थोड़ा बड़ा किया है ताकि विवरण साफ दिखे */
+            height: 320px;
+            transform: rotate(-8deg); /* हल्का सा तिरछा */
         }
     </style>
 </head>
 <body>
 
     <div class="paper-bg">
-        <h2 style="color: #3e2723; margin-bottom: 40px;">कसुमलगढ़ शाही मोहर</h2>
+        <h2 style="color: #3e2723; margin-bottom: 30px;">कसुमलगढ़: गरुड़ और त्रिशूल मोहर</h2>
         
         <div class="seal-container">
             <svg width="100%" height="100%" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <linearGradient id="maroonInk" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" stop-color="#660000"/>
-                        <stop offset="60%" stop-color="#800000"/>
                         <stop offset="100%" stop-color="#4d0000"/>
                     </linearGradient>
                     
@@ -63,38 +61,37 @@
                     <text font-weight="bold" font-size="28" fill="url(#maroonInk)" letter-spacing="3">
                         <textPath xlink:href="#curveUp" startOffset="50%" text-anchor="middle">।। ठिकाना कसुम्बी ।।</textPath>
                     </text>
-                    
                     <text font-weight="bold" font-size="24" fill="url(#maroonInk)" letter-spacing="3">
                         <textPath xlink:href="#curveDown" startOffset="50%" text-anchor="middle">• कसुमलगढ़ •</textPath>
                     </text>
 
                     <g transform="translate(200, 210) scale(1.3)">
                         
-                        <path d="M-35,-20 L35,-20 C35,25 0,60 0,60 C0,60 -35,25 -35,-20 Z" fill="none" stroke="url(#maroonInk)" stroke-width="4"/>
-                        
-                        <g transform="translate(0, 5)">
-                            <path d="M0,-45 L-5,-5 L0,40 L5,-5 Z" fill="url(#maroonInk)"/> 
-                            <rect x="-12" y="-5" width="24" height="4" fill="url(#maroonInk)"/>
-                            <rect x="-3" y="-15" width="6" height="10" fill="url(#maroonInk)"/>
-                            <circle cx="0" cy="-18" r="4" fill="url(#maroonInk)"/>
+                        <g transform="translate(0, -55)">
+                             <circle cx="0" cy="0" r="8" fill="url(#maroonInk)"/>
+                             <g stroke="url(#maroonInk)" stroke-width="3" stroke-linecap="round">
+                                <line x1="0" y1="-16" x2="0" y2="-12"/> <line x1="0" y1="16" x2="0" y2="12"/>
+                                <line x1="-16" y1="0" x2="-12" y2="0"/> <line x1="16" y1="0" x2="12" y2="0"/>
+                             </g>
                         </g>
 
-                        <g transform="translate(0, -50)">
-                             <circle cx="0" cy="0" r="10" fill="none" stroke="url(#maroonInk)" stroke-width="3"/>
-                             <circle cx="0" cy="0" r="4" fill="url(#maroonInk)"/>
-                             <g stroke="url(#maroonInk)" stroke-width="3" stroke-linecap="round">
-                                <line x1="0" y1="-18" x2="0" y2="-14"/> <line x1="0" y1="18" x2="0" y2="14"/>
-                                <line x1="-18" y1="0" x2="-14" y2="0"/> <line x1="18" y1="0" x2="14" y2="0"/>
-                                <line x1="-12" y1="-12" x2="-9" y2="-9"/> <line x1="12" y1="-12" x2="9" y2="-9"/>
-                                <line x1="-12" y1="12" x2="-9" y2="9"/> <line x1="12" y1="12" x2="9" y2="9"/>
-                             </g>
+                        <path d="M-38,-25 L38,-25 C38,30 0,65 0,65 C0,65 -38,30 -38,-25 Z" fill="none" stroke="url(#maroonInk)" stroke-width="4"/>
+                        
+                        <g transform="translate(0, 15) scale(0.9)">
+                            <path d="M0,-25 C-15,-30 -40,-15 -35,5 C-38,15 -25,25 -10,20 L-10,35 C-15,40 -5,40 -5,35 L-2,22 C5,25 15,15 15,5 L15,25 C10,30 20,30 20,25 L20,5 C35,-15 15,-30 0,-25 Z" fill="url(#maroonInk)"/>
+
+                            <g transform="translate(18, 10) scale(0.8) rotate(-10)">
+                                <line x1="0" y1="-25" x2="0" y2="30" stroke="url(#maroonInk)" stroke-width="4" stroke-linecap="round"/>
+                                <path d="M-10,-15 Q-10,0 0,0 Q10,0 10,-15" fill="none" stroke="url(#maroonInk)" stroke-width="4" stroke-linecap="round"/>
+                                <line x1="0" y1="0" x2="0" y2="-28" stroke="url(#maroonInk)" stroke-width="4" stroke-linecap="round"/>
+                            </g>
                         </g>
 
                     </g>
                 </g>
             </svg>
         </div>
-        </div>
+    </div>
 
 </body>
 </html>
