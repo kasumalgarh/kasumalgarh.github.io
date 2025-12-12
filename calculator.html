@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>जमीन का कैलकुलेटर (Custom Land Calculator)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify_content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+            border-top: 5px solid #d35400; /* Royal Orange */
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .settings-box {
+            background-color: #fff3e0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ffe0b2;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box; /* Fix padding issue */
+        }
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .result-table th, .result-table td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .result-table th {
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #d35400;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>जमीन माप कैलकुलेटर</h2>
+
+    <div class="settings-box">
+        <label>🛠️ गज की सेटिंग (Gaj Setting):</label>
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <input type="number" id="gajSize" value="2" oninput="calculate()" style="margin-bottom: 0;">
+            <span>x</span>
+            <input type="number" id="gajSizeDisplay" value="2" disabled style="margin-bottom: 0; background-color: #eee;">
+        </div>
+        <small style="color: #666; display: block; margin-top: 5px;">
+            (अभी 1 गज = <span id="gajSqFtDisplay">4</span> Sq Ft है)
+        </small>
+    </div>
+
+    <label>माप डालें (Enter Value):</label>
+    <input type="number" id="inputValue" placeholder="संख्या लिखें (जैसे 1, 10, 5.5)" oninput="calculate()">
+
+    <label>यूनिट चुनें (Select Unit):</label>
+    <select id="inputUnit" onchange="calculate()">
+        <option value="bigha">बीघा (Bigha)</option>
+        <option value="biswa">बिस्वा (Biswa)</option>
+        <option value="gaj">गज (Gaj)</option>
+        <option value="sqft">वर्ग फीट (Sq Ft)</option>
+        <option value="hectare">हेक्टेयर (Hectare)</option>
+    </select>
+
+    <hr>
+
+    <h3>परिणाम (Results):</h3>
+    <table class="result-table">
+        <tr>
+            <th>बीघा (Bigha)</th>
+            <td id="resBigha" class="highlight">-</td>
+        </tr>
+        <tr>
+            <th>बिस्वा (Biswa)</th>
+            <td id="resBiswa">-</td>
+        </tr>
+        <tr>
+            <th>गज (Gaj)</th>
+            <td id="resGaj">-</td>
+        </tr>
+        <tr>
+            <th>वर्ग फीट (Sq Ft)</th>
+            <td id="resSqft">-</td>
+        </tr>
+        <tr>
+            <th>हेक्टेयर (Hectare)</th>
+            <td id="resHectare">-</td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    // Constants (आपके दिए गए डेटा के अनुसार)
+    const ONE_BIGHA_SQFT = 17424;
+    const ONE_BISWA_SQFT = 871.2; // 17424 / 20
+    // Hectare Calculation based on: 3 Biswa = 0.0243 Hectare
+    // So 1 Biswa = 0.0081 Hectare. 
+    // Therefore 1 Hectare = 871.2 / 0.0081 = 107555.55 Sq Ft
+    const ONE_HECTARE_SQFT = 107555.555; 
+
+    function calculate() {
+        // 1. Get Inputs
+        let val = parseFloat(document.getElementById('inputValue').value);
+        let unit = document.getElementById('inputUnit').value;
+        let gajSide = parseFloat(document.getElementById('gajSize').value);
+
+        // Update Gaj Display
+        document.getElementById('gajSizeDisplay').value = gajSide;
+        let oneGajSqFt = gajSide * gajSide;
+        document.getElementById('gajSqFtDisplay').innerText = oneGajSqFt;
+
+        if (isNaN(val) || isNaN(gajSide) || gajSide <= 0) {
+            clearResults();
+            return;
+        }
+
+        // 2. Convert Input to Base Unit (Square Feet)
+        let totalSqFt = 0;
+
+        if (unit === 'bigha') {
+            totalSqFt = val * ONE_BIGHA_SQFT;
+        } else if (unit === 'biswa') {
+            totalSqFt = val * ONE_BISWA_SQFT;
+        } else if (unit === 'sqft') {
+            totalSqFt = val;
+        } else if (unit === 'hectare') {
+            totalSqFt = val * ONE_HECTARE_SQFT;
+        } else if (unit === 'gaj') {
+            totalSqFt = val * oneGajSqFt; // Dynamic Gaj
+        }
+
+        // 3. Convert Base Unit to All Others
+        let outBigha = totalSqFt / ONE_BIGHA_SQFT;
+        let outBiswa = totalSqFt / ONE_BISWA_SQFT;
+        let outSqFt = totalSqFt;
+        let outHectare = totalSqFt / ONE_HECTARE_SQFT;
+        let outGaj = totalSqFt / oneGajSqFt; // Dynamic Gaj Calculation
+
+        // 4. Display Results (upto 4 decimal places)
+        document.getElementById('resBigha').innerText = outBigha.toFixed(4);
+        document.getElementById('resBiswa').innerText = outBiswa.toFixed(4);
+        document.getElementById('resGaj').innerText = outGaj.toFixed(4);
+        document.getElementById('resSqft').innerText = outSqFt.toFixed(2);
+        document.getElementById('resHectare').innerText = outHectare.toFixed(5);
+    }
+
+    function clearResults() {
+        document.getElementById('resBigha').innerText = "-";
+        document.getElementById('resBiswa').innerText = "-";
+        document.getElementById('resGaj').innerText = "-";
+        document.getElementById('resSqft').innerText = "-";
+        document.getElementById('resHectare').innerText = "-";
+    }
+</script>
+
+</body>
+</html>
