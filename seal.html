@@ -3,158 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>शाही फरमान - ठिकाना कसुम्बी</title>
-    <link href="https://fonts.googleapis.com/css2?family=Gotu&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
+    <title>Shubh Royal Seal - Kasumalgarh</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: #222;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
             margin: 0;
             font-family: 'Tiro Devanagari Hindi', serif;
         }
 
-        /* --- पुराना कागज (The Royal Paper) --- */
-        .royal-paper {
-            width: 600px;
-            height: 800px;
-            background-color: #fdfbf7;
-            /* पुराने कागज का टेक्सचर इफेक्ट */
-            background-image: url("https://www.transparenttextures.com/patterns/cream-paper.png");
-            box-shadow: 0 0 50px rgba(0,0,0,0.5), inset 0 0 100px rgba(139, 69, 19, 0.2);
-            padding: 60px;
-            position: relative;
-            color: #3e2723; /* गहरे भूरे रंग की स्याही */
-            box-sizing: border-box;
-            border: 1px solid #d7ccc8;
-        }
-
-        /* --- कागज की सजावट --- */
-        .header-top {
+        .paper-bg {
+            background-color: #f4e4bc;
+            background-image: url("https://www.transparenttextures.com/patterns/aged-paper.png");
+            padding: 50px;
+            border-radius: 5px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
             text-align: center;
-            border-bottom: 2px solid #800000;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
         }
 
-        h1 {
-            font-family: 'Gotu', sans-serif;
-            font-size: 28px;
-            color: #800000; /* मरून हेडिंग */
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .seal-container {
+            width: 300px;
+            height: 300px;
+            /* मोहर को हल्का सा घुमाया है ताकि असली ठप्पा लगे */
+            transform: rotate(-10deg);
         }
-
-        .content {
-            font-size: 18px;
-            line-height: 2;
-            text-align: justify;
-        }
-
-        .signature-area {
-            margin-top: 80px;
-            text-align: right;
-            position: relative;
-        }
-
-        /* --- शाही मोहर (The Maroon Stamp) --- */
-        .stamp-container {
-            position: absolute;
-            bottom: 40px;
-            right: 40px;
-            width: 180px;
-            height: 180px;
-            opacity: 0.9;
-            /* मोहर को थोड़ा टेढ़ा करें ताकि असली लगे */
-            transform: rotate(-15deg);
-            /* स्याही जैसा इफेक्ट (Mix Blend Mode) */
-            mix-blend-mode: multiply; 
-        }
-
     </style>
 </head>
 <body>
 
-    <div class="royal-paper">
+    <div class="paper-bg">
+        <h2 style="color: #3e2723; margin-bottom: 40px;">कसुमलगढ़ शाही मोहर</h2>
         
-        <div class="header-top">
-            <div style="font-size: 40px; color: #d4af37;">⚜️</div>
-            <h1>ठिकाना कसुमलगढ़</h1>
-            <small>।। श्री गणेशाय नमः ।।</small>
-        </div>
-
-        <div class="content">
-            <p><strong>खम्मा घणी सा,</strong></p>
-            <p>
-                अत्र कुशलं तत्रास्तु। कसुमलगढ़ के गौरवशाली इतिहास और परंपराओं को संजोने हेतु यह डिजिटल दस्तावेज तैयार किया गया है। 
-                हमारे पूर्वजों के शौर्य, बलिदान और संस्कृति को आज की पीढ़ी तक पहुँचाना ही हमारा मुख्य ध्येय है।
-            </p>
-            <p>
-                ठिकाना कसुम्बी सदैव अपनी आन, बान और शान के लिए प्रतिबद्ध है। हम आशा करते हैं कि आप इस प्रयास में हमारे सहभागी बनेंगे।
-            </p>
-            <p style="text-align: center; margin-top: 40px;">
-                <em>"धरा राखे धर्म, मरुधरा रो मान"</em>
-            </p>
-        </div>
-
-        <div class="signature-area">
-            <p>हुकम,</p>
-            <p style="font-family: 'Great Vibes', cursive; font-size: 24px;">Yuvraj Gajraj Singh</p>
-            <p><strong>(कसुमलगढ़)</strong></p>
-        </div>
-
-        <div class="stamp-container">
+        <div class="seal-container">
             <svg width="100%" height="100%" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <linearGradient id="maroonInk" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#800000"/>
-                        <stop offset="50%" stop-color="#a52a2a"/>
-                        <stop offset="100%" stop-color="#5a0000"/>
+                        <stop offset="0%" stop-color="#660000"/>
+                        <stop offset="60%" stop-color="#800000"/>
+                        <stop offset="100%" stop-color="#4d0000"/>
                     </linearGradient>
-                    <filter id="inkSpread">
+                    
+                    <filter id="inkStamp">
                         <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3" result="noise"/>
-                        <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" />
+                        <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" />
                     </filter>
                 </defs>
 
-                <g filter="url(#inkSpread)">
-                    <circle cx="200" cy="200" r="190" fill="none" stroke="url(#maroonInk)" stroke-width="10"/>
-                    <circle cx="200" cy="200" r="175" fill="none" stroke="url(#maroonInk)" stroke-width="2" stroke-dasharray="5,5"/>
+                <g filter="url(#inkStamp)">
+                    <circle cx="200" cy="200" r="190" fill="none" stroke="url(#maroonInk)" stroke-width="12"/>
+                    <circle cx="200" cy="200" r="175" fill="none" stroke="url(#maroonInk)" stroke-width="3" stroke-dasharray="10,5"/>
 
-                    <path id="c1" d="M 60,200 A 140,140 0 1,1 340,200" fill="none"/>
-                    <path id="c2" d="M 80,200 A 120,120 0 0,0 320,200" fill="none"/>
+                    <path id="curveUp" d="M 50,200 A 150,150 0 1,1 350,200" fill="none"/>
+                    <path id="curveDown" d="M 70,200 A 130,130 0 0,0 330,200" fill="none"/>
 
-                    <text font-family="serif" font-weight="bold" font-size="28" fill="url(#maroonInk)" letter-spacing="3">
-                        <textPath xlink:href="#c1" startOffset="50%" text-anchor="middle">।। ठिकाना कसुम्बी ।।</textPath>
+                    <text font-weight="bold" font-size="28" fill="url(#maroonInk)" letter-spacing="3">
+                        <textPath xlink:href="#curveUp" startOffset="50%" text-anchor="middle">।। ठिकाना कसुम्बी ।।</textPath>
                     </text>
                     
-                    <text font-family="serif" font-weight="bold" font-size="24" fill="url(#maroonInk)" letter-spacing="3">
-                        <textPath xlink:href="#c2" startOffset="50%" text-anchor="middle">• कसुमलगढ़ •</textPath>
+                    <text font-weight="bold" font-size="24" fill="url(#maroonInk)" letter-spacing="3">
+                        <textPath xlink:href="#curveDown" startOffset="50%" text-anchor="middle">• कसुमलगढ़ •</textPath>
                     </text>
 
-                    <g transform="translate(200, 210) scale(1.2)">
-                        <g stroke="url(#maroonInk)" stroke-width="4" stroke-linecap="round">
-                            <line x1="-35" y1="35" x2="35" y2="-35" />
-                            <line x1="35" y1="35" x2="-35" y2="-35" />
+                    <g transform="translate(200, 210) scale(1.3)">
+                        
+                        <path d="M-35,-20 L35,-20 C35,25 0,60 0,60 C0,60 -35,25 -35,-20 Z" fill="none" stroke="url(#maroonInk)" stroke-width="4"/>
+                        
+                        <g transform="translate(0, 5)">
+                            <path d="M0,-45 L-5,-5 L0,40 L5,-5 Z" fill="url(#maroonInk)"/> 
+                            <rect x="-12" y="-5" width="24" height="4" fill="url(#maroonInk)"/>
+                            <rect x="-3" y="-15" width="6" height="10" fill="url(#maroonInk)"/>
+                            <circle cx="0" cy="-18" r="4" fill="url(#maroonInk)"/>
                         </g>
-                        <path d="M-35,-25 L35,-25 C35,25 0,60 0,60 C0,60 -35,25 -35,-25 Z" fill="none" stroke="url(#maroonInk)" stroke-width="4"/>
-                        <g transform="translate(0, -45)">
-                             <circle cx="0" cy="0" r="12" fill="url(#maroonInk)" />
-                             <g stroke="url(#maroonInk)" stroke-width="3">
-                                <line x1="0" y1="-20" x2="0" y2="-15"/> <line x1="0" y1="20" x2="0" y2="15"/>
-                                <line x1="-20" y1="0" x2="-15" y2="0"/> <line x1="20" y1="0" x2="15" y2="0"/>
+
+                        <g transform="translate(0, -50)">
+                             <circle cx="0" cy="0" r="10" fill="none" stroke="url(#maroonInk)" stroke-width="3"/>
+                             <circle cx="0" cy="0" r="4" fill="url(#maroonInk)"/>
+                             <g stroke="url(#maroonInk)" stroke-width="3" stroke-linecap="round">
+                                <line x1="0" y1="-18" x2="0" y2="-14"/> <line x1="0" y1="18" x2="0" y2="14"/>
+                                <line x1="-18" y1="0" x2="-14" y2="0"/> <line x1="18" y1="0" x2="14" y2="0"/>
+                                <line x1="-12" y1="-12" x2="-9" y2="-9"/> <line x1="12" y1="-12" x2="9" y2="-9"/>
+                                <line x1="-12" y1="12" x2="-9" y2="9"/> <line x1="12" y1="12" x2="9" y2="9"/>
                              </g>
                         </g>
+
                     </g>
                 </g>
             </svg>
         </div>
-
-    </div>
+        </div>
 
 </body>
 </html>
-
