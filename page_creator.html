@@ -2,356 +2,357 @@
 <html lang="hi">
 <head>
     <meta charset="utf-8">
-    <title>Royal Page Builder - KASUMALGARH</title>
+    <title>Ultimate Page Builder - KASUMALGARH</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* ----------------------------- */
-        /* ✨ ROYAL DARK THEME */
-        /* ----------------------------- */
+        /* --- ADMIN UI THEME --- */
         :root {
-            --bg-dark: #050510;
-            --gold-primary: #d4af37;
-            --gold-gradient: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7);
-            --text-light: #e0e0e0;
+            --bg-dark: #0f0f13;
+            --gold: #d4af37;
             --panel-bg: #1a1a2e;
+            --text: #e0e0e0;
         }
+        body { margin: 0; background: var(--bg-dark); color: var(--text); font-family: 'Lato', sans-serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
 
-        body {
-            margin: 0; padding: 0;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            font-family: 'Lato', sans-serif;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+        /* HEADER */
+        .navbar { height: 55px; background: #000; border-bottom: 2px solid var(--gold); display: flex; justify-content: space-between; align-items: center; padding: 0 20px; flex-shrink: 0; }
+        .brand { font-family: 'Cinzel'; color: var(--gold); font-weight: bold; font-size: 1.2em; }
+        .action-btn { background: linear-gradient(45deg, #bf953f, #aa771c); border: none; padding: 8px 20px; color: #000; font-weight: bold; cursor: pointer; border-radius: 4px; font-family: 'Cinzel'; }
+        
+        /* BUILDER AREA */
+        .builder-layout { display: flex; height: 100%; }
+        
+        /* LEFT: TOOLS */
+        .tools-sidebar { width: 320px; background: var(--panel-bg); border-right: 1px solid #333; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+        .cat-label { color: #666; font-size: 0.75em; font-weight: bold; margin-top: 10px; border-bottom: 1px solid #333; padding-bottom: 3px; letter-spacing: 1px; }
+        
+        .tool-btn { 
+            display: flex; align-items: center; gap: 10px; padding: 10px; 
+            background: rgba(255,255,255,0.03); border: 1px solid #333; color: #ccc; 
+            cursor: pointer; border-radius: 5px; transition: 0.2s; font-size: 0.9em; text-align: left;
         }
+        .tool-btn:hover { background: rgba(212, 175, 55, 0.15); border-color: var(--gold); color: #fff; }
+        .tool-btn i { width: 20px; text-align: center; color: var(--gold); }
 
-        /* TOP BAR */
-        .navbar {
-            height: 60px;
-            background: #111;
-            border-bottom: 2px solid var(--gold-primary);
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0 20px;
-            flex-shrink: 0;
-        }
-        .brand { font-family: 'Cinzel', serif; font-size: 1.2em; color: var(--gold-primary); font-weight: bold; }
-        .action-btn {
-            background: var(--gold-gradient); border: none; padding: 8px 20px;
-            color: #2c0e0e; font-weight: bold; cursor: pointer; border-radius: 4px;
-            font-family: 'Cinzel', serif;
-        }
-        .action-btn:hover { filter: brightness(1.1); }
+        /* CENTER: PREVIEW */
+        .preview-wrapper { flex: 1; background: #ccc; padding: 30px; overflow-y: auto; display: flex; justify-content: center; }
+        #live-frame { width: 100%; max-width: 1100px; background: #fff; min-height: 100vh; box-shadow: 0 0 30px rgba(0,0,0,0.5); border: none; }
 
-        /* MAIN LAYOUT */
-        .builder-container {
-            display: flex;
-            height: calc(100vh - 60px);
-        }
-
-        /* 1. LEFT: TOOLS PANEL */
-        .tools-panel {
-            width: 350px;
-            background: var(--panel-bg);
-            border-right: 1px solid #333;
-            overflow-y: auto;
-            padding: 20px;
-            display: flex; flex-direction: column; gap: 15px;
-        }
-
-        .tool-category { margin-bottom: 10px; }
-        .cat-title { color: #888; font-size: 0.8em; text-transform: uppercase; margin-bottom: 8px; font-weight: bold; border-bottom: 1px solid #444; padding-bottom: 5px; }
-
-        .tool-btn {
-            display: flex; align-items: center; gap: 10px;
-            width: 100%; padding: 12px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: #ddd; text-align: left;
-            cursor: pointer; border-radius: 6px;
-            transition: 0.2s; margin-bottom: 8px;
-        }
-        .tool-btn:hover { background: rgba(212, 175, 55, 0.2); border-color: var(--gold-primary); color: #fff; }
-        .tool-btn i { color: var(--gold-primary); width: 20px; text-align: center; }
-
-        /* 2. MIDDLE: LIVE PREVIEW */
-        .preview-area {
-            flex: 1;
-            background: #e0e0e0;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex; justify-content: center;
-        }
-
-        #phone-frame {
-            width: 100%; max-width: 1000px;
-            background: white;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
-            min-height: 100%;
-            border: 1px solid #ccc;
-        }
-
-        /* 3. RIGHT: SETTINGS PANEL (Hidden by default) */
-        .settings-panel {
-            width: 300px;
-            background: #222;
-            border-left: 1px solid #333;
-            padding: 20px;
-            display: none; /* Show when element clicked */
-        }
-
-        /* FORM ELEMENTS */
-        .input-group { margin-bottom: 15px; }
-        .input-group label { display: block; color: #aaa; margin-bottom: 5px; font-size: 0.9em; }
-        .input-group input, .input-group textarea, .input-group select {
-            width: 100%; padding: 8px;
-            background: #111; border: 1px solid #444;
-            color: #fff; border-radius: 4px; box-sizing: border-box;
-        }
-        .input-group input:focus { border-color: var(--gold-primary); outline: none; }
-
-        /* MODAL FOR PAGE DETAILS */
-        #publishModal {
-            display: none; position: fixed; top:0; left:0; width:100%; height:100%;
-            background: rgba(0,0,0,0.9); z-index: 9999;
-            justify-content: center; align-items: center;
-        }
-        .modal-box { background: #222; padding: 30px; border-radius: 10px; border: 2px solid var(--gold-primary); width: 400px; }
-
-        /* --- PREVIEW STYLES (To Match Website) --- */
-        /* ये स्टाइल्स iframe के अंदर इंजेक्ट की जाएंगी, यहाँ सिर्फ रेफरेंस के लिए हैं */
+        /* MODAL */
+        #publishModal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center; }
+        .modal-box { background: #222; padding: 30px; width: 400px; border: 2px solid var(--gold); border-radius: 8px; }
+        .inp-group { margin-bottom: 15px; }
+        .inp-group label { display: block; color: #aaa; margin-bottom: 5px; font-size: 0.9em; }
+        .inp-group input { width: 100%; padding: 8px; background: #111; border: 1px solid #555; color: #fff; border-radius: 4px; box-sizing: border-box; }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <div class="brand"><i class="fas fa-magic"></i> PAGE BUILDER</div>
-        <div style="display:flex; gap:10px;">
-            <button onclick="clearCanvas()" style="background:#444; color:#fff; border:none; padding:8px 15px; border-radius:4px; cursor:pointer;">Reset</button>
-            <button onclick="openPublishModal()" class="action-btn"><i class="fas fa-cloud-upload-alt"></i> PUBLISH PAGE</button>
+        <div class="brand"><i class="fas fa-layer-group"></i> ULTIMATE BUILDER</div>
+        <div>
+            <button onclick="if(confirm('Clear Page?')) initCanvas()" style="background:#333; color:#fff; border:none; padding:8px 15px; border-radius:4px; cursor:pointer; margin-right:10px;">Reset</button>
+            <button onclick="openPublishModal()" class="action-btn"><i class="fas fa-check-circle"></i> PUBLISH</button>
         </div>
     </nav>
 
-    <div class="builder-container">
-        
-        <div class="tools-panel">
+    <div class="builder-layout">
+        <div class="tools-sidebar">
             
-            <div class="cat-title">STRUCTURE</div>
-            <button class="tool-btn" onclick="addComponent('heading')"><i class="fas fa-heading"></i> Royal Heading (H1/H2)</button>
-            <button class="tool-btn" onclick="addComponent('paragraph')"><i class="fas fa-paragraph"></i> Text Paragraph</button>
-            <button class="tool-btn" onclick="addComponent('divider')"><i class="fas fa-grip-lines"></i> Gold Divider (⚜️)</button>
+            <div class="cat-label">BASIC TEXT</div>
+            <button class="tool-btn" onclick="addEl('heading')"><i class="fas fa-heading"></i> Royal Heading (H1)</button>
+            <button class="tool-btn" onclick="addEl('subheading')"><i class="fas fa-font"></i> Sub Heading (H3)</button>
+            <button class="tool-btn" onclick="addEl('paragraph')"><i class="fas fa-paragraph"></i> Paragraph Text</button>
+            <button class="tool-btn" onclick="addEl('divider')"><i class="fas fa-grip-lines"></i> Gold Divider</button>
 
-            <div class="cat-title">MEDIA & IMAGES</div>
-            <button class="tool-btn" onclick="addComponent('image')"><i class="fas fa-image"></i> Image Upload</button>
-            <button class="tool-btn" onclick="addComponent('video')"><i class="fab fa-youtube"></i> YouTube Video</button>
+            <div class="cat-label">SMART LAYOUTS (NEW)</div>
+            <button class="tool-btn" onclick="addEl('layout-left')"><i class="fas fa-id-card-alt"></i> Text Left + Photo Right</button>
+            <button class="tool-btn" onclick="addEl('layout-right')"><i class="fas fa-id-card"></i> Photo Left + Text Right</button>
+            <button class="tool-btn" onclick="addEl('gallery')"><i class="fas fa-th-large"></i> 3-Photo Grid</button>
 
-            <div class="cat-title">SPECIAL ELEMENTS</div>
-            <button class="tool-btn" onclick="addComponent('jharokha')"><i class="fas fa-archway"></i> Jharokha Box (Card)</button>
-            <button class="tool-btn" onclick="addComponent('button')"><i class="fas fa-mouse-pointer"></i> Action Button</button>
-            <button class="tool-btn" onclick="addComponent('list')"><i class="fas fa-list-ul"></i> Bullet List</button>
+            <div class="cat-label">ROYAL ELEMENTS</div>
+            <button class="tool-btn" onclick="addEl('jharokha')"><i class="fas fa-archway"></i> Jharokha Box</button>
+            <button class="tool-btn" onclick="addEl('profile')"><i class="fas fa-user-tie"></i> Profile Card</button>
+            <button class="tool-btn" onclick="addEl('quote')"><i class="fas fa-quote-left"></i> Royal Quote</button>
+            
+            <div class="cat-label">MEDIA</div>
+            <button class="tool-btn" onclick="addEl('image')"><i class="fas fa-image"></i> Full Width Image</button>
+            <button class="tool-btn" onclick="addEl('video')"><i class="fab fa-youtube"></i> YouTube Video</button>
+            <button class="tool-btn" onclick="addEl('button')"><i class="fas fa-mouse-pointer"></i> Link Button</button>
 
         </div>
 
-        <div class="preview-area">
-            <iframe id="phone-frame"></iframe>
+        <div class="preview-wrapper">
+            <iframe id="live-frame"></iframe>
         </div>
-
     </div>
 
     <div id="publishModal">
         <div class="modal-box">
-            <h3 style="color:var(--gold-primary); margin-top:0;">Final Details</h3>
-            
-            <div class="input-group">
-                <label>File Name (e.g., events.html)</label>
-                <input type="text" id="finalFileName" placeholder="page_name.html">
-            </div>
-            
-            <div class="input-group">
-                <label>Page Title (Browser Tab)</label>
-                <input type="text" id="finalPageTitle" placeholder="My Royal Page">
-            </div>
-
-            <div class="input-group">
-                <label>Page Header Title (Big Text)</label>
-                <input type="text" id="finalHeaderTitle" placeholder="WELCOME">
-            </div>
-
-            <button onclick="publishToGitHub()" class="action-btn" style="width:100%;">CONFIRM & CREATE</button>
-            <button onclick="document.getElementById('publishModal').style.display='none'" style="width:100%; background:none; border:none; color:#aaa; margin-top:10px; cursor:pointer;">Cancel</button>
+            <h3 style="color:var(--gold); margin-top:0;">Publish Page</h3>
+            <div class="inp-group"><label>File Name (e.g. news.html)</label><input type="text" id="pFileName"></div>
+            <div class="inp-group"><label>Page Title (Browser Tab)</label><input type="text" id="pPageTitle"></div>
+            <div class="inp-group"><label>Header Title (Big Text)</label><input type="text" id="pHeaderTitle"></div>
+            <button onclick="publish()" class="action-btn" style="width:100%;">CREATE PAGE</button>
+            <button onclick="document.getElementById('publishModal').style.display='none'" style="background:none; border:none; color:#666; width:100%; margin-top:10px; cursor:pointer;">Cancel</button>
         </div>
     </div>
 
     <script>
-        // --- 1. INITIALIZE FRAME ---
-        const frame = document.getElementById('phone-frame');
+        const frame = document.getElementById('live-frame');
         const doc = frame.contentDocument || frame.contentWindow.document;
 
-        // Base Template Styles (User's Website CSS)
-        const baseStyles = `
-            <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+        // 1. BASE TEMPLATE CSS (INSIDE IFRAME)
+        const frameStyles = `
+            <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
             <style>
-                :root { --royal-bg: #000033; --paper-bg: #fffbf0; --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); --maroon-text: #800000; --dark-gold-line: #aa8c2c; }
-                body { margin: 0; background-color: var(--paper-bg); color: #333; font-family: 'Playfair Display', serif; padding: 20px; }
+                :root { --royal-bg: #000033; --paper-bg: #fffbf0; --maroon: #800000; --gold: #aa8c2c; }
+                body { margin: 0; background: var(--paper-bg); color: #333; font-family: 'Playfair Display', serif; padding: 40px 20px; }
                 
-                /* Components */
-                .royal-heading { font-family: 'Cinzel', serif; color: var(--maroon-text); border-bottom: 2px solid var(--dark-gold-line); display: inline-block; margin-top: 20px; }
-                .royal-para { font-size: 1.1em; line-height: 1.6; color: #555; margin-bottom: 15px; }
-                .gold-divider { text-align: center; font-size: 24px; color: #bf953f; margin: 20px 0; }
+                /* --- COMPONENTS --- */
+                .comp-wrapper { position: relative; border: 1px dashed transparent; margin-bottom: 20px; transition: 0.2s; }
+                .comp-wrapper:hover { border-color: #007bff; background: rgba(0,123,255,0.05); }
                 
-                .jharokha-box { 
-                    border: 3px double var(--maroon-text); padding: 20px; margin: 20px 0; 
-                    background: #fff; box-shadow: 0 0 15px rgba(0,0,0,0.1); text-align: center; border-radius: 10px;
-                }
-                
-                .royal-btn {
-                    display: inline-block; padding: 10px 25px; 
-                    background: linear-gradient(to right, #000033, #000066); 
-                    color: #fcf6ba; text-decoration: none; font-family: 'Cinzel', serif; font-weight: bold;
-                    border-radius: 50px; border: 1px solid var(--dark-gold-line);
-                }
+                /* Editor Buttons */
+                .comp-controls { position: absolute; top: -12px; right: 0; display: none; z-index: 10; }
+                .comp-wrapper:hover .comp-controls { display: flex; gap: 5px; }
+                .ctrl-btn { background: #333; color: #fff; border: none; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+                .btn-del { background: #dc3545; } .btn-up { background: #007bff; } .btn-down { background: #007bff; }
 
-                img { max-width: 100%; border-radius: 5px; border: 2px solid var(--dark-gold-line); }
+                /* STYLES */
+                h1.royal-h1 { font-family: 'Cinzel', serif; color: var(--maroon); border-bottom: 3px solid var(--gold); display: inline-block; margin: 0 0 15px; font-size: 2.2em; }
+                h3.royal-h3 { font-family: 'Cinzel', serif; color: var(--gold); margin: 0 0 10px; font-size: 1.5em; border-bottom: 1px solid #ddd; display: inline-block; }
+                p.royal-p { font-size: 1.1em; line-height: 1.7; color: #444; margin: 0; }
                 
-                /* Editor Helper */
-                .editable-component { position: relative; border: 1px dashed transparent; cursor: pointer; }
-                .editable-component:hover { border-color: blue; }
-                .delete-btn { 
-                    position: absolute; top: -10px; right: -10px; background: red; color: white; 
-                    border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; cursor: pointer; display: none;
-                }
-                .editable-component:hover .delete-btn { display: block; }
+                /* LAYOUTS */
+                .flex-row { display: flex; gap: 30px; align-items: center; flex-wrap: wrap; }
+                .flex-col { flex: 1; min-width: 300px; }
+                
+                .royal-img { width: 100%; border-radius: 8px; border: 3px double var(--gold); box-shadow: 5px 5px 15px rgba(0,0,0,0.2); }
+                
+                /* GALLERY */
+                .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+                
+                /* CARDS */
+                .jharokha { background: #fff; border: 2px solid var(--gold); padding: 25px; text-align: center; border-radius: 15px 15px 0 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-top: 5px solid var(--maroon); }
+                
+                .profile-card { text-align: center; border: 1px solid var(--gold); padding: 20px; background: #fff; border-radius: 8px; }
+                .profile-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid var(--maroon); margin-bottom: 10px; }
+                
+                .royal-quote { font-style: italic; font-size: 1.3em; text-align: center; padding: 20px; border-left: 4px solid var(--gold); background: rgba(212,175,55,0.1); margin: 20px 0; color: var(--maroon); }
+                
+                .royal-btn { display: inline-block; padding: 12px 30px; background: #000033; color: #fff; text-decoration: none; font-family: 'Cinzel'; border: 1px solid var(--gold); border-radius: 50px; }
+                .divider { text-align: center; font-size: 24px; color: var(--gold); margin: 20px 0; }
             </style>
         `;
 
-        // Initialize Canvas
+        // 2. INIT
         function initCanvas() {
             doc.open();
-            doc.write(`<html><head>${baseStyles}</head><body id="canvas-body"><div id="content-area"></div></body></html>`);
+            doc.write(`<html><head>${frameStyles}</head><body><div id="canvas"></div></body></html>`);
             doc.close();
+            // Attach script for button actions inside iframe
+            let script = doc.createElement('script');
+            script.textContent = `
+                function removeEl(btn) { btn.closest('.comp-wrapper').remove(); }
+                function moveUp(btn) { let el = btn.closest('.comp-wrapper'); if(el.previousElementSibling) el.parentNode.insertBefore(el, el.previousElementSibling); }
+                function moveDown(btn) { let el = btn.closest('.comp-wrapper'); if(el.nextElementSibling) el.parentNode.insertBefore(el.nextElementSibling, el); }
+            `;
+            doc.body.appendChild(script);
         }
         initCanvas();
 
-        // --- 2. ADD COMPONENTS ---
-        function addComponent(type) {
-            const container = doc.getElementById('content-area');
+        // 3. ADD COMPONENTS
+        function addEl(type) {
+            const canvas = doc.getElementById('canvas');
             let html = '';
 
-            switch(type) {
-                case 'heading':
-                    let text = prompt("Heading Text:", "New Royal Heading");
-                    if(text) html = `<h2 class="royal-heading">${text}</h2>`;
-                    break;
-                case 'paragraph':
-                    let pText = prompt("Paragraph Content:", "Enter your text here...");
-                    if(pText) html = `<p class="royal-para">${pText}</p>`;
-                    break;
-                case 'divider':
-                    html = `<div class="gold-divider">⚜️ ⚜️ ⚜️</div>`;
-                    break;
-                case 'image':
-                    let imgUrl = prompt("Image URL (Paste Link):", "https://via.placeholder.com/600x400");
-                    if(imgUrl) html = `<div style="text-align:center; margin:15px 0;"><img src="${imgUrl}" alt="Image"></div>`;
-                    break;
-                case 'video':
-                    let vidId = prompt("YouTube Video ID (e.g., dQw4w9WgXcQ):");
-                    if(vidId) html = `<div style="text-align:center; margin:20px 0;"><iframe width="100%" height="315" src="https://www.youtube.com/embed/${vidId}" frameborder="0" allowfullscreen></iframe></div>`;
-                    break;
-                case 'jharokha':
-                    let jTitle = prompt("Box Title:", "Did You Know?");
-                    let jContent = prompt("Box Content:", "Write something special...");
-                    if(jTitle && jContent) html = `
-                        <div class="jharokha-box">
-                            <h3 style="color:#800000; font-family:'Cinzel', serif;">${jTitle}</h3>
-                            <p>${jContent}</p>
-                        </div>`;
-                    break;
-                case 'button':
-                    let btnText = prompt("Button Text:", "Click Here");
-                    let btnLink = prompt("Link URL:", "#");
-                    if(btnText) html = `<div style="text-align:center; margin:15px 0;"><a href="${btnLink}" class="royal-btn">${btnText}</a></div>`;
-                    break;
-                case 'list':
-                    html = `<ul class="royal-para" style="padding-left:20px;"><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>`;
-                    break;
+            // User Inputs
+            if(type === 'heading') {
+                let txt = prompt("Heading Text:", "New Royal Heading");
+                if(!txt) return;
+                html = `<div style="text-align:center;"><h1 class="royal-h1">${txt}</h1></div>`;
+            }
+            else if(type === 'subheading') {
+                let txt = prompt("Sub-Heading Text:", "Overview");
+                if(!txt) return;
+                html = `<h3 class="royal-h3">${txt}</h3>`;
+            }
+            else if(type === 'paragraph') {
+                let txt = prompt("Paragraph Content:", "Enter your text here...");
+                if(!txt) return;
+                html = `<p class="royal-p">${txt}</p>`;
+            }
+            else if(type === 'image') {
+                let url = prompt("Image URL:", "https://via.placeholder.com/800x400");
+                if(!url) return;
+                html = `<img src="${url}" class="royal-img">`;
+            }
+            else if(type === 'layout-left') {
+                let txt = prompt("Text Content:", "This is description...");
+                let img = prompt("Image URL:", "https://via.placeholder.com/400x300");
+                if(!txt) return;
+                html = `<div class="flex-row">
+                    <div class="flex-col"><p class="royal-p">${txt}</p></div>
+                    <div class="flex-col"><img src="${img}" class="royal-img"></div>
+                </div>`;
+            }
+            else if(type === 'layout-right') {
+                let txt = prompt("Text Content:", "Description here...");
+                let img = prompt("Image URL:", "https://via.placeholder.com/400x300");
+                if(!txt) return;
+                html = `<div class="flex-row">
+                    <div class="flex-col"><img src="${img}" class="royal-img"></div>
+                    <div class="flex-col"><p class="royal-p">${txt}</p></div>
+                </div>`;
+            }
+            else if(type === 'jharokha') {
+                let title = prompt("Title:", "Did You Know?");
+                let text = prompt("Content:", "Details here...");
+                if(!title) return;
+                html = `<div class="jharokha"><h3 class="royal-h3" style="color:#800000;">${title}</h3><p class="royal-p">${text}</p></div>`;
+            }
+            else if(type === 'profile') {
+                let name = prompt("Name:", "Th. Name Singh");
+                let role = prompt("Title/Role:", "Jagirdar");
+                let img = prompt("Photo URL:", "https://via.placeholder.com/150");
+                if(!name) return;
+                html = `<div class="profile-card">
+                    <img src="${img}" class="profile-img">
+                    <h3 class="royal-h3" style="border:none; font-size:1.2em;">${name}</h3>
+                    <p style="color:#888; font-size:0.9em;">${role}</p>
+                </div>`;
+            }
+            else if(type === 'quote') {
+                let q = prompt("Quote:", "Pride is our heritage.");
+                if(!q) return;
+                html = `<div class="royal-quote">“ ${q} ”</div>`;
+            }
+            else if(type === 'gallery') {
+                let img1 = prompt("Image 1 URL:", "https://via.placeholder.com/300");
+                let img2 = prompt("Image 2 URL:", "https://via.placeholder.com/300");
+                let img3 = prompt("Image 3 URL:", "https://via.placeholder.com/300");
+                html = `<div class="gallery-grid">
+                    <img src="${img1}" class="royal-img">
+                    <img src="${img2}" class="royal-img">
+                    <img src="${img3}" class="royal-img">
+                </div>`;
+            }
+            else if(type === 'divider') {
+                html = `<div class="divider">⚜️ ⚜️ ⚜️</div>`;
+            }
+            else if(type === 'button') {
+                let txt = prompt("Button Text:", "Click Me");
+                let link = prompt("Link:", "#");
+                if(!txt) return;
+                html = `<div style="text-align:center;"><a href="${link}" class="royal-btn">${txt}</a></div>`;
+            }
+            else if(type === 'video') {
+                let id = prompt("YouTube Video ID:", "dQw4w9WgXcQ");
+                if(!id) return;
+                html = `<div style="text-align:center;"><iframe width="100%" height="400" src="https://www.youtube.com/embed/${id}" frameborder="0" allowfullscreen style="border-radius:10px; border:2px solid var(--gold);"></iframe></div>`;
             }
 
+            // Append with Controls
             if(html) {
-                // Wrapper for deletion
-                let wrapper = doc.createElement('div');
-                wrapper.className = 'editable-component';
-                wrapper.innerHTML = html + `<button class="delete-btn" onclick="this.parentElement.remove()">×</button>`;
-                container.appendChild(wrapper);
+                let wrap = doc.createElement('div');
+                wrap.className = 'comp-wrapper';
+                wrap.innerHTML = `
+                    <div class="comp-controls">
+                        <button class="ctrl-btn btn-up" onclick="moveUp(this)" title="Move Up"><i class="fas fa-arrow-up"></i></button>
+                        <button class="ctrl-btn btn-down" onclick="moveDown(this)" title="Move Down"><i class="fas fa-arrow-down"></i></button>
+                        <button class="ctrl-btn btn-del" onclick="removeEl(this)" title="Delete">×</button>
+                    </div>
+                    ${html}
+                `;
+                canvas.appendChild(wrap);
+                // Scroll to bottom
+                frame.contentWindow.scrollTo(0, doc.body.scrollHeight);
             }
         }
 
-        function clearCanvas() {
-            if(confirm("Clear everything?")) initCanvas();
-        }
-
-        // --- 3. PUBLISH LOGIC ---
+        // 4. PUBLISH
         function openPublishModal() {
             document.getElementById('publishModal').style.display = 'flex';
         }
 
-        async function publishToGitHub() {
-            const fileName = document.getElementById('finalFileName').value.trim();
-            const pageTitle = document.getElementById('finalPageTitle').value.trim();
-            const headerTitle = document.getElementById('finalHeaderTitle').value.trim();
-            
-            if(!fileName || !pageTitle) { alert("Please fill details!"); return; }
+        async function publish() {
+            const fileName = document.getElementById('pFileName').value.trim();
+            const pageTitle = document.getElementById('pPageTitle').value.trim();
+            const headerTitle = document.getElementById('pHeaderTitle').value.trim();
 
-            // Get generated content (remove delete buttons)
-            let contentBody = doc.getElementById('content-area').innerHTML;
-            // Clean up temporary edit classes
-            contentBody = contentBody.replace(/class="editable-component"/g, '').replace(/<button class="delete-btn".*?<\/button>/g, '');
+            if(!fileName || !pageTitle) { alert("Please fill all details!"); return; }
 
-            // FINAL TEMPLATE (Combines with Master Layout)
-            const finalHTML = `
+            // Clean content (remove edit controls)
+            let rawContent = doc.getElementById('canvas').innerHTML;
+            // Very important: Regex to strip controls container and wrapper div only
+            // But simplifying: We recreate wrapper without controls in string
+            // Actually simpler: Clone body, remove controls, get HTML
+            let clone = doc.body.cloneNode(true);
+            let wrappers = clone.querySelectorAll('.comp-wrapper');
+            let cleanBody = "";
+            wrappers.forEach(w => {
+                w.querySelector('.comp-controls').remove(); // remove buttons
+                cleanBody += w.innerHTML + "\n"; // keep content
+            });
+
+            // FULL HTML STRUCTURE
+            const fullHTML = `
 <!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${pageTitle} - KASUMALGARH</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --royal-bg: #000033; --paper-bg: #fffbf0; --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); --maroon-text: #800000; --dark-gold-line: #aa8c2c; }
+        :root { --royal-bg: #000033; --paper-bg: #fffbf0; --maroon: #800000; --gold: #aa8c2c; }
         body { margin: 0; background-color: var(--royal-bg); color: #333; font-family: 'Playfair Display', serif; overflow-x: hidden; }
-        /* Common Styles */
+        
         .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #000033; border-bottom: 2px solid #b38728; position: sticky; top: 0; z-index: 2000; }
         .navbar a { color: #897148; text-decoration: none; font-family: 'Cinzel', serif; font-weight: bold; margin-left: 15px; }
-        .page-header { background: linear-gradient(rgba(0,0,51,0.7), rgba(0,0,51,0.9)), url('1.jpg'); background-size: cover; height: 300px; display: flex; justify-content: center; align-items: center; text-align: center; border-bottom: 4px solid #b38728; }
-        .page-title { font-family: 'Cinzel', serif; font-size: 3em; color: #fcf6ba; text-transform: uppercase; text-shadow: 0 5px 10px rgba(0,0,0,0.8); }
         
-        .main-content { padding: 40px 20px; min-height: 50vh; }
-        .content-container { max-width: 900px; margin: 0 auto; background: var(--paper-bg); border: 2px solid #aa8c2c; padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.5); text-align: center; }
+        .page-header { background: linear-gradient(rgba(0,0,51,0.7), rgba(0,0,51,0.9)), url('1.jpg'); background-size: cover; height: 350px; display: flex; justify-content: center; align-items: center; text-align: center; border-bottom: 4px solid #b38728; }
+        .page-title { font-family: 'Cinzel', serif; font-size: 3em; color: #fcf6ba; text-shadow: 0 5px 10px rgba(0,0,0,0.8); margin: 0; }
         
-        /* Your Custom Styles */
-        .royal-heading { font-family: 'Cinzel', serif; color: var(--maroon-text); border-bottom: 2px solid var(--dark-gold-line); display: inline-block; margin-top: 20px; font-size:1.8em; }
-        .royal-para { font-size: 1.1em; line-height: 1.6; color: #555; margin-bottom: 15px; text-align: left; }
-        .gold-divider { text-align: center; font-size: 24px; color: #bf953f; margin: 20px 0; }
-        .jharokha-box { border: 3px double var(--maroon-text); padding: 20px; margin: 20px 0; background: #fff; box-shadow: 0 0 15px rgba(0,0,0,0.1); border-radius: 10px; }
-        .royal-btn { display: inline-block; padding: 10px 25px; background: linear-gradient(to right, #000033, #000066); color: #fcf6ba; text-decoration: none; font-family: 'Cinzel', serif; font-weight: bold; border-radius: 50px; border: 1px solid var(--dark-gold-line); }
-        img { max-width: 100%; border-radius: 5px; border: 2px solid var(--dark-gold-line); }
+        .main-content { padding: 50px 20px; min-height: 60vh; }
+        .content-container { max-width: 1000px; margin: 0 auto; background: var(--paper-bg); border: 2px solid #aa8c2c; padding: 40px; border-radius: 10px; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
         
+        /* BUILDER STYLES */
+        h1.royal-h1 { font-family: 'Cinzel'; color: var(--maroon); border-bottom: 3px solid var(--gold); display: inline-block; margin: 0 0 20px; font-size: 2.2em; }
+        h3.royal-h3 { font-family: 'Cinzel'; color: var(--gold); margin: 20px 0 10px; font-size: 1.5em; border-bottom: 1px solid #ddd; display: inline-block; }
+        p.royal-p { font-size: 1.1em; line-height: 1.7; color: #444; margin-bottom: 15px; }
+        .flex-row { display: flex; gap: 40px; align-items: center; flex-wrap: wrap; margin-bottom: 30px; }
+        .flex-col { flex: 1; min-width: 300px; }
+        .royal-img { width: 100%; border-radius: 8px; border: 3px double var(--gold); box-shadow: 5px 5px 15px rgba(0,0,0,0.2); transition: 0.3s; }
+        .royal-img:hover { transform: scale(1.02); }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .jharokha { background: #fff; border: 2px solid var(--gold); padding: 30px; text-align: center; border-radius: 15px 15px 0 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-top: 5px solid var(--maroon); margin-bottom: 30px; }
+        .profile-card { text-align: center; border: 1px solid var(--gold); padding: 25px; background: #fff; border-radius: 8px; margin-bottom: 20px; transition: 0.3s; }
+        .profile-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .profile-img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--maroon); margin-bottom: 15px; }
+        .royal-quote { font-style: italic; font-size: 1.4em; text-align: center; padding: 30px; border-left: 5px solid var(--gold); background: rgba(212,175,55,0.1); margin: 30px 0; color: var(--maroon); font-family: 'Playfair Display'; }
+        .royal-btn { display: inline-block; padding: 12px 35px; background: linear-gradient(to right, #000033, #000066); color: #fcf6ba; text-decoration: none; font-family: 'Cinzel'; border: 1px solid var(--gold); border-radius: 50px; transition: 0.3s; }
+        .royal-btn:hover { background: var(--gold); color: #000; box-shadow: 0 0 15px var(--gold); }
+        .divider { text-align: center; font-size: 24px; color: var(--gold); margin: 30px 0; }
+
         footer { text-align: center; color: #b38728; padding: 20px; background-color: #000022; border-top: 4px solid #897148; }
-        
-        @media (max-width: 600px) { .page-title { font-size: 2em; } .navbar { flex-direction:column; gap:10px; } }
+        @media (max-width: 768px) { .page-title { font-size: 2em; } .flex-row { flex-direction: column; } .content-container { padding: 20px; } }
     </style>
 </head>
 <body>
     <nav class="navbar">
-        <a href="index.html" style="font-size:1.5em; color:#fcf6ba;">KASUMALGARH</a>
+        <a href="index.html" style="font-size:1.5em; color:#fcf6ba; text-decoration:none; font-family:'Cinzel';">KASUMALGARH</a>
         <div>
             <a href="index.html">HOME</a>
             <a href="vanshawali.html">VANSHAWALI</a>
+            <a href="history.html">HISTORY</a>
             <a href="contact.html">CONTACT</a>
         </div>
     </nav>
@@ -362,7 +363,7 @@
 
     <main class="main-content">
         <div class="content-container">
-            ${contentBody}
+            ${cleanBody}
         </div>
     </main>
 
@@ -370,34 +371,32 @@
 </body>
 </html>`;
 
-            // --- GITHUB UPLOAD ---
-            const token = prompt("🔑 Paste GitHub Secret Token:");
+            // GITHUB UPLOAD
+            const token = prompt("🔑 Paste GitHub Token:");
             if(!token) return;
 
             const GITHUB_USERNAME = "kasumalgarh";
             const REPO_NAME = "kasumalgarh.github.io";
-            const BRANCH = "main"; // Or master
-
+            
             try {
-                const apiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${fileName}`;
-                const putRes = await fetch(apiUrl, {
+                const res = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${fileName}`, {
                     method: "PUT",
                     headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        message: `Created ${fileName} via Visual Builder`,
-                        content: btoa(unescape(encodeURIComponent(finalHTML))),
-                        branch: BRANCH
+                        message: `Page ${fileName} Created`,
+                        content: btoa(unescape(encodeURIComponent(fullHTML))),
+                        branch: "main"
                     })
                 });
 
-                if (putRes.ok) {
-                    alert("🎉 Page Published Successfully!");
+                if(res.ok) {
+                    alert("🎉 SUCCESS! Page Created.");
                     window.open(`https://${GITHUB_USERNAME}.github.io/${REPO_NAME}/${fileName}`, '_blank');
                 } else {
-                    const err = await putRes.json();
+                    const err = await res.json();
                     alert("Error: " + err.message);
                 }
-            } catch (err) { alert("Network Error: " + err.message); }
+            } catch(e) { alert("Network Error"); }
         }
     </script>
 
