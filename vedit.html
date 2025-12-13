@@ -14,6 +14,7 @@
         --royal-maroon: #800000;
         --bg-paper: #fffbf0;
         --text-dark: #2c0e0e;
+        --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728);
     }
 
     * { box-sizing: border-box; }
@@ -29,13 +30,12 @@
 
     a { text-decoration: none; color: inherit; }
 
-
+    /* --- FOOTER CSS (Unchanged but complete) --- */
     footer { 
     text-align: center; color: #b38728; 
     padding: 20px 20px;
-    background-color: #000022; 
-    /* ध्यान रहे: footerbg.png उसी फोल्डर में हो */
-    background-image: url('footerbg.png');
+    background-color: #000022;
+    background-image: url('footerbg.png'); /* यदि यह फ़ाइल आपके पास है */
     background-repeat: repeat; 
     border-top: 4px solid #897148;
 }
@@ -43,7 +43,7 @@
 .developer-info { margin-top: 0px; padding-top: 10px; border-top: none; }
 .royal-name {
     display: block; font-family: 'Cinzel', serif; font-size: 1.6em; font-weight: 900;
-    background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728); 
+    background: var(--gold-gradient); 
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     margin-bottom: 10px; letter-spacing: 1px; text-decoration: none;
     filter: drop-shadow(0 2px 2px rgba(0,0,0,0.8));
@@ -239,13 +239,19 @@
         color: #fff;
         padding-left: 15px;
     }
+    
+    .name-list a.active { /* इंडेक्स में फ़िल्टर किया गया नाम */
+        background-color: var(--royal-gold);
+        color: var(--royal-maroon);
+        font-weight: bold;
+    }
 
     /* Right Content */
     .content { 
         flex-grow: 1; 
         padding-left: 10px; 
         position: relative;
-        overflow-x: auto; /* सुधार 2: मोबाइल पर हॉरिजॉन्टल स्क्रॉल */
+        overflow-x: auto; /* सुधार: मोबाइल पर हॉरिजॉन्टल स्क्रॉल */
         -webkit-overflow-scrolling: touch; 
     }
 
@@ -260,7 +266,7 @@
     }
     
     .tree {
-        width: max-content; /* सुधार 2: चौड़े ट्री के लिए जगह */
+        width: max-content; /* चौड़े ट्री के लिए जगह */
         min-width: 100%;
     }
 
@@ -287,6 +293,11 @@
     .tree > ul > li::before, 
     .tree > ul > li::after {
         display: none;
+    }
+    
+    /* जब ट्री फ़िल्टर होता है, तो पैरेंट के UL को ब्लॉक रखना जरूरी है ताकि लाइन दिखे */
+    .tree ul {
+        display: block; 
     }
 
     /* Member Card */
@@ -320,7 +331,7 @@
     
     .member-card:hover .member-name { color: var(--royal-maroon); }
 
-    /* ✨ 1. HOVER Highlight Effect */
+    /* ✨ 1. HOVER Highlight Effect (जब माउस ले जाते हैं) */
     .path-active .member-name {
         background-color: #ffeeb0; /* Light Gold */
         color: #800000 !important;
@@ -329,7 +340,7 @@
         z-index: 10;
     }
 
-    /* ✨ 2. LOCKED Highlight (Click Effect) - Stronger Style */
+    /* ✨ 2. LOCKED Highlight (Click/Filter Effect) - Stronger Style */
     .locked-active .member-name {
         background-color: #ffd700 !important; /* Bright Gold */
         color: #800000 !important; /* Maroon */
@@ -369,61 +380,6 @@
     }
 
     #tooltip strong { color: #ffeb3b; font-size: 1.1em; }
-
-   
-
-        .royal-name {
-            display: block; font-family: 'Cinzel', serif; font-size: 1.6em; font-weight: 900;
-            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin-bottom: 10px; letter-spacing: 1px; text-decoration: none;
-            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.8));
-        }
-        .fb-link {
-            color: #fff; text-decoration: none; font-size: 1.1em;
-            display: inline-flex; align-items: center; gap: 10px; margin-top: 5px;
-            padding: 5px 15px; border: 1px solid #b38728; border-radius: 20px;
-        }
-        .fb-link:hover { background: #b38728; color: #000; }
-
-        .footer-heading-moved {
-            font-family: 'Cinzel', serif; font-weight: 900; 
-            color: #fcf6ba; margin-bottom: 15px; font-size: 1.8em; letter-spacing: 2px;
-            text-transform: uppercase; text-shadow: 0 0 10px #bf953f;
-            display: block;
-        }
-
-        /* 👇 MOBILE RESPONSIVE UPDATES (SUPER COMPACT) */
-        @media (max-width: 600px) {
-            .hero-title { font-size: 2.2em; }
-            .hero-welcome { font-size: 1.8em; }
-            .jharokha-card { width: 100%; max-width: 300px; }
-
-            /* Footer छोटा करने का कोड */
-            footer { 
-                padding: 5px 5px !important; 
-            }
-            .footer-heading-moved { 
-                font-size: 0.9em !important; 
-                margin-bottom: 2px; 
-            }
-            .developer-info { 
-                margin-top: 2px; 
-                padding-top: 0;
-            }
-            .developer-info div {
-                font-size: 0.7em !important;
-            }
-            .royal-name { 
-                font-size: 0.85em !important; 
-                margin-bottom: 2px; 
-            }
-            .fb-link { 
-                font-size: 0.75em !important; 
-                padding: 3px 10px; 
-                margin-top: 5px;
-            }
-        }
-
 </style>
 </head>
 <body>
@@ -1008,207 +964,279 @@
 
   
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const treeCards = document.querySelectorAll('.tree .member-card');
-            const indexList = document.getElementById('index-list');
-            const tooltip = document.getElementById('tooltip');
-            const memberCountLabel = document.getElementById('member-count');
-            let namesArray = [];
-            
-            // Safety check for founder name (in case tree is empty)
-            const founderCard = document.querySelector('.founder-card .member-name');
-            const founderName = founderCard ? founderCard.textContent.trim() : "Founder";
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Global variables for easy access
+        window.treeCards = document.querySelectorAll('.tree .member-card');
+        window.indexList = document.getElementById('index-list');
+        window.tooltip = document.getElementById('tooltip');
+        window.memberCountLabel = document.getElementById('member-count');
+        window.treeElement = document.querySelector('.tree > ul'); // Root <ul> element
+        
+        let namesArray = [];
+        let founderName = document.querySelector('.founder-card .member-name') ? 
+                          document.querySelector('.founder-card .member-name').textContent.trim() : "Founder";
 
-            // 1. Setup IDs
-            treeCards.forEach((card, i) => {
-                let nameSpan = card.querySelector('.member-name');
-                if(nameSpan) {
-                    let name = nameSpan.textContent;
-                    let id = 'node-' + i;
-                    card.setAttribute('id', id);
-                    namesArray.push({ name: name, id: id });
+        // 1. Setup IDs and Initial Index
+        treeCards.forEach((card, i) => {
+            let nameSpan = card.querySelector('.member-name');
+            if(nameSpan) {
+                let name = nameSpan.textContent;
+                let id = 'node-' + i;
+                card.setAttribute('id', id);
+                namesArray.push({ name: name, id: id, originalDisplay: card.closest('li').style.display });
+            }
+        });
+
+        memberCountLabel.textContent = `Total Members: ${namesArray.length}`;
+
+        // Sort & Fill Index
+        namesArray.sort((a, b) => a.name.localeCompare(b.name));
+        namesArray.forEach(item => {
+            let li = document.createElement('li');
+            // 'filterTree' फ़ंक्शन को कॉल किया गया
+            li.innerHTML = `<a id="link-${item.id}" onclick="filterTree(event, '${item.id}')">${item.name}</a>`;
+            indexList.appendChild(li);
+        });
+
+        // 2. MOUSE HOVER LOGIC (Tooltip)
+        treeCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                let name = this.querySelector('.member-name').textContent;
+                
+                // Temporary Highlight Path
+                let ancestor = this;
+                while (ancestor) {
+                    ancestor.classList.add('path-active'); 
+                    let parentLi = ancestor.closest('li').parentElement.closest('li');
+                    if (parentLi) ancestor = parentLi.querySelector('.member-card'); 
+                    else ancestor = null;
                 }
-            });
 
-            memberCountLabel.textContent = `Total Members: ${namesArray.length}`;
+                // Tooltip Logic
+                let fatherName = "Unknown";
+                let generation = 1;
+                let siblingText = "";
+                
+                // --- जेंडर लॉजिक ---
+                // "Baisa" या "Rajlaxmi" वाली लड़कियों के लिए
+                let isFemale = name.toLowerCase().includes('baisa') || name.toLowerCase().includes('rajlaxmi');
+                let pronoun = isFemale ? "She" : "He";
+                let childType = isFemale ? "daughter" : "son";
 
-            // Sort & Fill Index
-            namesArray.sort((a, b) => a.name.localeCompare(b.name));
-            namesArray.forEach(item => {
-                let li = document.createElement('li');
-                // 🔥 "event" pass kiya taaki hum propagation rok sakein
-                li.innerHTML = `<a onclick="lockLineage(event, '${item.id}')">${item.name}</a>`;
-                indexList.appendChild(li);
-            });
+                let depth = 0;
+                let tempEl = this;
+                // पीढ़ी (Generation) की गणना
+                while(tempEl.parentElement.closest('ul')) {
+                    depth++;
+                    tempEl = tempEl.parentElement.closest('ul').parentElement;
+                    if(tempEl.tagName === 'DIV' || tempEl.classList.contains('tree')) break;
+                }
+                generation = depth; 
 
-            // 2. MOUSE HOVER LOGIC
-            treeCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    let name = this.querySelector('.member-name').textContent;
-                    
-                    // Temporary Highlight Path
-                    let ancestor = this;
-                    while (ancestor) {
-                        ancestor.classList.add('path-active'); 
-                        let parentLi = ancestor.closest('li').parentElement.closest('li');
-                        if (parentLi) ancestor = parentLi.querySelector('.member-card'); 
-                        else ancestor = null;
-                    }
-
-                    // Tooltip Logic
-                    let fatherName = "Unknown";
-                    let generation = 1;
-                    let siblingText = "";
-                    
-                    // --- सुधार 1: जेंडर लॉजिक ---
-                    let isFemale = name.toLowerCase().includes('baisa');
-                    let pronoun = isFemale ? "She" : "He";
-                    let childType = isFemale ? "daughter" : "son";
-
-                    let depth = 0;
-                    let tempEl = this;
-                    while(tempEl.parentElement.closest('ul')) {
-                        depth++;
-                        tempEl = tempEl.parentElement.closest('ul').parentElement;
-                        if(tempEl.tagName === 'DIV' || tempEl.classList.contains('tree')) break;
-                    }
-                    generation = depth; 
-
-                    let currentLi = this.closest('li');
-                    let parentUl = currentLi.parentElement;
-                    
-                    if(this.classList.contains('founder-card')) {
-                        tooltip.innerHTML = `<strong>${name}</strong><br>Founder of Thikana Kasumalgarh`;
-                    } else {
-                        let parentLi = parentUl.parentElement.closest('li');
-                        if(parentLi) {
-                            let fatherCard = parentLi.querySelector('.member-card .member-name');
-                            fatherName = fatherCard ? fatherCard.textContent : "Unknown";
-                        }
-
-                        let siblings = Array.from(parentUl.children).filter(child => child.tagName === 'LI');
-                        let myIndex = siblings.indexOf(currentLi);
-                        let totalSiblings = siblings.length;
-                        let otherSiblingsCount = totalSiblings - 1;
-
-                        let orderStr = "";
-                        if (totalSiblings === 1) { orderStr = "only"; } 
-                        else if (myIndex === 0) { orderStr = "eldest"; } 
-                        else if (myIndex === totalSiblings - 1) { orderStr = "youngest"; } 
-                        else {
-                            let n = myIndex + 1;
-                            let ord = 'th';
-                            if(n===2) ord='nd'; if(n===3) ord='rd';
-                            orderStr = n + ord;
-                        }
-
-                        if(otherSiblingsCount > 0) {
-                            let s = otherSiblingsCount > 1 ? "s" : "";
-                            // Pronoun fix here
-                            siblingText = `${pronoun} has ${otherSiblingsCount} more sibling${s}`;
-                        } else {
-                            // Pronoun and childType fix here
-                            siblingText = `${pronoun} is the only ${childType}`;
-                        }
-
-                        let genSuffix = 'th';
-                        if(generation === 1) genSuffix = 'st';
-                        if(generation === 2) genSuffix = 'nd';
-                        if(generation === 3) genSuffix = 'rd';
-
-                        // Final Tooltip content with dynamic gender
-                        tooltip.innerHTML = `
-                            <strong>${name}</strong>
-                            ${name} is the ${orderStr} ${childType} of <b>${fatherName}</b>.<br>
-                            ${siblingText} and is ${generation}${genSuffix} generation progeny of <b>${founderName}</b>.
-                        `;
-                    }
-                    // --- जेंडर लॉजिक अंत ---
-
-                    tooltip.style.display = 'block';
-                    let rect = this.getBoundingClientRect();
-                    let topPos = rect.top + window.scrollY;
-                    let leftPos = rect.left + (rect.width / 2);
-                    tooltip.style.top = topPos + 'px';
-                    tooltip.style.left = leftPos + 'px';
-                });
-
-                card.addEventListener('mouseleave', function() {
-                    tooltip.style.display = 'none';
-                    // Remove temporary hover highlight
-                    document.querySelectorAll('.path-active').forEach(el => el.classList.remove('path-active'));
-                });
-            });
-        });
-
-        // 3. LOCK LOGIC (Click on Index)
-        function lockLineage(event, id) {
-            // Stop click from bubbling up to body
-            event.stopPropagation();
-
-            // Clear previous locks
-            clearLocks();
-
-            let targetCard = document.getElementById(id);
-            if (!targetCard) return;
-
-            // Scroll to Name
-            targetCard.scrollIntoView({behavior: "smooth", block: "center"});
-
-            // Highlight Path (Permanent)
-            let ancestor = targetCard;
-            while (ancestor) {
-                ancestor.classList.add('locked-active');
-                let parentLi = ancestor.closest('li').parentElement.closest('li');
-                if (parentLi) ancestor = parentLi.querySelector('.member-card');
-                else ancestor = null;
-            }
-        }
-
-        // 4. CLEAR LOCKS (Helper)
-        function clearLocks() {
-            document.querySelectorAll('.locked-active').forEach(el => el.classList.remove('locked-active'));
-        }
-
-        // 5. GLOBAL CLICK LISTENER (Click anywhere else to clear)
-        document.addEventListener('click', function(e) {
-            // If click is NOT inside index-list
-            if (!e.target.closest('#index-list')) {
-                clearLocks();
-            }
-        });
-
-        // 6. SEARCH FILTER
-        function filterNames() {
-            let input = document.getElementById('search-box').value.toLowerCase();
-            let ul = document.getElementById("index-list");
-            let li = ul.getElementsByTagName('li');
-            for (let i = 0; i < li.length; i++) {
-                let a = li[i].getElementsByTagName("a")[0];
-                let txtValue = a.textContent || a.innerText;
-                if (txtValue.toLowerCase().indexOf(input) > -1) {
-                    li[i].style.display = "";
+                let currentLi = this.closest('li');
+                let parentUl = currentLi.parentElement;
+                
+                if(this.classList.contains('founder-card')) {
+                    tooltip.innerHTML = `<strong>${name}</strong><br>Founder of Thikana Kasumalgarh`;
                 } else {
-                    li[i].style.display = "none";
-                }
-            }
-        }
-    </script>
+                    let parentLi = parentUl.parentElement.closest('li');
+                    if(parentLi) {
+                        let fatherCard = parentLi.querySelector('.member-card .member-name');
+                        fatherName = fatherCard ? fatherCard.textContent : "Unknown";
+                    }
 
-    <script>
-        function toggleMenu() {
-            const menu = document.getElementById("nav-menu");
-            const btn = document.getElementById("mobile-menu-btn");
-            menu.classList.toggle("active");
-            
-            if (menu.classList.contains("active")) {
-                btn.innerHTML = "&times;"; // क्रॉस (X)
-            } else {
-                btn.innerHTML = "&#9776;"; // 3 लाइन
+                    let siblings = Array.from(parentUl.children).filter(child => child.tagName === 'LI');
+                    let myIndex = siblings.indexOf(currentLi);
+                    let totalSiblings = siblings.length;
+                    let otherSiblingsCount = totalSiblings - 1;
+
+                    let orderStr = "";
+                    if (totalSiblings === 1) { orderStr = "only"; } 
+                    else if (myIndex === 0) { orderStr = "eldest"; } 
+                    else if (myIndex === totalSiblings - 1) { orderStr = "youngest"; } 
+                    else {
+                        let n = myIndex + 1;
+                        let ord = 'th';
+                        if(n===2) ord='nd'; if(n===3) ord='rd';
+                        orderStr = n + ord;
+                    }
+
+                    if(otherSiblingsCount > 0) {
+                        let s = otherSiblingsCount > 1 ? "s" : "";
+                        siblingText = `${pronoun} has ${otherSiblingsCount} more sibling${s}`;
+                    } else {
+                        siblingText = `${pronoun} is the only ${childType}`;
+                    }
+
+                    let genSuffix = 'th';
+                    if(generation === 1) genSuffix = 'st';
+                    if(generation === 2) genSuffix = 'nd';
+                    if(generation === 3) genSuffix = 'rd';
+
+                    // Final Tooltip content with dynamic gender
+                    tooltip.innerHTML = `
+                        <strong>${name}</strong>
+                        ${name} is the ${orderStr} ${childType} of <b>${fatherName}</b>.<br>
+                        ${siblingText} and is ${generation}${genSuffix} generation progeny of <b>${founderName}</b>.
+                    `;
+                }
+                // --- जेंडर लॉजिक अंत ---
+
+                tooltip.style.display = 'block';
+                let rect = this.getBoundingClientRect();
+                let topPos = rect.top + window.scrollY;
+                let leftPos = rect.left + (rect.width / 2);
+                tooltip.style.top = topPos + 'px';
+                tooltip.style.left = leftPos + 'px';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                tooltip.style.display = 'none';
+                // Remove temporary hover highlight
+                document.querySelectorAll('.path-active').forEach(el => el.classList.remove('path-active'));
+            });
+        });
+    });
+    
+    // Global variable to track if the tree is filtered
+    window.isFiltered = false;
+
+    // ===============================================
+    // 🔥 FILTER TREE LOGIC (Core Feature)
+    // ===============================================
+    function filterTree(event, id) {
+        event.stopPropagation();
+        
+        // 🚩 अगर ट्री पहले से फ़िल्टर है, तो उसे रीसेट करें
+        if (window.isFiltered) {
+            resetTree();
+            // अगर यह दोबारा उसी नाम पर क्लिक हुआ है, तो फ़िल्टर न करें
+            if (document.getElementById(id).classList.contains('locked-active')) {
+                return; 
             }
         }
-    </script>
+
+        let targetCard = document.getElementById(id);
+        if (!targetCard) return;
+
+        // 1. सभी <li> को छुपाएं
+        document.querySelectorAll('.tree li').forEach(li => {
+            li.style.display = 'none';
+        });
+
+        // 2. टारगेट नोड को और उसके बच्चों को दिखाएं
+        showNodeAndChildren(targetCard.closest('li'));
+
+        // 3. पूर्वजों (Ancestors) को दिखाएं (फाउंडर तक)
+        let ancestor = targetCard;
+        while (ancestor) {
+            let li = ancestor.closest('li');
+            li.style.display = 'block'; // Ancestor node
+            
+            // Parent UL को भी ब्लॉक करना ज़रूरी है ताकि लाइनें दिखें
+            let parentUl = li.parentElement;
+            if (parentUl && parentUl.tagName === 'UL') {
+                parentUl.style.display = 'block';
+                let parentLi = parentUl.parentElement.closest('li');
+                if (parentLi) {
+                    ancestor = parentLi.querySelector('.member-card');
+                } else {
+                    ancestor = null; // Reached the root (founder)
+                }
+            } else {
+                ancestor = null; // Reached the top level .tree
+            }
+        }
+        
+        // 4. टारगेट को हाइलाइट करें, इंडेक्स में भी और स्क्रॉल करें
+        clearLocks();
+        targetCard.classList.add('locked-active');
+        document.getElementById(`link-${id}`).classList.add('active'); // Index में active class
+        targetCard.scrollIntoView({behavior: "smooth", block: "start"});
+        
+        window.isFiltered = true;
+    }
+
+    // 4. RECURSIVE FUNCTION TO SHOW NODE AND ITS DESCENDANTS
+    function showNodeAndChildren(li) {
+        if (!li) return;
+        
+        li.style.display = 'block';
+        
+        // UL को भी दिखाना ज़रूरी है ताकि children की line दिखें
+        li.querySelectorAll('ul').forEach(ul => {
+            ul.style.display = 'block';
+            ul.querySelectorAll(':scope > li').forEach(childLi => {
+                showNodeAndChildren(childLi);
+            });
+        });
+    }
+
+
+    // 5. RESET TREE LOGIC
+    function resetTree() {
+        document.querySelectorAll('.tree li').forEach(li => {
+            li.style.display = ''; // Reset to default (block/list-item)
+        });
+        document.querySelectorAll('.tree ul').forEach(ul => {
+            ul.style.display = ''; // Reset
+        });
+        clearLocks();
+        document.querySelectorAll('.name-list a').forEach(a => a.classList.remove('active'));
+        window.isFiltered = false;
+    }
+
+
+    // 6. CLEAR LOCKS (Helper)
+    function clearLocks() {
+        document.querySelectorAll('.locked-active').forEach(el => el.classList.remove('locked-active'));
+        document.querySelectorAll('.path-active').forEach(el => el.classList.remove('path-active')); // Just in case
+    }
+
+    // 7. GLOBAL CLICK LISTENER (Click anywhere else to clear/reset)
+    document.addEventListener('click', function(e) {
+        // If click is NOT inside a member card or the index list
+        if (!e.target.closest('.member-card') && !e.target.closest('#index-list') && window.isFiltered) {
+            resetTree();
+        }
+    });
+
+    // 8. SEARCH FILTER
+    function filterNames() {
+        let input = document.getElementById('search-box').value.toLowerCase();
+        let ul = document.getElementById("index-list");
+        let li = ul.getElementsByTagName('li');
+        
+        // Reset the tree when the search box is used (if it was already filtered)
+        if (window.isFiltered) {
+            resetTree();
+        }
+        
+        for (let i = 0; i < li.length; i++) {
+            let a = li[i].getElementsByTagName("a")[0];
+            let txtValue = a.textContent || a.innerText;
+            if (txtValue.toLowerCase().indexOf(input) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+    
+    // 9. MOBILE MENU TOGGLE
+    function toggleMenu() {
+        const menu = document.getElementById("nav-menu");
+        const btn = document.getElementById("mobile-menu-btn");
+        menu.classList.toggle("active");
+        
+        if (menu.classList.contains("active")) {
+            btn.innerHTML = "&times;"; // क्रॉस (X)
+        } else {
+            btn.innerHTML = "&#9776;"; // 3 लाइन
+        }
+    }
+</script>
     <footer>
     <div class="developer-info">
         <div class="footer-heading-moved">FORT KASUMBI</div>
