@@ -1,502 +1,260 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="utf-8">
-    <title>Hybrid Royal Builder - Final</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>कसुमलगढ़ राठौड़ वंश | Kasumalgarh Heritage</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lato&display=swap" rel="stylesheet">
+    <meta name="description" content="कसुमलगढ़ राठौड़ विरासत, वंशावली और इतिहास - Kasumalgarh Rathore Heritage">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Yatra+One&display=swap" rel="stylesheet">
 
     <style>
-        :root { --dark: #121212; --panel: #1e1e24; --gold: #d4af37; --text: #e0e0e0; }
-        body { margin: 0; background: var(--dark); color: var(--text); font-family: 'Lato', sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        /* --- CSS Variables (Color Scheme) --- */
+        :root {
+            --primary-red: #8B0000;   /* Dark Red */
+            --royal-gold: #D4AF37;    /* Gold */
+            --text-dark: #2c3e50;
+            --bg-light: #ffffff;
+            --bg-dark: #1a1a1a;
+        }
 
-        /* HEADER */
-        .navbar { height: 50px; background: #000; border-bottom: 2px solid var(--gold); display: flex; justify-content: space-between; align-items: center; padding: 0 15px; flex-shrink: 0; z-index: 1000; }
-        .brand { font-family: 'Cinzel'; color: var(--gold); font-weight: bold; }
-        .top-btn { background: #333; color: #fff; border: 1px solid #555; padding: 6px 12px; cursor: pointer; border-radius: 4px; display: flex; align-items: center; gap: 5px; font-size: 0.85em; }
-        .top-btn:hover { background: #444; border-color: #fff; }
-        .publish-btn { background: linear-gradient(45deg, #bf953f, #aa771c); color: #000; border: none; font-weight: bold; }
-        .active-mode { background: #007bff; border-color: #0056b3; }
+        /* --- Global Styles --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
 
-        /* WORKSPACE */
-        .workspace { display: flex; height: 100%; }
+        h1, h2, h3, .navbar-brand {
+            font-family: 'Rozha One', serif; /* Royal Font */
+        }
 
-        /* SIDEBAR TABS */
-        .sidebar { width: 320px; background: var(--panel); border-right: 1px solid #333; display: flex; flex-direction: column; flex-shrink: 0; }
-        .tabs-header { display: flex; border-bottom: 1px solid #333; }
-        .tab-btn { flex: 1; padding: 12px; background: #151520; color: #888; cursor: pointer; text-align: center; border-bottom: 3px solid transparent; font-size: 0.85em; }
-        .tab-btn.active { background: var(--panel); color: #fff; border-bottom-color: var(--gold); }
-        .tab-content { padding: 15px; overflow-y: auto; display: none; height: 100%; }
-        .tab-content.active { display: block; }
+        /* --- Dark Mode Styles --- */
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--royal-gold);
+        }
+        body.dark-mode .card {
+            background-color: #333;
+            border-color: var(--royal-gold);
+        }
+        body.dark-mode .navbar {
+            background: linear-gradient(to right, #000, var(--primary-red));
+        }
 
-        /* CONTROLS */
-        .control-group { margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 15px; }
-        .control-label { display: block; color: #aaa; margin-bottom: 5px; font-size: 0.8em; }
-        .control-input, textarea, select { width: 100%; padding: 8px; background: #111; border: 1px solid #444; color: #fff; border-radius: 4px; box-sizing: border-box; font-family: monospace; }
+        /* --- Header & Navigation --- */
+        .navbar {
+            background: linear-gradient(to right, var(--primary-red), #5c0000);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
         
-        /* INSERT TOOLS */
-        .tool-btn { display: flex; align-items: center; gap: 10px; padding: 10px; background: #252530; border: 1px solid #333; margin-bottom: 5px; cursor: pointer; border-radius: 4px; font-size: 0.9em; }
-        .tool-btn:hover { border-color: var(--gold); color: #fff; transform: translateX(3px); transition: 0.2s; }
-        .tool-btn i { color: var(--gold); width: 20px; text-align: center; }
+        .navbar-brand {
+            color: var(--royal-gold) !important;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
 
-        /* CENTER CANVAS */
-        .canvas-area { flex: 1; background: #555; display: flex; flex-direction: column; position: relative; }
-        .frame-wrapper { flex: 1; overflow: auto; padding: 40px; display: flex; justify-content: center; }
-        #editor-frame { width: 100%; max-width: 1200px; min-height: 800px; background: #fff; border: none; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
-        #codeEditor { display: none; width: 100%; height: 100%; background: #1e1e1e; color: #d4d4d4; font-family: monospace; border: none; padding: 20px; box-sizing: border-box; resize: none; font-size: 14px; }
+        .nav-link {
+            color: #fff !important;
+            transition: 0.3s;
+        }
+        .nav-link:hover {
+            color: var(--royal-gold) !important;
+        }
 
-        /* RIGHT PROPERTIES */
-        .props-panel { width: 260px; background: var(--panel); border-left: 1px solid #333; padding: 15px; display: none; flex-direction: column; }
-        .props-panel.active { display: flex; }
+        /* --- Hero Section --- */
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://source.unsplash.com/1600x900/?fort,rajasthan'); /* Placeholder Image */
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+        }
+        
+        .hero-title {
+            font-size: 4rem;
+            color: var(--royal-gold);
+            text-shadow: 2px 2px 4px #000;
+            animation: fadeIn 2s ease-in;
+        }
 
-        /* MODALS */
-        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center; }
-        .modal-box { background: #222; padding: 25px; border: 2px solid var(--gold); border-radius: 8px; width: 500px; text-align: center; }
-        .media-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-height: 300px; overflow-y: auto; margin: 15px 0; }
-        .media-thumb { width: 100%; aspect-ratio: 1; object-fit: cover; border: 1px solid #444; cursor: pointer; }
-        .media-thumb:hover { border-color: var(--gold); outline: 2px solid var(--gold); }
+        /* --- Buttons --- */
+        .btn-royal {
+            background-color: var(--royal-gold);
+            color: var(--primary-red);
+            font-weight: bold;
+            border: 2px solid var(--royal-gold);
+        }
+        .btn-royal:hover {
+            background-color: transparent;
+            color: var(--royal-gold);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: #1a1a1a;
+            color: var(--royal-gold);
+            padding: 20px 0;
+            margin-top: 50px;
+        }
+
+        /* --- Utility --- */
+        .lion-icon { margin-right: 10px; }
+        
+        /* Simple Fade In Animation */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="brand"><i class="fas fa-layer-group"></i> HYBRID BUILDER</div>
-        <div style="display:flex; gap:10px;">
-            <button onclick="undo()" class="top-btn" title="Undo"><i class="fas fa-undo"></i></button>
-            <button onclick="redo()" class="top-btn" title="Redo"><i class="fas fa-redo"></i></button>
-            <div style="width:1px; background:#444;"></div>
-            <button onclick="toggleCodeMode()" id="btnCode" class="top-btn"><i class="fas fa-code"></i> CODE</button>
-            <button onclick="openLoadModal()" class="top-btn"><i class="fas fa-cloud-download-alt"></i> LOAD</button>
-            <button onclick="openPublishModal()" class="top-btn publish-btn"><i class="fas fa-save"></i> PUBLISH</button>
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fa-solid fa-shield-cat lion-icon"></i> कसुमलगढ़
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#">होम</a></li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            इतिहास & वंशावली
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#vanshawali">वंशावली (Tree)</a></li>
+                            <li><a class="dropdown-item" href="#history">कसुम्बी का इतिहास</a></li>
+                            <li><a class="dropdown-item" href="#">ठाकुर नारायण सिंह जी</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link" href="#gallery">गैलरी</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#blog">ब्लॉग</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">संपर्क</a></li>
+                </ul>
+                
+                <div class="d-flex align-items-center ms-3">
+                    <button class="btn btn-outline-warning btn-sm me-2" id="langBtn">ENG/HI</button>
+                    <button class="btn btn-outline-light btn-sm" id="themeToggle"><i class="fa-solid fa-moon"></i></button>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <div class="workspace">
+    <header class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">राठौड़ वंश: कसुमलगढ़</h1>
+            <p class="lead">शौर्य, त्याग और बलिदान की अमर गाथा</p>
+            <a href="#history" class="btn btn-royal btn-lg mt-3">इतिहास जानें ⚔️</a>
+        </div>
+    </header>
+
+    <div class="container mt-5">
         
-        <div class="sidebar">
-            <div class="tabs-header">
-                <div class="tab-btn active" onclick="switchTab('tab-insert')">INSERT</div>
-                <div class="tab-btn" onclick="switchTab('tab-settings')">SETTINGS</div>
-                <div class="tab-btn" onclick="switchTab('tab-seo')">SEO</div>
-            </div>
+        <section id="about" class="text-center mb-5" data-aos="fade-up">
+            <h2 style="color: var(--primary-red);">स्वागत है</h2>
+            <hr class="w-25 mx-auto" style="border: 2px solid var(--royal-gold); opacity: 1;">
+            <p class="mt-3">
+                यह वेबसाइट कसुम्बी गांव और वहां के राठौड़ वंशजों के गौरवशाली इतिहास को समर्पित है। 
+                यहाँ आप 1827 ई. से लेकर आज तक की वंशावली और ऐतिहासिक घटनाओं को देख सकते हैं।
+            </p>
+        </section>
 
-            <div id="tab-insert" class="tab-content active">
-                <div class="control-label">DRAG & DROP BLOCKS</div>
-                <div class="tool-btn" onclick="insertBlock('heading')"><i class="fas fa-heading"></i> Heading</div>
-                <div class="tool-btn" onclick="insertBlock('paragraph')"><i class="fas fa-paragraph"></i> Paragraph</div>
-                <div class="tool-btn" onclick="insertBlock('image')"><i class="fas fa-image"></i> Image (Library)</div>
-                <div class="tool-btn" onclick="insertBlock('video')"><i class="fab fa-youtube"></i> YouTube Video</div>
-                <div class="tool-btn" onclick="insertBlock('jharokha')"><i class="fas fa-archway"></i> Jharokha Box</div>
-                <div class="tool-btn" onclick="insertBlock('divider')"><i class="fas fa-grip-lines"></i> Gold Divider</div>
-                <div class="tool-btn" onclick="insertBlock('2col')"><i class="fas fa-columns"></i> 2 Columns</div>
-                <div class="tool-btn" onclick="insertBlock('3col')"><i class="fas fa-th-large"></i> 3 Columns</div>
-            </div>
-
-            <div id="tab-settings" class="tab-content">
-                <div class="control-group">
-                    <div class="control-label">Page Structure</div>
-                    <label><input type="checkbox" id="checkNav" checked onchange="toggleGlobal('nav')"> Show Navbar</label><br>
-                    <label><input type="checkbox" id="checkHeader" checked onchange="toggleGlobal('header')"> Show Hero Header</label><br>
-                    <label><input type="checkbox" id="checkFooter" checked onchange="toggleGlobal('footer')"> Show Footer</label>
-                </div>
-
-                <div class="control-group">
-                    <div class="control-label">Menu Links (Name, Link)</div>
-                    <textarea id="menuLinks" rows="5" oninput="updateMenu()">HOME, index.html
-VANSHAWALI, vanshawali.html
-HISTORY, history.html
-CONTACT, contact.html</textarea>
-                </div>
-
-                <div class="control-group">
-                    <div class="control-label">Theme Colors</div>
-                    <label>Background</label><input type="color" class="control-input" id="bgColor" value="#000033" oninput="updateGlobalStyle()">
-                    <label>Text Color</label><input type="color" class="control-input" id="textColor" value="#333333" oninput="updateGlobalStyle()">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 shadow border-0">
+                    <div class="card-body text-center">
+                        <i class="fa-solid fa-sitemap fa-3x mb-3" style="color: var(--primary-red);"></i>
+                        <h3>वंशावली</h3>
+                        <p>इंटरएक्टिव ट्री चार्ट के माध्यम से पूर्वजों को जानें।</p>
+                    </div>
                 </div>
             </div>
-
-            <div id="tab-seo" class="tab-content">
-                <div class="control-group">
-                    <div class="control-label">Browser Title</div>
-                    <input type="text" id="pageTitle" class="control-input" value="New Page">
+            <div class="col-md-4">
+                <div class="card h-100 shadow border-0">
+                    <div class="card-body text-center">
+                        <i class="fa-solid fa-timeline fa-3x mb-3" style="color: var(--primary-red);"></i>
+                        <h3>समय-रेखा (Timeline)</h3>
+                        <p>1800 ई. से अब तक की प्रमुख घटनाएं।</p>
+                    </div>
                 </div>
-                <div class="control-group">
-                    <div class="control-label">Meta Description</div>
-                    <textarea id="metaDesc" rows="4" placeholder="Description for Google..."></textarea>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow border-0">
+                    <div class="card-body text-center">
+                        <i class="fa-solid fa-images fa-3x mb-3" style="color: var(--primary-red);"></i>
+                        <h3>शाही गैलरी</h3>
+                        <p>कसुमलगढ़ और पुरानी यादों का संग्रह।</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="canvas-area">
-            <div class="frame-wrapper">
-                <iframe id="editor-frame"></iframe>
-                <textarea id="codeEditor" spellcheck="false"></textarea>
+    </div>
+
+    <footer class="text-center">
+        <div class="container">
+            <div class="mb-3">
+                <img src="path-to-logo.png" alt="Rathore Emblem" width="50" style="filter: brightness(0) invert(1);">
+            </div>
+            <p>&copy; 2025 कसुमलगढ़ | राठौड़ वंश</p>
+            <div>
+                <a href="#" class="text-white me-3"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" class="text-white me-3"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="text-white"><i class="fa-brands fa-whatsapp"></i></a>
             </div>
         </div>
+    </footer>
 
-        <div class="props-panel" id="propsPanel">
-            <div class="control-label" style="text-align:center; border-bottom:1px solid #333; padding-bottom:10px;">PROPERTIES</div>
-            <div id="dynamicProps">Select an element to edit</div>
-            <button onclick="deleteSelected()" class="top-btn" style="background:#ff4444; border-color:red; margin-top:20px; justify-content:center;">DELETE</button>
-        </div>
-
-    </div>
-
-    <div id="mediaModal" class="modal">
-        <div class="modal-box" style="width:600px;">
-            <h3 style="color:var(--gold);">Select Image</h3>
-            <div id="mediaGrid" class="media-grid">Loading...</div>
-            <button onclick="closeModals()" class="top-btn">Close</button>
-        </div>
-    </div>
-
-    <div id="loadModal" class="modal">
-        <div class="modal-box">
-            <h3 style="color:var(--gold);">Load From GitHub</h3>
-            <input type="text" id="loadFile" class="control-input" placeholder="e.g. index.html">
-            <button onclick="fetchPage()" class="top-btn publish-btn" style="width:100%; margin-top:10px; justify-content:center;">LOAD</button>
-            <button onclick="closeModals()" class="top-btn" style="background:none; border:none; margin-top:5px;">Cancel</button>
-        </div>
-    </div>
-
-    <div id="publishModal" class="modal">
-        <div class="modal-box">
-            <h3 style="color:var(--gold);">Publish Page</h3>
-            <input type="text" id="pubFileName" class="control-input" placeholder="e.g. new_page.html">
-            <button onclick="startPublish()" class="top-btn publish-btn" style="width:100%; margin-top:10px; justify-content:center;">PUBLISH NOW</button>
-            <button onclick="closeModals()" class="top-btn" style="background:none; border:none; margin-top:5px;">Cancel</button>
-        </div>
-    </div>
-
-    <script>
-        // --- GLOBAL VARIABLES ---
-        const GITHUB_USER = "kasumalgarh";
-        const REPO = "kasumalgarh.github.io";
-        let frameDoc;
-        let selectedEl = null;
-        let historyStack = [];
-        let historyIndex = -1;
-        let isCodeMode = false;
-        let pendingImageTarget = null;
-
-        // --- INIT ---
-        window.onload = function() {
-            const iframe = document.getElementById('editor-frame');
-            frameDoc = iframe.contentDocument || iframe.contentWindow.document;
-            resetCanvas();
-        };
-
-        function resetCanvas(contentHTML = '') {
-            const defaultHTML = `
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-    <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Playfair+Display&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body { margin:0; background:#fffbf0; font-family:'Playfair Display', serif; color:#333; min-height:100vh; }
-        .edit-active { outline: 2px solid #d4af37 !important; position:relative; z-index:10; }
-        .edit-hover { outline: 2px dashed #007bff; cursor: pointer; }
-        
-        /* THEME */
-        .navbar { background:#000033; padding:15px; display:flex; justify-content:space-between; border-bottom:2px solid #d4af37; }
-        .navbar a { color:#d4af37; text-decoration:none; margin-left:15px; font-family:'Cinzel'; font-weight:bold; }
-        .hero { background:linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('1.jpg'); background-size:cover; height:300px; display:flex; justify-content:center; align-items:center; color:#fff; border-bottom:4px solid #d4af37; }
-        .hero h1 { font-family:'Cinzel'; font-size:3em; color:#fcf6ba; margin:0; }
-        .main-content { max-width:1000px; margin:40px auto; padding:20px; min-height:400px; }
-        .footer { background:#000022; color:#d4af37; text-align:center; padding:30px; border-top:4px solid #897148; }
-
-        /* COMPONENTS */
-        .royal-h1 { font-family:'Cinzel'; color:#800000; border-bottom:3px solid #aa8c2c; display:inline-block; }
-        .jharokha { border:3px double #800000; padding:20px; background:#fff; text-align:center; border-radius:15px 15px 0 0; }
-        .btn-royal { background:#000033; color:#fff; padding:10px 30px; border-radius:50px; text-decoration:none; font-family:'Cinzel'; border:1px solid #d4af37; display:inline-block; }
-        .row { display:flex; gap:20px; margin-bottom:20px; }
-        .col { flex:1; min-width:200px; border:1px dashed #ccc; padding:10px; }
-        img { max-width:100%; height:auto; display:block; }
-    </style>
-</head>
-<body>
-    <div id="navSection" class="navbar">
-        <span style="font-family:'Cinzel'; font-size:1.5em; color:#fcf6ba;">KASUMALGARH</span>
-        <div id="menuLinks"></div>
-    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <div id="headerSection" class="hero">
-        <h1 id="pageHeading">PAGE TITLE</h1>
-    </div>
+    <script>
+        // Dark Mode Toggle Logic
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
 
-    <div id="contentArea" class="main-content">
-        ${contentHTML || '<div class="row" style="justify-content:center; color:#aaa;">Drag elements here</div>'}
-    </div>
+        // Check Local Storage for preference
+        if(localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
 
-    <div id="footerSection" class="footer">
-        &copy; 2025 Thikana Kasumalgarh
-    </div>
-</body>
-</html>`;
-            frameDoc.open(); frameDoc.write(defaultHTML); frameDoc.close();
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
             
-            setTimeout(() => {
-                initInteractions();
-                updateMenu(); // Render menu from text box
-                saveHistory();
-            }, 500);
-        }
-
-        function initInteractions() {
-            // Click Handling
-            frameDoc.body.addEventListener('click', (e) => {
-                e.preventDefault(); e.stopPropagation();
-                let t = e.target;
-                if(t.tagName === 'BODY' || t.id === 'contentArea') return;
-                
-                // Climb to find component
-                while(t && !t.classList.contains('col') && !t.classList.contains('jharokha') && !['H1','H2','P','IMG','A','DIV'].includes(t.tagName)) {
-                    if(t.id === 'contentArea') break;
-                    t = t.parentElement;
-                }
-                selectElement(t);
-            });
-
-            // Make Content Sortable
-            const Sortable = window.Sortable || window.parent.Sortable;
-            if(Sortable) {
-                new Sortable(frameDoc.getElementById('contentArea'), { animation:150, onEnd:saveHistory });
-                frameDoc.querySelectorAll('.col').forEach(c => new Sortable(c, { group:'shared', animation:150, onEnd:saveHistory }));
-            }
-        }
-
-        // --- TABS & UI ---
-        function switchTab(id) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            event.target.classList.add('active');
-            document.getElementById(id).classList.add('active');
-        }
-
-        // --- GLOBAL SETTINGS LOGIC (RESTORED) ---
-        function toggleGlobal(section) {
-            const el = frameDoc.getElementById(section + 'Section');
-            if(el) el.style.display = document.getElementById('check' + section.charAt(0).toUpperCase() + section.slice(1)).checked ? (section==='nav'?'flex':section==='header'?'flex':'block') : 'none';
-        }
-
-        function updateMenu() {
-            const lines = document.getElementById('menuLinks').value.split('\n');
-            let html = '';
-            lines.forEach(l => {
-                let p = l.split(',');
-                if(p.length===2) html += `<a href="${p[1].trim()}">${p[0].trim()}</a>`;
-            });
-            const menu = frameDoc.getElementById('menuLinks');
-            if(menu) menu.innerHTML = html;
-        }
-
-        function updateGlobalStyle() {
-            // Can be expanded, currently just placeholders
-            const bg = document.getElementById('bgColor').value;
-            frameDoc.documentElement.style.setProperty('--royal-bg', bg);
-        }
-
-        // --- INSERT BLOCKS ---
-        function insertBlock(type) {
-            let html = '';
-            // Basic Elements
-            if(type === 'heading') html = `<h2 class="royal-h1" contenteditable="true">Royal Heading</h2>`;
-            if(type === 'paragraph') html = `<p style="font-size:1.1em; line-height:1.6;" contenteditable="true">Click to edit this text content.</p>`;
-            if(type === 'image') html = `<img src="https://via.placeholder.com/800x400" alt="Image">`;
-            if(type === 'jharokha') html = `<div class="jharokha"><h3 contenteditable="true">Title</h3><p contenteditable="true">Content...</p></div>`;
-            if(type === 'divider') html = `<div class="divider">⚜️ ⚜️ ⚜️</div>`;
-            if(type === 'button') html = `<div style="text-align:center;"><a href="#" class="btn-royal" contenteditable="true">BUTTON</a></div>`;
-            if(type === 'video') html = `<div style="text-align:center;"><iframe width="100%" height="400" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"></iframe></div>`;
-
-            // Layouts
-            if(type === '2col') html = `<div class="row"><div class="col">Left</div><div class="col">Right</div></div>`;
-            if(type === '3col') html = `<div class="row"><div class="col">1</div><div class="col">2</div><div class="col">3</div></div>`;
-            if(type === 'left-img') html = `<div class="row"><div class="col"><img src="https://via.placeholder.com/400"></div><div class="col"><h2 class="royal-h1" contenteditable="true">Title</h2><p contenteditable="true">Text...</p></div></div>`;
-
-            if(html) {
-                // Insert into selected col or main area
-                if(selectedEl && (selectedEl.classList.contains('col') || selectedEl.id==='contentArea')) {
-                    selectedEl.insertAdjacentHTML('beforeend', html);
-                } else {
-                    frameDoc.getElementById('contentArea').insertAdjacentHTML('beforeend', html);
-                }
-                
-                // Re-init sortables for new columns
-                if(type.includes('col') || type.includes('left')) {
-                     frameDoc.querySelectorAll('.col').forEach(c => new Sortable(c, { group:'shared', animation:150, onEnd:saveHistory }));
-                }
-                saveHistory();
-            }
-        }
-
-        // --- PROPERTIES & MEDIA ---
-        function selectElement(el) {
-            if(selectedEl) selectedEl.classList.remove('edit-active');
-            selectedEl = el;
-            selectedEl.classList.add('edit-active');
-            
-            document.getElementById('propsPanel').classList.add('active');
-            renderProperties(el);
-        }
-
-        function renderProperties(el) {
-            const div = document.getElementById('dynamicProps');
-            let h = '';
-            
-            // Generate inputs based on element type
-            if(el.tagName === 'IMG') {
-                h += `<label class="control-label">Image Source</label><button class="top-btn" onclick="openMediaManager(true)" style="width:100%;">Change Image</button>`;
-                h += `<label class="control-label">Width %</label><input type="range" class="range-slider" min="10" max="100" value="100" oninput="selectedEl.style.width=this.value+'%'">`;
-            }
-            else if(el.tagName.match(/^H[1-6]|P|A$/)) {
-                 h += `<label class="control-label">Color</label><input type="color" class="control-input" oninput="selectedEl.style.color=this.value">`;
-                 h += `<label class="control-label">Align</label><select class="control-input" onchange="selectedEl.style.textAlign=this.value"><option value="left">Left</option><option value="center">Center</option><option value="right">Right</option></select>`;
-            }
-            if(el.tagName === 'A') {
-                h += `<label class="control-label">Link</label><input type="text" class="control-input" value="${el.getAttribute('href')}" onchange="selectedEl.href=this.value">`;
-            }
-
-            // Common Spacing
-            h += `<label class="control-label">Margin Bottom</label><input type="range" style="width:100%;" min="0" max="100" oninput="selectedEl.style.marginBottom=this.value+'px'">`;
-
-            div.innerHTML = h || '<p style="color:#666;">No specific properties.</p>';
-        }
-
-        function deleteSelected() {
-            if(selectedEl && confirm("Delete?")) {
-                selectedEl.remove();
-                selectedEl = null;
-                document.getElementById('propsPanel').classList.remove('active');
-                saveHistory();
-            }
-        }
-
-        // --- MEDIA LIBRARY ---
-        function openMediaManager(forSelect=false) {
-            pendingImageTarget = forSelect ? selectedEl : null;
-            document.getElementById('mediaModal').style.display='flex';
-            loadGithubImages();
-        }
-
-        async function loadGithubImages() {
-            const grid = document.getElementById('mediaGrid');
-            grid.innerHTML = 'Loading...';
-            try {
-                const r = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${REPO}/contents/`);
-                const d = await r.json();
-                const imgs = d.filter(f => f.name.match(/\.(jpg|png|jpeg|webp)$/i));
-                grid.innerHTML = '';
-                imgs.forEach(img => {
-                    let i = document.createElement('img');
-                    i.className = 'media-thumb';
-                    i.src = img.download_url;
-                    i.onclick = () => {
-                        if(pendingImageTarget) pendingImageTarget.src = img.download_url;
-                        else insertBlock('image'); // Simplified
-                        closeModals();
-                        saveHistory();
-                    };
-                    grid.appendChild(i);
-                });
-            } catch(e) { grid.innerHTML = 'Error fetching images'; }
-        }
-
-        // --- HISTORY & CODE MODE ---
-        function saveHistory() {
-            if(historyIndex < historyStack.length - 1) historyStack = historyStack.slice(0, historyIndex+1);
-            historyStack.push(frameDoc.documentElement.outerHTML);
-            historyIndex++;
-        }
-        function undo() { if(historyIndex > 0) { historyIndex--; restore(historyStack[historyIndex]); } }
-        function redo() { if(historyIndex < historyStack.length-1) { historyIndex++; restore(historyStack[historyIndex]); } }
-        function restore(html) { frameDoc.open(); frameDoc.write(html); frameDoc.close(); setTimeout(initInteractions, 100); }
-
-        function toggleCodeMode() {
-            isCodeMode = !isCodeMode;
-            const ed = document.getElementById('codeEditor');
-            const fr = document.getElementById('editor-frame');
-            const btn = document.getElementById('btnCode');
-            
-            if(isCodeMode) {
-                ed.value = getCleanHTML(false); // Get formatted HTML
-                ed.style.display = 'block'; fr.style.display = 'none';
-                btn.classList.add('active-mode');
+            if(body.classList.contains('dark-mode')){
+                localStorage.setItem('theme', 'dark');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
             } else {
-                ed.style.display = 'none'; fr.style.display = 'block';
-                resetCanvas(ed.value); // Reload from code
-                btn.classList.remove('active-mode');
+                localStorage.setItem('theme', 'light');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
             }
-        }
+        });
 
-        // --- LOAD & PUBLISH ---
-        function openLoadModal() { document.getElementById('loadModal').style.display='flex'; }
-        function openPublishModal() { document.getElementById('publishModal').style.display='flex'; }
-        function closeModals() { document.querySelectorAll('.modal').forEach(m=>m.style.display='none'); }
-
-        async function fetchPage() {
-            const file = document.getElementById('loadFile').value;
-            try {
-                const r = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${REPO}/contents/${file}`);
-                const d = await r.json();
-                const content = decodeURIComponent(escape(atob(d.content)));
-                
-                // Extract just the body content to inject into our editor structure
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(content, 'text/html');
-                const mainContent = doc.querySelector('.main-content') ? doc.querySelector('.main-content').innerHTML : doc.body.innerHTML;
-                
-                resetCanvas(mainContent);
-                document.getElementById('pubFileName').value = file;
-                closeModals();
-            } catch(e) { alert("Error loading file."); }
-        }
-
-        function getCleanHTML(forPublish = true) {
-            // Remove editing artifacts
-            if(selectedEl) selectedEl.classList.remove('edit-active');
-            let clone = frameDoc.documentElement.cloneNode(true);
-            
-            if(forPublish) {
-                // Strip contenteditable
-                clone.querySelectorAll('*[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
-                // Strip classes
-                clone.querySelectorAll('.edit-hover, .edit-active').forEach(el => el.classList.remove('edit-hover', 'edit-active'));
-                
-                // Update Meta Tags from SEO Tab
-                const title = document.getElementById('pageTitle').value;
-                const desc = document.getElementById('metaDesc').value;
-                // (Logic to inject these into clone head would go here)
-            }
-            return clone.outerHTML;
-        }
-
-        async function startPublish() {
-            const file = document.getElementById('pubFileName').value;
-            const token = prompt("GitHub Token:");
-            if(!token) return;
-
-            const content = getCleanHTML(true);
-            let sha = null;
-            try {
-                let r = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${REPO}/contents/${file}`);
-                if(r.ok) { let d = await r.json(); sha = d.sha; }
-            } catch(e){}
-
-            try {
-                await fetch(`https://api.github.com/repos/${GITHUB_USER}/${REPO}/contents/${file}`, {
-                    method: "PUT",
-                    headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
-                    body: JSON.stringify({ message: "Update via Hybrid Builder", content: btoa(unescape(encodeURIComponent(content))), sha:sha, branch:"main" })
-                });
-                alert("Published!"); closeModals();
-            } catch(e) { alert("Error: " + e.message); }
-        }
-
+        // Simple Language Toggle Placeholder
+        document.getElementById('langBtn').addEventListener('click', function() {
+            alert("हिंदी/English स्विच फीचर जल्द ही जोड़ा जाएगा!");
+        });
     </script>
 </body>
 </html>
