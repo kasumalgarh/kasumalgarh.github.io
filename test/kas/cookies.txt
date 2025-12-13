@@ -1,4 +1,0 @@
-# HTTrack Website Copier Cookie File
-# This file format is compatible with Netscape cookies
-indianrajputs.com	TRUE	/	FALSE	1999999999	PHPSESSID	ukp4b8d2smf9rn3jg953e9mn13
-

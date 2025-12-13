@@ -1,6 +1,0 @@
-# HTTrack Website Copier Cookie File
-# This file format is compatible with Netscape cookies
-framework.flexkit.pro	TRUE	/	FALSE	1999999999	PHPSESSID	lnomlkelb67qnjsfbj7kngdip1
-.paypalobjects.com	TRUE	/	FALSE	1999999999	PYPF	CT-1
-framework.flexkit.pro	TRUE	/	FALSE	1999999999	localization	ru
-
