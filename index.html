@@ -51,7 +51,7 @@
         }
 
         /* ----------------------------- */
-        /* ☀️ ROYAL SUN PRELOADER (नया सूर्यवंशी लोडर) */
+        /* ☀️ ROYAL SUN PRELOADER */
         /* ----------------------------- */
         #preloader {
             position: fixed;
@@ -62,7 +62,7 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            transition: opacity 0.8s ease; /* धीरे से गायब होगा */
+            transition: opacity 0.8s ease;
         }
 
         .sun-container {
@@ -70,12 +70,12 @@
             width: 140px;
             height: 140px;
             margin-bottom: 20px;
-            filter: drop-shadow(0 0 25px rgba(255, 140, 0, 0.8)); /* सूरज की चमक */
+            filter: drop-shadow(0 0 25px rgba(255, 140, 0, 0.8));
         }
 
         .sun-svg {
             width: 100%; height: 100%;
-            animation: spinSun 8s linear infinite; /* किरणें घूमती रहेंगी */
+            animation: spinSun 8s linear infinite;
         }
 
         .sun-face {
@@ -216,19 +216,20 @@
             user-select: none; transition: transform 0.3s ease;
         }
 
-        /* 👇 MOBILE MENU UPDATES (HEIGHT REDUCED) 👇 */
-        @media (max-width: 768px) {
+        /* 👇 MOBILE MENU FIXED (UPDATED BREAKPOINT to 1100px) 👇 */
+        @media (max-width: 1100px) {
             
-            /* ✅ Navbar की हाइट कम करने के लिए Padding कम की (5px top/bottom) */
             .navbar {
-                padding: 5px 15px; 
+                padding: 10px 15px; /* Compact Padding */
             }
 
-            .navbar-brand { font-size: 1.0em; margin-left: 10px; }
-            #menu-logo { width: 35px; height: 35px; }
+            .navbar-brand { font-size: 1.1em; margin-left: 10px; }
+            #menu-logo { width: 40px; height: 40px; }
             
-            .menu-toggle { display: block; font-size: 25px; } 
+            /* हैमबर्गर बटन दिखाओ */
+            .menu-toggle { display: block; font-size: 30px; } 
 
+            /* मेनू को छुपाओ */
             .navbar-links {
                 display: none; flex-direction: column; position: absolute;
                 top: 100%; left: 0; width: 100%;
@@ -237,13 +238,15 @@
                 padding: 0; text-align: center; z-index: 1000;
                 box-shadow: 0 10px 20px rgba(0,0,0,0.9);
             }
-            .navbar-links.active { display: flex; animation: slideDown 0.5s ease; }
-            .navbar-links li { margin: 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
             
-            /* ✅ लिंक्स के बीच का गैप (Height) और कम किया */
+            /* जब एक्टिव हो तो दिखाओ */
+            .navbar-links.active { display: flex; animation: slideDown 0.5s ease; }
+            
+            .navbar-links li { margin: 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); width: 100%; }
+            
             .navbar-links a { 
-                padding: 5px 10px; 
-                font-size: 0.8em; 
+                padding: 15px; /* Tappable Area increased */
+                font-size: 1em; 
             }
         }
 
@@ -288,21 +291,19 @@
             box-shadow: 0 0 30px rgba(191, 149, 63, 0.2);
         }
 
-        /* 👇 फ्लेक्सबॉक्स सेटिंग (टेक्स्ट बाएं, फोटो दाएं) */
+        /* 👇 फ्लेक्सबॉक्स सेटिंग */
         .intro-layout {
             display: flex;
-            align-items: center; /* वर्टिकली सेंटर */
+            align-items: center; 
             justify-content: space-between;
             gap: 30px;
-            text-align: left; /* टेक्स्ट बाईं तरफ */
+            text-align: left; 
         }
 
-        .intro-text {
-            flex: 1; /* बची हुई जगह टेक्स्ट लेगा */
-        }
+        .intro-text { flex: 1; }
         
         .intro-image-container {
-            flex: 0 0 200px; /* फोटो की चौड़ाई फिक्स */
+            flex: 0 0 200px; 
             position: relative;
             text-align: center; 
         }
@@ -310,8 +311,6 @@
         .thakur-img {
             width: 100%;
             border-radius: 10px;
-            /* ✅ यहाँ से बॉर्डर हटा दिया गया है */
-            /* border: 3px solid #897148; */
             box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
             transition: transform 0.3s ease;
         }
@@ -319,8 +318,8 @@
 
         @media (max-width: 768px) {
             .intro-layout {
-                flex-direction: column; /* ऊपर-नीचे */
-                text-align: center; /* टेक्स्ट सेंटर */
+                flex-direction: column; 
+                text-align: center; 
             }
             .intro-image-container { margin-top: 20px; }
         }
@@ -425,29 +424,12 @@
             .jharokha-card { width: 100%; max-width: 300px; }
 
             /* Footer छोटा करने का कोड */
-            footer { 
-                padding: 5px 5px !important; 
-            }
-            .footer-heading-moved { 
-                font-size: 0.9em !important; 
-                margin-bottom: 2px; 
-            }
-            .developer-info { 
-                margin-top: 2px; 
-                padding-top: 0;
-            }
-            .developer-info div {
-                font-size: 0.7em !important;
-            }
-            .royal-name { 
-                font-size: 0.85em !important; 
-                margin-bottom: 2px; 
-            }
-            .fb-link { 
-                font-size: 0.75em !important; 
-                padding: 3px 10px; 
-                margin-top: 5px;
-            }
+            footer { padding: 5px 5px !important; }
+            .footer-heading-moved { font-size: 0.9em !important; margin-bottom: 2px; }
+            .developer-info { margin-top: 2px; padding-top: 0; }
+            .developer-info div { font-size: 0.7em !important; }
+            .royal-name { font-size: 0.85em !important; margin-bottom: 2px; }
+            .fb-link { font-size: 0.75em !important; padding: 3px 10px; margin-top: 5px; }
         }
     </style>
 </head>
@@ -592,7 +574,7 @@
             </div>
             <div class="profile-item">
                 <span class="profile-label">Accession (पाटोत्सव)</span>
-                <span class="profile-value">1827 AD</span>
+                <span class="profile-value">1841 AD</span>
             </div>
             <div class="profile-item">
                 <span class="profile-label">Area (क्षेत्रफल)</span>
