@@ -1,397 +1,128 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="utf-8">
-    <title>Kasumalgarh Royal Builder v2.0</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
-
-    <style>
-        /* --- EDITOR UI THEME (Dark & Gold) --- */
-        :root { --dark: #1a1a1a; --panel: #252526; --gold: #d4af37; --text: #e0e0e0; --accent: #0d6efd; }
-        * { box-sizing: border-box; }
-        body { margin: 0; background: var(--dark); color: var(--text); font-family: 'Lato', sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
-
-        /* TOP BAR */
-        .navbar { height: 55px; background: #000; border-bottom: 2px solid var(--gold); display: flex; justify-content: space-between; align-items: center; padding: 0 20px; flex-shrink: 0; z-index: 100; }
-        .brand { font-family: 'Cinzel'; color: var(--gold); font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
-        
-        .device-toggles { display: flex; background: #333; border-radius: 4px; padding: 2px; }
-        .device-btn { background: none; border: none; color: #aaa; padding: 5px 12px; cursor: pointer; border-radius: 2px; }
-        .device-btn.active { background: var(--gold); color: #000; }
-        .device-btn:hover:not(.active) { color: #fff; }
-
-        .action-group { display: flex; gap: 10px; }
-        .btn { padding: 6px 15px; border-radius: 4px; border: 1px solid #444; background: #333; color: #fff; cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
-        .btn:hover { border-color: var(--gold); }
-        .btn-primary { background: var(--gold); color: #000; border-color: var(--gold); font-weight: bold; }
-
-        /* WORKSPACE LAYOUT */
-        .workspace { display: flex; flex: 1; overflow: hidden; }
-
-        /* LEFT SIDEBAR (TOOLS) */
-        .sidebar { width: 300px; background: var(--panel); border-right: 1px solid #333; display: flex; flex-direction: column; }
-        .tabs { display: flex; border-bottom: 1px solid #333; }
-        .tab { flex: 1; padding: 12px; text-align: center; cursor: pointer; background: #1e1e1e; color: #888; border-bottom: 2px solid transparent; font-size: 0.8rem; }
-        .tab.active { color: var(--gold); border-bottom-color: var(--gold); background: var(--panel); }
-        .tab-content { padding: 15px; overflow-y: auto; flex: 1; display: none; }
-        .tab-content.active { display: block; }
-
-        .block-btn { display: flex; align-items: center; gap: 10px; padding: 12px; background: #333; border: 1px solid #444; margin-bottom: 8px; cursor: pointer; border-radius: 4px; transition: 0.2s; }
-        .block-btn:hover { border-color: var(--gold); transform: translateX(5px); }
-        .block-btn i { color: var(--gold); width: 20px; }
-
-        /* CENTER CANVAS */
-        .canvas-wrapper { flex: 1; background: #444; display: flex; justify-content: center; align-items: center; position: relative; overflow: auto; padding: 40px; }
-        iframe { transition: width 0.3s ease; background: #fff; box-shadow: 0 0 50px rgba(0,0,0,0.5); border: none; }
-        /* Device Sizes */
-        iframe.desktop { width: 100%; height: 100%; max-width: 1280px; }
-        iframe.tablet { width: 768px; height: 100%; }
-        iframe.mobile { width: 375px; height: 100%; border: 10px solid #111; border-radius: 20px; }
-
-        /* RIGHT SIDEBAR (PROPERTIES) */
-        .properties { width: 280px; background: var(--panel); border-left: 1px solid #333; display: flex; flex-direction: column; padding: 15px; overflow-y: auto; }
-        .prop-group { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #333; }
-        .prop-label { color: var(--gold); font-size: 0.75rem; font-weight: bold; margin-bottom: 8px; display: block; text-transform: uppercase; }
-        .input-row { display: flex; gap: 10px; align-items: center; margin-bottom: 8px; }
-        .input-control { background: #111; border: 1px solid #444; color: #fff; padding: 6px; border-radius: 4px; width: 100%; font-size: 0.9rem; }
-        input[type="color"] { padding: 0; height: 30px; cursor: pointer; }
-
-        /* MODAL */
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
-        .modal-box { background: #222; padding: 25px; border: 1px solid var(--gold); width: 400px; border-radius: 8px; }
-
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>कासुमलगढ़ रॉयल हेरिटेज - फुल एडिटर पैनल</title>
+  
+  <!-- GrapesJS CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/grapesjs/dist/css/grapes.min.css">
+  
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <style>
+    body, html { height: 100%; margin: 0; overflow: hidden; }
+    #gjs { height: 100vh; }
+    .royal-header { background: linear-gradient(to bottom, #8B0000, #300000); color: gold; text-shadow: 2px 2px 4px black; }
+    .gallery-img { margin: 15px; border: 5px solid gold; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.5); transition: transform 0.3s; }
+    .gallery-img:hover { transform: scale(1.05); }
+    .section-title { color: #8B0000; font-weight: bold; }
+  </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="brand"><i class="fas fa-crown"></i> KASUMALGARH BUILDER</div>
+  <div id="gjs">
+    <!-- मैक्सिमम रॉयल कंटेंट -->
+    <header class="royal-header text-center py-5">
+      <h1 class="display-3">ठिकाना कासुम्बी - राठौड़ विरासत</h1>
+      <p class="lead display-6">जय सूर्यदेव || जय माता दी ⚔️🦁🏰🚩</p>
+    </header>
+    
+    <section class="container my-5 text-center">
+      <h2 class="section-title display-5">वंशावली एवं इतिहास</h2>
+      <p class="lead">राठौड़ वंश की गौरवशाली परंपरा – ठाकुर नारायण सिंह जी से वर्तमान तक...</p>
+    </section>
+    
+    <section class="container my-5">
+      <h2 class="section-title text-center display-5">राठौड़ विरासत गैलरी</h2>
+      <div class="row justify-content-center">
+        <!-- राठौड़ एम्ब्लम & लोगो -->
+        <img src="https://indiaroyalfamilies.com/wp-content/uploads/2025/02/453505101_507175685156165_4843530625243774387_n.jpg" alt="राठौड़ राजवंश एम्ब्लम" class="gallery-img col-lg-3 col-md-4 col-sm-6">
+        <img src="https://i.pinimg.com/474x/23/22/1f/23221fdbcbde3a490f6cb00dd8e97401.jpg" alt="जय राजपूताना लोगो" class="gallery-img col-lg-3 col-md-4 col-sm-6">
+        <img src="https://img-new.cgtrader.com/items/5386569/56891d32f6/ran-banka-rathore-symbol-and-royal-rajput-engraved-3d-model-56891d32f6.jpg" alt="रणबांका राठौड़ सिंबल" class="gallery-img col-lg-3 col-md-4 col-sm-6">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhuWSZIf4EIDCf-CF3kKYeLPgVQybr43dOYemYLraColVaT06QvlstIodKLlgIO1Y92UQY3M2W06-cRTkXONfADEpyaroA_S2L1a7RG4bDu9nr5eCp8NTUNwCYtVVuZYyTX9fQvzqQLWe5H/w1200-h630-p-k-no-nu/rathore-history-and-logo.jpg" alt="राठौड़ इतिहास लोगो" class="gallery-img col-lg-3 col-md-4 col-sm-6">
+        <img src="https://i.pinimg.com/736x/16/54/b6/1654b686539f2d271e34da0449cc3f61.jpg" alt="3D राठौड़ लोगो" class="gallery-img col-lg-3 col-md-4 col-sm-6">
         
-        <div class="device-toggles">
-            <button class="device-btn active" onclick="setDevice('desktop')"><i class="fas fa-desktop"></i></button>
-            <button class="device-btn" onclick="setDevice('tablet')"><i class="fas fa-tablet-alt"></i></button>
-            <button class="device-btn" onclick="setDevice('mobile')"><i class="fas fa-mobile-alt"></i></button>
-        </div>
-
-        <div class="action-group">
-            <button class="btn" onclick="openCode()"><i class="fas fa-code"></i> Code</button>
-            <button class="btn btn-primary" onclick="publishToGithub()"><i class="fas fa-cloud-upload-alt"></i> Publish</button>
-        </div>
-    </nav>
-
-    <div class="workspace">
+        <!-- ध्वज & बैनर -->
+        <img src="https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=4052187588372994" alt="राठौड़ ध्वज" class="gallery-img col-lg-3 col-md-4 col-sm-6">
+        <img src="https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1075240009250696" alt="रॉयल राजपूत बैनर" class="gallery-img col-lg-3 col-md-4 col-sm-6">
+        <img src="https://www.indianrajputs.com/i/flags-fb-banner.jpg" alt="राजपूत प्रदेश ध्वज" class="gallery-img col-lg-3 col-md-4 col-sm-6">
         
-        <div class="sidebar">
-            <div class="tabs">
-                <div class="tab active" onclick="setTab('add')">Add Blocks</div>
-                <div class="tab" onclick="setTab('seo')">SEO & Page</div>
-            </div>
-
-            <div id="tab-add" class="tab-content active">
-                <small style="color:#666; display:block; margin-bottom:10px;">ROYAL COMPONENTS</small>
-                <div class="block-btn" onclick="addBlock('royal-hero')"><i class="fas fa-image"></i> Royal Hero Header</div>
-                <div class="block-btn" onclick="addBlock('jharokha')"><i class="fas fa-archway"></i> Jharokha Text Box</div>
-                <div class="block-btn" onclick="addBlock('timeline-item')"><i class="fas fa-clock"></i> Timeline Event</div>
-                <div class="block-btn" onclick="addBlock('vanshawali-node')"><i class="fas fa-sitemap"></i> Vanshawali Branch</div>
-                <div class="block-btn" onclick="addBlock('gallery-grid')"><i class="fas fa-images"></i> Photo Grid</div>
-                
-                <small style="color:#666; display:block; margin:15px 0 10px;">BASIC LAYOUT</small>
-                <div class="block-btn" onclick="addBlock('heading')"><i class="fas fa-heading"></i> Heading</div>
-                <div class="block-btn" onclick="addBlock('text')"><i class="fas fa-paragraph"></i> Paragraph</div>
-                <div class="block-btn" onclick="addBlock('2col')"><i class="fas fa-columns"></i> 2 Columns</div>
-                <div class="block-btn" onclick="addBlock('divider')"><i class="fas fa-grip-lines"></i> Gold Divider</div>
-            </div>
-
-            <div id="tab-seo" class="tab-content">
-                <div class="prop-group">
-                    <label class="prop-label">Page Title</label>
-                    <input type="text" id="seoTitle" class="input-control" placeholder="Browser Title">
-                </div>
-                <div class="prop-group">
-                    <label class="prop-label">Meta Description</label>
-                    <textarea id="seoDesc" class="input-control" rows="4"></textarea>
-                </div>
-                <div class="prop-group">
-                    <label class="prop-label">Menu Links</label>
-                    <textarea id="menuConfig" class="input-control" rows="5" oninput="updateMenu()">Home, index.html
-History, history.html
-Vanshawali, vanshawali.html</textarea>
-                </div>
-            </div>
-        </div>
-
-        <div class="canvas-wrapper">
-            <iframe id="editorCanvas" class="desktop"></iframe>
-        </div>
-
-        <div class="properties" id="propPanel">
-            <div style="text-align:center; color:#666; margin-top:50px;" id="noSelMsg">Select an element to edit</div>
-            
-            <div id="propControls" style="display:none;">
-                <div class="prop-group">
-                    <label class="prop-label">Typography</label>
-                    <div class="input-row">
-                        <select class="input-control" onchange="applyStyle('textAlign', this.value)">
-                            <option value="left">Left</option>
-                            <option value="center">Center</option>
-                            <option value="right">Right</option>
-                        </select>
-                    </div>
-                    <div class="input-row">
-                        <input type="color" class="input-control" oninput="applyStyle('color', this.value)" title="Text Color">
-                        <input type="number" class="input-control" placeholder="Size (px)" oninput="applyStyle('fontSize', this.value + 'px')">
-                    </div>
-                </div>
-
-                <div class="prop-group">
-                    <label class="prop-label">Background & Box</label>
-                    <div class="input-row">
-                        <label style="font-size:0.8rem;">Bg Color: </label>
-                        <input type="color" class="input-control" oninput="applyStyle('backgroundColor', this.value)">
-                    </div>
-                    <div class="input-row">
-                        <label style="font-size:0.8rem;">Padding: </label>
-                        <input type="range" min="0" max="100" class="input-control" oninput="applyStyle('padding', this.value + 'px')">
-                    </div>
-                </div>
-
-                <div class="prop-group" id="imgProps" style="display:none;">
-                    <label class="prop-label">Image Settings</label>
-                    <input type="text" class="input-control" placeholder="Image URL" onchange="applyAttr('src', this.value)">
-                    <small style="color:#666;">Paste URL from GitHub</small>
-                </div>
-
-                <button class="btn" style="background:#d9534f; border-color:#d43f3a; width:100%; justify-content:center;" onclick="deleteSelected()">
-                    <i class="fas fa-trash"></i> Delete Element
-                </button>
-            </div>
-        </div>
-
-    </div>
-
-    <div id="pubModal" class="modal">
-        <div class="modal-box">
-            <h3 style="color:var(--gold); margin-top:0;">Publish to GitHub</h3>
-            <label class="prop-label">Filename (e.g., history.html)</label>
-            <input type="text" id="filename" class="input-control" style="margin-bottom:10px;">
-            <label class="prop-label">GitHub Token</label>
-            <input type="password" id="ghToken" class="input-control" style="margin-bottom:20px;">
-            <button class="btn btn-primary" onclick="doPublish()" style="width:100%; justify-content:center;">Publish Now</button>
-            <button class="btn" onclick="document.getElementById('pubModal').style.display='none'" style="width:100%; justify-content:center; margin-top:10px; background:transparent; border:none;">Cancel</button>
-        </div>
-    </div>
-
-    <script>
-        const iframe = document.getElementById('editorCanvas');
-        let doc;
-        let selectedEl = null;
-
-        // --- 1. INITIALIZATION ---
-        window.onload = function() {
-            doc = iframe.contentDocument || iframe.contentWindow.document;
-            initCanvas();
-        };
-
-        function initCanvas() {
-            const template = `
-            <!DOCTYPE html>
-            <html lang="hi">
-            <head>
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-                <link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Yatra+One&display=swap" rel="stylesheet">
-                <style>
-                    body { background: #fffaf0; color: #333; font-family: 'Segoe UI', sans-serif; padding-bottom: 50px; }
-                    h1, h2, h3 { font-family: 'Rozha One', serif; color: #8B0000; }
-                    
-                    /* EDITOR HELPERS */
-                    .hover-border { outline: 2px dashed #0d6efd; cursor: pointer; }
-                    .active-element { outline: 3px solid #d4af37 !important; position: relative; z-index: 10; }
-                    *[contenteditable]:empty:before { content: 'Type here...'; color: #ccc; }
-
-                    /* ROYAL STYLES */
-                    .royal-navbar { background: #8B0000; padding: 10px; display: flex; justify-content: space-between; align-items: center; color: #d4af37; }
-                    .royal-navbar a { color: #fff; text-decoration: none; margin-left: 15px; }
-                    .jharokha-box { border: 4px double #d4af37; padding: 20px; background: #fff; text-align: center; border-radius: 15px 15px 0 0; margin: 20px 0; }
-                    .timeline-item { border-left: 4px solid #8B0000; padding-left: 20px; margin: 20px 0; position: relative; }
-                    .timeline-item::before { content: '⚔️'; position: absolute; left: -14px; top: 0; background: #fff; }
-                    .vanshawali-node { text-align: center; border: 1px solid #d4af37; padding: 10px; margin: 10px; background: #fff5e6; display: inline-block; min-width: 150px; }
-                    .divider-gold { height: 2px; background: linear-gradient(to right, transparent, #d4af37, transparent); margin: 30px 0; }
-                </style>
-            </head>
-            <body>
-                <nav class="royal-navbar">
-                    <span style="font-size:1.2rem; font-weight:bold;">🦁 KASUMALGARH</span>
-                    <div id="navLinks"></div>
-                </nav>
-                <div id="mainContent" class="container mt-4">
-                    <div class="jharokha-box">
-                        <h2 contenteditable="true">जय माता दी</h2>
-                        <p contenteditable="true">यहां अपना कंटेंट लिखना शुरू करें...</p>
-                    </div>
-                </div>
-            </body>
-            </html>`;
-            doc.open(); doc.write(template); doc.close();
-            
-            // Re-bind events after load
-            setTimeout(() => {
-                doc.body.addEventListener('click', onCanvasClick);
-                doc.body.addEventListener('mouseover', (e) => { e.target.classList.add('hover-border'); });
-                doc.body.addEventListener('mouseout', (e) => { e.target.classList.remove('hover-border'); });
-                updateMenu();
-                
-                // Init Sortable (Drag & Drop)
-                const Sortable = window.Sortable; 
-                new Sortable(doc.getElementById('mainContent'), { animation: 150, ghostClass: 'bg-light' });
-            }, 500);
-        }
-
-        // --- 2. INTERACTION LOGIC ---
-        function onCanvasClick(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // Remove previous selection
-            if(selectedEl) selectedEl.classList.remove('active-element');
-            
-            selectedEl = e.target;
-            selectedEl.classList.add('active-element');
-            
-            // Show Properties Panel
-            document.getElementById('noSelMsg').style.display = 'none';
-            document.getElementById('propControls').style.display = 'block';
-            
-            // Show Image specific inputs
-            document.getElementById('imgProps').style.display = selectedEl.tagName === 'IMG' ? 'block' : 'none';
-        }
-
-        function setDevice(type) {
-            document.querySelectorAll('.device-btn').forEach(b => b.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            iframe.className = type;
-        }
-
-        function setTab(name) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            document.getElementById('tab-' + name).classList.add('active');
-        }
-
-        // --- 3. BLOCK INSERTION ---
-        function addBlock(type) {
-            const container = doc.getElementById('mainContent');
-            let html = '';
-
-            if(type === 'royal-hero') html = `<div class="p-5 mb-4 text-white text-center rounded" style="background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url('https://source.unsplash.com/random/1200x600/?fort'); background-size:cover;"> <h1 class="display-4" contenteditable="true">Page Title</h1> <p class="lead" contenteditable="true">Subtitle goes here</p> </div>`;
-            if(type === 'jharokha') html = `<div class="jharokha-box"><h3 contenteditable="true">Title</h3><p contenteditable="true">Description text...</p></div>`;
-            if(type === 'timeline-item') html = `<div class="timeline-item"><strong style="color:#8B0000" contenteditable="true">YEAR 18XX</strong><p contenteditable="true">Event details...</p></div>`;
-            if(type === 'vanshawali-node') html = `<div class="text-center"><div class="vanshawali-node" contenteditable="true">Name Here<br><small>Details</small></div><div style="border-left:1px solid #000; height:20px; width:1px; margin:0 auto;"></div></div>`;
-            if(type === 'heading') html = `<h2 class="mt-4 mb-3" contenteditable="true">New Heading</h2>`;
-            if(type === 'text') html = `<p contenteditable="true">Lorem ipsum dolor sit amet...</p>`;
-            if(type === '2col') html = `<div class="row"><div class="col-md-6"><p contenteditable="true">Left Content</p></div><div class="col-md-6"><p contenteditable="true">Right Content</p></div></div>`;
-            if(type === 'divider') html = `<div class="divider-gold"></div>`;
-            if(type === 'gallery-grid') html = `<div class="row g-3"><div class="col-4"><img src="https://via.placeholder.com/300" class="img-fluid rounded"></div><div class="col-4"><img src="https://via.placeholder.com/300" class="img-fluid rounded"></div><div class="col-4"><img src="https://via.placeholder.com/300" class="img-fluid rounded"></div></div>`;
-
-            if(html) {
-                // If an element is selected, insert after it, else append to end
-                if(selectedEl && selectedEl.parentElement === container) {
-                    selectedEl.insertAdjacentHTML('afterend', html);
-                } else {
-                    container.insertAdjacentHTML('beforeend', html);
-                }
-            }
-        }
-
-        // --- 4. PROPERTY EDITS ---
-        function applyStyle(prop, val) {
-            if(selectedEl) selectedEl.style[prop] = val;
-        }
-        function applyAttr(attr, val) {
-            if(selectedEl) selectedEl.setAttribute(attr, val);
-        }
-        function deleteSelected() {
-            if(selectedEl) {
-                if(confirm("Delete this element?")) {
-                    selectedEl.remove();
-                    selectedEl = null;
-                    document.getElementById('propControls').style.display = 'none';
-                }
-            }
-        }
-        function updateMenu() {
-            const raw = document.getElementById('menuConfig').value.split('\n');
-            let links = '';
-            raw.forEach(line => {
-                const [text, href] = line.split(',');
-                if(text && href) links += `<a href="${href.trim()}">${text.trim()}</a>`;
-            });
-            const nav = doc.getElementById('navLinks');
-            if(nav) nav.innerHTML = links;
-        }
-
-        // --- 5. PUBLISHING ---
-        function publishToGithub() { document.getElementById('pubModal').style.display = 'flex'; }
+        <!-- मेहरांगढ़ & अन्य किले -->
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Mehrangarh_Fort_sanhita.jpg" alt="मेहरांगढ़ किला" class="gallery-img col-lg-3 col-md-4 col-sm-6">
+        <img src="https://cdn.britannica.com/39/242539-050-97AFAE4E/Mehrangarh-fortress-Jodhpur-Rajasthan-India.jpg" alt="मेहरांगढ़ दुर्ग" class="gallery-img col-lg-3 col-md-4 col-sm-6">
+        <img src="https://www.shikhar.com/blog/wp-content/uploads/2019/02/Mehrangarh-Fort.jpg" alt="राठौड़ गढ़" class="gallery-img col-lg-3 col-md-4 col-sm-6">
+        <img src="https://images.squarespace-cdn.com/content/v1/5e88b33d1e8c3436e9db6843/1593384591766-RZ4CGGMVYSERCTCZALEZ/EPIC-PIC---Rajput-Amer-Fort.jpg" alt="आमेर किला" class="gallery-img col-lg-3 col-md-4 col-sm-6">
+        <img src="https://www.rajasthantrip.com/blog-page/img/amber-palace-jaipur-fort-architecture.webp" alt="आमेर पैलेस" class="gallery-img col-lg-3 col-md-4 col-sm-6">
         
-        async function doPublish() {
-            const filename = document.getElementById('filename').value;
-            const token = document.getElementById('ghToken').value;
-            const user = "kasumalgarh"; 
-            const repo = "kasumalgarh.github.io";
+        <!-- राजपूत योद्धा -->
+        <img src="https://media.gettyimages.com/id/2162436986/vector/rajput-soldiers-warrior-armed-with-musket-sword-and-shield-indian-victorian-india-vintage.jpg?s=1024x1024&w=gi&k=20&c=qYCCD8z37IlFKX6y1uuO5_b3wClELXeRcpnz4EP5JGs=" alt="राजपूत योद्धा तलवार ढाल" class="gallery-img col-lg-3 col-md-4 col-sm-6">
+        <img src="https://i.redd.it/5ttf6xbpufyy.jpg" alt="फुर्तीला राजपूत वॉरियर" class="gallery-img col-lg-3 col-md-4 col-sm-6">
+        <img src="https://media.gettyimages.com/id/77761115/photo/indian-man-shi-heng-chan-gajanand-rajput-practices-with-a-dao-shu-on-the-outskirts-of-ahmedabad.jpg?s=612x612&w=gi&k=20&c=01A-737KXp0Wklbkp_i2-nZfG4CDDHqxyilRtqcwq5c=" alt="राजपूत अभ्यास" class="gallery-img col-lg-3 col-md-4 col-sm-6">
+        <img src="https://serenademagazine.art/content/images/2024/12/156838-jfhjzyxunb-1616863856.jpg" alt="राजपूत हथियार" class="gallery-img col-lg-3 col-md-4 col-sm-6">
+      </div>
+    </section>
+    
+    <footer class="text-center py-5 bg-dark text-gold">
+      <h3>जय राजपूताना || खम्मा घणी 🦁⚔️🏰</h3>
+      <p>© 2025 Kasumalgarh Royal Heritage</p>
+    </footer>
+  </div>
 
-            if(!filename || !token) { alert("Please enter filename and token"); return; }
+  <script src="https://unpkg.com/grapesjs"></script>
+  <script>
+    const editor = grapesjs.init({
+      container: '#gjs',
+      fromElement: true,
+      height: '100%',
+      storageManager: false,
+      
+      blockManager: {
+        blocks: [
+          { id: 'rathore-emblem', label: 'राठौड़ एम्ब्लम', content: '<img src="https://indiaroyalfamilies.com/wp-content/uploads/2025/02/453505101_507175685156165_4843530625243774387_n.jpg" class="gallery-img" alt="राठौड़ एम्ब्लम">' },
+          { id: 'flag', label: 'राठौड़ ध्वज', content: '<img src="https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=4052187588372994" class="gallery-img" alt="ध्वज">' },
+          { id: 'warrior', label: 'राजपूत योद्धा', content: '<img src="https://media.gettyimages.com/id/2162436986/vector/rajput-soldiers-warrior-armed-with-musket-sword-and-shield-indian-victorian-india-vintage.jpg?s=1024x1024&w=gi&k=20&c=qYCCD8z37IlFKX6y1uuO5_b3wClELXeRcpnz4EP5JGs=" class="gallery-img" alt="योद्धा">' },
+          { id: 'mehrangarh', label: 'मेहरांगढ़ किला', content: '<img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Mehrangarh_Fort_sanhita.jpg" class="gallery-img" alt="मेहरांगढ़">' },
+          { id: 'text-royal', label: 'रॉयल टेक्स्ट', content: '<p style="color: #8B0000; font-size: 20px;">नया राजसी टेक्स्ट</p>' },
+        ]
+      },
+      
+      styleManager: { sectors: [{
+        name: 'रॉयल स्टाइल्स',
+        properties: ['background-color', 'color', 'border', 'box-shadow', 'font-family', 'font-size', 'text-shadow']
+      }]},
+      
+      canvas: { styles: ['https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css'] },
+      
+      commands: {
+        defaults: [{
+          id: 'export-html',
+          run: () => {
+            const html = editor.getHtml();
+            const css = '<style>' + editor.getCss() + '</style>';
+            const full = '<!DOCTYPE html><html lang="hi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">' + 
+                         '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">' + css + 
+                         '</head><body>' + html + '</body></html>';
+            const blob = new Blob([full], {type: 'text/html'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = 'kasumalgarh-royal-final.html'; a.click();
+          }
+        }]
+      },
+      
+      panels: { defaults: [{
+        id: 'buttons',
+        buttons: [{
+          id: 'export',
+          label: 'पूर्ण रॉयल साइट एक्सपोर्ट करो',
+          command: 'export-html',
+          attributes: { title: 'अपडेटेड साइट डाउनलोड' }
+        }]
+      }]}
+    });
+  </script>
 
-            // Clean up for saving
-            if(selectedEl) selectedEl.classList.remove('active-element');
-            const clone = doc.documentElement.cloneNode(true);
-            
-            // Remove editor-specific styles/scripts from the saved file
-            const styles = clone.querySelectorAll('style');
-            // (In a real app, we'd filter strictly, here we assume style[0] is template CSS)
-            
-            // Inject SEO
-            const title = document.getElementById('seoTitle').value || "Kasumalgarh Page";
-            const desc = document.getElementById('seoDesc').value || "";
-            const titleTag = clone.querySelector('title');
-            if(titleTag) titleTag.innerText = title;
-            else {
-                const t = document.createElement('title'); t.innerText = title; clone.head.appendChild(t);
-            }
-            
-            const htmlContent = clone.outerHTML;
-            const encoded = btoa(unescape(encodeURIComponent(htmlContent)));
-
-            // Check if file exists to get SHA
-            let sha = null;
-            try {
-                let r = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${filename}`);
-                if(r.ok) { let d = await r.json(); sha = d.sha; }
-            } catch(e) {}
-
-            // PUT Request
-            try {
-                let res = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${filename}`, {
-                    method: "PUT",
-                    headers: { 
-                        "Authorization": `token ${token}`,
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        message: "Updated via Royal Builder v2",
-                        content: encoded,
-                        sha: sha
-                    })
-                });
-                if(res.ok) { alert("Published Successfully! 🦁"); document.getElementById('pubModal').style.display = 'none'; }
-                else { alert("Error publishing."); }
-            } catch(e) { alert("Network Error: " + e.message); }
-        }
-
-    </script>
 </body>
 </html>
