@@ -15,7 +15,6 @@
         /* ----------------------------- */
         :root {
             --bg-dark: #050510;
-            --glass-bg: rgba(20, 20, 35, 0.95);
             --gold-primary: #d4af37;
             --gold-gradient: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7);
             --text-light: #e0e0e0;
@@ -30,20 +29,28 @@
             background-image: radial-gradient(circle at 50% 50%, #1a0b0b 0%, #000000 100%);
             color: var(--text-light);
             font-family: 'Lato', sans-serif;
-            height: 100vh; /* Full Height */
-            overflow: hidden; /* No Body Scroll */
+            height: 100vh; /* ✅ FIX: पूरी स्क्रीन की हाइट */
+            overflow: hidden; /* ✅ FIX: बॉडी का स्क्रॉल बंद */
             display: flex;
             flex-direction: column;
+        }
+
+        /* SILVER TEXTURE OVERLAY */
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/black-scales.png');
+            opacity: 0.3; pointer-events: none; z-index: -1;
         }
 
         /* NAVBAR */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 10px 20px;
-            background: #111;
+            padding: 0 20px;
+            background: rgba(10, 10, 20, 0.95);
             border-bottom: 2px solid var(--gold-primary);
-            height: 50px;
+            height: 60px; /* फिक्स हाइट */
             flex-shrink: 0;
+            z-index: 100;
         }
 
         .brand-title {
@@ -63,31 +70,34 @@
         /* ----------------------------- */
         .main-container {
             display: flex;
-            flex: 1; /* Fills remaining height */
-            height: calc(100vh - 72px); /* Navbar hata kar */
+            flex: 1; /* बची हुई पूरी जगह लेगा */
+            height: calc(100vh - 60px); /* Navbar को छोड़कर बाकी हाइट */
             overflow: hidden;
         }
 
         /* LEFT SIDE: EDITOR TOOLS */
         .editor-sidebar {
-            width: 380px;
-            background: rgba(0, 0, 0, 0.6);
+            width: 400px;
+            background: rgba(0, 0, 0, 0.8);
             border-right: 2px solid var(--gold-primary);
-            overflow-y: auto; /* Scroll inside sidebar */
+            overflow-y: auto; /* सिर्फ साइडबार में स्क्रॉल होगा */
             padding: 20px;
             box-shadow: 5px 0 15px rgba(0,0,0,0.5);
             display: flex;
             flex-direction: column;
             gap: 20px;
+            flex-shrink: 0;
         }
 
         /* RIGHT SIDE: PREVIEW (IFRAME) */
         .preview-area {
-            flex: 1; /* Takes remaining width */
-            background: #fff; /* White background for preview */
+            flex: 1; /* बाकी पूरी चौड़ाई */
+            background: #fff; /* वेबसाइट के लिए सफेद बैकग्राउंड */
             position: relative;
+            overflow: hidden;
         }
 
+        /* ✅ FIX: IFRAME FOR FULL SITE PREVIEW */
         iframe {
             width: 100%;
             height: 100%;
@@ -97,27 +107,29 @@
 
         /* TOOL SECTIONS */
         .tool-section { padding: 15px; background: rgba(255,255,255,0.05); border-radius: 8px; border-left: 3px solid #555; }
-        .tool-section.add { border-color: var(--success-green); }
-        .tool-section.edit { border-color: var(--edit-yellow); }
-        .tool-section.delete { border-color: var(--danger-red); }
+        .tool-section.add { border-left-color: var(--success-green); }
+        .tool-section.edit { border-left-color: var(--edit-yellow); }
+        .tool-section.delete { border-left-color: var(--danger-red); }
 
         .section-title { font-weight: bold; font-size: 1em; margin-bottom: 8px; display: block; color: #fff; }
-        
+        .note { font-size: 0.75em; color: #aaa; margin-bottom: 8px; display: block; }
+
         /* INPUTS */
         input[type="text"], textarea, input[type="password"] {
-            width: 100%; padding: 8px; margin-bottom: 8px;
-            background: #222; border: 1px solid #555;
+            width: 100%; padding: 10px; margin-bottom: 10px;
+            background: rgba(0,0,0,0.5); border: 1px solid #555;
             color: #fff; border-radius: 4px; box-sizing: border-box;
+            font-family: 'Lato', sans-serif;
         }
         input:focus { border-color: var(--gold-primary); outline: none; }
 
         /* BUTTONS */
         .btn {
-            width: 100%; padding: 8px; border: none; border-radius: 4px;
+            width: 100%; padding: 10px; border: none; border-radius: 4px;
             font-weight: bold; cursor: pointer; transition: 0.3s;
-            font-family: 'Cinzel', serif; letter-spacing: 1px; font-size: 0.85em;
+            font-family: 'Cinzel', serif; letter-spacing: 1px; font-size: 0.9em;
         }
-        .btn-load { background: #008080; color: white; margin-bottom: 10px; padding: 12px; font-size: 1em; }
+        .btn-load { background: #008080; color: white; margin-bottom: 10px; font-size: 1em; }
         .btn-add { background: var(--success-green); color: white; }
         .btn-edit { background: var(--edit-yellow); color: black; }
         .btn-delete { background: var(--danger-red); color: white; }
@@ -126,7 +138,7 @@
             font-size: 1.1em; margin-top: 10px; border: 2px solid #fff; padding: 12px;
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
         }
-        .btn:hover { filter: brightness(1.1); }
+        .btn:hover { filter: brightness(1.1); transform: translateY(-2px); }
 
         /* LOADING & LOGIN */
         #loadingOverlay, #login-overlay {
@@ -139,13 +151,14 @@
         .login-box {
             background: #111; padding: 30px; border: 1px solid var(--gold-primary);
             text-align: center; border-radius: 10px; width: 300px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
         }
 
-        /* Mobile Fix */
+        /* MOBILE RESPONSIVE */
         @media (max-width: 900px) {
             .main-container { flex-direction: column; height: auto; overflow: auto; }
             .editor-sidebar { width: 100%; height: auto; box-sizing: border-box; }
-            .preview-area { height: 600px; }
+            .preview-area { height: 600px; min-height: 60vh; }
         }
     </style>
 </head>
@@ -154,15 +167,16 @@
 
     <div id="loadingOverlay">
         <i class="fas fa-spinner fa-spin" style="font-size: 40px; color: var(--gold-primary);"></i>
-        <p>Working...</p>
+        <p style="margin-top:15px;">Processing...</p>
     </div>
 
     <div id="login-overlay">
         <div class="login-box animate__animated animate__zoomIn">
-            <h2 style="color:var(--gold-primary); margin-top:0;">SECURITY</h2>
+            <i class="fas fa-user-shield" style="font-size: 40px; color: #d4af37; margin-bottom: 15px;"></i>
+            <h2 style="color:var(--gold-primary); margin:0 0 20px 0; font-family:'Cinzel';">SECURITY CHECK</h2>
             <input type="password" id="passInput" placeholder="Enter Password" style="text-align:center;">
             <button onclick="checkPass()" class="btn btn-save">UNLOCK</button>
-            <p id="errorMsg" style="color:red; display:none; margin-bottom:0;">Incorrect!</p>
+            <p id="errorMsg" style="color:red; display:none; margin-top:10px; font-size:0.9em;">Incorrect Password!</p>
         </div>
     </div>
 
@@ -177,40 +191,43 @@
             
             <button onclick="fetchLiveCode()" class="btn btn-load"><i class="fas fa-sync"></i> REFRESH / LOAD PREVIEW</button>
             
-            <div id="manualInputSection" style="display:none; background:#333; padding:10px; border-radius:5px;">
-                <p style="margin:0 0 5px 0; color:#ffeb3b; font-size:0.8em;">⚠️ Local Mode: Paste Code Here</p>
-                <textarea id="inputHtml" style="height:50px;" placeholder="Paste vanshawali.html code..."></textarea>
-                <button onclick="loadPreview()" class="btn" style="background:#555; color:#fff;">RENDER</button>
+            <div id="manualInputSection" style="display:none; background:#333; padding:10px; border-radius:5px; margin-bottom:10px;">
+                <p style="margin:0 0 5px 0; color:#ffeb3b; font-size:0.8em;">⚠️ <b>Local Mode:</b> Auto-fetch blocked by browser.</p>
+                <textarea id="inputHtml" style="height:60px;" placeholder="Paste code from vanshawali.html here..."></textarea>
+                <button onclick="loadPreview()" class="btn" style="background:#555; color:#fff;">RENDER PREVIEW</button>
             </div>
             
             <textarea id="workingHtml" style="display:none;"></textarea>
 
             <div class="tool-section add">
                 <span class="section-title" style="color:var(--success-green);"><i class="fas fa-plus-circle"></i> Add Member</span>
+                <span class="note">दादा और पिता का नाम मैच होना ज़रूरी है।</span>
                 <input type="text" id="add_grand" placeholder="Grandfather Name">
                 <input type="text" id="add_father" placeholder="Father Name">
                 <input type="text" id="add_child" placeholder="New Child Name">
-                <button onclick="addName()" class="btn btn-add">ADD</button>
+                <button onclick="addName()" class="btn btn-add">ADD NAME</button>
             </div>
 
             <div class="tool-section edit">
                 <span class="section-title" style="color:var(--edit-yellow);"><i class="fas fa-pen"></i> Correct Name</span>
+                <span class="note">सुरक्षा के लिए 3 जानकारी भरें।</span>
                 <input type="text" id="edit_grand" placeholder="Grandfather (Verify)">
                 <input type="text" id="edit_father" placeholder="Father (Verify)">
                 <input type="text" id="edit_old" placeholder="Old/Wrong Name">
                 <input type="text" id="edit_new" placeholder="New/Correct Name">
-                <button onclick="editName()" class="btn btn-edit">CORRECT</button>
+                <button onclick="editName()" class="btn btn-edit">CORRECT NAME</button>
             </div>
 
             <div class="tool-section delete">
                 <span class="section-title" style="color:var(--danger-red);"><i class="fas fa-trash"></i> Delete Member</span>
+                <span class="note">चेतावनी: नाम हमेशा के लिए हट जाएगा।</span>
                 <input type="text" id="del_grand" placeholder="Grandfather (Verify)">
                 <input type="text" id="del_father" placeholder="Father (Verify)">
                 <input type="text" id="del_name" placeholder="Name to Delete">
-                <button onclick="deleteName()" class="btn btn-delete">DELETE</button>
+                <button onclick="deleteName()" class="btn btn-delete">DELETE NAME</button>
             </div>
 
-            <hr style="border-color:#333; width:100%;">
+            <hr style="border-color:#333; width:100%; margin:10px 0;">
             
             <textarea id="outputHtml" readonly style="display:none;"></textarea>
             <button onclick="saveToGitHub()" class="btn btn-save"><i class="fas fa-cloud-upload-alt"></i> PUBLISH TO WEBSITE</button>
@@ -223,20 +240,29 @@
     </div>
 
     <script>
-        // CONFIG
+        // ============================
+        // CONFIGURATION
+        // ============================
         const GITHUB_USERNAME = "kasumalgarh";       
         const REPO_NAME = "kasumalgarh.github.io";   
         const FILE_PATH = "vanshawali.html";         
         const BRANCH = "main";                       
         const ADMIN_PASSWORD = "kasumalgarh2025";    
 
-        // 1. LOGIN
+        // 1. LOGIN LOGIC
         function checkPass() {
-            if(document.getElementById('passInput').value === ADMIN_PASSWORD) {
+            const input = document.getElementById('passInput').value;
+            if(input === ADMIN_PASSWORD) {
                 document.getElementById('login-overlay').style.display = 'none';
-                document.getElementById('main-interface').style.display = 'flex';
-                fetchLiveCode();
-            } else { document.getElementById('errorMsg').style.display = 'block'; }
+                document.getElementById('main-interface').style.display = 'flex'; // Use flex for split layout
+                fetchLiveCode(); // Try Auto-load
+            } else { 
+                document.getElementById('errorMsg').style.display = 'block';
+                // Shake effect
+                const box = document.querySelector('.login-box');
+                box.classList.add('animate__shakeX');
+                setTimeout(() => box.classList.remove('animate__shakeX'), 1000);
+            }
         }
 
         function loading(show) { document.getElementById('loadingOverlay').style.display = show ? 'flex' : 'none'; }
@@ -249,32 +275,32 @@
                 if (!response.ok) throw new Error("File not found");
                 const text = await response.text();
                 
-                // Store in hidden textarea for logic
+                // Store code for logic
                 document.getElementById('workingHtml').value = text;
-                document.getElementById('inputHtml').value = text; // Sync manual box
                 document.getElementById('outputHtml').value = text;
+                document.getElementById('inputHtml').value = text; 
                 
-                // Render in Iframe
+                // ✅ RENDER IN IFRAME
                 updateIframe(text);
                 
-                // Hide manual input if successful
                 document.getElementById('manualInputSection').style.display = 'none';
 
             } catch (err) {
-                console.log("Fetch failed, showing manual input");
-                alert("⚠️ Local Mode: Auto-fetch blocked. Paste code manually.");
+                console.log("Fetch failed (Local testing likely):", err);
+                // Show manual input if fetch fails (e.g., opening file directly)
                 document.getElementById('manualInputSection').style.display = 'block';
             } 
             finally { loading(false); }
         }
 
+        // Manual Load Button
         function loadPreview() {
             const text = document.getElementById('inputHtml').value;
             document.getElementById('workingHtml').value = text;
             updateIframe(text);
         }
 
-        // UPDATE IFRAME CONTENT
+        // ✅ CORE FUNCTION: UPDATE IFRAME
         function updateIframe(htmlContent) {
             const frame = document.getElementById('liveFrame');
             const doc = frame.contentDocument || frame.contentWindow.document;
@@ -283,18 +309,21 @@
             doc.close();
         }
 
-        // LOGIC HELPER: FIND NODE
+        // 3. LOGIC HELPER: FIND NODE (Grand -> Father -> Child)
         function findNode(doc, grandName, fatherName, childName) {
             const allSpans = doc.querySelectorAll('.member-name');
             for (let span of allSpans) {
                 if (span.textContent.trim() === childName) {
                     const childLi = span.closest('li');
-                    const fatherLi = childLi.parentElement.closest('li');
+                    const parentUl = childLi.parentElement;
+                    const fatherLi = parentUl.closest('li'); // Father
                     
                     if (fatherLi) {
                         const fatherSpan = fatherLi.querySelector('.member-name');
                         if (fatherSpan && fatherSpan.textContent.trim() === fatherName) {
-                            const grandLi = fatherLi.parentElement.closest('li');
+                            const grandUl = fatherLi.parentElement;
+                            const grandLi = grandUl.closest('li'); // Grandfather
+                            
                             if (grandLi) {
                                 const grandSpan = grandLi.querySelector('.member-name');
                                 if (grandSpan && grandSpan.textContent.trim() === grandName) {
@@ -308,30 +337,32 @@
             return { found: false };
         }
 
-        // 3. ADD NAME
+        // 4. ADD NAME
         function addName() {
             const grand = document.getElementById('add_grand').value.trim();
             const father = document.getElementById('add_father').value.trim();
             const child = document.getElementById('add_child').value.trim();
             const html = document.getElementById('workingHtml').value;
 
-            if(!grand || !father || !child) return alert("Fill all fields!");
+            if(!grand || !father || !child) return alert("Please fill all fields!");
 
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
             
-            // Logic to find Father (checking Grandfather)
+            // Search for Father (using Grandfather verification)
             let parentFound = false;
             const allSpans = doc.querySelectorAll('.member-name');
             
             for (let span of allSpans) {
                 if (span.textContent.trim() === father) {
                     const fatherLi = span.closest('li');
-                    const grandLi = fatherLi.parentElement.closest('li');
+                    const grandUl = fatherLi.parentElement;
+                    const grandLi = grandUl.closest('li');
+                    
                     if (grandLi) {
                         const grandSpan = grandLi.querySelector('.member-name');
                         if (grandSpan && grandSpan.textContent.trim() === grand) {
-                            // Add Child
+                            // Verified! Add Child
                             let childUl = fatherLi.querySelector('ul');
                             if (!childUl) {
                                 childUl = doc.createElement('ul');
@@ -340,23 +371,20 @@
                             const newLi = doc.createElement('li');
                             newLi.innerHTML = `<div class="member-card"><span class="member-name">${child}</span></div>`;
                             childUl.appendChild(newLi);
-                            parentFound = true; break;
+                            parentFound = true; 
+                            break;
                         }
                     }
                 }
             }
 
             if(parentFound) {
-                const newHtml = doc.documentElement.outerHTML;
-                document.getElementById('workingHtml').value = newHtml;
-                document.getElementById('outputHtml').value = newHtml;
-                updateIframe(newHtml);
-                alert("✅ Name Added! Click Publish.");
+                finalizeChanges(doc, "✅ Name Added Successfully! Check Preview.");
                 document.getElementById('add_child').value = "";
-            } else { alert("❌ Father/Grandfather mismatch."); }
+            } else { alert("❌ Father/Grandfather mismatch. Check spellings."); }
         }
 
-        // 4. EDIT NAME
+        // 5. CORRECT NAME
         function editName() {
             const grand = document.getElementById('edit_grand').value.trim();
             const father = document.getElementById('edit_father').value.trim();
@@ -372,16 +400,12 @@
 
             if(result.found) {
                 result.element.textContent = newName;
-                const newHtml = doc.documentElement.outerHTML;
-                document.getElementById('workingHtml').value = newHtml;
-                document.getElementById('outputHtml').value = newHtml;
-                updateIframe(newHtml);
-                alert("✅ Name Corrected! Click Publish.");
+                finalizeChanges(doc, "✅ Name Corrected! Check Preview.");
                 document.getElementById('edit_new').value = "";
-            } else { alert("❌ Details didn't match."); }
+            } else { alert("❌ Verification failed. Check old details."); }
         }
 
-        // 5. DELETE NAME
+        // 6. DELETE NAME
         function deleteName() {
             const grand = document.getElementById('del_grand').value.trim();
             const father = document.getElementById('del_father').value.trim();
@@ -389,7 +413,7 @@
             const html = document.getElementById('workingHtml').value;
 
             if(!grand || !father || !name) return alert("Fill all fields!");
-            if(!confirm("Permanently delete?")) return;
+            if(!confirm("Are you sure? This cannot be undone.")) return;
 
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
@@ -397,27 +421,34 @@
 
             if(result.found) {
                 result.li.remove();
-                const newHtml = doc.documentElement.outerHTML;
-                document.getElementById('workingHtml').value = newHtml;
-                document.getElementById('outputHtml').value = newHtml;
-                updateIframe(newHtml);
-                alert("🗑️ Deleted. Click Publish.");
-            } else { alert("❌ Not found."); }
+                finalizeChanges(doc, "🗑️ Member Deleted. Check Preview.");
+            } else { alert("❌ Member not found with these details."); }
         }
 
-        // 6. SAVE TO GITHUB
+        // UPDATE EVERYTHING
+        function finalizeChanges(doc, msg) {
+            const newHtml = doc.documentElement.outerHTML;
+            document.getElementById('workingHtml').value = newHtml;
+            document.getElementById('outputHtml').value = newHtml;
+            updateIframe(newHtml); // Refresh Preview
+            alert(msg);
+        }
+
+        // 7. PUBLISH TO GITHUB
         async function saveToGitHub() {
-            const token = prompt("🔑 GitHub Token:");
+            const token = prompt("🔑 Please enter GitHub Secret Token:");
             if (!token) return;
 
             loading(true);
             const content = document.getElementById('outputHtml').value;
             
             try {
+                // Get SHA
                 const apiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}`;
                 const getRes = await fetch(apiUrl, { headers: { "Authorization": `token ${token}` } });
                 const getData = await getRes.json();
 
+                // Push
                 const putRes = await fetch(apiUrl, {
                     method: "PUT",
                     headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
@@ -429,7 +460,7 @@
                     })
                 });
 
-                if (putRes.ok) { alert("🎉 Website Updated!"); } 
+                if (putRes.ok) { alert("🎉 Website Updated Successfully!"); } 
                 else { const err = await putRes.json(); alert("Error: " + err.message); }
 
             } catch (err) { alert("Error: " + err.message); } 
