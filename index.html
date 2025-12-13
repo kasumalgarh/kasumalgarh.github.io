@@ -216,20 +216,18 @@
             user-select: none; transition: transform 0.3s ease;
         }
 
-        /* 👇 MOBILE MENU FIXED (UPDATED BREAKPOINT to 1100px) 👇 */
+        /* 👇 MOBILE MENU FIX (Breakpoint increased to 1100px) 👇 */
         @media (max-width: 1100px) {
             
             .navbar {
-                padding: 10px 15px; /* Compact Padding */
+                padding: 10px 15px;
             }
 
             .navbar-brand { font-size: 1.1em; margin-left: 10px; }
             #menu-logo { width: 40px; height: 40px; }
             
-            /* हैमबर्गर बटन दिखाओ */
             .menu-toggle { display: block; font-size: 30px; } 
 
-            /* मेनू को छुपाओ */
             .navbar-links {
                 display: none; flex-direction: column; position: absolute;
                 top: 100%; left: 0; width: 100%;
@@ -239,13 +237,12 @@
                 box-shadow: 0 10px 20px rgba(0,0,0,0.9);
             }
             
-            /* जब एक्टिव हो तो दिखाओ */
             .navbar-links.active { display: flex; animation: slideDown 0.5s ease; }
             
             .navbar-links li { margin: 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); width: 100%; }
             
             .navbar-links a { 
-                padding: 15px; /* Tappable Area increased */
+                padding: 15px; 
                 font-size: 1em; 
             }
         }
@@ -329,10 +326,11 @@
             font-size: 2em; margin-bottom: 20px; border-bottom: 2px solid #897148; display: inline-block;
         }
 
-        /* PROFILE GRID */
+        /* --- PROFILE GRID (UPDATED FIX FOR OVERFLOW) --- */
         .profile-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            /* मोबाइल के लिए साइज़ छोटा किया ताकि 2 कॉलम फिट हो सकें */
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 15px;
             max-width: 900px;
             margin: 0 auto 50px auto;
@@ -341,20 +339,55 @@
             background: rgba(0, 0, 0, 0.4);
             border-radius: 10px;
         }
+
         .profile-item {
             border: 1px solid rgba(212, 175, 55, 0.3);
-            padding: 10px; text-align: center; transition: 0.3s;
+            padding: 10px; 
+            text-align: center; 
+            transition: 0.3s;
+            overflow: hidden; /* यह लाइन बॉक्स से बाहर जाने से रोकेगी */
         }
+
         .profile-item:hover {
-            background: rgba(212, 175, 55, 0.1); transform: translateY(-2px);
+            background: rgba(212, 175, 55, 0.1); 
+            transform: translateY(-2px);
         }
+
         .profile-label {
-            display: block; color: #aa8c2c; font-family: 'Cinzel', serif;
-            font-size: 0.9em; font-weight: bold; text-transform: uppercase; margin-bottom: 5px;
+            display: block; 
+            color: #aa8c2c; 
+            font-family: 'Cinzel', serif;
+            font-size: 0.85em;
+            font-weight: bold; 
+            text-transform: uppercase; 
+            margin-bottom: 5px;
         }
+
         .profile-value {
-            color: #fff; font-family: 'Playfair Display', serif;
-            font-size: 1.2em; letter-spacing: 1px;
+            color: #fff; 
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2em; 
+            letter-spacing: 1px;
+            
+            /* ✅ लम्बे शब्दों को तोड़ने के लिए (Kesarisinghot Fix) */
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-word;
+        }
+
+        /* 👇 मोबाइल के लिए स्पेशल सेटिंग */
+        @media (max-width: 600px) {
+            .profile-grid {
+                padding: 15px;
+                gap: 10px;
+            }
+            .profile-value {
+                font-size: 1em; /* मोबाइल पर फोंट छोटा */
+                letter-spacing: 0.5px;
+            }
+            .profile-label {
+                font-size: 0.75em;
+            }
         }
 
         /* CARDS */
