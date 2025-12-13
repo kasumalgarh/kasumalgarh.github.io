@@ -1,4 +1,6 @@
-<html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Family Tree - Thikana KASUMALGARH</title>
@@ -239,7 +241,13 @@
     }
 
     /* Right Content */
-    .content { flex-grow: 1; padding-left: 10px; position: relative; }
+    .content { 
+        flex-grow: 1; 
+        padding-left: 10px; 
+        position: relative;
+        overflow-x: auto; /* सुधार 2: मोबाइल पर हॉरिजॉन्टल स्क्रॉल */
+        -webkit-overflow-scrolling: touch; 
+    }
 
     /* ========================================= */
     /* 🌳 FAMILY TREE CSS */
@@ -250,6 +258,12 @@
         padding: 0;
         padding-left: 40px;
     }
+    
+    .tree {
+        width: max-content; /* सुधार 2: चौड़े ट्री के लिए जगह */
+        min-width: 100%;
+    }
+
 
     .tree li {
         margin: 0;
@@ -479,30 +493,30 @@
             <ul>
                 
                 <li>
-                    <div class="member-card founder-card" "=""><span class="member-name">Th. Akhe Singh</span></div>
+                    <div class="member-card founder-card"><span class="member-name">Th. Akhe Singh</span></div>
                     
                     <ul>
                         
                         <li>
-                            <div class="member-card founder-card" "=""><span class="member-name">Th. Mangal Singh</span></div>
+                            <div class="member-card founder-card"><span class="member-name">Th. Mangal Singh</span></div>
                             <ul>
                                 <li>
-                                    <div class="member-card founder-card" "=""><span class="member-name">Th. Bakhtawar Singh</span></div>
+                                    <div class="member-card founder-card"><span class="member-name">Th. Bakhtawar Singh</span></div>
                                     <ul>
                                         <li>
-                                            <div class="member-card founder-card" "=""><span class="member-name">Th. Raghunath Singh</span></div>
+                                            <div class="member-card founder-card"><span class="member-name">Th. Raghunath Singh</span></div>
                                             <ul>
                                                 <li>
-                                                    <div class="member-card founder-card" "=""><span class="member-name">Th. Roop Singh</span></div>
+                                                    <div class="member-card founder-card"><span class="member-name">Th. Roop Singh</span></div>
                                                     <ul>
                                                         <li>
-                                                            <div class="member-card founder-card" "=""><span class="member-name">Th. Ridmal Singh</span></div>
+                                                            <div class="member-card founder-card"><span class="member-name">Th. Ridmal Singh</span></div>
                                                             <ul>
                                                                 <li>
-                                                                    <div class="member-card founder-card" "=""><span class="member-name">Th. Bhairu Singh</span></div>
+                                                                    <div class="member-card founder-card"><span class="member-name">Th. Bhairu Singh</span></div>
                                                                     <ul>
                                                                         <li>
-                                                                            <div class="member-card founder-card" "=""><span class="member-name">Th. Mahendra Singh</span></div>
+                                                                            <div class="member-card founder-card"><span class="member-name">Th. Mahendra Singh</span></div>
                                                                             <ul>
                                                                                 <li>
                                                                                     <div class="member-card"><span class="member-name">Yuvraj GajRaj Singh</span></div>
@@ -759,6 +773,7 @@
                                                         </li>
                                                         <li>
                                                             <div class="member-card"><span class="member-name">Kr. Rajveer Singh</span></div>
+                             
                                                             <ul><li><div class="member-card"><span class="member-name">Bh. Aryan Rathore</span></div></li></ul>
                                                         </li>
                                                     </ul>
@@ -1045,6 +1060,11 @@
                     let fatherName = "Unknown";
                     let generation = 1;
                     let siblingText = "";
+                    
+                    // --- सुधार 1: जेंडर लॉजिक ---
+                    let isFemale = name.toLowerCase().includes('baisa');
+                    let pronoun = isFemale ? "She" : "He";
+                    let childType = isFemale ? "daughter" : "son";
 
                     let depth = 0;
                     let tempEl = this;
@@ -1085,9 +1105,11 @@
 
                         if(otherSiblingsCount > 0) {
                             let s = otherSiblingsCount > 1 ? "s" : "";
-                            siblingText = `He has ${otherSiblingsCount} more sibling${s}`;
+                            // Pronoun fix here
+                            siblingText = `${pronoun} has ${otherSiblingsCount} more sibling${s}`;
                         } else {
-                            siblingText = `He is the only son`;
+                            // Pronoun and childType fix here
+                            siblingText = `${pronoun} is the only ${childType}`;
                         }
 
                         let genSuffix = 'th';
@@ -1095,12 +1117,14 @@
                         if(generation === 2) genSuffix = 'nd';
                         if(generation === 3) genSuffix = 'rd';
 
+                        // Final Tooltip content with dynamic gender
                         tooltip.innerHTML = `
                             <strong>${name}</strong>
-                            ${name} is the ${orderStr} son of <b>${fatherName}</b>.<br>
-                            ${siblingText} and are ${generation}${genSuffix} generation progeny of <b>${founderName}</b>.
+                            ${name} is the ${orderStr} ${childType} of <b>${fatherName}</b>.<br>
+                            ${siblingText} and is ${generation}${genSuffix} generation progeny of <b>${founderName}</b>.
                         `;
                     }
+                    // --- जेंडर लॉजिक अंत ---
 
                     tooltip.style.display = 'block';
                     let rect = this.getBoundingClientRect();
@@ -1190,7 +1214,7 @@
         <div class="footer-heading-moved">FORT KASUMBI</div>
         <div style="font-size: 0.9em; color: #888; margin-bottom: 5px;">Developed &amp; Designed By:</div>
         
-        <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="royal-">
+        <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="royal-name">
             Yuvraj Gajraj Singh
         </a>
         <br>
@@ -1204,4 +1228,5 @@
     </div>
 </footer>   
 
-</body></html>
+</body>
+</html>
