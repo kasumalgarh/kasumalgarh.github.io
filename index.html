@@ -24,6 +24,9 @@
         html {
             background-color: var(--royal-bg);
             min-height: 100%;
+            /* ✅ FIX: मोबाइल में साइड स्पेस हटाने के लिए */
+            width: 100%;
+            overflow-x: hidden;
         }
 
         body { 
@@ -31,6 +34,8 @@
             background-color: transparent; 
             color: #333;
             font-family: 'Playfair Display', serif;
+            /* ✅ FIX: बॉडी भी बाहर न निकले */
+            width: 100%;
             overflow-x: hidden;
             position: relative;
         }
@@ -191,14 +196,21 @@
             border: 2px solid #fcf6ba;
             box-shadow: 0 0 15px #bf953f;
             background: white;
-            animation: slideRightToLeft 1.5s ease-out;
+            /* ✅ FIX: Delay added ताकि लोडर के बाद चले */
+            opacity: 0;
+            animation: slideRightToLeft 1.5s ease-out forwards;
+            animation-delay: 3.2s; 
         }
 
         .navbar-brand {
             font-family: 'Cinzel', serif; font-size: 1.5em; font-weight: 900; 
             margin-left: 15px; text-decoration: none; color: #fcf6ba; 
             text-shadow: 0 0 2px #bf953f, 0 0 10px #000; letter-spacing: 1px;
-            display: inline-block; animation: slideDown 1.5s ease-out;
+            display: inline-block; 
+            /* ✅ FIX: Delay added ताकि लोडर के बाद ऊपर से स्लाइड हो */
+            opacity: 0;
+            animation: slideDown 1.5s ease-out forwards;
+            animation-delay: 3.2s;
         }
 
         .navbar-links { list-style: none; margin: 0; padding: 0; display: flex; }
@@ -249,6 +261,8 @@
 
         @keyframes slideDown { from { transform: translateY(-100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         @keyframes slideRightToLeft { from { transform: translateX(100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        /* ✅ FIX: Rathore ke liye Left se aane wala animation */
+        @keyframes slideInLeft { from { transform: translateX(-100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
         /* ----------------------------- */
         /* 👑 HERO & SLIDER */
@@ -273,7 +287,10 @@
             font-size: 3.5em; margin: 0; line-height: 1.2; font-weight: 900; 
             background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.8)); letter-spacing: 2px;
-            animation: slideDown 2s ease-out;
+            /* ✅ FIX: Rathore Left se slide hoga (Delay ke sath) */
+            opacity: 0;
+            animation: slideInLeft 2s ease-out forwards;
+            animation-delay: 3.8s;
         }
         .divider-ornament { font-size: 30px; color: #bf953f; margin: 10px 0; }
 
@@ -362,7 +379,9 @@
         .card-container { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 20px; }
 
         .jharokha-card {
-            width: 300px; min-height: 400px; padding: 110px 25px 40px 25px; 
+            width: 300px; min-height: 400px; 
+            /* ✅ FIX: पैडिंग ऊपर से बढ़ाई ताकि आइकॉन बॉर्डर से बाहर न जाए */
+            padding: 135px 25px 40px 25px; 
             position: relative; transition: all 0.4s ease; text-align: center;
             background-color: transparent; border: none; 
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 420'%3E%3Cpath d='M10,410 L10,180 C10,180 10,140 40,145 C60,150 75,125 65,105 C55,85 95,65 115,75 C135,85 140,50 150,40 C160,50 165,85 185,75 C205,65 245,85 235,105 C225,125 240,150 260,145 C290,140 290,180 290,180 L290,410 Z' fill='%23fffbf0' stroke='%23b38728' stroke-width='5' /%3E%3C/svg%3E");
@@ -504,6 +523,7 @@
         <div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMenu()">&#9776;</div>
         
         <ul class="navbar-links" id="nav-menu">
+            <li><a href="index.html">HOME</a></li>
             <li><a href="vanshawali.html">VANSHAWALI</a></li>
             <li><a href="history.html">HISTORY</a></li>
             <li><a href="about.html">ABOUT</a></li>
@@ -718,4 +738,5 @@
     </script>
 
 </body>
+
 </html>
