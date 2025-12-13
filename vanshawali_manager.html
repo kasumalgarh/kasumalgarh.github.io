@@ -2,330 +2,436 @@
 <html lang="hi">
 <head>
     <meta charset="utf-8">
-    <title>KASUMALGARH :: Admin Dashboard</title>
+    <title>Vanshawali Manager - KASUMALGARH</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     
     <style>
-        /* A. ROYAL THEME BASE */
-        body {
-            background-color: #2c0001; /* गहरा शाही लाल */
-            color: #f4f4f4;
-            font-family: 'Playfair Display', serif;
-            text-align: center;
-            padding: 0; margin: 0;
+        /* ----------------------------- */
+        /* ✨ ROYAL DARK THEME (SAME AS DASHBOARD) */
+        /* ----------------------------- */
+        :root {
+            --bg-dark: #050510;
+            --glass-bg: rgba(20, 20, 35, 0.7);
+            --gold-primary: #d4af37;
+            --gold-gradient: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7);
+            --text-light: #e0e0e0;
+            --danger-red: #ff4444;
+            --success-green: #4caf50;
+            --edit-yellow: #ffeb3b;
         }
 
-        /* यह क्लास पासवर्ड सही होने पर कंटेंट दिखाएगी */
-        #dashboard-content { display: none; }
+        body {
+            margin: 0;
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at 50% 50%, #1a0b0b 0%, #000000 100%);
+            color: var(--text-light);
+            font-family: 'Lato', sans-serif;
+            text-align: center;
+        }
 
-        h2, h3, h4 { color: #d4af37; font-family: 'Cinzel', serif; text-transform: uppercase; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        /* TEXTURE OVERLAY */
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/black-scales.png');
+            opacity: 0.3; pointer-events: none; z-index: -1;
+        }
 
         /* NAVBAR */
-        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: #1a0000; border-bottom: 2px solid #d4af37; }
-        .logout-btn { color: #ff4444 !important; font-weight: bold; border: 1px solid #ff4444; padding: 5px 15px; border-radius: 20px; text-decoration: none; }
-        
-        /* EDITOR SECTION */
-        .editor-section { border-top: 4px double #d4af37; margin-top: 40px; padding-top: 30px; background: rgba(0, 0, 0, 0.3); }
-        .editor-wrapper { display: flex; gap: 20px; flex-wrap: wrap; text-align: left; }
-        
-        .editor-panel { flex: 1; min-width: 350px; background-color: rgba(0, 0, 0, 0.8); padding: 25px; border-radius: 10px; border: 2px solid #d4af37; }
-        .preview-panel { flex: 1; min-width: 350px; background-color: #fdf5e6; color: #333; padding: 20px; border-radius: 10px; border: 2px solid #d4af37; max-height: 800px; overflow-y: auto; }
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 30px;
+            background: rgba(10, 10, 20, 0.9);
+            border-bottom: 2px solid var(--gold-primary);
+            backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 100;
+        }
 
-        /* INPUTS & BUTTONS */
-        input[type="text"], textarea { width: 100%; padding: 10px; margin-bottom: 15px; background-color: #222; color: #fff; border: 1px solid #d4af37; border-radius: 5px; box-sizing: border-box; }
-        textarea { min-height: 120px; font-family: monospace; font-size: 0.9em; }
-        
-        .tool-btn { background-color: #b38728; color: #000; padding: 10px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; margin-bottom: 10px; transition: 0.3s; }
-        .tool-btn:hover { background-color: #ffd700; }
-        
-        .delete-btn { background-color: #ff4444; color: white; border: 1px solid white; }
-        .delete-btn:hover { background-color: #cc0000; }
+        .brand-title {
+            font-family: 'Cinzel', serif; font-size: 1.2em; font-weight: 700;
+            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
 
-        .save-btn { background-color: #ff0000; color: white; margin-top: 10px; font-size: 1.2em; border: 2px solid white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .back-btn:hover { background: var(--gold-primary); color: #000; }
+
+        /* PASSWORD OVERLAY */
+        #login-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 9999;
+            display: flex; justify-content: center; align-items: center; flex-direction: column;
+            backdrop-filter: blur(10px);
+        }
+        .login-box {
+            background: rgba(255, 255, 255, 0.05); padding: 40px; border-radius: 15px;
+            border: 1px solid var(--gold-primary); text-align: center;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2); max-width: 400px; width: 90%;
+        }
+
+        /* CONTAINER */
+        .container { max-width: 1400px; margin: 30px auto; padding: 20px; display: flex; gap: 20px; flex-wrap: wrap; }
+
+        /* PANELS */
+        .panel {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .editor-panel { flex: 1; min-width: 400px; text-align: left; }
+        .preview-panel { flex: 1; min-width: 400px; border: 2px solid var(--gold-primary); background: #fffbf0; color: #333; max-height: 85vh; overflow-y: auto; }
+
+        /* HEADINGS */
+        h2, h3 { font-family: 'Cinzel', serif; color: var(--gold-primary); border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 10px; margin-top: 0; }
         
+        /* SECTIONS */
+        .tool-section { margin-bottom: 25px; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 10px; border-left: 3px solid #555; }
+        .tool-section.add { border-color: var(--success-green); }
+        .tool-section.edit { border-color: var(--edit-yellow); }
+        .tool-section.delete { border-color: var(--danger-red); }
+
+        .section-title { font-weight: bold; font-size: 1.1em; margin-bottom: 10px; display: block; color: #fff; }
+        .note { font-size: 0.8em; color: #aaa; margin-bottom: 10px; display: block; }
+
+        /* INPUTS */
+        input[type="text"], input[type="password"], textarea {
+            width: 100%; padding: 10px; margin-bottom: 10px;
+            background: rgba(0,0,0,0.5); border: 1px solid #555;
+            color: #fff; border-radius: 5px; box-sizing: border-box;
+            font-family: 'Lato', sans-serif;
+        }
+        input:focus { border-color: var(--gold-primary); outline: none; }
+
+        /* BUTTONS */
+        .btn {
+            width: 100%; padding: 10px; border: none; border-radius: 5px;
+            font-weight: bold; cursor: pointer; transition: 0.3s;
+            font-family: 'Cinzel', serif; letter-spacing: 1px;
+        }
+        .btn-load { background: #008080; color: white; margin-bottom: 15px; }
+        .btn-add { background: var(--success-green); color: white; }
+        .btn-edit { background: var(--edit-yellow); color: black; }
+        .btn-delete { background: var(--danger-red); color: white; }
+        .btn-save { 
+            background: var(--gold-gradient); color: #2c0e0e; 
+            font-size: 1.2em; margin-top: 20px; border: 2px solid #fff; 
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+        .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
         /* PREVIEW TREE STYLE */
         .tree ul { list-style: none; padding-left: 20px; margin: 0; border-left: 2px solid #800000; }
         .tree li { padding: 5px 0; position: relative; }
-        .member-card { border: 2px solid #b38728; padding: 5px 10px; background: #fffbf0; color: #800000; font-weight: bold; display: inline-block; border-radius: 5px; }
+        .member-card { border: 1px solid #b38728; padding: 2px 8px; background: #fff; color: #800000; font-weight: bold; display: inline-block; border-radius: 3px; font-size: 0.9em; }
+
+        /* LOADING OVERLAY */
+        #loadingOverlay {
+            display: none; position: fixed; top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; color: white; flex-direction: column;
+        }
+
+        /* MOBILE FIX */
+        @media (max-width: 800px) {
+            .container { flex-direction: column; }
+            .preview-panel { max-height: 400px; }
+        }
     </style>
 </head>
 
 <body>
 
-    <nav class="navbar">
-        <div style="font-family:'Cinzel'; font-size:1.5em; font-weight:bold; color:#fcf6ba;">KASUMALGARH ADMIN</div>
-        <a href="index.html" class="logout-btn">Logout</a>
-    </nav>
+    <div id="loadingOverlay">
+        <i class="fas fa-spinner fa-spin" style="font-size: 50px; color: var(--gold-primary);"></i>
+        <p style="margin-top: 20px;">Processing Request...</p>
+    </div>
 
-    <div id="dashboard-content" class="container">
+    <div id="login-overlay">
+        <div class="login-box animate__animated animate__zoomIn">
+            <i class="fas fa-user-shield" style="font-size: 50px; color: #d4af37; margin-bottom: 15px;"></i>
+            <h2 style="margin: 0; color: #d4af37; font-size: 1.5em;">SECURITY CHECK</h2>
+            <p style="color:#aaa; font-size:0.9em; margin-bottom:20px;">Enter Password to Manage Tree</p>
+            
+            <input type="password" id="passInput" placeholder="Password" style="text-align:center;">
+            <button onclick="checkPass()" class="btn btn-save">UNLOCK</button>
+            <p id="errorMsg" style="color:#ff4444; font-size:0.8em; margin-top:10px; display:none;">Incorrect Password</p>
+        </div>
+    </div>
+
+    <div id="main-interface" style="display:none;">
         
-        <div class="editor-section">
-            <h2 style="color:#d4af37;">📝 Vanshavali Manager</h2>
-            <p style="color:#ccc;">नाम जोड़ें या हटाएं (दादा, पिता, और पुत्र का मिलान करके)</p>
+        <nav class="navbar">
+            <div class="brand-title"><i class="fas fa-sitemap"></i> VANSHAWALI MANAGER</div>
+            <a href="admin_dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> Dashboard</a>
+        </nav>
 
-            <div class="editor-wrapper">
+        <div class="container">
+            
+            <div class="panel editor-panel">
+                <h2>🛠️ Control Panel</h2>
+
+                <button onclick="fetchLiveCode()" class="btn btn-load"><i class="fas fa-sync"></i> REFRESH / LOAD CODE</button>
+                <textarea id="inputHtml" style="display:none;"></textarea>
                 
-                <div class="editor-panel">
-                    
-                    <h3>1. कोड लोड करें</h3>
-                    <button onclick="fetchLiveCode()" class="tool-btn" style="background:#008080; color:#fff;">🌐 Load Live Code (Auto)</button>
-                    <textarea id="inputHtml" style="display:none;"></textarea>
-
-                    <hr style="border-color:#555; margin: 20px 0;">
-
-                    <h3>2. नाम जोड़ें (Add)</h3>
-                    <input type="text" id="grandParentName" placeholder="दादा का नाम (Grandfather): Ex: Th. Zorawar Singh">
-                    <input type="text" id="parentName" placeholder="पिता का नाम (Father): Ex: Th. Bhairu Singh">
-                    <input type="text" id="newName" placeholder="नया नाम (Child): Ex: Kr. Yuvraj Singh">
-                    <button onclick="addName()" class="tool-btn">➕ नाम जोड़ें</button>
-
-                    <hr style="border-color:#555; margin: 20px 0;">
-
-                    <h3 style="color:#ff4444;">3. नाम हटाएँ (Delete)</h3>
-                    <p style="font-size:0.8em; color:#ccc;">सुरक्षा के लिए, हटाने वाले के दादा और पिता दोनों का नाम लिखें।</p>
-                    
-                    <input type="text" id="deleteGrandParentInput" placeholder="दादा का नाम (His Grandfather's Name)">
-                    <input type="text" id="parentOfDeleteInput" placeholder="पिता का नाम (His Father's Name)">
-                    <input type="text" id="deleteNameInput" placeholder="हटाने वाला नाम (Name to Delete)">
-                    
-                    <button onclick="deleteName()" class="tool-btn delete-btn">🗑️ नाम हटाएं (DELETE)</button>
-
-                    <hr style="border-color:#555; margin: 20px 0;">
-
-                    <h3>4. वेबसाइट अपडेट करें</h3>
-                    <textarea id="outputHtml" readonly placeholder="नया कोड यहाँ बनेगा..." style="height:60px; color:#aaa;"></textarea>
-                    <button onclick="saveToGitHub()" class="tool-btn save-btn">💾 SAVE TO WEBSITE (LIVE)</button>
+                <div class="tool-section add">
+                    <span class="section-title" style="color:var(--success-green);"><i class="fas fa-plus-circle"></i> नाम जोड़ें (Add Member)</span>
+                    <span class="note">दादा और पिता का नाम मैच होना ज़रूरी है।</span>
+                    <input type="text" id="add_grand" placeholder="दादा जी (Grandfather's Name)">
+                    <input type="text" id="add_father" placeholder="पिता जी (Father's Name)">
+                    <input type="text" id="add_child" placeholder="नया नाम (New Member Name)">
+                    <button onclick="addName()" class="btn btn-add">ADD NAME</button>
                 </div>
 
-                <div class="preview-panel">
-                    <h3 style="color:#800000; border-bottom:1px solid #800000;">Live Preview</h3>
-                    <div id="livePreview" class="tree">
-                        <p style="color:#666; font-style:italic; padding:20px;">'Load Live Code' बटन दबाएं...</p>
-                    </div>
+                <div class="tool-section edit">
+                    <span class="section-title" style="color:var(--edit-yellow);"><i class="fas fa-pen"></i> नाम सुधारें (Correction)</span>
+                    <span class="note">सुरक्षा के लिए 3 जानकारी भरें (Old Info + New Name)।</span>
+                    <input type="text" id="edit_grand" placeholder="दादा जी (Grandfather - Verify)">
+                    <input type="text" id="edit_father" placeholder="पिता जी (Father - Verify)">
+                    <input type="text" id="edit_old" placeholder="गलत नाम (Wrong Name)">
+                    <input type="text" id="edit_new" placeholder="सही नाम (Correct Name)">
+                    <button onclick="editName()" class="btn btn-edit">CORRECT NAME</button>
                 </div>
 
+                <div class="tool-section delete">
+                    <span class="section-title" style="color:var(--danger-red);"><i class="fas fa-trash"></i> नाम हटाएं (Delete)</span>
+                    <span class="note">चेतावनी: नाम हमेशा के लिए हट जाएगा।</span>
+                    <input type="text" id="del_grand" placeholder="दादा जी (Grandfather - Verify)">
+                    <input type="text" id="del_father" placeholder="पिता जी (Father - Verify)">
+                    <input type="text" id="del_name" placeholder="हटाने वाला नाम (Name to Delete)">
+                    <button onclick="deleteName()" class="btn btn-delete">DELETE NAME</button>
+                </div>
+
+                <div style="border-top: 1px solid #555; padding-top: 15px;">
+                    <textarea id="outputHtml" readonly style="display:none;"></textarea>
+                    <button onclick="saveToGitHub()" class="btn btn-save"><i class="fas fa-cloud-upload-alt"></i> PUBLISH TO WEBSITE</button>
+                </div>
             </div>
+
+            <div class="panel preview-panel">
+                <h3 style="text-align:center; color:#800000; position:sticky; top:0; background:#fffbf0; padding:10px; z-index:10; border-bottom:2px solid #800000;">
+                    <i class="fas fa-eye"></i> Live Tree Preview
+                </h3>
+                <div id="livePreview" class="tree">
+                    <p style="text-align:center; padding:20px; color:#666;">Load Code to see the Tree...</p>
+                </div>
+            </div>
+
         </div>
     </div>
 
     <script>
-        // ============================================
-        // ⚠️ CONFIGURATION (यहाँ अपनी जानकारी भरें)
-        // ============================================
+        // CONFIGURATION
         const GITHUB_USERNAME = "kasumalgarh";       
         const REPO_NAME = "kasumalgarh.github.io";   
         const FILE_PATH = "vanshawali.html";         
         const BRANCH = "main";                       
-        const ADMIN_PASSWORD = "kasumalgarh2025";    
-        // ============================================
+        const ADMIN_PASSWORD = "kasumalgarh2025";    // Default Password
 
-        // 1. PASSWORD CHECK ON LOAD
-        window.onload = function() {
-            let attempt = prompt("Admin Password डालिये:");
-            if (attempt === ADMIN_PASSWORD) {
-                document.getElementById('dashboard-content').style.display = "block";
-            } else {
-                alert("गलत पासवर्ड!");
-                window.location.href = "index.html";
+        // 1. PASSWORD CHECK
+        function checkPass() {
+            const input = document.getElementById('passInput').value;
+            if(input === ADMIN_PASSWORD) {
+                document.getElementById('login-overlay').style.display = 'none';
+                document.getElementById('main-interface').style.display = 'block';
+                fetchLiveCode(); // Auto load code
+            } else { 
+                document.getElementById('errorMsg').style.display = 'block';
             }
-        };
+        }
+
+        // LOADING SPINNER
+        function loading(show) { document.getElementById('loadingOverlay').style.display = show ? 'flex' : 'none'; }
 
         // 2. FETCH LIVE CODE
         async function fetchLiveCode() {
-            const btn = document.querySelector('button[onclick="fetchLiveCode()"]');
-            btn.innerHTML = "⏳ Loading...";
+            loading(true);
             try {
-                // cache से बचने के लिए timestamp लगाया
                 const response = await fetch(FILE_PATH + '?v=' + new Date().getTime());
                 if (!response.ok) throw new Error("File not found");
                 const text = await response.text();
                 document.getElementById('inputHtml').value = text;
                 document.getElementById('outputHtml').value = text;
                 loadPreview();
-                alert("✅ कोड लोड हो गया!");
             } catch (err) { alert("Error: " + err.message); } 
-            finally { btn.innerHTML = "🌐 Load Live Code (Auto)"; }
+            finally { loading(false); }
         }
 
-        // 3. LOAD PREVIEW
         function loadPreview() {
             const code = document.getElementById('inputHtml').value;
             if(code) document.getElementById('livePreview').innerHTML = code;
         }
 
-        // 4. ADD NAME LOGIC (Updated with Grandfather Check)
-        function addName() {
-            const htmlContent = document.getElementById('inputHtml').value;
-            const grandParent = document.getElementById('grandParentName').value.trim();
-            const parent = document.getElementById('parentName').value.trim();
-            const child = document.getElementById('newName').value.trim();
-
-            if (!htmlContent || !parent || !child || !grandParent) { alert("कृपया दादा, पिता और बच्चे तीनों का नाम भरें!"); return; }
-
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(htmlContent, 'text/html');
+        // HELPER: FIND NODE BASED ON 3 LEVELS (Grand -> Father -> Child)
+        function findNode(doc, grandName, fatherName, childName) {
             const allSpans = doc.querySelectorAll('.member-name');
-            let parentFound = false;
-
             for (let span of allSpans) {
-                // 1. पिता का नाम ढूंढो
-                if (span.textContent.trim() === parent) {
-                    const parentLi = span.closest('li');
+                if (span.textContent.trim() === childName) {
+                    const childLi = span.closest('li');
+                    const parentUl = childLi.parentElement;
+                    const fatherLi = parentUl.closest('li'); // Father Node
                     
-                    // 2. पिता के ऊपर दादा का नाम ढूंढो
-                    const grandParentUl = parentLi.parentElement; // पिता की लिस्ट
-                    const grandParentLi = grandParentUl ? grandParentUl.closest('li') : null; // दादा का LI
-
-                    if (grandParentLi) {
-                        const grandParentSpan = grandParentLi.querySelector('.member-name');
-                        // 3. चेक करो क्या दादा का नाम मैच करता है?
-                        if (grandParentSpan && grandParentSpan.textContent.trim() === grandParent) {
+                    if (fatherLi) {
+                        const fatherSpan = fatherLi.querySelector('.member-name');
+                        if (fatherSpan && fatherSpan.textContent.trim() === fatherName) {
+                            const grandUl = fatherLi.parentElement;
+                            const grandLi = grandUl.closest('li'); // Grandfather Node
                             
-                            // अगर दादा और पिता दोनों मैच हो गए, तो बच्चा जोड़ो
-                            let childUl = parentLi.querySelector('ul');
-                            if (!childUl) {
-                                childUl = doc.createElement('ul');
-                                parentLi.appendChild(childUl);
-                            }
-                            const newLi = doc.createElement('li');
-                            newLi.innerHTML = `<div class="member-card"><span class="member-name">${child}</span></div>`;
-                            childUl.appendChild(newLi);
-                            parentFound = true;
-                            break; // काम हो गया, लूप रोको
-                        }
-                    } else {
-                        // अगर दादा नहीं मिले (शायद पिता ही फाउंडर हैं), तो यूज़र को बतायें
-                        // या आप चाहें तो इसे allow कर सकते हैं, पर अभी हम strict चेक रख रहे हैं।
-                    }
-                }
-            }
-
-            if (parentFound) {
-                updateAndPreview(doc);
-                alert("✅ नाम जुड़ गया! (दादा -> पिता -> पुत्र वेरीफाई हो गया)। अब सेव करें।");
-                // Clear fields
-                document.getElementById('newName').value = "";
-            } else { 
-                alert(`❌ पिता का नाम "${parent}" और दादा का नाम "${grandParent}" का मिलान नहीं हुआ।\nकृपया स्पेलिंग चेक करें।`); 
-            }
-        }
-
-        // 5. DELETE NAME LOGIC (Updated with Grandfather Check)
-        function deleteName() {
-            const grandParentName = document.getElementById('deleteGrandParentInput').value.trim();
-            const parentOfDelete = document.getElementById('parentOfDeleteInput').value.trim();
-            const nameToDelete = document.getElementById('deleteNameInput').value.trim();
-            const htmlContent = document.getElementById('inputHtml').value;
-
-            if (!nameToDelete || !parentOfDelete || !grandParentName || !htmlContent) { 
-                alert("कृपया दादा, पिता और हटाने वाले का नाम भरें!"); return; 
-            }
-
-            if(!confirm(`चेतावनी: क्या आप ${grandParentName} के पोते और ${parentOfDelete} के बेटे "${nameToDelete}" को हटाना चाहते हैं?`)) return;
-
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(htmlContent, 'text/html');
-            const allSpans = doc.querySelectorAll('.member-name');
-            let deleted = false;
-
-            for (let span of allSpans) {
-                // 1. जिसे हटाना है उसका नाम मैच करो
-                if (span.textContent.trim() === nameToDelete) {
-                    const liToDelete = span.closest('li'); 
-                    const parentUl = liToDelete ? liToDelete.parentElement : null;
-
-                    if (parentUl) {
-                        // 2. उसका पिता (Parent) ढूँढो
-                        const fatherLi = parentUl.closest('li');
-                        if(fatherLi) {
-                            const fatherSpan = fatherLi.querySelector('.member-name');
-                            
-                            // 3. चेक करो क्या पिता का नाम मैच करता है?
-                            if (fatherSpan && fatherSpan.textContent.trim() === parentOfDelete) {
-                                
-                                // 4. अब पिता के भी ऊपर जाओ (Grandfather)
-                                const grandFatherUl = fatherLi.parentElement;
-                                const grandFatherLi = grandFatherUl ? grandFatherUl.closest('li') : null;
-
-                                if (grandFatherLi) {
-                                    const grandFatherSpan = grandFatherLi.querySelector('.member-name');
-                                    
-                                    // 5. चेक करो क्या दादा का नाम मैच करता है?
-                                    if (grandFatherSpan && grandFatherSpan.textContent.trim() === grandParentName) {
-                                        liToDelete.remove(); // DELETE
-                                        deleted = true;
-                                        break; 
-                                    }
+                            if (grandLi) {
+                                const grandSpan = grandLi.querySelector('.member-name');
+                                if (grandSpan && grandSpan.textContent.trim() === grandName) {
+                                    return { found: true, element: span, li: childLi, fatherLi: fatherLi };
                                 }
                             }
                         }
                     }
                 }
             }
-
-            if (deleted) {
-                updateAndPreview(doc);
-                alert(`🗑️ "${nameToDelete}" को सफलतापूर्वक हटा दिया गया है। अब 'Save' बटन दबाएं।`);
-                document.getElementById('deleteNameInput').value = ""; 
-            } else {
-                alert(`❌ नाम मैच नहीं हुआ! \nसंभवतः दादा या पिता का नाम गलत है, या वंशावली में यह क्रम नहीं मिला।`);
-            }
+            return { found: false };
         }
 
-        // Helper to sync changes
+        // 3. ADD NAME LOGIC
+        function addName() {
+            const grand = document.getElementById('add_grand').value.trim();
+            const father = document.getElementById('add_father').value.trim();
+            const child = document.getElementById('add_child').value.trim();
+            const html = document.getElementById('inputHtml').value;
+
+            if(!grand || !father || !child) { alert("कृपया सभी जानकारी भरें!"); return; }
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            // Logic: Find Father where Father's Parent is Grand
+            let parentFound = false;
+            const allSpans = doc.querySelectorAll('.member-name');
+            
+            for (let span of allSpans) {
+                if (span.textContent.trim() === father) {
+                    const fatherLi = span.closest('li');
+                    const grandUl = fatherLi.parentElement;
+                    const grandLi = grandUl.closest('li');
+                    
+                    if (grandLi) {
+                        const grandSpan = grandLi.querySelector('.member-name');
+                        if (grandSpan && grandSpan.textContent.trim() === grand) {
+                            // Found verified Father -> Add Child
+                            let childUl = fatherLi.querySelector('ul');
+                            if (!childUl) {
+                                childUl = doc.createElement('ul');
+                                fatherLi.appendChild(childUl);
+                            }
+                            const newLi = doc.createElement('li');
+                            newLi.innerHTML = `<div class="member-card"><span class="member-name">${child}</span></div>`;
+                            childUl.appendChild(newLi);
+                            parentFound = true; 
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if(parentFound) {
+                updateAndPreview(doc);
+                alert("✅ नाम जुड़ गया! नीचे 'Publish' बटन दबाएं।");
+                document.getElementById('add_child').value = "";
+            } else { alert("❌ पिता या दादा का नाम मैच नहीं हुआ। स्पेलिंग चेक करें।"); }
+        }
+
+        // 4. EDIT NAME LOGIC (CORRECTION)
+        function editName() {
+            const grand = document.getElementById('edit_grand').value.trim();
+            const father = document.getElementById('edit_father').value.trim();
+            const oldName = document.getElementById('edit_old').value.trim();
+            const newName = document.getElementById('edit_new').value.trim();
+            const html = document.getElementById('inputHtml').value;
+
+            if(!grand || !father || !oldName || !newName) { alert("सभी फील्ड भरें!"); return; }
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const result = findNode(doc, grand, father, oldName);
+
+            if(result.found) {
+                result.element.textContent = newName; // Update Text
+                updateAndPreview(doc);
+                alert("✅ नाम सुधर गया! 'Publish' करें।");
+                document.getElementById('edit_new').value = "";
+            } else { alert("❌ जानकारी मैच नहीं हुई। क्या दादा/पिता का नाम सही है?"); }
+        }
+
+        // 5. DELETE NAME LOGIC
+        function deleteName() {
+            const grand = document.getElementById('del_grand').value.trim();
+            const father = document.getElementById('del_father').value.trim();
+            const name = document.getElementById('del_name').value.trim();
+            const html = document.getElementById('inputHtml').value;
+
+            if(!grand || !father || !name) { alert("सभी फील्ड भरें!"); return; }
+            if(!confirm("चेतावनी: यह नाम हमेशा के लिए हट जाएगा। क्या आप जारी रखना चाहते हैं?")) return;
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const result = findNode(doc, grand, father, name);
+
+            if(result.found) {
+                result.li.remove(); // Remove Element
+                updateAndPreview(doc);
+                alert("🗑️ नाम हटा दिया गया। 'Publish' करें।");
+            } else { alert("❌ नाम नहीं मिला। स्पेलिंग चेक करें।"); }
+        }
+
+        // SYNC UPDATES
         function updateAndPreview(doc) {
             const updatedHTML = doc.documentElement.outerHTML;
             document.getElementById('outputHtml').value = updatedHTML;
+            document.getElementById('inputHtml').value = updatedHTML;
             document.getElementById('livePreview').innerHTML = updatedHTML;
-            document.getElementById('inputHtml').value = updatedHTML; 
         }
 
         // 6. SAVE TO GITHUB
         async function saveToGitHub() {
-            const token = prompt("GitHub Secret Token पेस्ट करें:");
+            const token = prompt("🔑 GitHub Token पेस्ट करें:");
             if (!token) { alert("Token ज़रूरी है!"); return; }
 
+            loading(true);
             const content = document.getElementById('outputHtml').value;
-            if (!content) { alert("सेव करने के लिए कोड नहीं है!"); return; }
-
-            const btn = document.querySelector('.save-btn');
-            btn.innerHTML = "⏳ Saving...";
-
+            
             try {
-                // Step A: Get SHA
+                // Get SHA
                 const apiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}`;
                 const getRes = await fetch(apiUrl, { headers: { "Authorization": `token ${token}` } });
-                
-                if(!getRes.ok) throw new Error("GitHub से कनेक्ट नहीं हो पाया। Token चेक करें।");
-                
                 const getData = await getRes.json();
 
-                // Step B: Push Update
+                // Push Update
                 const putRes = await fetch(apiUrl, {
                     method: "PUT",
                     headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        message: "Vanshawali Updated via Admin Panel",
+                        message: "Vanshawali Updated via Royal Admin Panel",
                         content: btoa(unescape(encodeURIComponent(content))),
                         sha: getData.sha,
                         branch: BRANCH
                     })
                 });
 
-                if (putRes.ok) {
-                    alert("🎉 वेबसाइट अपडेट हो गई है! (1-2 मिनट इंतज़ार करें)");
-                } else { 
-                    const err = await putRes.json(); 
-                    alert("Error: " + err.message); 
-                }
+                if (putRes.ok) { alert("🎉 वेबसाइट सफलतापूर्वक अपडेट हो गई!"); } 
+                else { const err = await putRes.json(); alert("Error: " + err.message); }
 
-            } catch (err) { alert("Network Error: " + err.message); } 
-            finally { btn.innerHTML = "💾 SAVE TO WEBSITE (LIVE)"; }
+            } catch (err) { alert("Error: " + err.message); } 
+            finally { loading(false); }
         }
     </script>
 

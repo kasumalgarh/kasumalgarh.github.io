@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal - Thikana Kasumalgarh</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        /* ----------------------------- */
+        /* ✨ ROYAL DARK THEME */
+        /* ----------------------------- */
+        :root {
+            --bg-dark: #050510;
+            --glass-bg: rgba(20, 20, 35, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --gold-primary: #d4af37;
+            --gold-gradient: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7);
+            --text-light: #e0e0e0;
+            --shadow-glow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at 50% 50%, #1a0b0b 0%, #000000 100%);
+            color: var(--text-light);
+            font-family: 'Lato', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* SILVER TEXTURE OVERLAY */
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/black-scales.png');
+            opacity: 0.3; pointer-events: none; z-index: 0;
+        }
+
+        /* ----------------------------- */
+        /* 🔒 LOGIN OVERLAY (PASSWORD) */
+        /* ----------------------------- */
+        #login-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 9999;
+            display: flex; justify-content: center; align-items: center; flex-direction: column;
+            backdrop-filter: blur(10px);
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid var(--gold-primary);
+            text-align: center;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+            max-width: 400px; width: 90%;
+        }
+
+        .login-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8em;
+            color: var(--gold-primary);
+            margin-bottom: 20px;
+        }
+
+        .login-input {
+            width: 80%;
+            padding: 12px;
+            margin-bottom: 20px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid #555;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 1em;
+            text-align: center;
+        }
+
+        .login-btn {
+            padding: 10px 30px;
+            background: var(--gold-gradient);
+            border: none;
+            color: #2c0e0e;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .login-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #bf953f; }
+
+        /* ----------------------------- */
+        /* 📊 DASHBOARD CONTENT */
+        /* ----------------------------- */
+        #dashboard-container {
+            display: none; /* Hidden until logged in */
+            position: relative;
+            z-index: 1;
+            padding-bottom: 50px;
+        }
+
+        /* NAVBAR */
+        .admin-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 30px;
+            background: rgba(10, 10, 20, 0.8);
+            border-bottom: 1px solid var(--gold-primary);
+            backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 100;
+        }
+
+        .brand-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5em;
+            font-weight: 700;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logout-pill {
+            background: rgba(255, 50, 50, 0.15);
+            border: 1px solid #ff4444;
+            color: #ffaaaa;
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: 0.3s;
+        }
+        .logout-pill:hover { background: #ff4444; color: white; }
+
+        /* HEADER */
+        .dashboard-header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .dashboard-header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3em;
+            margin: 0;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        .dashboard-header p { color: #888; letter-spacing: 2px; text-transform: uppercase; font-size: 0.9em; margin-top: 10px; }
+
+        /* GRID SYSTEM */
+        .grid-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        /* CARDS */
+        .admin-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .admin-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.07);
+            border-color: var(--gold-primary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+
+        .card-header {
+            display: flex; align-items: center; margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+
+        .card-icon {
+            font-size: 2em;
+            margin-right: 15px;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-title { font-family: 'Cinzel', serif; font-size: 1.2em; color: var(--gold-primary); font-weight: bold; }
+
+        /* LINKS LIST */
+        .action-list { list-style: none; padding: 0; margin: 0; }
+        
+        .action-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.2s;
+            text-decoration: none;
+            color: #ccc;
+        }
+        
+        .action-item:last-child { border-bottom: none; }
+        .action-item:hover { background: rgba(212, 175, 55, 0.1); color: #fff; padding-left: 15px; }
+        
+        .action-item i { font-size: 0.8em; opacity: 0.5; }
+        
+        /* BADGES */
+        .badge {
+            font-size: 0.7em; padding: 2px 8px; border-radius: 4px; color: #000; font-weight: bold;
+            margin-left: 10px;
+        }
+        .b-edit { background: #ffeb3b; }
+        .b-new { background: #4caf50; color: white; }
+        .b-view { background: #bbb; }
+
+        /* FOOTER */
+        .admin-footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #555;
+            font-size: 0.8em;
+            font-family: 'Cinzel', serif;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="login-overlay">
+        <div class="login-box animate__animated animate__zoomIn">
+            <i class="fas fa-shield-alt" style="font-size: 50px; color: #d4af37; margin-bottom: 15px;"></i>
+            <div class="login-title">SECURE ACCESS</div>
+            <p style="color:#aaa; font-size:0.9em; margin-bottom:20px;">Thikana Kasumalgarh Administration</p>
+            
+            <input type="password" id="adminPass" class="login-input" placeholder="Enter Password" onkeypress="handleEnter(event)">
+            <br>
+            <button onclick="checkPassword()" class="login-btn">ENTER DASHBOARD</button>
+            <p id="errorMsg" style="color:#ff4444; font-size:0.8em; margin-top:10px; display:none;">Access Denied: Incorrect Password</p>
+        </div>
+    </div>
+
+    <div id="dashboard-container" class="animate__animated animate__fadeIn">
+        
+        <nav class="admin-nav">
+            <div class="brand-logo"><i class="fas fa-crown"></i> KASUMALGARH</div>
+            <a href="#" onclick="logout()" class="logout-pill"><i class="fas fa-power-off"></i> Logout</a>
+        </nav>
+
+        <header class="dashboard-header">
+            <h1>CONTROL CENTER</h1>
+            <p>Manage Heritage, Legacy & Content</p>
+        </header>
+
+        <div class="grid-wrapper">
+
+            <div class="admin-card">
+                <div class="card-header">
+                    <i class="fas fa-sitemap card-icon"></i>
+                    <div class="card-title">Vanshawali</div>
+                </div>
+                <div class="action-list">
+                    <a href="vanshawali_manager.html" class="action-item">
+                        <span><span class="badge b-edit">MAIN TOOL</span> Tree Manager</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                    <a href="vanshawali.html" class="action-item">
+                        <span>View Family Tree</span>
+                        <i class="fas fa-eye"></i>
+                    </a>
+                    
+                </div>
+            </div>
+
+            <div class="admin-card">
+                <div class="card-header">
+                    <i class="fas fa-images card-icon"></i>
+                    <div class="card-title">Gallery & Media</div>
+                </div>
+                <div class="action-list">
+                    <a href="gellery admin.html" class="action-item">
+                        <span><span class="badge b-edit">EDIT</span> Upload/Manage Photos</span>
+                        <i class="fas fa-camera"></i>
+                    </a>
+                    <a href="gallery.html" class="action-item">
+                        <span>Live Gallery Preview</span>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="admin-card">
+                <div class="card-header">
+                    <i class="fas fa-tools card-icon"></i>
+                    <div class="card-title">Tools & Utils</div>
+                </div>
+                <div class="action-list">
+                    <a href="kasumalgarh master tamplet.html" class="action-item">
+                        <span><span class="badge b-new">NEW</span> Create New Page</span>
+                        <i class="fas fa-plus"></i>
+                    </a>
+                    <a href="calculator.html" class="action-item">
+                        <span>Utility Calculator</span>
+                        <i class="fas fa-calculator"></i>
+                    </a>
+                    <a href="404.html" class="action-item">
+                        <span>Check 404 Page</span>
+                        <i class="fas fa-bug"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="admin-card">
+                <div class="card-header">
+                    <i class="fas fa-globe card-icon"></i>
+                    <div class="card-title">Live Pages</div>
+                </div>
+                <div class="action-list">
+                    <a href="index.html" class="action-item">Home Page <i class="fas fa-home"></i></a>
+                    <a href="history.html" class="action-item">History Page <i class="fas fa-history"></i></a>
+                    <a href="about.html" class="action-item">About Page <i class="fas fa-info-circle"></i></a>
+                    <a href="contact.html" class="action-item">Contact Page <i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="admin-footer">
+            &copy; 2025 Yuvraj Gajraj Singh | Fort Kasumbi
+        </div>
+
+    </div>
+
+    <script>
+        // 🔒 PASSWORD LOGIC
+        // आप यहाँ पासवर्ड बदल सकते हैं
+        const CORRECT_PASS = "kasumalgarh2025"; 
+
+        function checkPassword() {
+            const input = document.getElementById("adminPass").value;
+            const error = document.getElementById("errorMsg");
+            
+            if(input === CORRECT_PASS) {
+                // Success
+                document.getElementById("login-overlay").style.display = "none";
+                document.getElementById("dashboard-container").style.display = "block";
+            } else {
+                // Fail
+                error.style.display = "block";
+                document.getElementById("adminPass").value = "";
+                // Shake animation for error
+                const box = document.querySelector('.login-box');
+                box.classList.add('animate__shakeX');
+                setTimeout(() => box.classList.remove('animate__shakeX'), 1000);
+            }
+        }
+
+        function handleEnter(e) {
+            if(e.key === 'Enter') checkPassword();
+        }
+
+        function logout() {
+            if(confirm("Are you sure you want to logout?")) {
+                window.location.href = "index.html";
+            }
+        }
+    </script>
+
+</body>
+</html>
