@@ -1,97 +1,117 @@
-<html lang="hi"><head>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
     <meta charset="UTF-8">
-    <title>KASUMALGARH :: ROYAL GALLERY</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - KASUMALGARH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
-        h1 { text-align: center; color: #800000; }
+        /* Base & Navbar CSS (Same as others) */
+        :root { --royal-bg: #000033; --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728); }
+        html { background-color: var(--royal-bg); } body { margin: 0; background-color: transparent; font-family: 'Playfair Display', serif; overflow-x: hidden; }
+        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://www.transparenttextures.com/patterns/black-scales.png'); filter: invert(1); opacity: 0.4; pointer-events: none; z-index: -1; }
+
+        /* Navbar CSS (Copy-Paste from above) */
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #000033; border-bottom: 2px solid #b38728; position: sticky; top: 0; z-index: 2000; } .navbar-brand-container { display: flex; align-items: center; } #menu-logo { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fcf6ba; box-shadow: 0 0 15px #bf953f; background: white; } .navbar-brand { font-family: 'Cinzel', serif; font-size: 1.5em; font-weight: 900; margin-left: 15px; text-decoration: none; color: #fcf6ba; text-shadow: 0 0 2px #bf953f, 0 0 10px #000; } .navbar-links { list-style: none; display: flex; } .navbar-links a { color: #897148; text-decoration: none; padding: 8px 15px; display: block; font-family: 'Cinzel'; font-weight: bold; transition: 0.5s; } .navbar-links a:hover, .navbar-links a.active { color: #fff; text-shadow: 0 0 8px #897148; } .menu-toggle { color: #897148; font-size: 35px; cursor: pointer; display: none; } @media (max-width: 768px) { .menu-toggle { display: block; } .navbar-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #000033; text-align: center; } .navbar-links.active { display: flex; } }
+
+        /* Gallery Page CSS */
+        .hero-section { height: 350px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; background: linear-gradient(rgba(0,0,51,0.6), rgba(0,0,51,0.9)), url('3.jpg'); background-size: cover; }
+        .hero-title { font-family: 'Cinzel'; font-size: 3.5em; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .gallery-wrapper { max-width: 1200px; margin: 50px auto; padding: 0 20px; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
         
-        /* यह मुख्य कंटेनर है जिसे Admin Panel समझेगा */
-        .image-gallery-container { 
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 3 कॉलम का लेआउट */
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-top: 20px;
-        }
+        .gallery-item { position: relative; overflow: hidden; border: 3px solid #b38728; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); aspect-ratio: 1/1; cursor: pointer; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .overlay { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0,0,51,0.8); padding: 10px; text-align: center; transform: translateY(100%); transition: 0.3s; }
+        .gallery-item:hover .overlay { transform: translateY(0); }
+        .img-caption { color: #fcf6ba; font-family: 'Cinzel'; font-size: 0.9em; margin: 0; }
 
-        /* यह हर फ़ोटो का बॉक्स है जिसे Admin Panel समझेगा */
-        .gallery-item {
-            border: 1px solid #d4af37; /* Royal Gold Border */
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background: white;
-            transition: transform 0.3s;
-        }
+        /* ✨ LIGHTBOX CSS (IMAGE ZOOM) */
+        .lightbox { display: none; position: fixed; z-index: 5000; padding-top: 60px; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.95); }
+        .lightbox-content { margin: auto; display: block; width: 80%; max-width: 800px; max-height: 80vh; object-fit: contain; border: 2px solid #b38728; box-shadow: 0 0 20px #b38728; animation: zoomIn 0.4s; }
+        .close-btn { position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; transition: 0.3s; cursor: pointer; }
+        .close-btn:hover { color: #b38728; }
+        @keyframes zoomIn { from {transform:scale(0)} to {transform:scale(1)} }
+        @media only screen and (max-width: 700px){ .lightbox-content { width: 95%; } }
 
-        .gallery-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 250px; /* फ़ोटो की ऊंचाई */
-            object-fit: cover;
-            display: block;
-        }
-
-        .image-caption {
-            padding: 10px;
-            text-align: center;
-        }
-
-        .image-title {
-            font-weight: bold;
-            color: #800000;
-            margin: 0;
-        }
-        .image-date {
-            font-size: 0.9em;
-            color: #666;
-        }
+        /* Footer CSS Copy */
+        footer { text-align: center; color: #b38728; padding: 20px 20px; background-color: #000022; background-image: url('footerbg.png'); border-top: 4px solid #897148; } .developer-info { margin-top: 0px; padding-top: 10px; border-top: none; } .royal-name { display: block; font-family: 'Cinzel', serif; font-size: 1.6em; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; } .fb-link { color: #fff; text-decoration: none; padding: 5px 15px; border: 1px solid #b38728; border-radius: 20px; } .footer-heading-moved { font-family: 'Cinzel'; font-weight: 900; color: #fcf6ba; font-size: 1.8em; margin-bottom: 15px; } @media (max-width: 600px) { footer { padding: 5px !important; } .footer-heading-moved { font-size: 0.9em !important; } .royal-name { font-size: 0.85em !important; } }
     </style>
 </head>
 <body>
+    <nav class="navbar">
+        <div class="navbar-brand-container">
+            <img id="menu-logo" src="menulogo.png" alt="Logo"> 
+            <a class="navbar-brand" href="index.html">KASUMALGARH</a>
+        </div>
+        <div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMenu()">&#9776;</div>
+        <ul class="navbar-links" id="nav-menu">
+            <li><a href="vanshawali.html">VANSHAWALI</a></li>
+            <li><a href="history.html">HISTORY</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+            <li><a href="gallery.html" class="active">GALLERY</a></li>
+            <li><a href="admin_login.html">ADMIN(GAJSA)</a></li>
+        </ul>
+    </nav>
 
-    <h1>⚜️ रॉयल गैलरी - मुख्य तस्वीरें ⚜️</h1>
-    
-    <div class="image-gallery-container" id="mainGallery">
-                <div class="gallery-item" data-title="Yuvraj GajRaj Singh">
-                    <img src="images/image_1765489236438.jpg" alt="Yuvraj GajRaj Singh">
-                    <div class="image-caption">
-                        <p class="image-title">Yuvraj GajRaj Singh</p>
-                        <p class="image-date">Date: 11.12.2025</p>
-                    </div>
-                </div>
-            
-                <div class="gallery-item" data-title="Fort">
-                    <img src="kasumalgarh.github.io/2.jpg" alt="Fort">
-                    <div class="image-caption">
-                        <p class="image-title">Fort</p>
-                        <p class="image-date">दिनांक: View</p>
-                    </div>
-                </div>
-            
+    <header class="hero-section">
+        <div style="font-family: 'Great Vibes'; font-size: 2.5em; color: #fcf6ba;">Visual Journey</div>
+        <h1 class="hero-title">GALLERY</h1>
+    </header>
 
-        <div class="gallery-item" data-title="शाही स्वागत समारोह">
-            <img src="https://i.imgur.com/example-link-1.jpg" alt="शाही स्वागत समारोह">
-            <div class="image-caption">
-                <p class="image-title">शाही स्वागत समारोह</p>
-                <p class="image-date">दिनांक: 15-08-2025</p>
+    <div id="lightbox" class="lightbox">
+        <span class="close-btn" onclick="closeLightbox()">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
+
+    <main class="gallery-wrapper">
+        <div class="gallery-grid">
+            <div class="gallery-item" onclick="openLightbox('1.jpg')">
+                <img src="1.jpg" alt="Kasumalgarh Fort">
+                <div class="overlay"><p class="img-caption">Kasumalgarh View</p></div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('2.jpg')">
+                <img src="2.jpg" alt="Thakur Sahab">
+                <div class="overlay"><p class="img-caption">Royal Portrait</p></div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('3.jpg')">
+                <img src="3.jpg" alt="Celebration">
+                <div class="overlay"><p class="img-caption">Cultural Event</p></div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('4.jpg')">
+                <img src="4.jpg" alt="Architecture">
+                <div class="overlay"><p class="img-caption">Ancient Architecture</p></div>
             </div>
         </div>
+    </main>
 
-        <div class="gallery-item" data-title="किले का दृश्य">
-            <img src="https://i.imgur.com/example-link-2.jpg" alt="किले का दृश्य">
-            <div class="image-caption">
-                <p class="image-title">किले का दृश्य</p>
-                <p class="image-date">दिनांक: 01-01-2025</p>
-            </div>
+    <footer>
+        <div class="developer-info">
+            <div class="footer-heading-moved">FORT KASUMBI</div>
+            <div style="font-size: 0.9em; color: #888; margin-bottom: 5px;">Developed & Designed By:</div>
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="royal-name">Yuvraj Gajraj Singh</a>
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="fb-link"><i class="fab fa-facebook"></i> Connect on Facebook</a>
+            <div style="font-size: 0.8em; margin-top: 15px; color: #666;">&copy; 2025 | All Rights Reserved.</div>
         </div>
-        
-        </div>
-    
+    </footer>
 
+    <script>
+        // Menu Toggle
+        function toggleMenu() { const m=document.getElementById("nav-menu"),b=document.getElementById("mobile-menu-btn"); m.classList.toggle("active"); if(m.classList.contains("active")){b.innerHTML="&times;";b.style.fontSize="30px"}else{b.innerHTML="&#9776;";b.style.fontSize="25px"} }
 
-</body></html>
+        // Lightbox Functions
+        function openLightbox(imgSrc) {
+            document.getElementById("lightbox").style.display = "block";
+            document.getElementById("lightbox-img").src = imgSrc;
+        }
+        function closeLightbox() {
+            document.getElementById("lightbox").style.display = "none";
+        }
+    </script>
+</body>
+</html>

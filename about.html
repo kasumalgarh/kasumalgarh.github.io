@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - KASUMALGARH</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,400&family=Yatra+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- शाही वेरियबल्स (Same as Index) --- */
+        :root { --royal-bg: #000033; --paper-bg: #fffbf0; --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); --maroon-text: #800000; --dark-gold-line: #aa8c2c; --theme-gold: #897148; }
+
+        html { background-color: var(--royal-bg); min-height: 100%; }
+        body { margin: 0; background-color: transparent; color: #333; font-family: 'Playfair Display', serif; overflow-x: hidden; position: relative; }
+        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://www.transparenttextures.com/patterns/black-scales.png'); filter: invert(1); opacity: 0.4; pointer-events: none; z-index: -1; }
+
+        /* --- Navbar Styles (Same as Index) --- */
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #000033; border-bottom: 2px solid #b38728; box-shadow: 0 5px 20px rgba(0,0,0,0.8); position: sticky; top: 0; z-index: 2000; } 
+        .navbar-brand-container { display: flex; align-items: center; } 
+        #menu-logo { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fcf6ba; box-shadow: 0 0 15px #bf953f; background: white; } 
+        .navbar-brand { font-family: 'Cinzel', serif; font-size: 1.5em; font-weight: 900; margin-left: 15px; text-decoration: none; color: #fcf6ba; text-shadow: 0 0 2px #bf953f, 0 0 10px #000; letter-spacing: 1px; } 
+        .navbar-links { list-style: none; margin: 0; padding: 0; display: flex; } .navbar-links li { margin-left: 15px; } 
+        .navbar-links a { color: #897148; text-decoration: none; padding: 8px 15px; display: block; font-family: 'Cinzel', serif; font-weight: 700; letter-spacing: 1px; border: 1px solid transparent; transition: all 0.5s ease; } 
+        .navbar-links a:hover, .navbar-links a.active { color: #fff; text-shadow: 0 0 8px #897148; } 
+        .menu-toggle { color: #897148; font-size: 35px; cursor: pointer; display: none; user-select: none; }
+        @media (max-width: 768px) { .navbar { padding: 5px 15px; } .navbar-brand { font-size: 1.0em; margin-left: 10px; } #menu-logo { width: 35px; height: 35px; } .menu-toggle { display: block; font-size: 25px; } .navbar-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background-color: #000033; border-top: 1px solid #b38728; border-bottom: 2px solid #b38728; padding: 0; text-align: center; z-index: 1000; box-shadow: 0 10px 20px rgba(0,0,0,0.9); } .navbar-links.active { display: flex; } .navbar-links li { margin: 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); } .navbar-links a { padding: 5px 10px; font-size: 0.8em; } }
+
+        /* --- Header Section --- */
+        .about-header {
+            height: 400px;
+            background: linear-gradient(rgba(0,0,51,0.7), rgba(0,0,51,0.9)), url('1.jpg'); /* Using same image for consistency */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+        .about-title {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5em;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        .about-subtitle {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2em;
+            color: #fcf6ba;
+            margin-top: 10px;
+        }
+
+        /* --- Main Content Layout --- */
+        .container { max-width: 1000px; margin: 0 auto; padding: 50px 20px; }
+
+        /* --- The Narrative Card (Our Story) --- */
+        .story-card {
+            background: var(--paper-bg);
+            padding: 40px;
+            border-radius: 10px;
+            border: 2px solid #b38728;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: justify;
+            position: relative;
+            margin-bottom: 50px;
+        }
+        .story-card::before {
+            content: "⚜️"; position: absolute; top: -25px; left: 50%; transform: translateX(-50%);
+            font-size: 40px; background: #000033; padding: 0 10px; border-radius: 50%; border: 2px solid #b38728;
+        }
+        .drop-cap {
+            float: left; font-size: 4em; line-height: 0.8; padding-right: 15px; padding-top: 5px;
+            color: var(--maroon-text); font-family: 'Yatra One', serif;
+        }
+        .highlight-text { color: var(--maroon-text); font-weight: bold; }
+
+        /* --- 3 Pillars Section (Mission, Vision, Values) --- */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        .pillar-card {
+            background: rgba(0, 0, 30, 0.8);
+            border: 1px solid #b38728;
+            padding: 30px 20px;
+            text-align: center;
+            color: #e0e0e0;
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .pillar-card:hover { transform: translateY(-10px); background: rgba(0, 0, 50, 0.9); border-color: #fcf6ba; }
+        .pillar-icon { font-size: 2.5em; color: #fcf6ba; margin-bottom: 15px; }
+        .pillar-title { font-family: 'Cinzel', serif; font-size: 1.4em; color: #b38728; margin-bottom: 15px; text-transform: uppercase; }
+        .pillar-desc { font-size: 0.95em; line-height: 1.6; }
+
+        /* --- Positive Message (Sandesh) --- */
+        .message-section {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #2c0a0a, #000);
+            border: 2px dashed #b38728;
+            color: #fcf6ba;
+            margin-top: 30px;
+        }
+        .message-heading { font-family: 'Yatra One', serif; font-size: 2em; margin-bottom: 20px; color: #ff9933; }
+        .message-body { font-size: 1.2em; font-style: italic; line-height: 1.8; max-width: 800px; margin: 0 auto; }
+
+        /* --- Footer (Same as Index) --- */
+        footer { text-align: center; color: #b38728; padding: 20px 20px; background-color: #000022; background-image: url('footerbg.png'); background-repeat: repeat; border-top: 4px solid #897148; } 
+        .developer-info { margin-top: 0px; padding-top: 10px; border-top: none; } 
+        .royal-name { display: block; font-family: 'Cinzel', serif; font-size: 1.6em; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; letter-spacing: 1px; text-decoration: none; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.8)); } 
+        .fb-link { color: #fff; text-decoration: none; font-size: 1.1em; display: inline-flex; align-items: center; gap: 10px; margin-top: 5px; padding: 5px 15px; border: 1px solid #b38728; border-radius: 20px; } 
+        .fb-link:hover { background: #b38728; color: #000; } 
+        .footer-heading-moved { font-family: 'Cinzel', serif; font-weight: 900; color: #fcf6ba; margin-bottom: 15px; font-size: 1.8em; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 0 10px #bf953f; display: block; } 
+        @media (max-width: 600px) { footer { padding: 5px 5px !important; } .footer-heading-moved { font-size: 0.9em !important; margin-bottom: 2px; } .developer-info { margin-top: 2px; padding-top: 0; } .developer-info div { font-size: 0.7em !important; } .royal-name { font-size: 0.85em !important; margin-bottom: 2px; } .fb-link { font-size: 0.75em !important; padding: 3px 10px; margin-top: 5px; } }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-brand-container">
+            <img id="menu-logo" src="menulogo.png" alt="Logo"> 
+            <a class="navbar-brand" href="index.html">KASUMALGARH</a>
+        </div>
+        <div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMenu()">&#9776;</div>
+        <ul class="navbar-links" id="nav-menu">
+            <li><a href="vanshawali.html">VANSHAWALI</a></li>
+            <li><a href="history.html">HISTORY</a></li>
+            <li><a href="about.html" class="active">ABOUT</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+            <li><a href="gallery.html">GALLERY</a></li>
+            <li><a href="admin_login.html">ADMIN(GAJSA)</a></li>
+        </ul>
+    </nav>
+
+    <header class="about-header">
+        <div class="about-subtitle">The Soul of</div>
+        <h1 class="about-title">Our Heritage</h1>
+    </header>
+
+    <main class="container">
+        
+        <div class="story-card">
+            <h2 style="font-family: 'Cinzel', serif; text-align: center; color: var(--maroon-text); border-bottom: 2px solid #aa8c2c; padding-bottom: 10px; display: table; margin: 0 auto 20px auto;">
+                हम कौन हैं? (Who We Are)
+            </h2>
+            <p style="font-size: 1.1em; line-height: 1.8;">
+                <span class="drop-cap">ह</span>म <strong>'ठिकाना कसुम्बी'</strong> (Fort Kasumbi) के संरक्षक और सूर्यवंशी राठौड़ वंश की <strong>केशरी सिंघोत</strong> शाखा के वंशज हैं। हमारी पहचान केवल पत्थरों से बने गढ़ या जागीर से नहीं, बल्कि उन मूल्यों (Values) से है जो हमारे पूर्वजों ने अपने रक्त से सींचे हैं।
+                <br><br>
+                सन् <strong>1841 ई.</strong> में ठाकुर नारायण सिंह जी द्वारा स्थापित यह ठिकाना, वीरता, भक्ति और त्याग का साक्षी रहा है। जोधपुर दरबार की वफादारी और अपनी प्रजा की रक्षा हमारा परम धर्म रहा है। आज, हम उसी विरासत के आधुनिक प्रहरी (Guardians) हैं।
+            </p>
+        </div>
+
+        <div class="pillars-grid">
+            
+            <div class="pillar-card">
+                <div class="pillar-icon"><i class="fas fa-globe"></i></div>
+                <h3 class="pillar-title">उद्देश्य (Mission)</h3>
+                <p class="pillar-desc">
+                    समय की धूल में अक्सर इतिहास धुंधला हो जाता है। इस वेबसाइट का मुख्य उद्देश्य <strong>'डिजिटल संरक्षण'</strong> है। हम अपने बुजुर्गों के बलिदान, वंशावली और परंपराओं को इंटरनेट पर अमर करना चाहते हैं ताकि दुनिया के किसी भी कोने में बैठा हमारा भाई-बंधु अपनी जड़ों से जुड़ा रहे।
+                </p>
+            </div>
+
+            <div class="pillar-card">
+                <div class="pillar-icon"><i class="fas fa-eye"></i></div>
+                <h3 class="pillar-title">दृष्टिकोण (Vision)</h3>
+                <p class="pillar-desc">
+                    हमारा सपना एक ऐसे समाज का है जो <strong>'आधुनिक'</strong> होते हुए भी <strong>'संस्कारी'</strong> हो। हम चाहते हैं कि हमारी आने वाली पीढ़ियाँ (Next Generation) यह जानें कि उनके पूर्वज कौन थे, ताकि वे गर्व के साथ सिर उठा सकें और समाज में एक आदर्श नागरिक बन सकें।
+                </p>
+            </div>
+
+            <div class="pillar-card">
+                <div class="pillar-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                <h3 class="pillar-title">मूल्य (Values)</h3>
+                <p class="pillar-desc">
+                    हमारी विरासत हमें सिखाती है कि असली राजपुताना शान महलों में नहीं, बल्कि <strong>चरित्र (Character)</strong> में होती है।
+                    <br>
+                    <strong>सेवा, वचन और स्वाभिमान</strong>—यही कसुमलगढ़ का मूल मंत्र है।
+                </p>
+            </div>
+
+        </div>
+
+        <div class="message-section">
+            <h2 class="message-heading">|| समाज के लिए संदेश ||</h2>
+            <p class="message-body">
+                "वृक्ष वही हरा रहता है, जिसकी जड़ें गहरी हों। <br>
+                हमारा अतीत हमें बांधने के लिए नहीं, बल्कि हमें मजबूत बनाने के लिए है। <br>
+                आइए, हम अपनी विरासत (Heritage) को केवल 'प्रदर्शन' की वस्तु न समझें, <br>
+                बल्कि इसके वीरता और त्याग के गुणों को अपने जीवन में उतारें। <br>
+                एक-दूसरे का सहयोग करें, बड़ों का सम्मान करें और धर्म की रक्षा करें।"
+            </p>
+            <div style="margin-top: 20px; color: #b38728; font-weight: bold;">
+                — युवराज गजराज सिंह (कसुमलगढ़)
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="developer-info">
+            <div class="footer-heading-moved">FORT KASUMBI</div>
+            <div style="font-size: 0.9em; color: #888; margin-bottom: 5px;">Developed & Designed By:</div>
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="royal-name">Yuvraj Gajraj Singh</a>
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="fb-link"><i class="fab fa-facebook"></i> Connect on Facebook</a>
+            <div style="font-size: 0.8em; margin-top: 15px; color: #666;">&copy; 2025 | All Rights Reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("nav-menu");
+            const btn = document.getElementById("mobile-menu-btn");
+            menu.classList.toggle("active");
+            if (menu.classList.contains("active")) { btn.innerHTML = "&times;"; btn.style.fontSize = "30px"; } 
+            else { btn.innerHTML = "&#9776;"; btn.style.fontSize = "25px"; }
+        }
+    </script>
+</body>
+</html>

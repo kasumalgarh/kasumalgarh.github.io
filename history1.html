@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History - KASUMALGARH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- शाही वेरियबल्स --- */
+        :root { --royal-bg: #000033; --paper-bg: #fffbf0; --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); --maroon-text: #800000; --bright-gold-line: #FFD700; --dark-gold-line: #aa8c2c; }
+        html { background-color: var(--royal-bg); min-height: 100%; } body { margin: 0; background-color: transparent; color: #333; font-family: 'Playfair Display', serif; overflow-x: hidden; position: relative; } body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://www.transparenttextures.com/patterns/black-scales.png'); filter: invert(1); opacity: 0.4; pointer-events: none; z-index: -1; }
+        
+        /* --- मेनू CSS (फिक्स्ड) --- */
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #000033; border-bottom: 2px solid #b38728; box-shadow: 0 5px 20px rgba(0,0,0,0.8); position: sticky; top: 0; z-index: 2000; } 
+        .navbar-brand-container { display: flex; align-items: center; } 
+        #menu-logo { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fcf6ba; box-shadow: 0 0 15px #bf953f; background: white; } 
+        .navbar-brand { font-family: 'Cinzel', serif; font-size: 1.5em; font-weight: 900; margin-left: 15px; text-decoration: none; color: #fcf6ba; text-shadow: 0 0 2px #bf953f, 0 0 10px #000; letter-spacing: 1px; } 
+        .navbar-links { list-style: none; margin: 0; padding: 0; display: flex; } .navbar-links li { margin-left: 15px; } 
+        .navbar-links a { color: #897148; text-decoration: none; padding: 8px 15px; display: block; font-family: 'Cinzel', serif; font-weight: 700; letter-spacing: 1px; border: 1px solid transparent; transition: all 0.5s ease; } 
+        .navbar-links a:hover, .navbar-links a.active { color: #fff; text-shadow: 0 0 8px #897148; } 
+        .menu-toggle { color: #897148; font-size: 35px; cursor: pointer; display: none; user-select: none; }
+        @media (max-width: 768px) { .navbar { padding: 5px 15px; } .navbar-brand { font-size: 1.0em; margin-left: 10px; } #menu-logo { width: 35px; height: 35px; } .menu-toggle { display: block; font-size: 25px; } .navbar-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background-color: #000033; border-top: 1px solid #b38728; border-bottom: 2px solid #b38728; padding: 0; text-align: center; z-index: 1000; box-shadow: 0 10px 20px rgba(0,0,0,0.9); } .navbar-links.active { display: flex; } .navbar-links li { margin: 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); } .navbar-links a { padding: 5px 10px; font-size: 0.8em; } }
+
+        /* --- हेडर --- */
+        .hero-section { height: 350px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; background: linear-gradient(rgba(0,0,51,0.6), rgba(0,0,51,0.9)), url('1.jpg'); background-size: cover; text-align: center; } 
+        .hero-title { font-family: 'Cinzel', serif; font-size: 3.5em; margin: 0; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; } 
+        .hero-welcome { font-family: 'Great Vibes', cursive; font-size: 2.5em; color: #fcf6ba; }
+        
+        /* --- HISTORY CONTENT --- */
+        .content-container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        .history-card { background: var(--paper-bg); padding: 40px; border: 3px double var(--maroon-text); border-radius: 10px; position: relative; box-shadow: 0 0 25px rgba(191, 149, 63, 0.3); text-align: justify; line-height: 1.8; font-size: 1.1em; }
+        .history-card::before { content: "⚜️"; position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 40px; color: #b38728; background: #000033; padding: 0 10px; border-radius: 50%; border: 2px solid #b38728; }
+        .history-heading { color: var(--maroon-text); font-family: 'Cinzel', serif; font-size: 1.8em; border-bottom: 2px solid #aa8c2c; padding-bottom: 10px; margin-top: 30px; margin-bottom: 20px; display: inline-block; }
+        .drop-cap { float: left; font-size: 3.5em; line-height: 0.8; padding-right: 10px; padding-top: 5px; color: var(--maroon-text); font-family: 'Cinzel', serif; font-weight: bold; }
+
+        /* --- ओरिजिनल फुटर CSS --- */
+        footer { text-align: center; color: #b38728; padding: 20px 20px; background-color: #000022; background-image: url('footerbg.png'); background-repeat: repeat; border-top: 4px solid #897148; } .developer-info { margin-top: 0px; padding-top: 10px; border-top: none; } .royal-name { display: block; font-family: 'Cinzel', serif; font-size: 1.6em; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; letter-spacing: 1px; text-decoration: none; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.8)); } .fb-link { color: #fff; text-decoration: none; font-size: 1.1em; display: inline-flex; align-items: center; gap: 10px; margin-top: 5px; padding: 5px 15px; border: 1px solid #b38728; border-radius: 20px; } .fb-link:hover { background: #b38728; color: #000; } .footer-heading-moved { font-family: 'Cinzel', serif; font-weight: 900; color: #fcf6ba; margin-bottom: 15px; font-size: 1.8em; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 0 10px #bf953f; display: block; } @media (max-width: 600px) { footer { padding: 5px 5px !important; } .footer-heading-moved { font-size: 0.9em !important; margin-bottom: 2px; } .developer-info { margin-top: 2px; padding-top: 0; } .developer-info div { font-size: 0.7em !important; } .royal-name { font-size: 0.85em !important; margin-bottom: 2px; } .fb-link { font-size: 0.75em !important; padding: 3px 10px; margin-top: 5px; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand-container">
+            <img id="menu-logo" src="menulogo.png" alt="Logo"> 
+            <a class="navbar-brand" href="index.html">KASUMALGARH</a>
+        </div>
+        <div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMenu()">&#9776;</div>
+        <ul class="navbar-links" id="nav-menu">
+            <li><a href="vanshawali.html">VANSHAWALI</a></li>
+            <li><a href="history.html" class="active">HISTORY</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+            <li><a href="gallery.html">GALLERY</a></li>
+            <li><a href="admin_login.html">ADMIN(GAJSA)</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-welcome">The Glorious</div>
+        <h1 class="hero-title">HISTORY</h1>
+        <div style="font-size: 30px; color: #bf953f;">⚜️ ⚜️ ⚜️</div>
+    </header>
+
+    <main class="content-container">
+        <div class="history-card">
+            <span class="drop-cap">R</span>athore dynasty of Kasumalgarh... (यहाँ आप अपना टेक्स्ट लिखें).
+            
+            <h2 class="history-heading">The Beginning (उद्गम)</h2>
+            <p>
+                हमारे पूर्वज राव जोधा जी के वंशज हैं। (इतिहास यहाँ लिखें)...
+            </p>
+
+            <h2 class="history-heading">The Fort (गढ़)</h2>
+            <p>
+                कसूमलगढ़ का किला अपनी वास्तुकला और मजबूती के लिए जाना जाता है।
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="developer-info">
+            <div class="footer-heading-moved">FORT KASUMBI</div>
+            <div style="font-size: 0.9em; color: #888; margin-bottom: 5px;">Developed & Designed By:</div>
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="royal-name">Yuvraj Gajraj Singh</a>
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="fb-link"><i class="fab fa-facebook"></i> Connect on Facebook</a>
+            <div style="font-size: 0.8em; margin-top: 15px; color: #666;">&copy; 2025 | All Rights Reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("nav-menu");
+            const btn = document.getElementById("mobile-menu-btn");
+            menu.classList.toggle("active");
+            if (menu.classList.contains("active")) { btn.innerHTML = "&times;"; btn.style.fontSize = "30px"; } 
+            else { btn.innerHTML = "&#9776;"; btn.style.fontSize = "25px"; }
+        }
+    </script>
+</body>
+</html>
